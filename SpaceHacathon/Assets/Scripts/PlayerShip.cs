@@ -2,6 +2,8 @@
 
 public class PlayerShip : MonoBehaviour {
 	private Rigidbody m_rigidbody;
+	[SerializeField]
+	private GameObject m_space;
 
 	protected void Awake() {
 		BattleContext.PlayerShip = this;
@@ -33,6 +35,14 @@ public class PlayerShip : MonoBehaviour {
 				m_rigidbody.velocity = m_rigidbody.velocity.normalized * 5;
 			}
 		}
+
+		// Trash //
+		Vector3 pos = m_space.transform.position;
+		pos.x = transform.position.x;
+		pos.z = transform.position.z;
+		m_space.transform.position = pos;
+		MeshRenderer renderer = m_space.GetComponent<MeshRenderer>();
+		renderer.material.SetTextureOffset("_MainTex", new Vector2(-transform.position.x / 1000, -transform.position.z / 1000));
 	}
 
 }
