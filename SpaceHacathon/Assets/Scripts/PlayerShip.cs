@@ -17,12 +17,21 @@ public class PlayerShip : MonoBehaviour {
 			RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit, 1000, LayerMask.GetMask("InputPlane"))) {
-				m_rigidbody.AddForce(lookVector * 10);
 				float angle = MathHelper.AngleBetweenVectors(lookVector, hit.point - transform.position);
+	            if (Mathf.Abs(angle) < 90) {
+		            if ((hit.point - transform.position).magnitude > 1.5f) {
+			            float length = Mathf.Min((hit.point - transform.position).magnitude, 6);
+						m_rigidbody.AddForce(lookVector.normalized * length);
+		            }
+	            }
 	            if (Mathf.Abs(m_rigidbody.angularVelocity.y * 100) < 180) {
 					m_rigidbody.AddTorque(new Vector3(0, (angle - m_rigidbody.angularVelocity.y * 50) * 75, 0));
 	            }
             }
+
+			if (m_rigidbody.velocity.magnitude > 5) {
+				m_rigidbody.velocity = m_rigidbody.velocity.normalized * 5;
+			}
 		}
 	}
 
