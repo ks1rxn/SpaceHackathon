@@ -2,6 +2,8 @@
 
 public class RocketShip : MonoBehaviour {
 	private Rigidbody m_rigidbody;
+	private Transform m_parent;
+
 	[SerializeField]
 	private GameObject m_rocketPrefab;
 
@@ -13,7 +15,8 @@ public class RocketShip : MonoBehaviour {
 //		m_rigidbody.centerOfMass = new Vector3(1, 0, 0);
 	}
 
-	public void Spawn(Vector3 position) {
+	public void Spawn(Vector3 position, Transform parent) {
+		m_parent = parent;
 		transform.position = position;
 	}
 
@@ -48,7 +51,7 @@ public class RocketShip : MonoBehaviour {
 
 	private void SpawnRocket() {
 		Rocket rocket = ((GameObject)Instantiate(m_rocketPrefab)).GetComponent<Rocket>();
-		rocket.transform.parent = transform;
+		rocket.transform.parent = m_parent;
 		rocket.transform.rotation = transform.rotation;
 		rocket.Spawn(transform.position, 10);
 	}
