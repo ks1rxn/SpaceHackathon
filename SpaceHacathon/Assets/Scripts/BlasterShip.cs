@@ -9,9 +9,18 @@ public class BlasterShip : MonoBehaviour {
 	[SerializeField]
 	private GameObject m_gun;
 
+	private BlasterShipState m_state;
+
 	private float m_gunAngle = 0;
-	private float m_liveTime;
-	private float m_blastCooldown;
+	private float m_movingTimer;
+	private float m_blasterTimer;
+
+	[SerializeField]
+	private float m_flyCooldown;
+	[SerializeField]
+	private float m_refuelCooldown;
+	[SerializeField]
+	private float m_blasterCooldown;
 
 	protected void Awake() {
 		m_rigidbody = GetComponent<Rigidbody>();
@@ -20,31 +29,46 @@ public class BlasterShip : MonoBehaviour {
 	public void Spawn(Vector3 position, Transform parent) {
 		m_parent = parent;
 		transform.position = position;
-		m_blastCooldown = 2;
-		m_liveTime = 10;
+
+		m_blasterTimer = m_blasterCooldown;
+		m_state = BlasterShipState.Moving;
+		m_movingTimer = m_flyCooldown;
 	}
 
 	protected void Update() {
-		if (m_liveTime > 0) {
-			Vector3 enemyPosition = BattleContext.PlayerShip.transform.position;
-			float distance = (enemyPosition - transform.position).magnitude;
-			if (distance > 6) {
-				m_rigidbody.AddForce(-(transform.position - enemyPosition).normalized * 10);
-			} else {
-				m_rigidbody.AddForce((transform.position - enemyPosition).normalized * 10);
-			}
-			if (m_rigidbody.velocity.magnitude > 10) {
-				m_rigidbody.velocity = m_rigidbody.velocity.normalized * 10;
-			}
-		} else {
-			if (m_rigidbody.velocity.magnitude > 0.5f) {
-				m_rigidbody.velocity = m_rigidbody.velocity - m_rigidbody.velocity * 0.5f * Time.deltaTime;
-			} else {
-				m_rigidbody.velocity = new Vector3();
-			}
+		switch (m_state) {
+			case BlasterShipState.Moving:
+				if (m_movingTimer > 0) {
+					Vector3 enemyPosition = BattleContext.PlayerShip.transform.position;
+					float distance = (enemyPosition - transform.position).magnitude;
+					if (distance > 6) {
+						m_rigidbody.AddForce(-(transform.position - enemyPosition).normalized * 10);
+					} else {
+						m_rigidbody.AddForce((transform.position - enemyPosition).normalized * 10);
+					}
+					if (m_rigidbody.velocity.magnitude > 10) {
+						m_rigidbody.velocity = m_rigidbody.velocity.normalized * 10;
+					}
+				} else {
+					m_state = BlasterShipState.Refuel;
+					m_movingTimer = m_refuelCooldown;
+				}
+				break;
+			case BlasterShipState.Refuel:
+				if (m_movingTimer > 0) {
+					if (m_rigidbody.velocity.magnitude > 0.5f) {
+						m_rigidbody.velocity = m_rigidbody.velocity - m_rigidbody.velocity * 0.5f * Time.deltaTime;
+					} else {
+						m_rigidbody.velocity = new Vector3();
+					}
+				} else {
+					m_state = BlasterShipState.Moving;
+					m_movingTimer = m_flyCooldown;
+				}
+				break;
 		}
 
-		m_liveTime -= Time.deltaTime;
+		m_movingTimer -= Time.deltaTime;
 		UpdateGun();
 	}
 
@@ -63,10 +87,10 @@ public class BlasterShip : MonoBehaviour {
 		m_gun.transform.rotation = new Quaternion();
 		m_gun.transform.Rotate(new Vector3(0, 1, 0), m_gunAngle);
 
-		m_blastCooldown -= Time.deltaTime;
-		if ((m_blastCooldown <= 0) && (Mathf.Abs(angle) < 10)) {
+		m_blasterTimer -= Time.deltaTime;
+		if ((m_blasterTimer <= 0) && (Mathf.Abs(angle) < 10) && Vector3.Distance(BattleContext.PlayerShip.transform.position, transform.position) < 15) {
 			SpawnBlast();
-			m_blastCooldown = 2f;
+			m_blasterTimer = m_blasterCooldown;
 		}
 	}
 
@@ -76,4 +100,9 @@ public class BlasterShip : MonoBehaviour {
 		blaster.Spawn(m_gun.transform.position, m_gunAngle);
 	}
 
+}
+
+public enum BlasterShipState {
+	Moving = 0,
+	Refuel = 1
 }

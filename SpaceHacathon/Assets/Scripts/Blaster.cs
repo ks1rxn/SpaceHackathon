@@ -13,6 +13,11 @@ public class Blaster : MonoBehaviour {
 	protected void Update() {
 		Vector3 moveVector = new Vector3(Mathf.Cos(-m_angle * Mathf.PI / 180), 0, Mathf.Sin(-m_angle * Mathf.PI / 180));
 		transform.position += moveVector * Time.deltaTime * 20;
+
+		float distToPlayer = Vector3.Distance(BattleContext.PlayerShip.transform.position, transform.position);
+		if (distToPlayer > 20) {
+			Destroy(gameObject);
+		}
 	}
 
 }
