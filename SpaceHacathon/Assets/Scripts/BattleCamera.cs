@@ -8,7 +8,7 @@ public class BattleCamera : MonoBehaviour {
 		position.y = 10.5f;
 		transform.position = position;
 		Vector3 rotation = BattleContext.PlayerShip.transform.eulerAngles;
-		rotation.x = 90;
+		rotation.x = 50;
 		rotation.y += 90;
 		transform.eulerAngles = rotation;
 	}
