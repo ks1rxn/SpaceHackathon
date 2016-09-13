@@ -82,6 +82,7 @@ public class RocketShip : MonoBehaviour {
 		rocket.transform.rotation = transform.rotation;
 		rocket.Spawn(m_launcher1.position, m_rocketLifeTime);
 		m_rigidbody.AddExplosionForce(120, m_launcher1.position, 3);
+		m_launcher1.GetComponent<ParticleSystem>().Play();
 		m_rigidbody.AddTorque(0, 30, 0);
 	}
 
@@ -91,6 +92,7 @@ public class RocketShip : MonoBehaviour {
 		rocket.transform.rotation = transform.rotation;
 		rocket.Spawn(m_launcher2.position, m_rocketLifeTime);
 		m_rigidbody.AddExplosionForce(120, m_launcher2.position, 3);
+		m_launcher2.GetComponent<ParticleSystem>().Play();
 		m_rigidbody.AddTorque(0, -30, 0);
 	}
 
