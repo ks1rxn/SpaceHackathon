@@ -1,5 +1,4 @@
-﻿using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerShip : MonoBehaviour {
 	private Rigidbody m_rigidbody;
@@ -12,6 +11,7 @@ public class PlayerShip : MonoBehaviour {
 	private GameObject m_smallButton;
 
 	private float m_angle;
+	private bool m_slow;
 
 	protected void Awake() {
 		BattleContext.PlayerShip = this;
@@ -36,6 +36,22 @@ public class PlayerShip : MonoBehaviour {
 		m_space.transform.position = pos;
 		MeshRenderer spaceRenderer = m_space.GetComponent<MeshRenderer>();
 		spaceRenderer.material.SetTextureOffset("_MainTex", new Vector2(-transform.position.x / 1000, -transform.position.z / 1000));
+
+		if (Input.GetKeyDown(KeyCode.Alpha5)) {
+			m_slow = !m_slow;
+//			 if (Time.timeScale == 1.0F)
+//                Time.timeScale = 0.3F;
+//            else
+//                Time.timeScale = 1.0F;
+//            Time.fixedDeltaTime = 0.02F * Time.timeScale;
+		}
+		if (m_slow && Time.timeScale > 0.3f) {
+			Time.timeScale -= Time.deltaTime * 5;
+		}
+		if (!m_slow && Time.timeScale < 1) {
+			Time.timeScale += Time.deltaTime * 5;
+		}
+		Time.fixedDeltaTime = 0.02F * Time.timeScale;
 	}
 
 	private void Move() {
