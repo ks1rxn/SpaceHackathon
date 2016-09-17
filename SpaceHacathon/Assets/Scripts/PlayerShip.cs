@@ -21,6 +21,11 @@ public class PlayerShip : MonoBehaviour {
 	private ShipState m_state;
 	private float m_chargeTime;
 
+	[SerializeField]
+	private Transform m_chargeOwn;
+	[SerializeField]
+	private Transform m_chargeTarget;
+
 	protected void Awake() {
 		BattleContext.PlayerShip = this;
 
@@ -32,6 +37,17 @@ public class PlayerShip : MonoBehaviour {
 		HandleInput();
 		Move();
 		UpdateTimeSpeed();
+
+		if (m_state == ShipState.OnCharge) {
+			m_chargeOwn.gameObject.SetActive(true);
+			m_chargeTarget.gameObject.SetActive(true);
+
+			m_chargeTarget.rotation = new Quaternion();
+			m_chargeTarget.Rotate(new Vector3(0, 1, 0), -m_angle + LookAngle);
+		} else {
+			m_chargeOwn.gameObject.SetActive(false);
+			m_chargeTarget.gameObject.SetActive(false);
+		}
 	}
 
 	private void Move() {
@@ -55,7 +71,7 @@ public class PlayerShip : MonoBehaviour {
 				} else {
 					m_rigidbody.velocity = new Vector3();
 					m_rigidbody.angularVelocity = new Vector3();
-					m_angle += AngleToTarget;
+//					m_angle += AngleToTarget;
 					m_state = ShipState.OnCharge;
 				}
 				break;
@@ -136,6 +152,12 @@ public class PlayerShip : MonoBehaviour {
 			}
 		}
 		Time.fixedDeltaTime = 0.02F * Time.timeScale;
+	}
+
+	private float LookAngle {
+		get {
+			return -transform.rotation.eulerAngles.y;
+		}
 	}
 
 	private Vector3 LookVector {
