@@ -87,13 +87,13 @@ public class RocketShip : MonoBehaviour {
 	}
 
 	private void SpawnRocket2() {
-//		Rocket rocket = ((GameObject)Instantiate(m_rocketPrefab)).GetComponent<Rocket>();
-//		rocket.transform.parent = m_parent;
-//		rocket.transform.rotation = transform.rotation;
-//		rocket.Spawn(m_launcher2.position, m_rocketLifeTime);
-//		m_rigidbody.AddExplosionForce(120, m_launcher2.position, 3);
-//		m_launcher2.GetComponent<ParticleSystem>().Play();
-//		m_rigidbody.AddTorque(0, -30, 0);
+		Rocket rocket = ((GameObject)Instantiate(m_rocketPrefab)).GetComponent<Rocket>();
+		rocket.transform.parent = m_parent;
+		rocket.transform.rotation = transform.rotation;
+		rocket.Spawn(m_launcher2.position, m_rocketLifeTime);
+		m_rigidbody.AddExplosionForce(120, m_launcher2.position, 3);
+		m_launcher2.GetComponent<ParticleSystem>().Play();
+		m_rigidbody.AddTorque(0, -30, 0);
 	}
 
 }
