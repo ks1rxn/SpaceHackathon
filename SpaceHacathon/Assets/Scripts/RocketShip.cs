@@ -43,7 +43,7 @@ public class RocketShip : MonoBehaviour {
 		Vector3 lookVector = new Vector3(Mathf.Cos(-transform.rotation.eulerAngles.y * Mathf.PI / 180), 0, Mathf.Sin(-transform.rotation.eulerAngles.y * Mathf.PI / 180));
 
 		if (m_rigidbody.velocity.magnitude > 0) {
-			m_rigidbody.AddForce(-m_rigidbody.velocity);
+			m_rigidbody.AddForce(-m_rigidbody.velocity * Time.deltaTime * 100);
 		}
 
 		float angle = MathHelper.AngleBetweenVectors(lookVector, enemyPosition - transform.position);
@@ -53,7 +53,7 @@ public class RocketShip : MonoBehaviour {
 				angleSign = angle / Mathf.Abs(angle);
 			}
 			angleSign *= 10;
-			m_rigidbody.AddTorque(new Vector3(0, (angleSign - m_rigidbody.angularVelocity.y * 50) * 0.05f, 0));
+			m_rigidbody.AddTorque(new Vector3(0, (angleSign - m_rigidbody.angularVelocity.y * 50) * 5f * Time.deltaTime, 0));
 			if (m_rigidbody.angularVelocity.magnitude > 1f) {
 				m_rigidbody.angularVelocity = m_rigidbody.angularVelocity.normalized * 1f;
 			}
@@ -87,13 +87,13 @@ public class RocketShip : MonoBehaviour {
 	}
 
 	private void SpawnRocket2() {
-		Rocket rocket = ((GameObject)Instantiate(m_rocketPrefab)).GetComponent<Rocket>();
-		rocket.transform.parent = m_parent;
-		rocket.transform.rotation = transform.rotation;
-		rocket.Spawn(m_launcher2.position, m_rocketLifeTime);
-		m_rigidbody.AddExplosionForce(120, m_launcher2.position, 3);
-		m_launcher2.GetComponent<ParticleSystem>().Play();
-		m_rigidbody.AddTorque(0, -30, 0);
+//		Rocket rocket = ((GameObject)Instantiate(m_rocketPrefab)).GetComponent<Rocket>();
+//		rocket.transform.parent = m_parent;
+//		rocket.transform.rotation = transform.rotation;
+//		rocket.Spawn(m_launcher2.position, m_rocketLifeTime);
+//		m_rigidbody.AddExplosionForce(120, m_launcher2.position, 3);
+//		m_launcher2.GetComponent<ParticleSystem>().Play();
+//		m_rigidbody.AddTorque(0, -30, 0);
 	}
 
 }

@@ -4,8 +4,6 @@ using UnityEngine.UI;
 
 public class PlayerShip : MonoBehaviour {
 	private Rigidbody m_rigidbody;
-	[SerializeField]
-	private GameObject m_space;
 
 	[SerializeField]
 	private GameObject m_button;
@@ -53,12 +51,12 @@ public class PlayerShip : MonoBehaviour {
 	private void Move() {
 		switch (m_state) {
 			case ShipState.OnMove:
-				m_rigidbody.AddTorque(new Vector3(0, (AngleToTarget - m_rigidbody.angularVelocity.y * 50) * 75, 0));
+				m_rigidbody.AddTorque(new Vector3(0, (AngleToTarget - m_rigidbody.angularVelocity.y * 50f) * 7.5f * Time.deltaTime, 0));
 				if (m_rigidbody.angularVelocity.magnitude > 2.8f) {
 					m_rigidbody.angularVelocity = m_rigidbody.angularVelocity.normalized * 2.8f;
 				}
 
-				m_rigidbody.AddForce(m_power * LookVector * 6);
+				m_rigidbody.AddForce(m_power * LookVector * Time.deltaTime * 600);
 
 				if (m_rigidbody.velocity.magnitude > 5) {
 					m_rigidbody.velocity = m_rigidbody.velocity.normalized * 5;
@@ -71,12 +69,12 @@ public class PlayerShip : MonoBehaviour {
 				} else {
 					m_rigidbody.velocity = new Vector3();
 					m_rigidbody.angularVelocity = new Vector3();
-//					m_angle += AngleToTarget;
+					m_angle += AngleToTarget;
 					m_state = ShipState.OnCharge;
 				}
 				break;
 			case ShipState.OnCharge:
-				m_rigidbody.AddTorque(new Vector3(0, (AngleToTarget - m_rigidbody.angularVelocity.y * 50) * 75, 0));
+				m_rigidbody.AddTorque(new Vector3(0, (AngleToTarget - m_rigidbody.angularVelocity.y * 50f) * 7.5f * Time.deltaTime, 0));
 				if (m_rigidbody.angularVelocity.magnitude > 2.8f) {
 					m_rigidbody.angularVelocity = m_rigidbody.angularVelocity.normalized * 2.8f;
 				}

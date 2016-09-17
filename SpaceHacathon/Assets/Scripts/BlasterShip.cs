@@ -42,9 +42,9 @@ public class BlasterShip : MonoBehaviour {
 					Vector3 enemyPosition = BattleContext.PlayerShip.transform.position;
 					float distance = (enemyPosition - transform.position).magnitude;
 					if (distance > 6) {
-						m_rigidbody.AddForce(-(transform.position - enemyPosition).normalized * 10);
+						m_rigidbody.AddForce(-(transform.position - enemyPosition).normalized * 1000 * Time.deltaTime);
 					} else {
-						m_rigidbody.AddForce((transform.position - enemyPosition).normalized * 10);
+						m_rigidbody.AddForce((transform.position - enemyPosition).normalized * 1000 * Time.deltaTime);
 					}
 					if (m_rigidbody.velocity.magnitude > 10) {
 						m_rigidbody.velocity = m_rigidbody.velocity.normalized * 10;

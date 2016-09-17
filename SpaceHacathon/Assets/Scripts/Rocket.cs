@@ -13,7 +13,7 @@ public class Rocket : MonoBehaviour {
 		m_lifeTime = lifeTime;
 
 		Vector3 lookVector = new Vector3(Mathf.Cos(-transform.rotation.eulerAngles.y * Mathf.PI / 180), 0, Mathf.Sin(-transform.rotation.eulerAngles.y * Mathf.PI / 180));
-		m_rigidbody.AddExplosionForce(200, transform.position - lookVector * 5, 20);
+		m_rigidbody.AddForce(lookVector * 50);
 	}
 
 	protected void Update() {
@@ -21,12 +21,12 @@ public class Rocket : MonoBehaviour {
 		Vector3 lookVector = new Vector3(Mathf.Cos(-transform.rotation.eulerAngles.y * Mathf.PI / 180), 0, Mathf.Sin(-transform.rotation.eulerAngles.y * Mathf.PI / 180));
 
 		float angle = MathHelper.AngleBetweenVectors(lookVector, enemyPosition - transform.position);
-		m_rigidbody.AddTorque(new Vector3(0, (angle - m_rigidbody.angularVelocity.y * 50) * 0.5f, 0));
+		m_rigidbody.AddTorque(new Vector3(0, (angle - m_rigidbody.angularVelocity.y * 50) * 0.1f * Time.deltaTime, 0));
 		if (m_rigidbody.angularVelocity.magnitude > 5) {
 			m_rigidbody.angularVelocity = m_rigidbody.angularVelocity.normalized * 5;
 		}
 
-		m_rigidbody.AddForce(lookVector.normalized * 40);
+		m_rigidbody.AddForce(lookVector.normalized * 4000 * Time.deltaTime);
 		if (m_rigidbody.velocity.magnitude > 6) {
 			m_rigidbody.velocity = m_rigidbody.velocity.normalized * 6;
 		}
