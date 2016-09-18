@@ -46,6 +46,9 @@ public class PlayerShip : MonoBehaviour {
 			m_chargeOwn.gameObject.SetActive(false);
 			m_chargeTarget.gameObject.SetActive(false);
 		}
+
+		BattleContext.GUIController.SetRightJoystickAngle(m_angle);
+		BattleContext.GUIController.SetLeftJoysticValue(m_power);
 	}
 
 	private void Move() {
@@ -133,10 +136,6 @@ public class PlayerShip : MonoBehaviour {
 			case ShipState.OnChargeStartFly:
 				break;
 		}
-
-		// GUI HANDLER //
-		m_smallButton.transform.localPosition = new Vector3(Mathf.Cos(m_angle * Mathf.PI / 180) * 100, Mathf.Sin(m_angle * Mathf.PI / 180) * 100, 0);
-		m_powerBar.value = m_power / 2 + 0.5f;
 	}
 
 	private void UpdateTimeSpeed() {

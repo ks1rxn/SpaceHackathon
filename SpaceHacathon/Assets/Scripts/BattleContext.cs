@@ -3,6 +3,7 @@
 public class BattleContext {
 	private static PlayerShip m_playerShip;
 	private static BattleCamera m_battleCamera;
+	private static GUIController m_guiController;
 
 	public static PlayerShip PlayerShip {
 		get {
@@ -22,4 +23,12 @@ public class BattleContext {
 		}
 	}
 
+	public static GUIController GUIController {
+		get {
+			return m_guiController;
+		}
+		set {
+			m_guiController = value;
+		}
+	}
 }
