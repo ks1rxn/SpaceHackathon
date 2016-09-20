@@ -22,6 +22,7 @@ public class Rocket : MonoBehaviour {
 
 	protected void OnCollisionEnter(Collision collision) {
 		Destroy(gameObject);
+		BattleContext.ExplosionsController.RocketExplosion(transform.position);
     }
 
 	protected void Update() {
@@ -42,7 +43,12 @@ public class Rocket : MonoBehaviour {
 		m_lifeTime -= Time.deltaTime;
 		if (m_lifeTime <= 0) {
 			Destroy(gameObject);
-			BattleContext.ExplosionsController.PlayerShipExplosion(transform.position);
+			BattleContext.ExplosionsController.RocketExplosion(transform.position);
+		}
+
+		float distToPlayer = Vector3.Distance(BattleContext.PlayerShip.transform.position, transform.position);
+		if (distToPlayer > 25) {
+			Destroy(gameObject);
 		}
 
 		if (m_detonatorActivateTime <= 0) {

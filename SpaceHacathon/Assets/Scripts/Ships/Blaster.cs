@@ -33,6 +33,7 @@ public class Blaster : MonoBehaviour {
 	}
 
 	protected void OnCollisionEnter(Collision collision) {
+		BattleContext.ExplosionsController.BlasterExplosion(transform.position);
 		Destroy(gameObject);
     }
 

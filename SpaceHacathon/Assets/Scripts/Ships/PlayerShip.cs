@@ -39,10 +39,10 @@ public class PlayerShip : MonoBehaviour {
 		} else if (collision.gameObject.GetComponent<Rocket>() != null) {
 			m_health -= 0.5f;
 		} else {
+			BattleContext.ExplosionsController.PlayerShipExplosion(transform.position);
 			m_health = 0;
 		}
-		BattleContext.ExplosionsController.PlayerShipExplosion(transform.position);
-    }
+	}
 
 	protected void Update() {
 		if (m_health <= 0) {
