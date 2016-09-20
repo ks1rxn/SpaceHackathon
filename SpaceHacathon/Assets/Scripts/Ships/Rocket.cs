@@ -3,6 +3,7 @@
 public class Rocket : MonoBehaviour {
 	private Rigidbody m_rigidbody;
 	private float m_lifeTime;
+	private float m_detonatorActivateTime;
 
 	protected void Awake() {
 		m_rigidbody = GetComponent<Rigidbody>();
@@ -12,9 +13,16 @@ public class Rocket : MonoBehaviour {
 		transform.position = position;
 		m_lifeTime = lifeTime;
 
+		m_detonatorActivateTime = 0.1f;
+		GetComponent<Collider>().enabled = false;
+
 		Vector3 lookVector = new Vector3(Mathf.Cos(-transform.rotation.eulerAngles.y * Mathf.PI / 180), 0, Mathf.Sin(-transform.rotation.eulerAngles.y * Mathf.PI / 180));
 		m_rigidbody.AddForce(lookVector * 50);
 	}
+
+	protected void OnCollisionEnter(Collision collision) {
+		Destroy(gameObject);
+    }
 
 	protected void Update() {
 		Vector3 enemyPosition = BattleContext.PlayerShip.transform.position;
@@ -34,6 +42,13 @@ public class Rocket : MonoBehaviour {
 		m_lifeTime -= Time.deltaTime;
 		if (m_lifeTime <= 0) {
 			Destroy(gameObject);
+			BattleContext.ExplosionsController.PlayerShipExplosion(transform.position);
+		}
+
+		if (m_detonatorActivateTime <= 0) {
+			GetComponent<Collider>().enabled = true;
+		} else {
+			m_detonatorActivateTime -= Time.deltaTime;
 		}
 	}
 

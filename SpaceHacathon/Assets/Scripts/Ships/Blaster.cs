@@ -1,13 +1,19 @@
 ﻿using UnityEngine;
 
 public class Blaster : MonoBehaviour {
+	private BlasterShip m_owner;
 	private float m_angle;
+	private float m_detonatorActivateTime;
 
-	public void Spawn(Vector3 position, float angle) {
+	public void Spawn(BlasterShip owner, Vector3 position, float angle) {
+		m_owner = owner;
 		m_angle = angle;
 		transform.position = position;
 		transform.rotation = new Quaternion();
 		transform.Rotate(new Vector3(0, 1, 0), m_angle);
+
+		m_detonatorActivateTime = 0.05f;
+		GetComponent<Collider>().enabled = false;
 	}
 
 	protected void Update() {
@@ -18,6 +24,16 @@ public class Blaster : MonoBehaviour {
 		if (distToPlayer > 20) {
 			Destroy(gameObject);
 		}
+
+		if (m_detonatorActivateTime <= 0) {
+			GetComponent<Collider>().enabled = true;
+		} else {
+			m_detonatorActivateTime -= Time.deltaTime;
+		}
 	}
+
+	protected void OnCollisionEnter(Collision collision) {
+		Destroy(gameObject);
+    }
 
 }

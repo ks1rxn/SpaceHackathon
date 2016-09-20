@@ -35,6 +35,11 @@ public class BlasterShip : MonoBehaviour {
 		m_movingTimer = m_flyCooldown;
 	}
 
+	protected void OnCollisionEnter(Collision collision) {
+		BattleContext.ExplosionsController.PlayerShipExplosion(transform.position);
+		Destroy(gameObject);
+    }
+
 	protected void Update() {
 		switch (m_state) {
 			case BlasterShipState.Moving:
@@ -97,7 +102,7 @@ public class BlasterShip : MonoBehaviour {
 	private void SpawnBlast() {
 		Blaster blaster = ((GameObject)Instantiate(m_blasterPrefab)).GetComponent<Blaster>();
 		blaster.transform.parent = m_parent;
-		blaster.Spawn(m_gun.transform.position, m_gunAngle);
+		blaster.Spawn(this, m_gun.transform.position, m_gunAngle);
 	}
 
 }

@@ -4,6 +4,7 @@ public class BattleContext {
 	private static PlayerShip m_playerShip;
 	private static BattleCamera m_battleCamera;
 	private static GUIController m_guiController;
+	private static ExplosionsController m_explosionsController;
 
 	public static PlayerShip PlayerShip {
 		get {
@@ -29,6 +30,15 @@ public class BattleContext {
 		}
 		set {
 			m_guiController = value;
+		}
+	}
+
+	public static ExplosionsController ExplosionsController {
+		get {
+			return m_explosionsController;
+		}
+		set {
+			m_explosionsController = value;
 		}
 	}
 }

@@ -38,6 +38,11 @@ public class RocketShip : MonoBehaviour {
 		m_globalCooldown = m_globalCooldownValue;
 	}
 
+	protected void OnCollisionEnter(Collision collision) {
+		BattleContext.ExplosionsController.PlayerShipExplosion(transform.position);
+		Destroy(gameObject);
+    }
+
 	protected void Update() {
 		Vector3 enemyPosition = BattleContext.PlayerShip.transform.position;
 		Vector3 lookVector = new Vector3(Mathf.Cos(-transform.rotation.eulerAngles.y * Mathf.PI / 180), 0, Mathf.Sin(-transform.rotation.eulerAngles.y * Mathf.PI / 180));

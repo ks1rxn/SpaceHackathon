@@ -7,14 +7,11 @@ public class PlayerShip : MonoBehaviour {
 
 	[SerializeField]
 	private GameObject m_button;
-	[SerializeField]
-	private GameObject m_smallButton;
-	[SerializeField]
-	private Slider m_powerBar;
 
 	private float m_angle;
 	private bool m_slow;
 	private float m_power;
+	private float m_health;
 
 	private ShipState m_state;
 	private float m_chargeTime;
@@ -29,9 +26,33 @@ public class PlayerShip : MonoBehaviour {
 
 		m_rigidbody = GetComponent<Rigidbody>();
 		m_rigidbody.centerOfMass = new Vector3(0, 0, 0);
+
+		m_health = 1.0f;
 	}
 
+	protected void OnCollisionEnter(Collision collision) {
+		if (m_state == ShipState.OnChargeFly) {
+			return;
+		}
+		if (collision.gameObject.GetComponent<Blaster>() != null) {
+			m_health -= 0.2f;
+		} else if (collision.gameObject.GetComponent<Rocket>() != null) {
+			m_health -= 0.5f;
+		} else {
+			m_health = 0;
+		}
+		BattleContext.ExplosionsController.PlayerShipExplosion(transform.position);
+    }
+
 	protected void Update() {
+		if (m_health <= 0) {
+			m_state = ShipState.OnMove;
+			return;
+		}
+		if (m_health < 1) {
+			m_health += Time.deltaTime * 0.1f;
+		}
+
 		HandleInput();
 		Move();
 		UpdateTimeSpeed();
@@ -49,6 +70,7 @@ public class PlayerShip : MonoBehaviour {
 
 		BattleContext.GUIController.SetRightJoystickAngle(m_angle);
 		BattleContext.GUIController.SetLeftJoysticValue(m_power);
+		BattleContext.GUIController.SetHealth(m_health);
 	}
 
 	private void Move() {
@@ -105,6 +127,9 @@ public class PlayerShip : MonoBehaviour {
 	}
 
 	private void HandleInput() {
+//		foreach (Touch touch in Input.touches) {
+//			if (touch.position.x)
+//		}
 		switch (m_state) {
 			case ShipState.OnMove:
 				if (Input.GetKey(KeyCode.W)) {

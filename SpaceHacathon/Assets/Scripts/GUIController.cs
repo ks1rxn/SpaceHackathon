@@ -8,6 +8,8 @@ public class GUIController : MonoBehaviour {
 	private GameObject m_smallButton;
 	[SerializeField]
 	private Slider m_powerBar;
+	[SerializeField]
+	private Slider m_health;
 
 	protected void Awake() {
 		BattleContext.GUIController = this;
@@ -19,6 +21,10 @@ public class GUIController : MonoBehaviour {
 
 	public void SetLeftJoysticValue(float value) {
 		m_powerBar.value = value / 2 + 0.5f;
+	}
+
+	public void SetHealth(float value) {
+		m_health.value = value;
 	}
 
 }
