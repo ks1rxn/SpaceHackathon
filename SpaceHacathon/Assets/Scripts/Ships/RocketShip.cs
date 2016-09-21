@@ -38,9 +38,14 @@ public class RocketShip : MonoBehaviour {
 		m_globalCooldown = m_globalCooldownValue;
 	}
 
+	private void Die() {
+		BattleContext.EnemiesController.ShipDied(this);
+		Destroy(gameObject);
+	}
+
 	protected void OnCollisionEnter(Collision collision) {
 		BattleContext.ExplosionsController.PlayerShipExplosion(transform.position);
-		Destroy(gameObject);
+		Die();
     }
 
 	protected void Update() {
@@ -79,6 +84,10 @@ public class RocketShip : MonoBehaviour {
 		m_gun1Cooldown -= Time.deltaTime;
 		m_gun2Cooldown -= Time.deltaTime;
 		m_globalCooldown -= Time.deltaTime;
+
+		if (Vector3.Distance(BattleContext.PlayerShip.transform.position, transform.position) > 80) {
+			Die();
+		}
 	}
 
 	private void SpawnRocket1() {

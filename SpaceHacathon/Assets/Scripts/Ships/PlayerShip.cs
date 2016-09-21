@@ -1,6 +1,5 @@
-﻿using UnityEditor;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerShip : MonoBehaviour {
 	private Rigidbody m_rigidbody;
@@ -47,7 +46,7 @@ public class PlayerShip : MonoBehaviour {
 	protected void Update() {
 		if (m_health <= 0) {
 			m_state = ShipState.OnMove;
-			return;
+			SceneManager.LoadScene("BattleScene");
 		}
 		if (m_health < 1) {
 			m_health += Time.deltaTime * 0.1f;

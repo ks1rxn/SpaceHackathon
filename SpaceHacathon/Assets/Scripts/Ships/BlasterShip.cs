@@ -35,10 +35,15 @@ public class BlasterShip : MonoBehaviour {
 		m_movingTimer = m_flyCooldown;
 	}
 
+	private void Die() {
+		BattleContext.EnemiesController.ShipDied(this);
+		Destroy(gameObject);
+	}
+
 	protected void OnCollisionEnter(Collision collision) {
 		BattleContext.ExplosionsController.PlayerShipExplosion(transform.position);
-		Destroy(gameObject);
-    }
+		Die();
+	}
 
 	protected void Update() {
 		switch (m_state) {
@@ -75,6 +80,10 @@ public class BlasterShip : MonoBehaviour {
 
 		m_movingTimer -= Time.deltaTime;
 		UpdateGun();
+
+		if (Vector3.Distance(BattleContext.PlayerShip.transform.position, transform.position) > 80) {
+			Die();
+		}
 	}
 
 	private void UpdateGun() {
