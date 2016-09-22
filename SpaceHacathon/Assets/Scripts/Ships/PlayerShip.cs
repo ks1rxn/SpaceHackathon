@@ -118,8 +118,8 @@ public class PlayerShip : MonoBehaviour {
 				break;
 			case ShipState.OnChargeStartFly:
 				m_rigidbody.angularVelocity = new Vector3();
-				m_rigidbody.AddForce(LookVector * 10000);
-				m_chargeTime = 0.3f;
+				m_rigidbody.AddForce(LookVector * 35000);
+				m_chargeTime = 0.06f;
 				m_state = ShipState.OnChargeFly;
 				break;
 			case ShipState.OnChargeFly:
