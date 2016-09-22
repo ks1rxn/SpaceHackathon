@@ -14,6 +14,7 @@ public class PlayerShip : MonoBehaviour {
 
 	private ShipState m_state;
 	private float m_chargeTime;
+	private bool m_inChargeTargeting;
 
 	[SerializeField]
 	private Transform m_chargeOwn;
@@ -27,6 +28,7 @@ public class PlayerShip : MonoBehaviour {
 		m_rigidbody.centerOfMass = new Vector3(0, 0, 0);
 
 		m_health = 1.0f;
+		m_inChargeTargeting = false;
 	}
 
 	protected void OnCollisionEnter(Collision collision) {
@@ -52,7 +54,6 @@ public class PlayerShip : MonoBehaviour {
 			m_health += Time.deltaTime * 0.1f;
 		}
 
-		HandleInput();
 		Move();
 		UpdateTimeSpeed();
 
@@ -75,6 +76,10 @@ public class PlayerShip : MonoBehaviour {
 	private void Move() {
 		switch (m_state) {
 			case ShipState.OnMove:
+				if (m_inChargeTargeting) {
+					m_chargeTime = 0.2f;
+					m_state = ShipState.TransferToCharge;
+				}
 				m_rigidbody.AddTorque(new Vector3(0, (AngleToTarget - m_rigidbody.angularVelocity.y * 50f) * 7.5f * Time.deltaTime, 0));
 				if (m_rigidbody.angularVelocity.magnitude > 2.8f) {
 					m_rigidbody.angularVelocity = m_rigidbody.angularVelocity.normalized * 2.8f;
@@ -94,10 +99,18 @@ public class PlayerShip : MonoBehaviour {
 					m_rigidbody.velocity = new Vector3();
 					m_rigidbody.angularVelocity = new Vector3();
 					m_angle += AngleToTarget;
+
 					m_state = ShipState.OnCharge;
+					// set time here? or in previous state?
+					m_chargeTime = 0.1f;
 				}
 				break;
 			case ShipState.OnCharge:
+				// m_chargeTime in this case - time to start charge engine. Should be equal to charge engine animation length.
+				m_chargeTime -= Time.deltaTime;
+				if ((!m_inChargeTargeting) && (m_chargeTime <= 0)) {
+					m_state = ShipState.OnChargeStartFly;
+				}
 				m_rigidbody.AddTorque(new Vector3(0, (AngleToTarget - m_rigidbody.angularVelocity.y * 50f) * 7.5f * Time.deltaTime, 0));
 				if (m_rigidbody.angularVelocity.magnitude > 2.8f) {
 					m_rigidbody.angularVelocity = m_rigidbody.angularVelocity.normalized * 2.8f;
@@ -125,41 +138,32 @@ public class PlayerShip : MonoBehaviour {
 		}
 	}
 
-	private void HandleInput() {
-//		foreach (Touch touch in Input.touches) {
-//			if (touch.position.x)
-//		}
+	public void SetAngle(float angle) {
 		switch (m_state) {
 			case ShipState.OnMove:
-				if (Input.GetKey(KeyCode.W)) {
-					m_power = 1.0f;
-				} else if (Input.GetKey(KeyCode.S)) {
-					m_power = -1.0f;
-				} else {
-					m_power = 0;
-				}
-
-				if (Input.GetMouseButton(0)) {
-					m_angle = MathHelper.AngleBetweenVectorsZ(new Vector3(1, 0, 0), Input.mousePosition - m_button.transform.position);
-				}
-
-				if (Input.GetKeyDown(KeyCode.Space)) {
-					m_state = ShipState.TransferToCharge;
-				}
-				break;
-			case ShipState.TransferToCharge:
+				m_angle = angle;
 				break;
 			case ShipState.OnCharge:
-				if (Input.GetMouseButton(0)) {
-					m_angle = MathHelper.AngleBetweenVectorsZ(new Vector3(1, 0, 0), Input.mousePosition - m_button.transform.position);
-				}
-				if (!Input.GetKey(KeyCode.Space)) {
-					m_state = ShipState.OnChargeStartFly;
-				}
-				break;
-			case ShipState.OnChargeStartFly:
+				m_angle = angle;
 				break;
 		}
+	}
+
+	public void SetPower(float power) {
+		power = Mathf.Clamp(power, -1, 1);
+		switch (m_state) {
+			case ShipState.OnMove:
+				m_power = power;
+				break;
+		}
+	}
+
+	public void StartChargeTargeting() {
+		m_inChargeTargeting = true;
+	}
+
+	public void StopChargeTargeting() {
+		m_inChargeTargeting = false;
 	}
 
 	private void UpdateTimeSpeed() {
