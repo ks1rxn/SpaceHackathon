@@ -22,7 +22,11 @@ public class GUIController : MonoBehaviour {
 	}
 
 	public void SetRightJoystickAngle(float angle) {
-		m_smallButton.transform.localPosition = new Vector3(Mathf.Cos(angle * Mathf.PI / 180) * Screen.width / 8, Mathf.Sin(angle * Mathf.PI / 180) * Screen.width / 8, 0);
+		float radius = 8;
+#if UNITY_EDITOR
+		radius = 16;
+#endif
+		m_smallButton.transform.localPosition = new Vector3(Mathf.Cos(angle * Mathf.PI / 180) * Screen.width / radius, Mathf.Sin(angle * Mathf.PI / 180) * Screen.width / radius, 0);
 	}
 
 	public void SetLeftJoysticValue(float value) {

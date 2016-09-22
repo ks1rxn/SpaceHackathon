@@ -13,7 +13,7 @@ public class Rocket : MonoBehaviour {
 		transform.position = position;
 		m_lifeTime = lifeTime;
 
-		m_detonatorActivateTime = 0.1f;
+		m_detonatorActivateTime = 0.2f;
 		GetComponent<Collider>().enabled = false;
 
 		Vector3 lookVector = new Vector3(Mathf.Cos(-transform.rotation.eulerAngles.y * Mathf.PI / 180), 0, Mathf.Sin(-transform.rotation.eulerAngles.y * Mathf.PI / 180));
