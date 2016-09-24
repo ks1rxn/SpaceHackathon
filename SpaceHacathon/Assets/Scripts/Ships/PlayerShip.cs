@@ -115,8 +115,8 @@ public class PlayerShip : MonoBehaviour {
 				SetEngineState(8, false);
 			}
 		} else {
-			foreach (ParticleSystem engine in m_engines) {
-				engine.Stop();
+			for (int i = 0; i != m_engines.Length; i++) {
+				SetEngineState(i, false);
 			}
 		}
 		Move();
