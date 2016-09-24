@@ -20,6 +20,9 @@ public class PlayerShip : MonoBehaviour {
 	private Transform m_chargeOwn;
 	[SerializeField]
 	private Transform m_chargeTarget;
+	[SerializeField]
+	private ParticleSystem[] m_engines;
+	private bool[] m_engineState;
 
 	protected void Awake() {
 		BattleContext.PlayerShip = this;
@@ -29,6 +32,8 @@ public class PlayerShip : MonoBehaviour {
 
 		m_health = 1.0f;
 		m_inChargeTargeting = false;
+
+		m_engineState = new bool[m_engines.Length];
 	}
 
 	protected void OnCollisionEnter(Collision collision) {
@@ -45,6 +50,17 @@ public class PlayerShip : MonoBehaviour {
 		}
 	}
 
+	private void SetEngineState(int engine, bool state) {
+		if (m_engineState[engine] != state) {
+			m_engineState[engine] = state;
+			if (state) {
+				m_engines[engine].Play();
+			} else {
+				m_engines[engine].Stop();
+			}
+		}
+	}
+
 	protected void Update() {
 		if (m_health <= 0) {
 			m_state = ShipState.OnMove;
@@ -54,6 +70,55 @@ public class PlayerShip : MonoBehaviour {
 			m_health += Time.deltaTime * 0.1f;
 		}
 
+//		float rotate = AngleToTarget - m_rigidbody.angularVelocity.y * 50f;
+		float rotate = m_rigidbody.angularVelocity.y;
+		float powerCoef = 1;
+		if (m_power < -0.1f) {
+			powerCoef = -1;
+		}
+		if (Mathf.Abs(rotate) > 0.5f) {
+			if (rotate * powerCoef < 0) {
+				SetEngineState(3, true);
+				SetEngineState(6, true);
+				SetEngineState(4, false);
+				SetEngineState(5, false);
+			} else {
+				SetEngineState(3, false);
+				SetEngineState(6, false);
+				SetEngineState(4, true);
+				SetEngineState(5, true);
+			}
+		} else {
+			SetEngineState(3, false);
+			SetEngineState(6, false);
+			SetEngineState(4, false);
+			SetEngineState(5, false);
+		}
+		if (m_state == ShipState.OnMove) {
+			if (m_power > 0.1f) {
+				SetEngineState(0, true);
+				SetEngineState(1, true);
+				SetEngineState(2, true);
+				SetEngineState(7, false);
+				SetEngineState(8, false);
+			} else if (m_power < -0.1f) {
+				SetEngineState(0, false);
+				SetEngineState(1, false);
+				SetEngineState(2, false);
+				SetEngineState(7, true);
+				SetEngineState(8, true);
+			} else {
+				SetEngineState(0, false);
+				SetEngineState(1, false);
+				SetEngineState(2, false);
+				SetEngineState(7, false);
+				SetEngineState(8, false);
+			}
+		} else {
+			foreach (ParticleSystem engine in m_engines) {
+				engine.Stop();
+			}
+		}
 		Move();
 		UpdateTimeSpeed();
 
