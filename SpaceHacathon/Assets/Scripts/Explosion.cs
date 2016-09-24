@@ -4,13 +4,16 @@ public class Explosion : MonoBehaviour {
 	[SerializeField]
 	private float m_lifeTime;
 	[SerializeField]
-	private ParticleSystem m_particles;
+	private ParticleSystem[] m_particles;
 
-	private float m_timeToDie;
+    private float m_timeToDie;
 
 	public void Spawn(Vector3 position) {
 		transform.position = position;
-		m_particles.Play();
+		foreach(ParticleSystem system in m_particles) {
+            system.Play();
+        }
+        
 		m_timeToDie = m_lifeTime;
 	}
 
