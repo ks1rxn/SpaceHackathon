@@ -149,14 +149,14 @@ public class PlayerShip : MonoBehaviour {
 				float longAngle = -Mathf.Sign(AngleToTarget) * (360 - Mathf.Abs(AngleToTarget));
 				float actualAngle = AngleToTarget;
 				if ((m_rigidbody.angularVelocity.y * longAngle > 0) && (Mathf.Abs(m_rigidbody.angularVelocity.y) > 1)) {
-					if (Mathf.Abs(m_rigidbody.angularVelocity.y * 40) > Mathf.Abs(longAngle + AngleToTarget)) {
+					if (Mathf.Abs(m_rigidbody.angularVelocity.y * 60) > Mathf.Abs(longAngle + AngleToTarget)) {
 						actualAngle = longAngle;
 					}
 				}
-				float angularForce = Mathf.Sign(actualAngle) * Mathf.Sqrt(Mathf.Abs(actualAngle)) * 90f;
-				m_rigidbody.AddTorque(new Vector3(0, angularForce * Time.deltaTime, 0));
+				float angularForce = Mathf.Sign(actualAngle) * Mathf.Sqrt(Mathf.Abs(actualAngle)) * 70f;
+				m_rigidbody.AddTorque(new Vector3(0, angularForce * m_rigidbody.mass * Time.deltaTime, 0));
 
-				m_rigidbody.AddForce(m_power * LookVector * Time.deltaTime * 900);
+				m_rigidbody.AddForce(m_power * LookVector * m_rigidbody.mass * Time.deltaTime * 900);
 				if (m_rigidbody.velocity.magnitude > 5) {
 					m_rigidbody.velocity = m_rigidbody.velocity.normalized * 5;
 				}
@@ -181,14 +181,14 @@ public class PlayerShip : MonoBehaviour {
 				if ((!m_inChargeTargeting) && (m_chargeTime <= 0)) {
 					m_state = ShipState.OnChargeStartFly;
 				}
-				m_rigidbody.AddTorque(new Vector3(0, (AngleToTarget - m_rigidbody.angularVelocity.y * 50f) * 7.5f * Time.deltaTime, 0));
+				m_rigidbody.AddTorque(new Vector3(0, (AngleToTarget - m_rigidbody.angularVelocity.y * 50f) * 7.5f * m_rigidbody.mass * Time.deltaTime, 0));
 				if (m_rigidbody.angularVelocity.magnitude > 2.8f) {
 					m_rigidbody.angularVelocity = m_rigidbody.angularVelocity.normalized * 2.8f;
 				}
 				break;
 			case ShipState.OnChargeStartFly:
 				m_rigidbody.angularVelocity = new Vector3();
-				m_rigidbody.AddForce(LookVector * 35000);
+				m_rigidbody.AddForce(LookVector * m_rigidbody.mass * 35000);
 				m_chargeTime = 0.06f;
 				m_state = ShipState.OnChargeFly;
 				break;
