@@ -145,13 +145,16 @@ public class PlayerShip : MonoBehaviour {
 					m_chargeTime = 0.2f;
 					m_state = ShipState.TransferToCharge;
 				}
-				m_rigidbody.AddTorque(new Vector3(0, (AngleToTarget - m_rigidbody.angularVelocity.y * 50f) * 7.5f * Time.deltaTime, 0));
-				if (m_rigidbody.angularVelocity.magnitude > 2.8f) {
-					m_rigidbody.angularVelocity = m_rigidbody.angularVelocity.normalized * 2.8f;
-				}
 
-				m_rigidbody.AddForce(m_power * LookVector * Time.deltaTime * 600);
+				float shortAngle = AngleToTarget;
+				float longAngle = -Mathf.Sign(AngleToTarget) * (360 - Mathf.Abs(AngleToTarget));
+				float actualAngle = shortAngle;
+//				Debug.Log(shortAngle + " " + longAngle);
 
+				float angularForce = Mathf.Sign(actualAngle) * Mathf.Sqrt(Mathf.Abs(actualAngle)) * 90f;
+				m_rigidbody.AddTorque(new Vector3(0, angularForce * Time.deltaTime, 0));
+
+				m_rigidbody.AddForce(m_power * LookVector * Time.deltaTime * 900);
 				if (m_rigidbody.velocity.magnitude > 5) {
 					m_rigidbody.velocity = m_rigidbody.velocity.normalized * 5;
 				}
