@@ -146,11 +146,13 @@ public class PlayerShip : MonoBehaviour {
 					m_state = ShipState.TransferToCharge;
 				}
 
-				float shortAngle = AngleToTarget;
 				float longAngle = -Mathf.Sign(AngleToTarget) * (360 - Mathf.Abs(AngleToTarget));
-				float actualAngle = shortAngle;
-//				Debug.Log(shortAngle + " " + longAngle);
-
+				float actualAngle = AngleToTarget;
+				if ((m_rigidbody.angularVelocity.y * longAngle > 0) && (Mathf.Abs(m_rigidbody.angularVelocity.y) > 1)) {
+					if (Mathf.Abs(m_rigidbody.angularVelocity.y * 40) > Mathf.Abs(longAngle + AngleToTarget)) {
+						actualAngle = longAngle;
+					}
+				}
 				float angularForce = Mathf.Sign(actualAngle) * Mathf.Sqrt(Mathf.Abs(actualAngle)) * 90f;
 				m_rigidbody.AddTorque(new Vector3(0, angularForce * Time.deltaTime, 0));
 

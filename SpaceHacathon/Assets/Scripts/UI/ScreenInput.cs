@@ -26,7 +26,7 @@ public class ScreenInput : MonoBehaviour {
 				float power = Mathf.Sign(touch.position.y - Screen.height / 4f);
 				ship.SetPower(power);
 				hasSpeedSetter = true;
-			} else if ((touch.position.x < Screen.width / 4f) && (touch.position.y > Screen.height / 4f * 3f)) {
+			} else if ((touch.position.x > Screen.width / 4f) && (touch.position.x < Screen.width / 2f) && (touch.position.y < Screen.height / 4f)) {
 				chargePressed = true;
 			}
 		}
