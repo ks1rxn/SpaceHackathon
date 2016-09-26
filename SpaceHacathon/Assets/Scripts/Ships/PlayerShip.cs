@@ -181,10 +181,15 @@ public class PlayerShip : MonoBehaviour {
 				if ((!m_inChargeTargeting) && (m_chargeTime <= 0)) {
 					m_state = ShipState.OnChargeStartFly;
 				}
-				m_rigidbody.AddTorque(new Vector3(0, (AngleToTarget - m_rigidbody.angularVelocity.y * 50f) * 7.5f * m_rigidbody.mass * Time.deltaTime, 0));
-				if (m_rigidbody.angularVelocity.magnitude > 2.8f) {
-					m_rigidbody.angularVelocity = m_rigidbody.angularVelocity.normalized * 2.8f;
-				}
+//				transform.Rotate(new Vector3(0, 1, 0), Mathf.Sign(AngleToTarget) * Mathf.Sqrt(Mathf.Abs(AngleToTarget)) * 20 * Time.deltaTime);
+//				transform.Rotate(new Vector3(0, 1, 0), AngleToTarget * 2 * Time.deltaTime);
+//				transform.Rotate(new Vector3(0, 1, 0), Mathf.Sign(AngleToTarget) * AngleToTarget * AngleToTarget * 0.2f * Time.deltaTime);
+				transform.Rotate(new Vector3(0, 1, 0), (AngleToTarget * AngleToTarget * AngleToTarget * 0.001f + AngleToTarget * 4) * Time.deltaTime);
+
+//				m_rigidbody.AddTorque(new Vector3(0, (AngleToTarget - m_rigidbody.angularVelocity.y * 50f) * 7.5f * m_rigidbody.mass * Time.deltaTime, 0));
+//				if (m_rigidbody.angularVelocity.magnitude > 2.8f) {
+//					m_rigidbody.angularVelocity = m_rigidbody.angularVelocity.normalized * 2.8f;
+//				}
 				break;
 			case ShipState.OnChargeStartFly:
 				m_rigidbody.angularVelocity = new Vector3();
