@@ -17,6 +17,8 @@ public class PlayerShip : MonoBehaviour {
 	private bool m_inChargeTargeting;
 
 	[SerializeField]
+	private Transform m_ship;
+	[SerializeField]
 	private Transform m_chargeOwn;
 	[SerializeField]
 	private Transform m_chargeTarget;
@@ -155,6 +157,8 @@ public class PlayerShip : MonoBehaviour {
 				}
 				float angularForce = Mathf.Sign(actualAngle) * Mathf.Sqrt(Mathf.Abs(actualAngle)) * 70f;
 				m_rigidbody.AddTorque(new Vector3(0, angularForce * m_rigidbody.mass * Time.deltaTime, 0));
+				m_ship.rotation = new Quaternion();
+				m_ship.Rotate(new Vector3(1, 0, 0), -m_rigidbody.angularVelocity.y * 10 * (m_power > 0 ? 1 : -0.2f));
 
 				m_rigidbody.AddForce(m_power * LookVector * m_rigidbody.mass * Time.deltaTime * 900);
 				if (m_rigidbody.velocity.magnitude > 5) {
