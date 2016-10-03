@@ -153,7 +153,7 @@ public class PlayerShip : MonoBehaviour {
 				float longAngle = -Mathf.Sign(AngleToTarget) * (360 - Mathf.Abs(AngleToTarget));
 				float actualAngle = AngleToTarget;
 				if ((m_rigidbody.angularVelocity.y * longAngle > 0) && (Mathf.Abs(m_rigidbody.angularVelocity.y) > 1)) {
-					if (Mathf.Abs(m_rigidbody.angularVelocity.y * 60) > Mathf.Abs(longAngle + AngleToTarget)) {
+					if (Mathf.Abs(m_rigidbody.angularVelocity.y * 30) > Mathf.Abs(longAngle + AngleToTarget)) {
 						actualAngle = longAngle;
 					}
 				}
@@ -192,15 +192,7 @@ public class PlayerShip : MonoBehaviour {
 				if ((!m_inChargeTargeting) && (m_chargeTime <= 0)) {
 					m_state = ShipState.OnChargeStartFly;
 				}
-//				transform.Rotate(new Vector3(0, 1, 0), Mathf.Sign(AngleToTarget) * Mathf.Sqrt(Mathf.Abs(AngleToTarget)) * 20 * Time.deltaTime);
-//				transform.Rotate(new Vector3(0, 1, 0), AngleToTarget * 2 * Time.deltaTime);
-//				transform.Rotate(new Vector3(0, 1, 0), Mathf.Sign(AngleToTarget) * AngleToTarget * AngleToTarget * 0.2f * Time.deltaTime);
 				transform.Rotate(new Vector3(0, 1, 0), (AngleToTarget * AngleToTarget * AngleToTarget * 0.000001f + AngleToTarget * 2) * Time.deltaTime);
-
-//				m_rigidbody.AddTorque(new Vector3(0, (AngleToTarget - m_rigidbody.angularVelocity.y * 50f) * 7.5f * m_rigidbody.mass * Time.deltaTime, 0));
-//				if (m_rigidbody.angularVelocity.magnitude > 2.8f) {
-//					m_rigidbody.angularVelocity = m_rigidbody.angularVelocity.normalized * 2.8f;
-//				}
 				break;
 			case ShipState.OnChargeStartFly:
 				m_rigidbody.angularVelocity = new Vector3();
