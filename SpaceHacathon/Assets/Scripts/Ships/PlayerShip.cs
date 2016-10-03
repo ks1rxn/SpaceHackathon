@@ -4,13 +4,12 @@ using UnityEngine.SceneManagement;
 public class PlayerShip : MonoBehaviour {
 	private Rigidbody m_rigidbody;
 
-	[SerializeField]
-	private GameObject m_button;
-
 	private float m_angle;
 	private bool m_slow;
 	private float m_power;
 	private float m_health;
+	private float m_roll;
+	private float m_needRoll;
 
 	private ShipState m_state;
 	private float m_chargeTime;
@@ -122,6 +121,7 @@ public class PlayerShip : MonoBehaviour {
 			}
 		}
 		Move();
+		Roll();
 		UpdateTimeSpeed();
 
 		if (m_state == ShipState.OnCharge) {
@@ -145,7 +145,9 @@ public class PlayerShip : MonoBehaviour {
 			case ShipState.OnMove:
 				if (m_inChargeTargeting) {
 					m_chargeTime = 0.2f;
+					m_needRoll = 0;
 					m_state = ShipState.TransferToCharge;
+					break;
 				}
 
 				float longAngle = -Mathf.Sign(AngleToTarget) * (360 - Mathf.Abs(AngleToTarget));
@@ -157,9 +159,14 @@ public class PlayerShip : MonoBehaviour {
 				}
 				float angularForce = Mathf.Sign(actualAngle) * Mathf.Sqrt(Mathf.Abs(actualAngle)) * 70f;
 				m_rigidbody.AddTorque(new Vector3(0, angularForce * m_rigidbody.mass * Time.deltaTime, 0));
-				m_ship.rotation = new Quaternion();
-				m_ship.Rotate(new Vector3(1, 0, 0), -m_rigidbody.angularVelocity.y * 10 * (m_power > 0 ? 1 : -0.2f));
 
+				float powerCoefficient = 0;
+				if (m_power > 0) {
+					powerCoefficient = 1;
+				} else if (m_power < 0) {
+					powerCoefficient = -1;
+				}
+				m_needRoll = -m_rigidbody.angularVelocity.y * 15 * powerCoefficient;
 				m_rigidbody.AddForce(m_power * LookVector * m_rigidbody.mass * Time.deltaTime * 900);
 				if (m_rigidbody.velocity.magnitude > 5) {
 					m_rigidbody.velocity = m_rigidbody.velocity.normalized * 5;
@@ -188,7 +195,7 @@ public class PlayerShip : MonoBehaviour {
 //				transform.Rotate(new Vector3(0, 1, 0), Mathf.Sign(AngleToTarget) * Mathf.Sqrt(Mathf.Abs(AngleToTarget)) * 20 * Time.deltaTime);
 //				transform.Rotate(new Vector3(0, 1, 0), AngleToTarget * 2 * Time.deltaTime);
 //				transform.Rotate(new Vector3(0, 1, 0), Mathf.Sign(AngleToTarget) * AngleToTarget * AngleToTarget * 0.2f * Time.deltaTime);
-				transform.Rotate(new Vector3(0, 1, 0), (AngleToTarget * AngleToTarget * AngleToTarget * 0.001f + AngleToTarget * 4) * Time.deltaTime);
+				transform.Rotate(new Vector3(0, 1, 0), (AngleToTarget * AngleToTarget * AngleToTarget * 0.000001f + AngleToTarget * 2) * Time.deltaTime);
 
 //				m_rigidbody.AddTorque(new Vector3(0, (AngleToTarget - m_rigidbody.angularVelocity.y * 50f) * 7.5f * m_rigidbody.mass * Time.deltaTime, 0));
 //				if (m_rigidbody.angularVelocity.magnitude > 2.8f) {
@@ -215,6 +222,23 @@ public class PlayerShip : MonoBehaviour {
 				}
 				break;
 		}
+	}
+
+	private void Roll() {
+		float delta = 10;
+		if (m_needRoll.Equals(0)) {
+			delta = 1;
+		}
+		if (Mathf.Abs(m_needRoll - m_roll) > delta) {
+			if (m_needRoll > m_roll) {
+				m_roll += Time.deltaTime * 80;
+			} else {
+				m_roll -= Time.deltaTime * 80;
+			}
+		}
+
+		m_ship.rotation = new Quaternion();
+		m_ship.Rotate(new Vector3(1, 0, 0), m_roll);
 	}
 
 	public void SetAngle(float angle) {
