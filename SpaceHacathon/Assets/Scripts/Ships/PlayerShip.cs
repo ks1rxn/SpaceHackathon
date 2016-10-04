@@ -63,10 +63,10 @@ public class PlayerShip : MonoBehaviour {
 	}
 
 	protected void Update() {
-		if (m_health <= 0) {
+        /* if (m_health <= 0) {
 			m_state = ShipState.OnMove;
 			SceneManager.LoadScene("BattleScene");
-		}
+		}*/
 		if (m_health < 1) {
 			m_health += Time.deltaTime * 0.1f;
 		}
