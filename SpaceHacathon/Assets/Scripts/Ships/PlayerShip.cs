@@ -18,6 +18,8 @@ public class PlayerShip : MonoBehaviour {
 	[SerializeField]
 	private Transform m_ship;
 	[SerializeField]
+	private ParticleSystem m_chargeStartEffect;
+	[SerializeField]
 	private Transform m_chargeOwn;
 	[SerializeField]
 	private Transform m_chargeTarget;
@@ -147,6 +149,8 @@ public class PlayerShip : MonoBehaviour {
 					m_chargeTime = 0.2f;
 					m_needRoll = 0;
 					m_state = ShipState.TransferToCharge;
+					m_chargeStartEffect.startRotation = -LookAngle * Mathf.PI / 180;
+					m_chargeStartEffect.Play();
 					break;
 				}
 
