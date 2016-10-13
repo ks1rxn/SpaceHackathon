@@ -10,8 +10,17 @@ public class GUIController : MonoBehaviour {
 	private Slider m_powerBar;
 	[SerializeField]
 	private Slider m_health;
+    [SerializeField]
+	private Slider m_charge;
 	[SerializeField]
 	private Text m_fpsCounter;
+    [SerializeField]
+    private Text m_pointsCounter;
+
+    [SerializeField]
+    private Image m_deadPanel;
+    [SerializeField]
+    private Text m_deadLabel;
 
 	protected void Awake() {
 		BattleContext.GUIController = this;
@@ -34,8 +43,30 @@ public class GUIController : MonoBehaviour {
 	}
 
 	public void SetHealth(float value) {
-		m_health.value = value;
+		m_health.value = 1 - value;
 	}
+
+    public void SetCharge(float value) {
+        m_charge.value = 1 - value;
+    }
+
+    public void SetPoints(float points) {
+        m_pointsCounter.text = ((int)points).ToString();
+    }
+
+    public void SetDeadPanelOpacity(float opacity) {
+        Color color = m_deadPanel.color;
+        color.a = opacity;
+        m_deadPanel.color = color;
+
+        color = m_deadLabel.color;
+        color.a = opacity;
+        m_deadLabel.color = color;
+    }
+
+    public void SetDeadScore(float score) {
+        m_deadLabel.text = "Score : " + (int) score;
+    }
 
 	public GameObject Button {
 		get {

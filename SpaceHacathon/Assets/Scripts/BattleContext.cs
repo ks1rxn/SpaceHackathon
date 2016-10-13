@@ -1,13 +1,23 @@
 ﻿using UnityEngine;
 
 public class BattleContext {
+    private static World m_world;
 	private static PlayerShip m_playerShip;
 	private static BattleCamera m_battleCamera;
 	private static GUIController m_guiController;
 	private static ExplosionsController m_explosionsController;
 	private static EnemiesController m_enemiesController;
 
-	public static PlayerShip PlayerShip {
+    public static World World {
+        get {
+            return m_world;
+        }
+        set {
+            m_world = value;
+        }
+    }
+
+    public static PlayerShip PlayerShip {
 		get {
 			return m_playerShip;
 		}

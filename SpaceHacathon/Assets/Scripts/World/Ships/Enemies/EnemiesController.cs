@@ -27,7 +27,7 @@ public class EnemiesController : MonoBehaviour {
 			float distance = m_random.Next(30) + 25;
 			SpawnRocketShip(new Vector3(playerPos.x + Mathf.Cos(angle * Mathf.PI / 180) * distance, 0 , playerPos.z + Mathf.Sin(angle * Mathf.PI / 180) * distance));
 		}
-		if (m_blasterShips.Count < 3) {
+		if (m_blasterShips.Count < 2) {
 			Vector3 playerPos = BattleContext.PlayerShip.transform.position;
 			float angle = (float) m_random.NextDouble() * 360;
 			float distance = m_random.Next(30) + 25;
