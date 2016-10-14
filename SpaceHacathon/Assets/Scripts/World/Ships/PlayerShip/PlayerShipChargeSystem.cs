@@ -49,7 +49,7 @@ public class PlayerShipChargeSystem : MonoBehaviour {
         if (m_chargeTargeting) {
             m_chargeFuel -= 0.2f * Time.deltaTime;
         } else {
-            m_chargeFuel += 0.02f * Time.deltaTime;
+            m_chargeFuel += 0.04f * Time.deltaTime;
         }
         m_chargeFuel = Mathf.Clamp(m_chargeFuel, 0, 1);
         BattleContext.GUIController.SetCharge(m_chargeFuel);
