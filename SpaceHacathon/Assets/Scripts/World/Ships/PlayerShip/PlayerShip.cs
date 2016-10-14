@@ -16,6 +16,10 @@ public class PlayerShip : MonoBehaviour {
     [SerializeField]
     private PlayerShipChargeSystem m_chargeSystem;
 
+	private float m_rotateForce;
+	private float m_drag;
+	private float m_moveForce;
+
 	private void Awake() {
 		BattleContext.PlayerShip = this;
 
@@ -24,6 +28,10 @@ public class PlayerShip : MonoBehaviour {
 
 		m_rigidbody = GetComponent<Rigidbody>();
 		m_rigidbody.centerOfMass = new Vector3(0, 0, 0);
+
+		m_rotateForce = 70f;
+		m_drag = 19;
+		m_moveForce = 900;
 	}
 
 	private void OnCollisionEnter(Collision collision) {
@@ -40,6 +48,10 @@ public class PlayerShip : MonoBehaviour {
 		if (collision.gameObject.GetComponent<Blaster>() != null) {
 			m_hull.Hit(0.2f);
 		} else if (collision.gameObject.GetComponent<Rocket>() != null) {
+			m_rigidbody.AddExplosionForce(m_rigidbody.mass * 50, transform.position + (collision.transform.position - transform.position).normalized * 10, 20);
+			m_rotateForce = 0;
+			m_drag = 0;
+			m_moveForce = 0;
 			m_hull.Hit(0.5f);
 		} else {
 			m_hull.TakeDown();
@@ -70,9 +82,20 @@ public class PlayerShip : MonoBehaviour {
     }
 
 	private void Update() {
+		if (m_rotateForce < 70) {
+			m_rotateForce += Time.deltaTime * 70 / 2;
+		}
+		if (m_drag < 19) {
+			m_drag += Time.deltaTime * 38 / 2;
+		}
+		if (m_moveForce < 900) {
+			m_moveForce += Time.deltaTime * 900 / 2;
+		}
+
+		m_rigidbody.angularDrag = m_drag;
 		UpdateMovement();
 
-        m_hull.EngineSystem.SetFlyingParameters(m_state, m_rigidbody.angularVelocity.y, m_power);
+        m_hull.EngineSystem.SetFlyingParameters(m_state, m_rigidbody.angularVelocity.y, m_moveForce < 450 ? 0 : m_power);
 		BattleContext.GUIController.SetRightJoystickAngle(m_angle);
 	    BattleContext.GUIController.SetLeftJoysticValue(m_power);
 	}
@@ -96,7 +119,7 @@ public class PlayerShip : MonoBehaviour {
 				        actualAngle = longAngle;
 				    }
 				}
-				float angularForce = Mathf.Sign(actualAngle) * Mathf.Sqrt(Mathf.Abs(actualAngle)) * 70f;
+				float angularForce = Mathf.Sign(actualAngle) * Mathf.Sqrt(Mathf.Abs(actualAngle)) * m_rotateForce;
 				m_rigidbody.AddTorque(new Vector3(0, angularForce * m_rigidbody.mass * Time.deltaTime, 0));
 				
                 // Velocity //
@@ -106,7 +129,7 @@ public class PlayerShip : MonoBehaviour {
 				} else if (m_power < 0) {
 				    powerCoefficient = -1;
 				}
-				m_rigidbody.AddForce(m_power * LookVector * m_rigidbody.mass * Time.deltaTime * 900);
+				m_rigidbody.AddForce(m_power * LookVector * m_rigidbody.mass * Time.deltaTime * m_moveForce);
 				if (m_rigidbody.velocity.magnitude > 5) {
 				    m_rigidbody.velocity = m_rigidbody.velocity.normalized * 5;
 				}
