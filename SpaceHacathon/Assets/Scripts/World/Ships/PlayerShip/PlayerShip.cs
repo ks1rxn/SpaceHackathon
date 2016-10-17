@@ -154,7 +154,7 @@ public class PlayerShip : MonoBehaviour {
 			case ShipState.OnChargeTargeting:
                 m_chargeSystem.RotateChargeTarget(-m_angle + LookAngle);
 				m_chargeSystem.ChargeTargetingMinTime -= Time.deltaTime;
-				if ((m_chargeSystem.ChargeFuel <= 0) || ((!m_chargeKeyIsHeldDown) && (m_chargeSystem.ChargeTargetingMinTime <= 0))) {
+				if (((m_chargeSystem.ChargeFuel <= 0) || (!m_chargeKeyIsHeldDown)) && (m_chargeSystem.ChargeTargetingMinTime <= 0)) {
                     m_chargeSystem.StopChargeTargeting();
 					m_rigidbody.angularVelocity = new Vector3();
 				    m_rigidbody.AddForce(LookVector * m_rigidbody.mass * 35000);
