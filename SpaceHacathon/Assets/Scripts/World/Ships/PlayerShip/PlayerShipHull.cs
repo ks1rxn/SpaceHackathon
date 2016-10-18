@@ -31,7 +31,7 @@ public class PlayerShipHull : MonoBehaviour {
         m_health = 0;
     }
 
-    private void Update() {
+    private void FixedUpdate() {
         UpdateHealth();
         UpdateRolling();
     }
@@ -41,7 +41,7 @@ public class PlayerShipHull : MonoBehaviour {
 //			m_ship.Die();
 		}
 		if (m_health < 1) {
-			m_health += Time.deltaTime * 0.1f;
+			m_health += 0.1f / 50;
 		}
         BattleContext.GUIController.SetHealth(m_health);
     }
@@ -53,9 +53,9 @@ public class PlayerShipHull : MonoBehaviour {
 		}
 		if (Mathf.Abs(m_needRoll - m_currentRoll) > delta) {
 			if (m_needRoll > m_currentRoll) {
-				m_currentRoll += Time.deltaTime * 80;
+				m_currentRoll += 1.0f;
 			} else {
-				m_currentRoll -= Time.deltaTime * 80;
+				m_currentRoll -= 1.0f;
 			}
 		}
 

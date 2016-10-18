@@ -20,6 +20,8 @@ public class PlayerShip : MonoBehaviour {
 	private float m_drag;
 	private float m_moveForce;
 
+	private const float DeltaTime = 0.02f;
+
 	private void Awake() {
 		BattleContext.PlayerShip = this;
 
@@ -71,7 +73,7 @@ public class PlayerShip : MonoBehaviour {
         float a = 0;
         while (true) {
             BattleContext.GUIController.SetDeadPanelOpacity(a);
-            a += Time.deltaTime * 0.5f;
+            a += DeltaTime * 0.5f;
             if (a > 1) {
                 break;
             }
@@ -81,15 +83,15 @@ public class PlayerShip : MonoBehaviour {
         SceneManager.LoadScene("BattleScene");
     }
 
-	private void Update() {
+	private void FixedUpdate() {
 		if (m_rotateForce < 70) {
-			m_rotateForce += Time.deltaTime * 70 / 2;
+			m_rotateForce += DeltaTime * 70 / 2;
 		}
 		if (m_drag < 19) {
-			m_drag += Time.deltaTime * 38 / 2;
+			m_drag += DeltaTime * 38 / 2;
 		}
 		if (m_moveForce < 900) {
-			m_moveForce += Time.deltaTime * 900 / 2;
+			m_moveForce += DeltaTime * 900 / 2;
 		}
 
 		m_rigidbody.angularDrag = m_drag;
@@ -120,7 +122,7 @@ public class PlayerShip : MonoBehaviour {
 				    }
 				}
 				float angularForce = Mathf.Sign(actualAngle) * Mathf.Sqrt(Mathf.Abs(actualAngle)) * m_rotateForce;
-				m_rigidbody.AddTorque(new Vector3(0, angularForce * m_rigidbody.mass * Time.deltaTime, 0));
+				m_rigidbody.AddTorque(new Vector3(0, angularForce * m_rigidbody.mass * DeltaTime, 0));
 				
                 // Velocity //
 				float powerCoefficient = 0;
@@ -129,7 +131,7 @@ public class PlayerShip : MonoBehaviour {
 				} else if (m_power < 0) {
 				    powerCoefficient = -1;
 				}
-				m_rigidbody.AddForce(m_power * LookVector * m_rigidbody.mass * Time.deltaTime * m_moveForce);
+				m_rigidbody.AddForce(m_power * LookVector * m_rigidbody.mass * DeltaTime * m_moveForce);
 				if (m_rigidbody.velocity.magnitude > 5) {
 				    m_rigidbody.velocity = m_rigidbody.velocity.normalized * 5;
 				}
@@ -153,7 +155,7 @@ public class PlayerShip : MonoBehaviour {
 				break;
 			case ShipState.OnChargeTargeting:
                 m_chargeSystem.RotateChargeTarget(-m_angle + LookAngle);
-				m_chargeSystem.ChargeTargetingMinTime -= Time.deltaTime;
+				m_chargeSystem.ChargeTargetingMinTime -= DeltaTime;
 				if (((m_chargeSystem.ChargeFuel <= 0) || (!m_chargeKeyIsHeldDown)) && (m_chargeSystem.ChargeTargetingMinTime <= 0)) {
                     m_chargeSystem.StopChargeTargeting();
 					m_rigidbody.angularVelocity = new Vector3();
@@ -161,10 +163,10 @@ public class PlayerShip : MonoBehaviour {
 				    m_chargeSystem.ChargeTime = 0.06f;
 				    m_state = ShipState.OnChargeFly;
 				}
-				transform.Rotate(new Vector3(0, 1, 0), (AngleToTarget * AngleToTarget * AngleToTarget * 0.000001f + AngleToTarget * 2) * Time.deltaTime);
+				transform.Rotate(new Vector3(0, 1, 0), (AngleToTarget * AngleToTarget * AngleToTarget * 0.000001f + AngleToTarget * 2) * DeltaTime);
 				break;
 			case ShipState.OnChargeFly:
-				m_chargeSystem.ChargeTime -= Time.deltaTime;
+				m_chargeSystem.ChargeTime -= DeltaTime;
 				if (m_chargeSystem.ChargeTime <= 0) {
                     BattleContext.World.TurnSlowMode(false);
 					m_state = ShipState.OnExitCharge;
