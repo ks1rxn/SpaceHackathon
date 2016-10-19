@@ -8,7 +8,13 @@ public class AsteroidFieldBlockGroup : MonoBehaviour {
 	[SerializeField]
 	private GameObject[] m_asteroidPrefabs;
 
+	private Vector3 m_rotationVector;
+	private float m_rotationSpeed;
+
 	public void Initiate(AsteroidGroupType type, Vector3 position) {
+		m_rotationVector = new Vector3((float)MathHelper.Random.NextDouble() - 0.5f, (float)MathHelper.Random.NextDouble() - 0.5f, (float)MathHelper.Random.NextDouble() - 0.5f).normalized;
+		m_rotationSpeed = ((float) MathHelper.Random.NextDouble() - 0.5f) * 0.4f;
+		m_rotationSpeed += 0.15f * Mathf.Sign(m_rotationSpeed);
 		transform.localPosition = position;
 		switch (type) {
 			case AsteroidGroupType.Large:
@@ -21,6 +27,10 @@ public class AsteroidFieldBlockGroup : MonoBehaviour {
 				SpawnSmallGroup();
 				break;
 		}
+	}
+
+	protected void FixedUpdate() {
+		transform.Rotate(m_rotationVector, m_rotationSpeed);
 	}
 
 	private void SpawnLargeGroup() {
@@ -41,7 +51,7 @@ public class AsteroidFieldBlockGroup : MonoBehaviour {
 		Asteroid asteroid = CreateNewAsteroid();
 		float size1 = 1.7f + Mathf.Pow((float) MathHelper.Random.NextDouble() - 0.5f, 7) * 30;
 		float size2 = 1.7f + Mathf.Pow((float) MathHelper.Random.NextDouble() - 0.5f, 7) * 30;
-		float distance = size1 / 2 + size2 / 2;
+		float distance = (size1 / 2 + size2 / 2) * ((float)MathHelper.Random.NextDouble() * 3 + 1);
 		Vector3 asteroidDirection = new Vector3((float)MathHelper.Random.NextDouble() - 0.5f, (float)MathHelper.Random.NextDouble() - 0.5f, (float)MathHelper.Random.NextDouble() - 0.5f).normalized;
 		asteroid.Initiate(AsteroidGroupType.Medium, asteroidDirection * distance / 2, size1);
 		asteroid = CreateNewAsteroid();
@@ -53,8 +63,8 @@ public class AsteroidFieldBlockGroup : MonoBehaviour {
 		Asteroid asteroid = CreateNewAsteroid();
 		asteroid.Initiate(AsteroidGroupType.Medium, Vector3.zero, sizeBig);
 
-		float size1 = 1f + Mathf.Pow((float) MathHelper.Random.NextDouble() - 0.5f, 7) * 30;
-		float distance1 = sizeBig / 2 + size1 / 2;
+		float size1 = 0.85f + Mathf.Pow((float) MathHelper.Random.NextDouble() - 0.5f, 7) * 30;
+		float distance1 = (sizeBig / 2 + size1 / 2) * ((float)MathHelper.Random.NextDouble() * 2 + 1);
 		Vector3 asteroidDirection1 = new Vector3((float)MathHelper.Random.NextDouble() - 0.5f, (float)MathHelper.Random.NextDouble() - 0.5f, (float)MathHelper.Random.NextDouble() - 0.5f).normalized;
 		asteroid = CreateNewAsteroid();
 		asteroid.Initiate(AsteroidGroupType.Medium, asteroidDirection1 * distance1, size1);
