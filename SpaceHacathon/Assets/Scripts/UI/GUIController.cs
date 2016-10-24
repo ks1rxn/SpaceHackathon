@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class GUIController : MonoBehaviour {
@@ -22,12 +23,28 @@ public class GUIController : MonoBehaviour {
     [SerializeField]
     private Text m_deadLabel;
 
+	private Queue<int> m_fps; 
+
 	protected void Awake() {
 		BattleContext.GUIController = this;
+		m_fps = new Queue<int>();
 	}
 
 	protected void Update() {
-		m_fpsCounter.text = "FPS: " + Mathf.RoundToInt(1 / Time.deltaTime * Time.timeScale);
+		m_fps.Enqueue(Mathf.RoundToInt(1 / Time.deltaTime * Time.timeScale));
+		if (m_fps.Count > 30) {
+			m_fps.Dequeue();
+		}
+		float average = 0;
+		int min = 1000;
+		foreach (int fps in m_fps) {
+			average += fps;
+			if (fps < min) {
+				min = fps;
+			}
+		}
+		average /= m_fps.Count;
+		m_fpsCounter.text = "FPS: " + Mathf.RoundToInt(average) + " - " + min;
 	}
 
 	public void SetRightJoystickAngle(float angle) {

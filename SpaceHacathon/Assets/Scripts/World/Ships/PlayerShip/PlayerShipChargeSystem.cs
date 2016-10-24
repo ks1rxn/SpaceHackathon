@@ -28,7 +28,7 @@ public class PlayerShipChargeSystem : MonoBehaviour {
         m_chargeOwn.gameObject.SetActive(true);
 		m_chargeTarget.gameObject.SetActive(true);
 
-        m_chargeTargetingMinTime = 0.1f;
+        m_chargeTargetingMinTime = 0.3f;
         m_chargeFuel -= 0.3f;
         m_chargeTargeting = true;
     }

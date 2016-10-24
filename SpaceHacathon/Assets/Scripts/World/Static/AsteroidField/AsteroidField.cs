@@ -7,6 +7,38 @@ public class AsteroidField : MonoBehaviour {
 	protected void Awake() {
 		AsteroidFieldBlock block = CreateBlock();
 		block.Initiate();
+
+		block = CreateBlock();
+		block.Initiate();
+		block.MoveTo(new Vector3(100, 0 , 0));
+
+		block = CreateBlock();
+		block.Initiate();
+		block.MoveTo(new Vector3(100, 0 , 100));
+
+		block = CreateBlock();
+		block.Initiate();
+		block.MoveTo(new Vector3(100, 0 , -100));
+
+		block = CreateBlock();
+		block.Initiate();
+		block.MoveTo(new Vector3(0, 0 , 100));
+
+		block = CreateBlock();
+		block.Initiate();
+		block.MoveTo(new Vector3(0, 0 , -100));
+
+		block = CreateBlock();
+		block.Initiate();
+		block.MoveTo(new Vector3(-100, 0 , 0));
+
+		block = CreateBlock();
+		block.Initiate();
+		block.MoveTo(new Vector3(-100, 0 , 100));
+
+		block = CreateBlock();
+		block.Initiate();
+		block.MoveTo(new Vector3(-100, 0 , -100));
 	}
 
 	private AsteroidFieldBlock CreateBlock() {

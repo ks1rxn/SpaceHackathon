@@ -26,7 +26,7 @@ public class Asteroid : MonoBehaviour {
 		}
 	}
 
-	private void FixedUpdate() {
+	public void UpdateRotation() {
 		transform.Rotate(m_rotationVector, m_rotationSpeed);
 	}
 
