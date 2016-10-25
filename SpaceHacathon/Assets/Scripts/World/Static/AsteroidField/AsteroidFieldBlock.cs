@@ -40,6 +40,23 @@ public class AsteroidFieldBlock : MonoBehaviour {
 		}
 	}
 
+	public bool IsShipOnBlock() {
+		Vector3 shipPosition = BattleContext.PlayerShip.transform.position;
+		if (shipPosition.x > transform.position.x + 50) {
+			return false;
+		}
+		if (shipPosition.x < transform.position.x - 50) {
+			return false;
+		}
+		if (shipPosition.z > transform.position.z + 50) {
+			return false;
+		}
+		if (shipPosition.z < transform.position.z - 50) {
+			return false;
+		}
+		return true;
+	}
+
 	private void CreateRandomGroup(Vector3 position) {
 		int r = MathHelper.Random.Next(100);
 		if (r < 50) {
