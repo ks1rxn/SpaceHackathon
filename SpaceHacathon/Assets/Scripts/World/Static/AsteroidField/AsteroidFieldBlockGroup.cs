@@ -14,11 +14,14 @@ public class AsteroidFieldBlockGroup : MonoBehaviour {
 	private List<Asteroid> m_asteroids; 
 
 	public void Initiate(AsteroidGroupType type, Vector3 position) {
+		transform.localPosition = position;
+
 		m_asteroids = new List<Asteroid>();
 		m_rotationVector = new Vector3((float)MathHelper.Random.NextDouble() - 0.5f, (float)MathHelper.Random.NextDouble() - 0.5f, (float)MathHelper.Random.NextDouble() - 0.5f).normalized;
+		transform.Rotate(m_rotationVector, MathHelper.Random.Next(360));
+
 		m_rotationSpeed = ((float) MathHelper.Random.NextDouble() - 0.5f) * 0.4f;
 		m_rotationSpeed += 0.15f * Mathf.Sign(m_rotationSpeed);
-		transform.localPosition = position;
 		switch (type) {
 			case AsteroidGroupType.Large:
 				SpawnLargeGroup();
@@ -32,10 +35,7 @@ public class AsteroidFieldBlockGroup : MonoBehaviour {
 		}
 	}
 
-	protected void FixedUpdate() {
-		if (Vector3.Distance(transform.position, BattleContext.PlayerShip.transform.position) > 50) {
-			return;
-		}
+	public void UpdateRotations() {
 		transform.Rotate(m_rotationVector, m_rotationSpeed);
 		foreach (Asteroid asteroid in m_asteroids) {
 			asteroid.UpdateRotation();

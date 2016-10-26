@@ -40,21 +40,42 @@ public class AsteroidFieldBlock : MonoBehaviour {
 		}
 	}
 
+	public void UpdateGroups() {
+		foreach (AsteroidFieldBlockGroup blockGroup in m_groups) {
+			if (Vector3.Distance(blockGroup.transform.position, BattleContext.PlayerShip.transform.position) < 50) {
+				blockGroup.UpdateRotations();
+			}
+		}
+	}
+
 	public bool IsShipOnBlock() {
+		return GetShipPositionOnBlock() != ShipPositionOnBlock.NotOnBlock;
+	}
+
+	public ShipPositionOnBlock GetShipPositionOnBlock() {
 		Vector3 shipPosition = BattleContext.PlayerShip.transform.position;
 		if (shipPosition.x > transform.position.x + 50) {
-			return false;
+			return ShipPositionOnBlock.NotOnBlock;
 		}
 		if (shipPosition.x < transform.position.x - 50) {
-			return false;
+			return ShipPositionOnBlock.NotOnBlock;
 		}
 		if (shipPosition.z > transform.position.z + 50) {
-			return false;
+			return ShipPositionOnBlock.NotOnBlock;
 		}
 		if (shipPosition.z < transform.position.z - 50) {
-			return false;
+			return ShipPositionOnBlock.NotOnBlock;
 		}
-		return true;
+		if (shipPosition.x > transform.position.x) {
+			if (shipPosition.z > transform.position.z) {
+				return ShipPositionOnBlock.TopRight;
+			}
+			return ShipPositionOnBlock.BottomRight;
+		}
+		if (shipPosition.z > transform.position.z) {
+			return ShipPositionOnBlock.TopLeft;
+		}
+		return ShipPositionOnBlock.BottomLeft;
 	}
 
 	private void CreateRandomGroup(Vector3 position) {
@@ -83,4 +104,12 @@ public class AsteroidFieldBlock : MonoBehaviour {
 		return group;
 	}
 
+}
+
+public enum ShipPositionOnBlock {
+	NotOnBlock = - 1,
+	TopLeft = 0,
+	TopRight = 1,
+	BottomRight = 2,
+	BottomLeft = 3
 }
