@@ -63,18 +63,21 @@ public class ExplosionsController : MonoBehaviour {
 		switch (type) {
 			case ExplosionType.PlayerShipExplosion:
 				Explosion e1 = (Instantiate(m_playerShipExplosionPrefab)).GetComponent<Explosion>();
+				e1.gameObject.SetActive(false);
 				e1.transform.parent = transform;
 				e1.Initiate(ExplosionType.PlayerShipExplosion);
 				m_explosions.Add(e1);
 				return e1;
 			case ExplosionType.RocketExplosion:
 				Explosion e2 = (Instantiate(m_rocketExplosionPrefab)).GetComponent<Explosion>();
+				e2.gameObject.SetActive(false);
 				e2.transform.parent = transform;
 				e2.Initiate(ExplosionType.RocketExplosion);
 				m_explosions.Add(e2);
 				return e2;
 			case ExplosionType.BlasterExplosion:
 				Explosion e3 = (Instantiate(m_blasterShipExplosionPrefab)).GetComponent<Explosion>();
+				e3.gameObject.SetActive(false);
 				e3.transform.parent = transform;
 				e3.Initiate(ExplosionType.BlasterExplosion);
 				m_explosions.Add(e3);

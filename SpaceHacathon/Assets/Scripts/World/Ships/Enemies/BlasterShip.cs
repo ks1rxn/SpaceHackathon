@@ -2,10 +2,7 @@
 
 public class BlasterShip : MonoBehaviour {
 	private Rigidbody m_rigidbody;
-	private Transform m_parent;
 
-	[SerializeField]
-	private GameObject m_blasterPrefab;
 	[SerializeField]
 	private GameObject m_gun;
 
@@ -26,8 +23,7 @@ public class BlasterShip : MonoBehaviour {
 		m_rigidbody = GetComponent<Rigidbody>();
 	}
 
-	public void Spawn(Vector3 position, Transform parent) {
-		m_parent = parent;
+	public void Spawn(Vector3 position) {
 		transform.position = position;
 
 		m_blasterTimer = m_blasterCooldown;
@@ -36,8 +32,7 @@ public class BlasterShip : MonoBehaviour {
 	}
 
 	private void Die() {
-		BattleContext.EnemiesController.ShipDied(this);
-		Destroy(gameObject);
+		BattleContext.EnemiesController.Respawn(this);
 	}
 
 	protected void OnCollisionEnter(Collision collision) {
@@ -103,15 +98,9 @@ public class BlasterShip : MonoBehaviour {
 
 		m_blasterTimer -= Time.deltaTime;
 		if ((m_blasterTimer <= 0) && (Mathf.Abs(angle) < 10) && Vector3.Distance(BattleContext.PlayerShip.transform.position, transform.position) < 15) {
-			SpawnBlast();
+			BattleContext.BulletsController.SpawnBlaster(m_gun.transform.position, m_gunAngle);
 			m_blasterTimer = m_blasterCooldown;
 		}
-	}
-
-	private void SpawnBlast() {
-		Blaster blaster = ((GameObject)Instantiate(m_blasterPrefab)).GetComponent<Blaster>();
-		blaster.transform.parent = m_parent;
-		blaster.Spawn(this, m_gun.transform.position, m_gunAngle);
 	}
 
 }

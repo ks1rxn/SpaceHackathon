@@ -9,9 +9,14 @@ public class Rocket : MonoBehaviour {
 		m_rigidbody = GetComponent<Rigidbody>();
 	}
 
-	public void Spawn(Vector3 position, float lifeTime) {
+	public void Spawn(Vector3 position, float angle) {
+		gameObject.SetActive(true);
+
 		transform.position = position;
-		m_lifeTime = lifeTime;
+		m_lifeTime = 10;
+
+		transform.rotation = new Quaternion();
+		transform.Rotate(new Vector3(0, 1, 0), angle);
 
 		m_detonatorActivateTime = 0.2f;
 		GetComponent<Collider>().enabled = false;
@@ -21,8 +26,8 @@ public class Rocket : MonoBehaviour {
 	}
 
 	protected void OnCollisionEnter(Collision collision) {
-		Destroy(gameObject);
 		BattleContext.ExplosionsController.RocketExplosion(transform.position);
+		Die();
     }
 
 	protected void Update() {
@@ -42,13 +47,13 @@ public class Rocket : MonoBehaviour {
 
 		m_lifeTime -= Time.deltaTime;
 		if (m_lifeTime <= 0) {
-			Destroy(gameObject);
+			Die();
 			BattleContext.ExplosionsController.RocketExplosion(transform.position);
 		}
 
 		float distToPlayer = Vector3.Distance(BattleContext.PlayerShip.transform.position, transform.position);
 		if (distToPlayer > 25) {
-			Destroy(gameObject);
+			Die();
 		}
 
 		if (m_detonatorActivateTime <= 0) {
@@ -56,6 +61,10 @@ public class Rocket : MonoBehaviour {
 		} else {
 			m_detonatorActivateTime -= Time.deltaTime;
 		}
+	}
+
+	private void Die() {
+		gameObject.SetActive(false);
 	}
 
 }

@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
 public class Blaster : MonoBehaviour {
-	private BlasterShip m_owner;
 	private float m_angle;
 	private float m_detonatorActivateTime;
 
-	public void Spawn(BlasterShip owner, Vector3 position, float angle) {
-		m_owner = owner;
+	public void Spawn(Vector3 position, float angle) {
+		gameObject.SetActive(true);
+
 		m_angle = angle;
 		transform.position = position;
 		transform.rotation = new Quaternion();
@@ -22,7 +22,7 @@ public class Blaster : MonoBehaviour {
 
 		float distToPlayer = Vector3.Distance(BattleContext.PlayerShip.transform.position, transform.position);
 		if (distToPlayer > 20) {
-			Destroy(gameObject);
+			Die();
 		}
 
 		if (m_detonatorActivateTime <= 0) {
@@ -34,7 +34,11 @@ public class Blaster : MonoBehaviour {
 
 	protected void OnCollisionEnter(Collision collision) {
 		BattleContext.ExplosionsController.BlasterExplosion(transform.position);
-		Destroy(gameObject);
+		Die();
     }
+
+	private void Die() {
+		gameObject.SetActive(false);
+	}
 
 }
