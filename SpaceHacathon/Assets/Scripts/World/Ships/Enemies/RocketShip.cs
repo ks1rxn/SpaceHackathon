@@ -3,10 +3,6 @@ using UnityEngine;
 
 public class RocketShip : MonoBehaviour {
 	private Rigidbody m_rigidbody;
-	private Transform m_parent;
-
-	[SerializeField]
-	private GameObject m_rocketPrefab;
 
 	private float m_gun1Cooldown;
 	private float m_gun2Cooldown;
@@ -16,8 +12,6 @@ public class RocketShip : MonoBehaviour {
 	private float m_gunCooldownValue;
 	[SerializeField]
 	private float m_globalCooldownValue;
-	[SerializeField]
-	private float m_rocketLifeTime;
 
 	[SerializeField]
 	private Transform m_launcher1;
@@ -26,11 +20,9 @@ public class RocketShip : MonoBehaviour {
 
 	protected void Awake() {
 		m_rigidbody = GetComponent<Rigidbody>();
-//		m_rigidbody.centerOfMass = new Vector3(1, 0, 0);
 	}
 
-	public void Spawn(Vector3 position, Transform parent) {
-		m_parent = parent;
+	public void Spawn(Vector3 position) {
 		transform.position = position;
 
 		m_gun1Cooldown = 0;
@@ -39,8 +31,7 @@ public class RocketShip : MonoBehaviour {
 	}
 
 	private void Die() {
-		BattleContext.EnemiesController.ShipDied(this);
-		Destroy(gameObject);
+		BattleContext.EnemiesController.Respawn(this);
 	}
 
 	protected void OnCollisionEnter(Collision collision) {
@@ -91,20 +82,16 @@ public class RocketShip : MonoBehaviour {
 	}
 
 	private void SpawnRocket1() {
-		Rocket rocket = ((GameObject)Instantiate(m_rocketPrefab)).GetComponent<Rocket>();
-		rocket.transform.parent = m_parent;
-		rocket.transform.rotation = transform.rotation;
-		rocket.Spawn(m_launcher1.position, m_rocketLifeTime);
+		BattleContext.BulletsController.SpawnRocket(m_launcher1.position, transform.rotation.eulerAngles.y);
+
 		m_rigidbody.AddExplosionForce(120, m_launcher1.position, 3);
 		m_launcher1.GetComponent<ParticleSystem>().Play();
 		m_rigidbody.AddTorque(0, 30, 0);
 	}
 
 	private void SpawnRocket2() {
-		Rocket rocket = ((GameObject)Instantiate(m_rocketPrefab)).GetComponent<Rocket>();
-		rocket.transform.parent = m_parent;
-		rocket.transform.rotation = transform.rotation;
-		rocket.Spawn(m_launcher2.position, m_rocketLifeTime);
+		BattleContext.BulletsController.SpawnRocket(m_launcher2.position, transform.rotation.eulerAngles.y);
+
 		m_rigidbody.AddExplosionForce(120, m_launcher2.position, 3);
 		m_launcher2.GetComponent<ParticleSystem>().Play();
 		m_rigidbody.AddTorque(0, -30, 0);

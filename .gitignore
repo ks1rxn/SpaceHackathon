@@ -41,3 +41,5 @@
 *.Resharper
 *.Resharper.user
 space.apk
+
+/SpaceHacathon/.vs/

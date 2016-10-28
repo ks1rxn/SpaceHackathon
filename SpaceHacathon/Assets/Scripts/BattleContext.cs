@@ -7,6 +7,7 @@ public class BattleContext {
 	private static GUIController m_guiController;
 	private static ExplosionsController m_explosionsController;
 	private static EnemiesController m_enemiesController;
+	private static BulletsController m_bulletsController;
 
     public static World World {
         get {
@@ -61,4 +62,14 @@ public class BattleContext {
 			m_enemiesController = value;
 		}
 	}
+
+	public static BulletsController BulletsController {
+		get {
+			return m_bulletsController;
+		}
+		set {
+			m_bulletsController = value;
+		}
+	}
+
 }

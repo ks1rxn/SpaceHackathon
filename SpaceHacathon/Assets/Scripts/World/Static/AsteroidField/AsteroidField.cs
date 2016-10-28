@@ -19,10 +19,43 @@ public class AsteroidField : MonoBehaviour {
 		}
 	}
 
-	protected void FixedUpdate() {
-		if (m_blocks[1, 1].IsShipOnBlock()) {
+	protected void Update() {
+		if (!m_blocks[1, 1].IsShipOnBlock()) {
+			FixBlocks();
+		}
+		ShipPositionOnBlock position = m_blocks[1, 1].GetShipPositionOnBlock();
+		if (position == ShipPositionOnBlock.NotOnBlock) {
 			return;
 		}
+		switch (position) {
+			case ShipPositionOnBlock.BottomLeft:
+				m_blocks[1, 1].UpdateGroups();
+				m_blocks[0, 1].UpdateGroups();
+				m_blocks[1, 0].UpdateGroups();
+				m_blocks[0, 0].UpdateGroups();
+				break;
+			case ShipPositionOnBlock.TopLeft:
+				m_blocks[1, 1].UpdateGroups();
+				m_blocks[0, 1].UpdateGroups();
+				m_blocks[0, 2].UpdateGroups();
+				m_blocks[1, 2].UpdateGroups();
+				break;
+			case ShipPositionOnBlock.TopRight:
+				m_blocks[1, 1].UpdateGroups();
+				m_blocks[1, 2].UpdateGroups();
+				m_blocks[2, 1].UpdateGroups();
+				m_blocks[2, 2].UpdateGroups();
+				break;
+			case ShipPositionOnBlock.BottomRight:
+				m_blocks[1, 1].UpdateGroups();
+				m_blocks[1, 0].UpdateGroups();
+				m_blocks[2, 1].UpdateGroups();
+				m_blocks[2, 0].UpdateGroups();
+				break;
+		}
+	}
+
+	private void FixBlocks() {
 		if (m_blocks[2, 1].IsShipOnBlock() || m_blocks[2, 0].IsShipOnBlock() || m_blocks[2, 2].IsShipOnBlock()) {
 			SwapColumns(2, 1);
 			SwapColumns(0, 2);
