@@ -14,6 +14,7 @@ public class Blaster : MonoBehaviour {
 
 		m_detonatorActivateTime = 0.05f;
 		GetComponent<Collider>().enabled = false;
+		GetComponent<TrailRenderer>().Clear();
 	}
 
 	protected void Update() {
