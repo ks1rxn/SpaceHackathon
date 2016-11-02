@@ -8,6 +8,7 @@ public class BattleContext {
 	private static ExplosionsController m_explosionsController;
 	private static EnemiesController m_enemiesController;
 	private static BulletsController m_bulletsController;
+	private static BonusesController m_bonusesController;
 
     public static World World {
         get {
@@ -72,4 +73,12 @@ public class BattleContext {
 		}
 	}
 
+	public static BonusesController BonusesController {
+		get {
+			return m_bonusesController;
+		}
+		set {
+			m_bonusesController = value;
+		}
+	}
 }

@@ -18,6 +18,9 @@ public class RocketShip : MonoBehaviour {
 	[SerializeField]
 	private Transform m_launcher2;
 
+	[SerializeField]
+	private GameObject m_chargeTarget;
+
 	protected void Awake() {
 		m_rigidbody = GetComponent<Rigidbody>();
 	}
@@ -28,6 +31,8 @@ public class RocketShip : MonoBehaviour {
 		m_gun1Cooldown = 0;
 		m_gun2Cooldown = 0;
 		m_globalCooldown = m_globalCooldownValue;
+
+		IsOnTarget(false);
 	}
 
 	private void Die() {
@@ -38,6 +43,10 @@ public class RocketShip : MonoBehaviour {
 		BattleContext.ExplosionsController.PlayerShipExplosion(transform.position);
 		Die();
     }
+
+	public void IsOnTarget(bool isOnTarget) {
+		m_chargeTarget.SetActive(isOnTarget);
+	}
 
 	protected void Update() {
 		Vector3 enemyPosition = BattleContext.PlayerShip.transform.position;

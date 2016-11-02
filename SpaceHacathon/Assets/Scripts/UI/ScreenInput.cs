@@ -15,7 +15,6 @@ public class ScreenInput : MonoBehaviour {
 		PlayerShip ship = BattleContext.PlayerShip;
 
 		bool hasSpeedSetter = false;
-		bool chargePressed = false;
 
 		foreach (Touch touch in Input.touches) {
 			float distanceToAngle = Vector3.Distance(touch.position, BattleContext.GUIController.Button.transform.position);
@@ -27,22 +26,11 @@ public class ScreenInput : MonoBehaviour {
 				ship.SetPower(power);
 				hasSpeedSetter = true;
 			} else if ((touch.position.x > Screen.width / 4f) && (touch.position.x < Screen.width / 2f) && (touch.position.y < Screen.height / 4f)) {
-				chargePressed = true;
+
 			}
 		}
 		if (!hasSpeedSetter) {
 			ship.SetPower(0);
-		}
-		if (chargePressed) {
-			if (!m_chargePressed) {
-				m_chargePressed = true;
-				ship.StartChargeTargeting();
-			}
-		} else {
-			if (m_chargePressed) {
-				m_chargePressed = false;
-				ship.StopChargeTargeting();
-			}
 		}
 	}
 
@@ -68,10 +56,6 @@ public class ScreenInput : MonoBehaviour {
 
 		// Ship charge //
 		if (Input.GetKeyDown(KeyCode.Space)) {
-			ship.StartChargeTargeting();
-		}
-		if (Input.GetKeyUp(KeyCode.Space)) {
-			ship.StopChargeTargeting();
 		}
 	}
 

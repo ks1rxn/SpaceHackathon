@@ -9,7 +9,6 @@ public class PlayerShip : MonoBehaviour {
 	private float m_power;
 
 	private ShipState m_state;
-	private bool m_chargeKeyIsHeldDown;
 
     [SerializeField]
     private PlayerShipHull m_hull;
@@ -47,7 +46,9 @@ public class PlayerShip : MonoBehaviour {
 		    }
    		    return;
 		}
-		if (collision.gameObject.GetComponent<Blaster>() != null) {
+		if (collision.gameObject.GetComponent<ChargeFuel>() != null) {
+			m_chargeSystem.AddFuel();
+		} else if (collision.gameObject.GetComponent<Blaster>() != null) {
 			m_hull.Hit(0.2f);
 		} else if (collision.gameObject.GetComponent<Rocket>() != null) {
 			m_rigidbody.AddExplosionForce(m_rigidbody.mass * 50, transform.position + (collision.transform.position - transform.position).normalized * 10, 20);
@@ -105,14 +106,6 @@ public class PlayerShip : MonoBehaviour {
 	private void UpdateMovement() {
 		switch (m_state) {
 			case ShipState.OnMove:
-				if ((m_chargeKeyIsHeldDown) && (m_chargeSystem.ChargeFuel > 0.3f)) {
-					m_hull.Roll(0);
-					m_state = ShipState.TransferToChargeTargeting;
-					m_chargeSystem.PlayStartCharge(LookAngle);
-                    BattleContext.World.TurnSlowMode(true);
-					break;
-				}
-
                 // Rotation //
 				float longAngle = -Mathf.Sign(AngleToTarget) * (360 - Mathf.Abs(AngleToTarget));
 				float actualAngle = AngleToTarget;
@@ -140,45 +133,6 @@ public class PlayerShip : MonoBehaviour {
 		        m_hull.Roll(-m_rigidbody.angularVelocity.y * 15 * powerCoefficient);
 		 
 				break;
-			case ShipState.TransferToChargeTargeting:
-				if ((m_rigidbody.velocity.magnitude > 0.1f) || (m_rigidbody.angularVelocity.magnitude > 0.1f)) {
-					m_rigidbody.velocity /= 8;
-					m_rigidbody.angularVelocity /= 8;
-				} else {
-					m_rigidbody.velocity = new Vector3();
-					m_rigidbody.angularVelocity = new Vector3();
-					m_angle += AngleToTarget;
-
-					m_state = ShipState.OnChargeTargeting;
-                    m_chargeSystem.StartChargeTargeting();
-				}
-				break;
-			case ShipState.OnChargeTargeting:
-                m_chargeSystem.RotateChargeTarget(-m_angle + LookAngle);
-				m_chargeSystem.ChargeTargetingMinTime -= DeltaTime;
-				if (((m_chargeSystem.ChargeFuel <= 0) || (!m_chargeKeyIsHeldDown)) && (m_chargeSystem.ChargeTargetingMinTime <= 0)) {
-                    m_chargeSystem.StopChargeTargeting();
-					m_rigidbody.angularVelocity = new Vector3();
-				    m_rigidbody.AddForce(LookVector * m_rigidbody.mass * 35000);
-				    m_chargeSystem.ChargeTime = 0.06f;
-				    m_state = ShipState.OnChargeFly;
-				}
-				transform.Rotate(new Vector3(0, 1, 0), (AngleToTarget * AngleToTarget * AngleToTarget * 0.000001f + AngleToTarget * 2) * DeltaTime);
-				break;
-			case ShipState.OnChargeFly:
-				m_chargeSystem.ChargeTime -= DeltaTime;
-				if (m_chargeSystem.ChargeTime <= 0) {
-                    BattleContext.World.TurnSlowMode(false);
-					m_state = ShipState.OnExitCharge;
-				}
-				break;
-			case ShipState.OnExitCharge:
-				if (m_rigidbody.velocity.magnitude > 50.0f) {
-					m_rigidbody.velocity /= 8;
-				} else {
-					m_state = ShipState.OnMove;
-				}
-				break;
 		}
 	}
 
@@ -202,21 +156,13 @@ public class PlayerShip : MonoBehaviour {
 		}
 	}
 
-	public void StartChargeTargeting() {
-		m_chargeKeyIsHeldDown = true;
-	}
-
-	public void StopChargeTargeting() {
-		m_chargeKeyIsHeldDown = false;
-	}
-
 	private float LookAngle {
 		get {
 			return -transform.rotation.eulerAngles.y;
 		}
 	}
 
-	private Vector3 LookVector {
+	public Vector3 LookVector {
 		get {
 			return new Vector3(Mathf.Cos(-transform.rotation.eulerAngles.y * Mathf.PI / 180), 0, Mathf.Sin(-transform.rotation.eulerAngles.y * Mathf.PI / 180));
 		}

@@ -11,8 +11,6 @@ public class EnemiesController : MonoBehaviour {
 	private List<RocketShip> m_rocketShips;
 	private List<BlasterShip> m_blasterShips;
 
-	private Random m_random = new Random();
-
 	private void Awake() {
 		BattleContext.EnemiesController = this;
 
@@ -38,15 +36,15 @@ public class EnemiesController : MonoBehaviour {
 
 	public void Respawn(RocketShip ship) {
 		Vector3 playerPos = BattleContext.PlayerShip.transform.position;
-		float angle = (float) m_random.NextDouble() * 360;
-		float distance = m_random.Next(30) + 25;
+		float angle = (float) MathHelper.Random.NextDouble() * 360;
+		float distance = MathHelper.Random.Next(30) + 25;
 		ship.Spawn(new Vector3(playerPos.x + Mathf.Cos(angle * Mathf.PI / 180) * distance, 0 , playerPos.z + Mathf.Sin(angle * Mathf.PI / 180) * distance));
 	}
 
 	public void Respawn(BlasterShip ship) {
 		Vector3 playerPos = BattleContext.PlayerShip.transform.position;
-		float angle = (float) m_random.NextDouble() * 360;
-		float distance = m_random.Next(30) + 25;
+		float angle = (float) MathHelper.Random.NextDouble() * 360;
+		float distance = MathHelper.Random.Next(30) + 25;
 		ship.Spawn(new Vector3(playerPos.x + Mathf.Cos(angle * Mathf.PI / 180) * distance, 0 , playerPos.z + Mathf.Sin(angle * Mathf.PI / 180) * distance));
 	}
 
@@ -64,4 +62,15 @@ public class EnemiesController : MonoBehaviour {
 		return blasterShip;
 	}
 
+	public List<RocketShip> RocketShips {
+		get {
+			return m_rocketShips;
+		}
+	}
+
+	public List<BlasterShip> BlasterShips {
+		get {
+			return m_blasterShips;
+		}
+	}
 }

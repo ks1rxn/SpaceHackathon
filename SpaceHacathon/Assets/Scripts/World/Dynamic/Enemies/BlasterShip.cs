@@ -19,6 +19,9 @@ public class BlasterShip : MonoBehaviour {
 	[SerializeField]
 	private float m_blasterCooldown;
 
+	[SerializeField]
+	private GameObject m_chargeTarget;
+
 	protected void Awake() {
 		m_rigidbody = GetComponent<Rigidbody>();
 	}
@@ -29,6 +32,8 @@ public class BlasterShip : MonoBehaviour {
 		m_blasterTimer = m_blasterCooldown;
 		m_state = BlasterShipState.Moving;
 		m_movingTimer = m_flyCooldown;
+
+		IsOnTarget(false);
 	}
 
 	private void Die() {
@@ -38,6 +43,10 @@ public class BlasterShip : MonoBehaviour {
 	protected void OnCollisionEnter(Collision collision) {
 		BattleContext.ExplosionsController.PlayerShipExplosion(transform.position);
 		Die();
+	}
+
+	public void IsOnTarget(bool isOnTarget) {
+		m_chargeTarget.SetActive(isOnTarget);
 	}
 
 	protected void Update() {
