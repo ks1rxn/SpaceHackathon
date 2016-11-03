@@ -18,6 +18,20 @@ public class PlayerShipChargeSystem : MonoBehaviour {
 		}
 	}
 
+	public void Charge() {
+		m_chargeFuel = 0;
+		foreach (BlasterShip ship in BattleContext.EnemiesController.BlasterShips) {
+			if (IsOnTarget(ship.gameObject)) {
+				ship.Die();
+			}
+		}
+		foreach (RocketShip ship in BattleContext.EnemiesController.RocketShips) {
+			if (IsOnTarget(ship.gameObject)) {
+				ship.Die();
+			}
+		}
+	}
+
 	private void Update() {
 		BattleContext.GUIController.SetCharge(m_chargeFuel / 5.0f);
 		m_chargeIndicator.SetActive(InChargeTargeting);
@@ -28,29 +42,22 @@ public class PlayerShipChargeSystem : MonoBehaviour {
 
 	private void MarkTargets() {
 		foreach (BlasterShip ship in BattleContext.EnemiesController.BlasterShips) {
-			if (Vector3.Distance(ship.transform.position, BattleContext.PlayerShip.transform.position) > 7.5f) {
-				ship.IsOnTarget(false);
-				continue;
-			}
-			float angle = MathHelper.AngleBetweenVectors(BattleContext.PlayerShip.LookVector, ship.transform.position - BattleContext.PlayerShip.transform.position);
-			if (Mathf.Abs(angle) < 30) {
-				ship.IsOnTarget(true);
-			} else {
-				ship.IsOnTarget(false);
-			}
+			ship.IsOnTarget(IsOnTarget(ship.gameObject));
 		}
 		foreach (RocketShip ship in BattleContext.EnemiesController.RocketShips) {
-			if (Vector3.Distance(ship.transform.position, BattleContext.PlayerShip.transform.position) > 7.5f) {
-				ship.IsOnTarget(false);
-				continue;
-			}
-			float angle = MathHelper.AngleBetweenVectors(BattleContext.PlayerShip.LookVector, ship.transform.position - BattleContext.PlayerShip.transform.position);
-			if (Mathf.Abs(angle) < 30) {
-				ship.IsOnTarget(true);
-			} else {
-				ship.IsOnTarget(false);
-			}
+			ship.IsOnTarget(IsOnTarget(ship.gameObject));
 		}
+	}
+
+	private bool IsOnTarget(GameObject ship) {
+		if (Vector3.Distance(ship.transform.position, BattleContext.PlayerShip.transform.position) > 7.5f) {
+			return false;
+		}
+		float angle = MathHelper.AngleBetweenVectors(BattleContext.PlayerShip.LookVector, ship.transform.position - BattleContext.PlayerShip.transform.position);
+		if (Mathf.Abs(angle) < 30) {
+			return true;
+		}
+		return false;
 	}
 
 	public bool InChargeTargeting {

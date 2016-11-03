@@ -35,7 +35,7 @@ public class RocketShip : MonoBehaviour {
 		IsOnTarget(false);
 	}
 
-	private void Die() {
+	public void Die() {
 		BattleContext.EnemiesController.Respawn(this);
 	}
 

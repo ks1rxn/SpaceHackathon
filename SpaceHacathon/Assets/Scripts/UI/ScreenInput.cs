@@ -26,7 +26,7 @@ public class ScreenInput : MonoBehaviour {
 				ship.SetPower(power);
 				hasSpeedSetter = true;
 			} else if ((touch.position.x > Screen.width / 4f) && (touch.position.x < Screen.width / 2f) && (touch.position.y < Screen.height / 4f)) {
-
+				ship.Charge();
 			}
 		}
 		if (!hasSpeedSetter) {
@@ -56,6 +56,7 @@ public class ScreenInput : MonoBehaviour {
 
 		// Ship charge //
 		if (Input.GetKeyDown(KeyCode.Space)) {
+			ship.Charge();
 		}
 	}
 

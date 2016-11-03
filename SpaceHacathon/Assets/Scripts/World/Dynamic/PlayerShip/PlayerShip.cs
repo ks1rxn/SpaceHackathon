@@ -136,6 +136,16 @@ public class PlayerShip : MonoBehaviour {
 		}
 	}
 
+	public void Charge() {
+		if (!m_chargeSystem.InChargeTargeting) {
+			return;
+		}
+		m_chargeSystem.Charge();
+		transform.position += LookVector * 8;
+		m_rigidbody.angularVelocity = new Vector3();
+		m_rigidbody.velocity = LookVector * 10;
+	}
+
 	public void SetAngle(float angle) {
 		switch (m_state) {
 			case ShipState.OnMove:

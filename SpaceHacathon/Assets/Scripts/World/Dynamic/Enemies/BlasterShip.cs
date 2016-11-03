@@ -36,7 +36,7 @@ public class BlasterShip : MonoBehaviour {
 		IsOnTarget(false);
 	}
 
-	private void Die() {
+	public void Die() {
 		BattleContext.EnemiesController.Respawn(this);
 	}
 
