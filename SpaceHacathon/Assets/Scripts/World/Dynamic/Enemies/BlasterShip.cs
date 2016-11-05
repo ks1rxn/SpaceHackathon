@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class BlasterShip : MonoBehaviour {
+public class BlasterShip : MonoBehaviour, IEnemyShip {
 	private Rigidbody m_rigidbody;
 
 	[SerializeField]
@@ -8,7 +8,6 @@ public class BlasterShip : MonoBehaviour {
 
 	private BlasterShipState m_state;
 
-	private float m_gunAngle = 0;
 	private float m_movingTimer;
 	private float m_blasterTimer;
 
@@ -26,39 +25,47 @@ public class BlasterShip : MonoBehaviour {
 		m_rigidbody = GetComponent<Rigidbody>();
 	}
 
-	public void Spawn(Vector3 position) {
+	public void Spawn(Vector3 position, float angle) {
 		transform.position = position;
 
 		m_blasterTimer = m_blasterCooldown;
 		m_state = BlasterShipState.Moving;
 		m_movingTimer = m_flyCooldown;
 
-		IsOnTarget(false);
+		UncheckAsTarget();
 	}
 
-	public void Die() {
-		BattleContext.EnemiesController.Respawn(this);
-	}
-
-	protected void OnCollisionEnter(Collision collision) {
+	public void Kill() {
 		BattleContext.ExplosionsController.PlayerShipExplosion(transform.position);
 		Die();
 	}
 
-	public void IsOnTarget(bool isOnTarget) {
-		m_chargeTarget.SetActive(isOnTarget);
+	private void Die() {
+		BattleContext.EnemiesController.Respawn(this);
 	}
 
-	protected void Update() {
+	protected void OnCollisionEnter(Collision collision) {
+		Kill();
+	}
+
+	public void CheckAsTarget() {
+		m_chargeTarget.SetActive(true);
+	}
+
+	public void UncheckAsTarget() {
+		m_chargeTarget.SetActive(false);
+	}
+
+	protected void FixedUpdate() {
 		switch (m_state) {
 			case BlasterShipState.Moving:
 				if (m_movingTimer > 0) {
 					Vector3 enemyPosition = BattleContext.PlayerShip.transform.position;
 					float distance = (enemyPosition - transform.position).magnitude;
 					if (distance > 6) {
-						m_rigidbody.AddForce(-(transform.position - enemyPosition).normalized * 1000 * Time.deltaTime);
+						m_rigidbody.AddForce(-(transform.position - enemyPosition).normalized * m_rigidbody.mass * 10);
 					} else {
-						m_rigidbody.AddForce((transform.position - enemyPosition).normalized * 1000 * Time.deltaTime);
+						m_rigidbody.AddForce((transform.position - enemyPosition).normalized * m_rigidbody.mass * 10);
 					}
 					if (m_rigidbody.velocity.magnitude > 10) {
 						m_rigidbody.velocity = m_rigidbody.velocity.normalized * 10;
@@ -71,7 +78,7 @@ public class BlasterShip : MonoBehaviour {
 			case BlasterShipState.Refuel:
 				if (m_movingTimer > 0) {
 					if (m_rigidbody.velocity.magnitude > 0.5f) {
-						m_rigidbody.velocity = m_rigidbody.velocity - m_rigidbody.velocity * 0.5f * Time.deltaTime;
+						m_rigidbody.velocity = m_rigidbody.velocity * 0.5f;
 					} else {
 						m_rigidbody.velocity = new Vector3();
 					}
@@ -92,23 +99,25 @@ public class BlasterShip : MonoBehaviour {
 
 	private void UpdateGun() {
 		Vector3 enemyPosition = BattleContext.PlayerShip.transform.position;
-		float angle = MathHelper.AngleBetweenVectors(new Vector3(Mathf.Cos(-m_gunAngle * Mathf.PI / 180), 0, Mathf.Sin(-m_gunAngle * Mathf.PI / 180)), enemyPosition - transform.position);
+		Vector3 gunDirection = new Vector3(Mathf.Cos(-m_gun.transform.eulerAngles.y * Mathf.PI / 180), 0, Mathf.Sin(-m_gun.transform.eulerAngles.y * Mathf.PI / 180));
+		float angleToTarget = MathHelper.AngleBetweenVectors(gunDirection, enemyPosition - transform.position);
 
-		if (Mathf.Abs(angle) > 5) {
-			if (angle > 0) {
-				m_gunAngle += Time.deltaTime * 50;
-			} else {
-				m_gunAngle -= Time.deltaTime * 50;
-			}
+		if (angleToTarget > 5) {
+			m_gun.transform.Rotate(0, 3, 0);
+		} else if (angleToTarget < -5) {
+			m_gun.transform.Rotate(0, -3, 0);
 		}
 
-		m_gun.transform.rotation = new Quaternion();
-		m_gun.transform.Rotate(new Vector3(0, 1, 0), m_gunAngle);
-
 		m_blasterTimer -= Time.deltaTime;
-		if ((m_blasterTimer <= 0) && (Mathf.Abs(angle) < 10) && Vector3.Distance(BattleContext.PlayerShip.transform.position, transform.position) < 15) {
-			BattleContext.BulletsController.SpawnBlaster(m_gun.transform.position, m_gunAngle);
+		if ((m_blasterTimer <= 0) && (Mathf.Abs(angleToTarget) < 10) && Vector3.Distance(BattleContext.PlayerShip.transform.position, transform.position) < 15) {
+			BattleContext.BulletsController.SpawnBlaster(m_gun.transform.position, m_gun.transform.eulerAngles.y);
 			m_blasterTimer = m_blasterCooldown;
+		}
+	}
+
+	public Vector3 Position {
+		get {
+			return transform.position;
 		}
 	}
 

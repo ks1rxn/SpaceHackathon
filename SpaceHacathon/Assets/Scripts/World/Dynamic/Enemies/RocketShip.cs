@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class RocketShip : MonoBehaviour {
+public class RocketShip : MonoBehaviour, IEnemyShip {
 	private Rigidbody m_rigidbody;
 
 	private float m_gun1Cooldown;
@@ -25,27 +25,35 @@ public class RocketShip : MonoBehaviour {
 		m_rigidbody = GetComponent<Rigidbody>();
 	}
 
-	public void Spawn(Vector3 position) {
+	public void Spawn(Vector3 position, float angle) {
 		transform.position = position;
 
 		m_gun1Cooldown = 0;
 		m_gun2Cooldown = 0;
 		m_globalCooldown = m_globalCooldownValue;
 
-		IsOnTarget(false);
+		UncheckAsTarget();
 	}
 
-	public void Die() {
+	public void Kill() {
+		BattleContext.ExplosionsController.PlayerShipExplosion(transform.position);
+		Die();
+	}
+
+	private void Die() {
 		BattleContext.EnemiesController.Respawn(this);
 	}
 
 	protected void OnCollisionEnter(Collision collision) {
-		BattleContext.ExplosionsController.PlayerShipExplosion(transform.position);
-		Die();
+		Kill();
     }
 
-	public void IsOnTarget(bool isOnTarget) {
-		m_chargeTarget.SetActive(isOnTarget);
+	public void CheckAsTarget() {
+		m_chargeTarget.SetActive(true);
+	}
+
+	public void UncheckAsTarget() {
+		m_chargeTarget.SetActive(false);
 	}
 
 	protected void Update() {
@@ -104,6 +112,12 @@ public class RocketShip : MonoBehaviour {
 		m_rigidbody.AddExplosionForce(120, m_launcher2.position, 3);
 		m_launcher2.GetComponent<ParticleSystem>().Play();
 		m_rigidbody.AddTorque(0, -30, 0);
+	}
+
+	public Vector3 Position {
+		get {
+			return transform.position;
+		}
 	}
 
 }
