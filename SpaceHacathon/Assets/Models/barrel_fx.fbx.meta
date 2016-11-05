@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 9c97a3957ddbfcb409d2d54bb0467502
-timeCreated: 1477835496
+guid: 5566be9a222f9e642b2ac93897e345e4
+timeCreated: 1478360183
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -9,8 +9,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: pCylinder1
-    4300002: barrel
+    4300000: barrel_fx
   materials:
     importMaterials: 0
     materialName: 0
