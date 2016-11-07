@@ -67,6 +67,15 @@ public class BlasterShip : MonoBehaviour, IEnemyShip {
 					} else {
 						m_rigidbody.AddForce((transform.position - enemyPosition).normalized * m_rigidbody.mass * 10);
 					}
+					foreach (IEnemyShip ship in BattleContext.EnemiesController.Ships) {
+						if (ReferenceEquals(this, ship)) {
+							continue;
+						}
+						if (Vector3.Distance(ship.Position, Position) > 5) {
+							continue;
+						}
+						m_rigidbody.AddForce((Position - ship.Position).normalized * m_rigidbody.mass * 50 / Vector3.Distance(ship.Position, Position));
+					}
 					if (m_rigidbody.velocity.magnitude > 10) {
 						m_rigidbody.velocity = m_rigidbody.velocity.normalized * 10;
 					}
@@ -109,10 +118,31 @@ public class BlasterShip : MonoBehaviour, IEnemyShip {
 		}
 
 		m_blasterTimer -= Time.deltaTime;
-		if ((m_blasterTimer <= 0) && (Mathf.Abs(angleToTarget) < 10) && Vector3.Distance(BattleContext.PlayerShip.transform.position, transform.position) < 15) {
+		if ((m_blasterTimer <= 0) && (Mathf.Abs(angleToTarget) < 10) && Vector3.Distance(BattleContext.PlayerShip.transform.position, transform.position) < 15 && !HittingAlly(gunDirection)) {
 			BattleContext.BulletsController.SpawnBlaster(m_gun.transform.position, m_gun.transform.eulerAngles.y);
 			m_blasterTimer = m_blasterCooldown;
 		}
+	}
+
+	private bool HittingAlly(Vector3 gunDirection) {
+		float disntaceToPlayer = Vector3.Distance(Position, BattleContext.PlayerShip.transform.position);
+		foreach (IEnemyShip ship in BattleContext.EnemiesController.Ships) {
+			if (ReferenceEquals(ship, this)) {
+				continue;
+			}
+			if (Vector3.Distance(ship.Position, Position) > disntaceToPlayer * 2) {
+				continue;
+			}
+			float distance = DistanceToLine(Position, Position + gunDirection, ship.Position);
+			if (distance < 1.25f) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private float DistanceToLine(Vector3 p1, Vector3 p2, Vector3 point) {
+		return Mathf.Abs((p2.z - p1.z) * point.x - (p2.x - p1.x) * point.z + p2.x * p1.z - p2.z * p1.x) / Mathf.Sqrt(Mathf.Pow(p2.z - p1.z, 2) + Mathf.Pow(p2.x - p1.x, 2));
 	}
 
 	public Vector3 Position {
