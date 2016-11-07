@@ -54,6 +54,10 @@ public class ScreenInput : MonoBehaviour {
 			ship.SetPower(0);
 		}
 
+		if (Input.GetKeyDown(KeyCode.R)) {
+			ship.ChargeSystem.AddFuel();
+		}
+
 		// Ship charge //
 		if (Input.GetKeyDown(KeyCode.Space)) {
 			ship.Charge();

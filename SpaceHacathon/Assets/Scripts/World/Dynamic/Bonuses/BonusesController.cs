@@ -27,7 +27,7 @@ public class BonusesController : MonoBehaviour {
 		Vector3 playerPos = BattleContext.PlayerShip.transform.position;
 		float angle = (float) MathHelper.Random.NextDouble() * 360;
 		float distance = MathHelper.Random.Next(30) + 25;
-		fuel.Spawn(new Vector3(playerPos.x + Mathf.Cos(angle * Mathf.PI / 180) * distance, 0 , playerPos.z + Mathf.Sin(angle * Mathf.PI / 180) * distance));
+		fuel.Spawn(new Vector3(playerPos.x + Mathf.Cos(angle * Mathf.PI / 180) * distance, -1 , playerPos.z + Mathf.Sin(angle * Mathf.PI / 180) * distance));
 	}
 
 	private ChargeFuel CreateChargeFuel() {

@@ -51,7 +51,10 @@ public class PlayerShip : MonoBehaviour {
 		} else if (collision.gameObject.GetComponent<Blaster>() != null) {
 			m_hull.Hit(0.2f);
 		} else if (collision.gameObject.GetComponent<Rocket>() != null) {
-			m_rigidbody.AddExplosionForce(m_rigidbody.mass * 50, transform.position + (collision.transform.position - transform.position).normalized * 10, 20);
+			//hack
+			Vector3 collisionPos = collision.transform.position;
+			collisionPos.y = 0;
+			m_rigidbody.AddExplosionForce(m_rigidbody.mass * 50, transform.position + (collisionPos - transform.position).normalized * 10, 20);
 			m_rotateForce = 0;
 			m_drag = 0;
 			m_moveForce = 0;
@@ -182,6 +185,12 @@ public class PlayerShip : MonoBehaviour {
 		get {
 			Vector3 vectorToTarget = new Vector3(Mathf.Cos(m_angle * Mathf.PI / 180), 0, Mathf.Sin(m_angle * Mathf.PI / 180));
 			return MathHelper.AngleBetweenVectors(LookVector, vectorToTarget);
+		}
+	}
+
+	public PlayerShipChargeSystem ChargeSystem {
+		get {
+			return m_chargeSystem;
 		}
 	}
 

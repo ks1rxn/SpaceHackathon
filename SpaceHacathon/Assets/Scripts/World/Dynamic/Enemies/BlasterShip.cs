@@ -20,9 +20,13 @@ public class BlasterShip : MonoBehaviour, IEnemyShip {
 
 	[SerializeField]
 	private GameObject m_chargeTarget;
+	[SerializeField]
+	private ParticleSystem[] m_engines;
+	private bool[] m_engineState;
 
 	protected void Awake() {
 		m_rigidbody = GetComponent<Rigidbody>();
+		m_engineState = new bool[m_engines.Length];
 	}
 
 	public void Spawn(Vector3 position, float angle) {
@@ -61,11 +65,12 @@ public class BlasterShip : MonoBehaviour, IEnemyShip {
 			case BlasterShipState.Moving:
 				if (m_movingTimer > 0) {
 					Vector3 enemyPosition = BattleContext.PlayerShip.transform.position;
+					Vector3 forcesSumm = new Vector3();
 					float distance = (enemyPosition - transform.position).magnitude;
 					if (distance > 6) {
-						m_rigidbody.AddForce(-(transform.position - enemyPosition).normalized * m_rigidbody.mass * 10);
+						forcesSumm += -(transform.position - enemyPosition).normalized * m_rigidbody.mass * 10;
 					} else {
-						m_rigidbody.AddForce((transform.position - enemyPosition).normalized * m_rigidbody.mass * 10);
+						forcesSumm += (transform.position - enemyPosition).normalized * m_rigidbody.mass * 10;
 					}
 					foreach (IEnemyShip ship in BattleContext.EnemiesController.Ships) {
 						if (ReferenceEquals(this, ship)) {
@@ -74,13 +79,49 @@ public class BlasterShip : MonoBehaviour, IEnemyShip {
 						if (Vector3.Distance(ship.Position, Position) > 5) {
 							continue;
 						}
-						m_rigidbody.AddForce((Position - ship.Position).normalized * m_rigidbody.mass * 50 / Vector3.Distance(ship.Position, Position));
+						forcesSumm += (Position - ship.Position).normalized * m_rigidbody.mass * 75 / Vector3.Distance(ship.Position, Position);
 					}
-					if (m_rigidbody.velocity.magnitude > 10) {
-						m_rigidbody.velocity = m_rigidbody.velocity.normalized * 10;
+					m_rigidbody.AddForce(forcesSumm);
+					if (m_rigidbody.velocity.magnitude > 7.5) {
+						m_rigidbody.velocity = m_rigidbody.velocity.normalized * 7.5f;
+					}
+					if (forcesSumm.magnitude > 0.5f) {
+						if (forcesSumm.x > 0) {
+							if (forcesSumm.z < 0) {
+								SetEngineState(0, false);
+								SetEngineState(1, false);
+								SetEngineState(2, true);
+								SetEngineState(3, false);
+							} else {
+								SetEngineState(0, false);
+								SetEngineState(1, false);
+								SetEngineState(2, false);
+								SetEngineState(3, true);
+							}
+						} else {
+							if (forcesSumm.z < 0) {
+								SetEngineState(0, false);
+								SetEngineState(1, true);
+								SetEngineState(2, false);
+								SetEngineState(3, false);
+							} else {
+								SetEngineState(0, true);
+								SetEngineState(1, false);
+								SetEngineState(2, false);
+								SetEngineState(3, false);
+							}
+						}
+					} else {
+						SetEngineState(0, false);
+						SetEngineState(1, false);
+						SetEngineState(2, false);
+						SetEngineState(3, false);
 					}
 				} else {
 					m_state = BlasterShipState.Refuel;
+					for (int i = 0; i != 4; i++) {
+						SetEngineState(i, false);
+					}
 					m_movingTimer = m_refuelCooldown;
 				}
 				break;
@@ -143,6 +184,17 @@ public class BlasterShip : MonoBehaviour, IEnemyShip {
 
 	private float DistanceToLine(Vector3 p1, Vector3 p2, Vector3 point) {
 		return Mathf.Abs((p2.z - p1.z) * point.x - (p2.x - p1.x) * point.z + p2.x * p1.z - p2.z * p1.x) / Mathf.Sqrt(Mathf.Pow(p2.z - p1.z, 2) + Mathf.Pow(p2.x - p1.x, 2));
+	}
+
+	private void SetEngineState(int engine, bool state) {
+		if (m_engineState[engine] != state) {
+			m_engineState[engine] = state;
+			if (state) {
+				m_engines[engine].Play();
+			} else {
+				m_engines[engine].Stop();
+			}
+		}
 	}
 
 	public Vector3 Position {
