@@ -13,8 +13,8 @@ public class ChargeFuel : MonoBehaviour {
 		}
 	}
 
-	protected void OnCollisionEnter(Collision collision) {
-		if (collision.gameObject.GetComponent<PlayerShip>() != null) {
+	private void OnTriggerEnter(Collider other) {
+		if (other.gameObject.GetComponent<PlayerShip>() != null) {
 			Die();
 		}
     }

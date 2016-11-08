@@ -35,24 +35,24 @@ public class PlayerShip : MonoBehaviour {
 		m_moveForce = 900;
 	}
 
-	private void OnCollisionEnter(Collision collision) {
+	private void OnTriggerEnter(Collider other) { 
    		if (m_state == ShipState.OnChargeFly) {
-		    if (collision.gameObject.GetComponent<BlasterShip>() != null) {
+		    if (other.gameObject.GetComponent<BlasterShip>() != null) {
 		        BattleContext.World.AddPoints(30);
-		    } else if (collision.gameObject.GetComponent<RocketShip>() != null) {
+		    } else if (other.gameObject.GetComponent<RocketShip>() != null) {
 			    BattleContext.World.AddPoints(20);    
-		    } else if (collision.gameObject.GetComponent<Rocket>() != null) {
+		    } else if (other.gameObject.GetComponent<Rocket>() != null) {
 		        BattleContext.World.AddPoints(40);  
 		    }
    		    return;
 		}
-		if (collision.gameObject.GetComponent<ChargeFuel>() != null) {
+		if (other.gameObject.GetComponent<ChargeFuel>() != null) {
 			m_chargeSystem.AddFuel();
-		} else if (collision.gameObject.GetComponent<Blaster>() != null) {
+		} else if (other.gameObject.GetComponent<Blaster>() != null) {
 			m_hull.Hit(0.2f);
-		} else if (collision.gameObject.GetComponent<Rocket>() != null) {
+		} else if (other.gameObject.GetComponent<Rocket>() != null) {
 			//hack
-			Vector3 collisionPos = collision.transform.position;
+			Vector3 collisionPos = other.transform.position;
 			collisionPos.y = 0;
 			m_rigidbody.AddExplosionForce(m_rigidbody.mass * 50, transform.position + (collisionPos - transform.position).normalized * 10, 20);
 			m_rotateForce = 0;
