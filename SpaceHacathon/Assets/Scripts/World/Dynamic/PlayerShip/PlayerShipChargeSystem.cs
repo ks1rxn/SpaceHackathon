@@ -42,18 +42,34 @@ public class PlayerShipChargeSystem : MonoBehaviour {
 	private void Update() {
 		BattleContext.GUIController.SetCharge(m_chargeFuel / 5.0f);
 		if (InChargeTargeting) {
-			MarkTargets();	
+			int onTarget = MarkTargets();
+			switch (onTarget) {
+				case 0:
+					BattleContext.World.SetTimeScaleMode(TimeScaleMode.Normal);
+					break;
+				case 1:
+					BattleContext.World.SetTimeScaleMode(TimeScaleMode.Slow);
+					break;
+				default:
+					BattleContext.World.SetTimeScaleMode(TimeScaleMode.SuperSlow);
+					break;
+			}
+		} else {
+			BattleContext.World.SetTimeScaleMode(TimeScaleMode.Normal);
 		}
 	}
 
-	private static void MarkTargets() {
+	private static int MarkTargets() {
+		int count = 0;
 		foreach (IEnemyShip ship in BattleContext.EnemiesController.Ships) {
 			if (IsOnTarget(ship.Position)) {
 				ship.CheckAsTarget();
+				count++;
 			} else {
 				ship.UncheckAsTarget();
 			}
 		}
+		return count;
 	}
 
 	private static bool IsOnTarget(Vector3 position) {

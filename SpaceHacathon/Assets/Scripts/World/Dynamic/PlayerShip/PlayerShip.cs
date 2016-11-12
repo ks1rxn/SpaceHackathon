@@ -36,16 +36,6 @@ public class PlayerShip : MonoBehaviour {
 	}
 
 	private void OnTriggerEnter(Collider other) { 
-   		if (m_state == ShipState.OnChargeFly) {
-		    if (other.gameObject.GetComponent<BlasterShip>() != null) {
-		        BattleContext.World.AddPoints(30);
-		    } else if (other.gameObject.GetComponent<RocketShip>() != null) {
-			    BattleContext.World.AddPoints(20);    
-		    } else if (other.gameObject.GetComponent<Rocket>() != null) {
-		        BattleContext.World.AddPoints(40);  
-		    }
-   		    return;
-		}
 		if (other.gameObject.GetComponent<ChargeFuel>() != null) {
 			m_chargeSystem.AddFuel();
 		} else if (other.gameObject.GetComponent<Blaster>() != null) {
@@ -143,18 +133,17 @@ public class PlayerShip : MonoBehaviour {
 		if (!m_chargeSystem.InChargeTargeting) {
 			return;
 		}
+		m_state = ShipState.InCharge;
 		m_chargeSystem.Charge();
 		transform.position += LookVector * 8;
 		m_rigidbody.angularVelocity = new Vector3();
 		m_rigidbody.velocity = LookVector * 10;
+		m_state = ShipState.OnMove;
 	}
 
 	public void SetAngle(float angle) {
 		switch (m_state) {
 			case ShipState.OnMove:
-				m_angle = angle;
-				break;
-			case ShipState.OnChargeTargeting:
 				m_angle = angle;
 				break;
 		}
@@ -198,9 +187,6 @@ public class PlayerShip : MonoBehaviour {
 
 public enum ShipState {
 	OnMove = 0,
-	TransferToChargeTargeting = 1,
-	OnChargeTargeting = 2,
-	OnChargeFly = 3,
-	OnExitCharge = 4,
-    Dead = 5
+	InCharge = 1,
+	Dead = 2
 }

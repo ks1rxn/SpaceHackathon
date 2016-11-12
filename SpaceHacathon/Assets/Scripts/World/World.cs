@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
 public class World : MonoBehaviour {
+	private TimeScaleMode m_timeScaleMode;
     private bool m_slowModeOn;
     private float m_points;
 
@@ -9,9 +10,9 @@ public class World : MonoBehaviour {
         m_points = 0;
     }
 
-    public void TurnSlowMode(bool on) {
-        m_slowModeOn = on;
-    }
+	public void SetTimeScaleMode(TimeScaleMode mode) {
+		m_timeScaleMode = mode;
+	}
 
     public void AddPoints(float points) {
         m_points += points;
@@ -25,15 +26,25 @@ public class World : MonoBehaviour {
     }
 
     private void UpdateTimeSpeed() {
-		if (m_slowModeOn) {
-			if (Time.timeScale > 0.3f) {
-				Time.timeScale -= Time.deltaTime * 5;
-			}
-		} else {
-			if (Time.timeScale < 1) {
-				Time.timeScale += Time.deltaTime * 5;
-			}
-		}
+	    switch (m_timeScaleMode) {
+			case TimeScaleMode.Normal:
+				if (Time.timeScale < 1) {
+					Time.timeScale += Time.deltaTime * 5;
+				}
+			    break;
+			case TimeScaleMode.Slow:
+				if (Time.timeScale < 0.48f) {
+					Time.timeScale += Time.deltaTime * 5;
+				} else if (Time.timeScale > 0.52f) {
+					Time.timeScale -= Time.deltaTime * 5;
+				}
+			    break;
+			case TimeScaleMode.SuperSlow:
+				if (Time.timeScale > 0.2f) {
+					Time.timeScale -= Time.deltaTime * 5;
+				}
+			    break;
+	    }
 		Time.fixedDeltaTime = 0.02F * Time.timeScale;
 	}
 
@@ -42,4 +53,10 @@ public class World : MonoBehaviour {
             return m_points;
         }
     }
+}
+
+public enum TimeScaleMode {
+	SuperSlow,
+	Slow,
+	Normal
 }
