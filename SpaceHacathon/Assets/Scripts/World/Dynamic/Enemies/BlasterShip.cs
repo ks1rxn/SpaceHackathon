@@ -70,7 +70,7 @@ public class BlasterShip : MonoBehaviour, IEnemyShip {
 					if (distance > 6) {
 						forcesSumm += -(transform.position - enemyPosition).normalized * m_rigidbody.mass * 10;
 					} else {
-						forcesSumm += (transform.position - enemyPosition).normalized * m_rigidbody.mass * 10;
+						forcesSumm += (transform.position - enemyPosition).normalized * m_rigidbody.mass * 20;
 					}
 					foreach (IEnemyShip ship in BattleContext.EnemiesController.Ships) {
 						if (ReferenceEquals(this, ship)) {
@@ -80,6 +80,12 @@ public class BlasterShip : MonoBehaviour, IEnemyShip {
 							continue;
 						}
 						forcesSumm += (Position - ship.Position).normalized * m_rigidbody.mass * 75 / Vector3.Distance(ship.Position, Position);
+					}
+					foreach (ChargeFuel chargeFuel in BattleContext.BonusesController.ChargeFuels) {
+						if (Vector3.Distance(chargeFuel.Position, Position) > 5) {
+							continue;
+						}
+						forcesSumm += (Position - chargeFuel.Position).normalized * m_rigidbody.mass * 75 / Vector3.Distance(chargeFuel.Position, Position);
 					}
 					m_rigidbody.AddForce(forcesSumm);
 					if (m_rigidbody.velocity.magnitude > 7.5) {

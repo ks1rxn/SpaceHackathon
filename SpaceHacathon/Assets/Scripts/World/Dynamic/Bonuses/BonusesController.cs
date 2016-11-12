@@ -37,4 +37,10 @@ public class BonusesController : MonoBehaviour {
 		return chargeFuel;
 	}
 
+	public List<ChargeFuel> ChargeFuels {
+		get {
+			return m_chargeFuels;
+		}
+	}
+
 }
