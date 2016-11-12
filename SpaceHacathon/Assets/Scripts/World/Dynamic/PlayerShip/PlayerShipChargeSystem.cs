@@ -3,9 +3,10 @@
 public class PlayerShipChargeSystem : MonoBehaviour {
 	[SerializeField]
 	private GameObject m_chargeIndicator;
+	[SerializeField]
+	private ParticleSystem[] m_chargeEngines;
 
     private int m_chargeFuel;
-    private bool m_chargeTargeting;
 
     public void Initiate() {
 	    m_chargeFuel = 0;
@@ -15,11 +16,22 @@ public class PlayerShipChargeSystem : MonoBehaviour {
 	public void AddFuel() {
 		if (m_chargeFuel < 5) {
 			m_chargeFuel++;
+			if (InChargeTargeting) {
+				m_chargeIndicator.SetActive(true);
+				foreach (ParticleSystem engine in m_chargeEngines) {
+					engine.Play();
+				}
+			}
 		}
 	}
 
 	public void Charge() {
 		m_chargeFuel = 0;
+		m_chargeIndicator.SetActive(false);
+		foreach (ParticleSystem engine in m_chargeEngines) {
+			engine.Stop();
+			engine.Clear();
+		}
 		foreach (IEnemyShip ship in BattleContext.EnemiesController.Ships) {
 			if (IsOnTarget(ship.Position)) {
 				ship.Kill();
@@ -29,7 +41,6 @@ public class PlayerShipChargeSystem : MonoBehaviour {
 
 	private void Update() {
 		BattleContext.GUIController.SetCharge(m_chargeFuel / 5.0f);
-		m_chargeIndicator.SetActive(InChargeTargeting);
 		if (InChargeTargeting) {
 			MarkTargets();	
 		}
