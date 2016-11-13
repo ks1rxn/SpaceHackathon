@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f54f2449ded03814dad4bf66afbd9705
+guid: c31705975a5637b4c8be5f3664f5a3d9
 timeCreated: 1475768032
 licenseType: Free
 ModelImporter:
@@ -11,7 +11,6 @@ ModelImporter:
     3300000: //RootNode
     4300000: sword_mobile2
     4300002: polySurface9
-    4300004: polySurface10
   materials:
     importMaterials: 0
     materialName: 0
@@ -19,7 +18,7 @@ ModelImporter:
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
-    resampleCurves: 1
+    resampleRotations: 1
     optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 
