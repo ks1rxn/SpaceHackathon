@@ -29,19 +29,19 @@ public class World : MonoBehaviour {
 	    switch (m_timeScaleMode) {
 			case TimeScaleMode.Normal:
 				if (Time.timeScale < 1) {
-					Time.timeScale += Time.deltaTime * 5;
+					Time.timeScale += Time.deltaTime * 4;
 				}
 			    break;
 			case TimeScaleMode.Slow:
 				if (Time.timeScale < 0.48f) {
-					Time.timeScale += Time.deltaTime * 5;
+					Time.timeScale += Time.deltaTime * 3;
 				} else if (Time.timeScale > 0.52f) {
-					Time.timeScale -= Time.deltaTime * 5;
+					Time.timeScale -= Time.deltaTime * 2;
 				}
 			    break;
 			case TimeScaleMode.SuperSlow:
 				if (Time.timeScale > 0.2f) {
-					Time.timeScale -= Time.deltaTime * 5;
+					Time.timeScale -= Time.deltaTime * 2;
 				}
 			    break;
 	    }

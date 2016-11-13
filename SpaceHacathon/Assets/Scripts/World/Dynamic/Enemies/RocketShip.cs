@@ -45,7 +45,9 @@ public class RocketShip : MonoBehaviour, IEnemyShip {
 	}
 
 	private void OnTriggerEnter(Collider other) { 
-		Kill();
+		if (other.GetComponent<PlayerShip>() != null) {
+			Kill();
+		}
     }
 
 	public void CheckAsTarget() {

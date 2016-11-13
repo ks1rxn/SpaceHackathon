@@ -48,8 +48,10 @@ public class BlasterShip : MonoBehaviour, IEnemyShip {
 		BattleContext.EnemiesController.Respawn(this);
 	}
 
-	private void OnTriggerEnter(Collider other) { 
-		Kill();
+	private void OnTriggerEnter(Collider other) {
+		if (other.GetComponent<PlayerShip>() != null) {
+			Kill();
+		}
 	}
 
 	public void CheckAsTarget() {

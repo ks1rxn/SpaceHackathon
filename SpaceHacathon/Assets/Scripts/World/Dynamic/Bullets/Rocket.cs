@@ -26,8 +26,10 @@ public class Rocket : MonoBehaviour {
 	}
 
 	private void OnTriggerEnter(Collider other) { 
-		BattleContext.ExplosionsController.RocketExplosion(transform.position);
-		Die();
+		if (other.GetComponent<PlayerShip>() != null || other.GetComponent<ChargeFuel>() != null || other.GetComponent<Rocket>() != null) {
+			BattleContext.ExplosionsController.RocketExplosion(transform.position);
+			Die();
+		}
     }
 
 	protected void FixedUpdate() {
