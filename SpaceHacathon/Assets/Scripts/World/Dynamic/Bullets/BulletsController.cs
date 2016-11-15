@@ -27,6 +27,18 @@ public class BulletsController : MonoBehaviour {
 		}
 	}
 
+	private void FixedUpdate() {
+		for (int i = 0; i != m_rockets.Count; i++) {
+			if (m_rockets[i].gameObject.activeInHierarchy) {
+				m_rockets[i].UpdateBullet();
+			}
+		}
+		for (int i = 0; i != m_blasters.Count; i++) {
+			if (m_blasters[i].gameObject.activeInHierarchy) {
+				m_blasters[i].UpdateBullet();
+			}
+		}
+	}
 
 	public void SpawnRocket(Vector3 position, float angle) {
 		Rocket targetRocket = null;

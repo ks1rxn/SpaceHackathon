@@ -62,7 +62,7 @@ public class BlasterShip : MonoBehaviour, IEnemyShip {
 		m_chargeTarget.SetActive(false);
 	}
 
-	protected void FixedUpdate() {
+	public void UpdateShip() {
 		switch (m_state) {
 			case BlasterShipState.Moving:
 				if (m_movingTimer > 0) {
@@ -84,10 +84,10 @@ public class BlasterShip : MonoBehaviour, IEnemyShip {
 						forcesSumm += (Position - ship.Position).normalized * m_rigidbody.mass * 75 / Vector3.Distance(ship.Position, Position);
 					}
 					foreach (ChargeFuel chargeFuel in BattleContext.BonusesController.ChargeFuels) {
-						if (Vector3.Distance(chargeFuel.Position, Position) > 5) {
+						if (Vector3.Distance(chargeFuel.transform.position, Position) > 5) {
 							continue;
 						}
-						forcesSumm += (Position - chargeFuel.Position).normalized * m_rigidbody.mass * 75 / Vector3.Distance(chargeFuel.Position, Position);
+						forcesSumm += (Position - chargeFuel.transform.position).normalized * m_rigidbody.mass * 75 / Vector3.Distance(chargeFuel.transform.position, Position);
 					}
 					m_rigidbody.AddForce(forcesSumm);
 					if (m_rigidbody.velocity.magnitude > 7.5) {

@@ -13,13 +13,8 @@ public class ChargeFuel : MonoBehaviour {
 		m_rotationSpeed = ((float) MathHelper.Random.NextDouble() - 0.5f) * 2f;
 	}
 
-	private void FixedUpdate() {
-		if (Vector3.Distance(Position, BattleContext.PlayerShip.transform.position) < 50) {
-			transform.Rotate(m_rotationVector, m_rotationSpeed);
-		}
-		if (Vector3.Distance(BattleContext.PlayerShip.transform.position, transform.position) > 80) {
-			Die();
-		}
+	public void UpdateState() {
+		transform.Rotate(m_rotationVector, m_rotationSpeed);
 	}
 
 	private void OnTriggerEnter(Collider other) {
@@ -30,14 +25,8 @@ public class ChargeFuel : MonoBehaviour {
 		}
 	}
 
-	private void Die() {
+	public void Die() {
 		BattleContext.BonusesController.Respawn(this);
-	}
-
-	public Vector3 Position {
-		get {
-			return transform.position;
-		}
 	}
 
 }

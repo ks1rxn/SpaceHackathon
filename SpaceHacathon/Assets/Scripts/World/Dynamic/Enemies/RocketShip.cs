@@ -58,12 +58,12 @@ public class RocketShip : MonoBehaviour, IEnemyShip {
 		m_chargeTarget.SetActive(false);
 	}
 
-	protected void Update() {
+	public void UpdateShip() {
 		Vector3 enemyPosition = BattleContext.PlayerShip.transform.position;
 		Vector3 lookVector = new Vector3(Mathf.Cos(-transform.rotation.eulerAngles.y * Mathf.PI / 180), 0, Mathf.Sin(-transform.rotation.eulerAngles.y * Mathf.PI / 180));
 
 		if (m_rigidbody.velocity.magnitude > 0) {
-			m_rigidbody.AddForce(-m_rigidbody.velocity * Time.deltaTime * 100);
+			m_rigidbody.AddForce(-m_rigidbody.velocity * 2);
 		}
 
 		float angle = MathHelper.AngleBetweenVectors(lookVector, enemyPosition - transform.position);
@@ -73,7 +73,7 @@ public class RocketShip : MonoBehaviour, IEnemyShip {
 				angleSign = angle / Mathf.Abs(angle);
 			}
 			angleSign *= 10;
-			m_rigidbody.AddTorque(new Vector3(0, (angleSign - m_rigidbody.angularVelocity.y * 50) * 5f * Time.deltaTime, 0));
+			m_rigidbody.AddTorque(new Vector3(0, (angleSign - m_rigidbody.angularVelocity.y * 50) * 0.1f, 0));
 			if (m_rigidbody.angularVelocity.magnitude > 1f) {
 				m_rigidbody.angularVelocity = m_rigidbody.angularVelocity.normalized * 1f;
 			}
@@ -91,9 +91,9 @@ public class RocketShip : MonoBehaviour, IEnemyShip {
 			}
 		}
 
-		m_gun1Cooldown -= Time.deltaTime;
-		m_gun2Cooldown -= Time.deltaTime;
-		m_globalCooldown -= Time.deltaTime;
+		m_gun1Cooldown -= 0.02f;
+		m_gun2Cooldown -= 0.02f;
+		m_globalCooldown -= 0.02f;
 
 		if (Vector3.Distance(BattleContext.PlayerShip.transform.position, transform.position) > 80) {
 			Die();

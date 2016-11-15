@@ -23,6 +23,17 @@ public class BonusesController : MonoBehaviour {
 		}
 	}
 
+	private void FixedUpdate() {
+		Vector3 playerPosition = BattleContext.PlayerShip.transform.position;
+		for (int i = 0; i != m_chargeFuels.Count; i++) {
+			if (Vector3.Distance(m_chargeFuels[i].transform.position, playerPosition) < 50) {
+				m_chargeFuels[i].UpdateState();
+			} else if (Vector3.Distance(m_chargeFuels[i].transform.position, playerPosition) > 80) {
+				m_chargeFuels[i].Die();
+			}
+		}
+	}
+
 	public void Respawn(ChargeFuel fuel) {
 		Vector3 playerPos = BattleContext.PlayerShip.transform.position;
 		float angle = (float) MathHelper.Random.NextDouble() * 360;

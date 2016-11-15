@@ -19,7 +19,7 @@ public class AsteroidField : MonoBehaviour {
 		}
 	}
 
-	protected void Update() {
+	protected void FixedUpdate() {
 		if (!m_blocks[1, 1].IsShipOnBlock()) {
 			FixBlocks();
 		}

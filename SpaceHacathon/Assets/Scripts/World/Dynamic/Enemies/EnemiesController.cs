@@ -28,6 +28,12 @@ public class EnemiesController : MonoBehaviour {
 		}
 	}
 
+	private void FixedUpdate() {
+		for (int i = 0; i != m_ships.Count; i++) {
+			m_ships[i].UpdateShip();
+		}
+	}
+
 	public void Respawn(IEnemyShip ship) {
 		Vector3 playerPos = BattleContext.PlayerShip.transform.position;
 		float angle = (float) MathHelper.Random.NextDouble() * 360;

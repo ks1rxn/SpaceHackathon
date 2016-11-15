@@ -17,9 +17,9 @@ public class Blaster : MonoBehaviour {
 		GetComponent<TrailRenderer>().Clear();
 	}
 
-	protected void Update() {
+	public void UpdateBullet() {
 		Vector3 moveVector = new Vector3(Mathf.Cos(-m_angle * Mathf.PI / 180), 0, Mathf.Sin(-m_angle * Mathf.PI / 180));
-		transform.position += moveVector * Time.deltaTime * 20;
+		transform.position += moveVector * 0.4f;
 
 		float distToPlayer = Vector3.Distance(BattleContext.PlayerShip.transform.position, transform.position);
 		if (distToPlayer > 20) {
@@ -29,7 +29,7 @@ public class Blaster : MonoBehaviour {
 		if (m_detonatorActivateTime <= 0) {
 			GetComponent<Collider>().enabled = true;
 		} else {
-			m_detonatorActivateTime -= Time.deltaTime;
+			m_detonatorActivateTime -= 0.02f;
 		}
 	}
 

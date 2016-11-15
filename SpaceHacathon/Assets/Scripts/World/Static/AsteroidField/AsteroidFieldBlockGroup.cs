@@ -11,7 +11,7 @@ public class AsteroidFieldBlockGroup : MonoBehaviour {
 	private Vector3 m_rotationVector;
 	private float m_rotationSpeed;
 
-	private List<Asteroid> m_asteroids; 
+	private List<Asteroid> m_asteroids;
 
 	public void Initiate(AsteroidGroupType type, Vector3 position) {
 		transform.localPosition = position;
@@ -37,8 +37,8 @@ public class AsteroidFieldBlockGroup : MonoBehaviour {
 
 	public void UpdateRotations() {
 		transform.Rotate(m_rotationVector, m_rotationSpeed);
-		foreach (Asteroid asteroid in m_asteroids) {
-			asteroid.UpdateRotation();
+		for (int i = 0; i != m_asteroids.Count; i++) { 
+			m_asteroids[i].UpdateRotation();
 		}
 	}
 

@@ -32,7 +32,7 @@ public class Rocket : MonoBehaviour {
 		}
     }
 
-	protected void FixedUpdate() {
+	public void UpdateBullet() {
 		Vector3 enemyPosition = BattleContext.PlayerShip.transform.position;
 		Vector3 lookVector = new Vector3(Mathf.Cos(-transform.rotation.eulerAngles.y * Mathf.PI / 180), 0, Mathf.Sin(-transform.rotation.eulerAngles.y * Mathf.PI / 180));
 

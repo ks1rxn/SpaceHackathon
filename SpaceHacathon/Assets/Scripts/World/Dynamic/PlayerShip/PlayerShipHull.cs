@@ -59,8 +59,7 @@ public class PlayerShipHull : MonoBehaviour {
 			}
 		}
 
-		transform.rotation = new Quaternion();
-		transform.Rotate(new Vector3(1, 0, 0), m_currentRoll);
+		transform.localEulerAngles = new Vector3(m_currentRoll, 0, 0);
 	}
 
     public PlayerShipEngineSystem EngineSystem {

@@ -34,16 +34,16 @@ public class AsteroidFieldBlock : MonoBehaviour {
 				tryCount++;
 				position = GenerateRandomPosition();
 			}
-
 			CreateRandomGroup(position);
-
 		}
 	}
 
 	public void UpdateGroups() {
-		foreach (AsteroidFieldBlockGroup blockGroup in m_groups) {
-			if (Vector3.Distance(blockGroup.transform.position, BattleContext.PlayerShip.transform.position) < 50) {
-				blockGroup.UpdateRotations();
+		Vector3 playerPosiion = BattleContext.PlayerShip.transform.position;
+		for (int i = 0; i != m_groups.Count; i++) {
+			Vector3 position = m_groups[i].transform.position;
+			if (position.z > playerPosiion.z - 10 && position.z < playerPosiion.z + 50 && position.x > playerPosiion.x - 50 && position.x < playerPosiion.x + 50) {
+				m_groups[i].UpdateRotations();
 			}
 		}
 	}
