@@ -5,12 +5,22 @@ public class PlayerShipChargeSystem : MonoBehaviour {
 	private GameObject m_chargeIndicator;
 	[SerializeField]
 	private ParticleSystem[] m_chargeEngines;
+	[SerializeField]
+	private GameObject[] m_chargeEnginesAsObjects;
 
     private int m_chargeFuel;
 
     public void Initiate() {
 	    m_chargeFuel = 0;
 		m_chargeIndicator.SetActive(false);
+
+	    foreach (ParticleSystem engine in m_chargeEngines) {
+			engine.Stop();
+			engine.Clear();
+		}
+		foreach (GameObject enginesAsObject in m_chargeEnginesAsObjects) {
+			enginesAsObject.SetActive(false);
+		}
     }
 
 	public void AddFuel() {
@@ -20,6 +30,9 @@ public class PlayerShipChargeSystem : MonoBehaviour {
 				m_chargeIndicator.SetActive(true);
 				foreach (ParticleSystem engine in m_chargeEngines) {
 					engine.Play();
+				}
+				foreach (GameObject enginesAsObject in m_chargeEnginesAsObjects) {
+					enginesAsObject.SetActive(true);
 				}
 			}
 		}
@@ -31,6 +44,9 @@ public class PlayerShipChargeSystem : MonoBehaviour {
 		foreach (ParticleSystem engine in m_chargeEngines) {
 			engine.Stop();
 			engine.Clear();
+		}
+		foreach (GameObject enginesAsObject in m_chargeEnginesAsObjects) {
+			enginesAsObject.SetActive(false);
 		}
 		foreach (IEnemyShip ship in BattleContext.EnemiesController.Ships) {
 			if (IsOnTarget(ship.Position)) {
