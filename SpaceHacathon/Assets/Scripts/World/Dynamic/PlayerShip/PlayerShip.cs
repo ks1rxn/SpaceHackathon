@@ -14,6 +14,8 @@ public class PlayerShip : MonoBehaviour {
     private PlayerShipHull m_hull;
     [SerializeField]
     private PlayerShipChargeSystem m_chargeSystem;
+	[SerializeField]
+	private GameObject m_chargeEffect;
 
 	private float m_rotateForce;
 	private float m_drag;
@@ -133,12 +135,36 @@ public class PlayerShip : MonoBehaviour {
 		if (!m_chargeSystem.InChargeTargeting) {
 			return;
 		}
+//		BattleContext.World.SetTimeScaleMode(TimeScaleMode.Stoped);
 		m_state = ShipState.InCharge;
-		m_chargeSystem.Charge();
-		transform.position += LookVector * 8;
-		m_rigidbody.angularVelocity = new Vector3();
-		m_rigidbody.velocity = LookVector * 10;
-		m_state = ShipState.OnMove;
+		m_chargeEffect.SetActive(true);
+		StartCoroutine(ChargeEffect());
+//		m_chargeSystem.Charge();
+//		transform.position += LookVector * 8;
+//		m_rigidbody.angularVelocity = new Vector3();
+//		m_rigidbody.velocity = LookVector * 10;
+//		m_state = ShipState.OnMove;
+	}
+
+	private IEnumerator ChargeEffect() {
+		Vector3 position = transform.position + new Vector3(-10, 0, -8);
+		Vector3 dir = new Vector3(1, 0, 0.2f).normalized;
+		m_chargeEffect.transform.position = position;
+		for (int i = 0; i != 10; i++) {
+			position += dir * 2f;
+			m_chargeEffect.transform.position = position;
+			yield return new WaitForFixedUpdate();
+		}
+		m_chargeEffect.GetComponent<TrailRenderer>().Clear();
+		position = transform.position + new Vector3(20, 0, -1);
+		dir = new Vector3(-1, 0, 0.2f).normalized;
+		m_chargeEffect.transform.position = position;
+		for (int i = 0; i != 100; i++) {
+			position += dir * 2f;
+			m_chargeEffect.transform.position = position;
+			yield return new WaitForFixedUpdate();
+		}
+		m_chargeEffect.SetActive(false);
 	}
 
 	public void SetAngle(float angle) {
