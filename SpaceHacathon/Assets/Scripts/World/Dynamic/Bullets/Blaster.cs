@@ -4,6 +4,11 @@ public class Blaster : MonoBehaviour {
 	private float m_angle;
 	private float m_detonatorActivateTime;
 
+	[SerializeField]
+	private TrailRenderer m_trail1;
+	[SerializeField]
+	private TrailRenderer m_trail2;
+
 	public void Spawn(Vector3 position, float angle) {
 		gameObject.SetActive(true);
 
@@ -14,12 +19,13 @@ public class Blaster : MonoBehaviour {
 
 		m_detonatorActivateTime = 0.05f;
 		GetComponent<Collider>().enabled = false;
-		GetComponent<TrailRenderer>().Clear();
+		m_trail1.Clear();
+		m_trail2.Clear();
 	}
 
 	public void UpdateBullet() {
 		Vector3 moveVector = new Vector3(Mathf.Cos(-m_angle * Mathf.PI / 180), 0, Mathf.Sin(-m_angle * Mathf.PI / 180));
-		transform.position += moveVector * 0.4f;
+		transform.position += moveVector * 0.2f;
 
 		float distToPlayer = Vector3.Distance(BattleContext.PlayerShip.transform.position, transform.position);
 		if (distToPlayer > 20) {

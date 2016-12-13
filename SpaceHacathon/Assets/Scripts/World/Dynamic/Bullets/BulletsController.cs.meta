@@ -1,10 +1,12 @@
 fileFormatVersion: 2
 guid: c7a21fe64df487b469aaae25eb9a3e5c
-timeCreated: 1477600470
+timeCreated: 1481655381
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - m_rocketPrefab: {instanceID: 0}
+  - m_blasterPrefab: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
