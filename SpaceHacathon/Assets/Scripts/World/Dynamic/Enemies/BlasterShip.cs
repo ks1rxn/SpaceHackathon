@@ -1,10 +1,15 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class BlasterShip : MonoBehaviour, IEnemyShip {
 	private Rigidbody m_rigidbody;
 
 	[SerializeField]
 	private GameObject m_gun;
+
+	[SerializeField]
+	private ParticleSystem m_spawnEffect;
+	private Material m_material;
 
 	private BlasterShipState m_state;
 
@@ -26,6 +31,7 @@ public class BlasterShip : MonoBehaviour, IEnemyShip {
 
 	protected void Awake() {
 		m_rigidbody = GetComponent<Rigidbody>();
+		m_material = GetComponent<MeshRenderer>().material;
 		m_engineState = new bool[m_engines.Length];
 	}
 
@@ -36,7 +42,20 @@ public class BlasterShip : MonoBehaviour, IEnemyShip {
 		m_state = BlasterShipState.Moving;
 		m_movingTimer = m_flyCooldown;
 
+		StartCoroutine(SpawnEffect());
+
 		UncheckAsTarget();
+	}
+
+	private IEnumerator SpawnEffect() {
+		m_spawnEffect.Play();
+		float value = 1.0f;
+		while (value > 0) {
+			value -= Time.deltaTime;
+			m_material.SetFloat("_SliceAmount", value);
+			yield return new WaitForEndOfFrame();
+		}
+		m_material.SetFloat("_SliceAmount", 0.0f);
 	}
 
 	public void Kill() {

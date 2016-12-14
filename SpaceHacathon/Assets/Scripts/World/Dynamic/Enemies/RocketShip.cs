@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class RocketShip : MonoBehaviour, IEnemyShip {
@@ -19,10 +20,15 @@ public class RocketShip : MonoBehaviour, IEnemyShip {
 	private Transform m_launcher2;
 
 	[SerializeField]
+	private ParticleSystem m_spawnEffect;
+	private Material m_material;
+
+	[SerializeField]
 	private GameObject m_chargeTarget;
 
 	protected void Awake() {
 		m_rigidbody = GetComponent<Rigidbody>();
+		m_material = GetComponent<MeshRenderer>().material;
 	}
 
 	public void Spawn(Vector3 position, float angle) {
@@ -32,7 +38,20 @@ public class RocketShip : MonoBehaviour, IEnemyShip {
 		m_gun2Cooldown = 0;
 		m_globalCooldown = m_globalCooldownValue;
 
+		StartCoroutine(SpawnEffect());
+
 		UncheckAsTarget();
+	}
+
+	private IEnumerator SpawnEffect() {
+		m_spawnEffect.Play();
+		float value = 1.0f;
+		while (value > 0) {
+			value -= Time.deltaTime;
+			m_material.SetFloat("_SliceAmount", value);
+			yield return new WaitForEndOfFrame();
+		}
+		m_material.SetFloat("_SliceAmount", 0.0f);
 	}
 
 	public void Kill() {

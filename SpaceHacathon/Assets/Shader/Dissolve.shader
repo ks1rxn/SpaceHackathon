@@ -14,7 +14,7 @@
 		CGPROGRAM
 		//if you're not planning on using shadows, remove "addshadow" for better performance
 
-#pragma surface surf Lambert addshadow
+#pragma surface surf Lambert
 		struct Input {
 		float2 uv_MainTex;
 		float2 uv_SliceGuide;
