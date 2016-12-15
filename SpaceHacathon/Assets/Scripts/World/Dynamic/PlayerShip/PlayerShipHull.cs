@@ -6,7 +6,7 @@ public class PlayerShipHull : MonoBehaviour {
     [SerializeField]
     private PlayerShipEngineSystem m_engineSystem;
 
-    private float m_currentRoll;
+	private float m_currentRoll;
 	private float m_needRoll;
 
     private float m_health;
@@ -18,20 +18,17 @@ public class PlayerShipHull : MonoBehaviour {
         m_health = 1.0f;
     }
 
-    public void Roll(float angle) {
-        m_needRoll = angle;
-    }
+    
 
-    public void Hit(float strength) {
+	public void SetFlyingParameters(float rotation, float enginePower) {
+		m_engineSystem.SetFlyingParameters(rotation, enginePower);
+	}
+
+	public void Hit(float strength) {
         m_health -= strength;
     }
 
-    public void TakeDown() {
-        BattleContext.ExplosionsController.PlayerShipExplosion(transform.position);
-        m_health = 0;
-    }
-
-    private void FixedUpdate() {
+    public void UpdateHull() {
         UpdateHealth();
         UpdateRolling();
     }
@@ -46,25 +43,16 @@ public class PlayerShipHull : MonoBehaviour {
         BattleContext.GUIController.SetHealth(m_health);
     }
 
-    private void UpdateRolling() {
-		float delta = 10;
-		if (m_needRoll.Equals(0)) {
-			delta = 1;
-		}
-		if (Mathf.Abs(m_needRoll - m_currentRoll) > delta) {
-			if (m_needRoll > m_currentRoll) {
-				m_currentRoll += 1.0f;
-			} else {
-				m_currentRoll -= 1.0f;
-			}
-		}
+	public void SetRollAngle(float angle) {
+        m_needRoll = angle;
+    }
 
+    private void UpdateRolling() {
+		float delta = 2.0f;
+		if (Mathf.Abs(m_needRoll - m_currentRoll) > delta) {
+			m_currentRoll += m_needRoll > m_currentRoll ? 1.0f : -1.0f;
+		}
 		transform.localEulerAngles = new Vector3(m_currentRoll, 0, 0);
 	}
 
-    public PlayerShipEngineSystem EngineSystem {
-        get {
-            return m_engineSystem;
-        }
-    }
 }

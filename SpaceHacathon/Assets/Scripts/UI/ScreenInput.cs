@@ -20,17 +20,17 @@ public class ScreenInput : MonoBehaviour {
 			float distanceToAngle = Vector3.Distance(touch.position, BattleContext.GUIController.Button.transform.position);
 			if (distanceToAngle < Screen.width / 3f) {
 				Vector3 position = new Vector3(touch.position.x, touch.position.y, 0);
-				ship.SetAngle(MathHelper.AngleBetweenVectorsZ(new Vector3(1, 0, 0), position - BattleContext.GUIController.Button.transform.position));
+				SetShipAngle(MathHelper.AngleBetweenVectorsZ(new Vector3(1, 0, 0), position - BattleContext.GUIController.Button.transform.position));
 			} else if ((touch.position.x < Screen.width / 4f) && (touch.position.y < Screen.height / 3f * 2f)) {
 				float power = Mathf.Sign(touch.position.y - Screen.height / 4f);
-				ship.SetPower(power);
+				SetShipAngle(power);
 				hasSpeedSetter = true;
 			} else if ((touch.position.x > Screen.width / 4f) && (touch.position.x < Screen.width / 2f) && (touch.position.y < Screen.height / 4f)) {
 				ship.Charge();
 			}
 		}
 		if (!hasSpeedSetter) {
-			ship.SetPower(0);
+			SetShipPower(0);
 		}
 	}
 
@@ -41,27 +41,37 @@ public class ScreenInput : MonoBehaviour {
 		if (Input.GetMouseButton(0)) {
 			float d = Vector3.Distance(Input.mousePosition, BattleContext.GUIController.Button.transform.position);
 			if (d < Screen.width / 3f) {
-				ship.SetAngle(MathHelper.AngleBetweenVectorsZ(new Vector3(1, 0, 0), Input.mousePosition - BattleContext.GUIController.Button.transform.position));
+				SetShipAngle(MathHelper.AngleBetweenVectorsZ(new Vector3(1, 0, 0), Input.mousePosition - BattleContext.GUIController.Button.transform.position));
 			}
 		}
 
 		// Ship velocity //
 		if (Input.GetKey(KeyCode.W)) {
-			ship.SetPower(1.0f);
+			SetShipPower(1.0f);
 		} else if (Input.GetKey(KeyCode.S)) {
-			ship.SetPower(-1.0f);
+			SetShipPower(-1.0f);
 		} else {
-			ship.SetPower(0);
+			SetShipPower(0);
 		}
 
 		if (Input.GetKeyDown(KeyCode.R)) {
-			ship.ChargeSystem.AddFuel();
+			ship.AddFuel();
 		}
 
 		// Ship charge //
 		if (Input.GetKeyDown(KeyCode.Space)) {
 			ship.Charge();
 		}
+	}
+
+	private void SetShipPower(float power) {
+		BattleContext.PlayerShip.SetPower(power);
+		BattleContext.GUIController.SetLeftJoysticValue(power);
+	}
+
+	private void SetShipAngle(float angle) {
+		BattleContext.PlayerShip.SetAngle(angle);
+		BattleContext.GUIController.SetRightJoystickAngle(angle);
 	}
 
 }

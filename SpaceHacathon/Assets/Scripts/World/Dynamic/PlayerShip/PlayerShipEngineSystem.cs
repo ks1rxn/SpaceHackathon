@@ -9,9 +9,7 @@ public class PlayerShipEngineSystem : MonoBehaviour {
         m_engineState = new bool[m_engines.Length];
     }
 
-    public void SetFlyingParameters(ShipState state, float rotation, float enginePower) {
-        enginePower = state == ShipState.OnMove ? enginePower : 0;
-
+    public void SetFlyingParameters(float rotation, float enginePower) {
         float powerCoef = 1;
 		if (enginePower < -0.1f) {
 			powerCoef = -1;

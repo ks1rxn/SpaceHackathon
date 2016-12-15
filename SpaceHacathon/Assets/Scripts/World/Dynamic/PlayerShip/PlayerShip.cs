@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class PlayerShip : MonoBehaviour {
 	private Rigidbody m_rigidbody;
 
-	private float m_angle;
+	private float m_neededAngle;
 	private float m_power;
 
 	private ShipState m_state;
@@ -16,12 +16,11 @@ public class PlayerShip : MonoBehaviour {
     private PlayerShipChargeSystem m_chargeSystem;
 	[SerializeField]
 	private GameObject m_chargeEffect;
+	[SerializeField]
+	private ParticleSystem m_stunFx;
 
 	private float m_rotateForce;
-	private float m_drag;
 	private float m_moveForce;
-
-	private const float DeltaTime = 0.02f;
 
 	private void Awake() {
 		BattleContext.PlayerShip = this;
@@ -33,7 +32,6 @@ public class PlayerShip : MonoBehaviour {
 		m_rigidbody.centerOfMass = new Vector3(0, 0, 0);
 
 		m_rotateForce = 70f;
-		m_drag = 19;
 		m_moveForce = 900;
 	}
 
@@ -41,18 +39,17 @@ public class PlayerShip : MonoBehaviour {
 		if (other.gameObject.GetComponent<ChargeFuel>() != null) {
 			m_chargeSystem.AddFuel();
 		} else if (other.gameObject.GetComponent<Blaster>() != null) {
-			m_hull.Hit(0.2f);
+			Stun();
+			m_hull.Hit(0.1f);
 		} else if (other.gameObject.GetComponent<Rocket>() != null) {
 			//hack
 			Vector3 collisionPos = other.transform.position;
 			collisionPos.y = 0;
-			m_rigidbody.AddExplosionForce(m_rigidbody.mass * 50, transform.position + (collisionPos - transform.position).normalized * 10, 20);
-			m_rotateForce = 0;
-			m_drag = 0;
-			m_moveForce = 0;
+			m_rigidbody.AddExplosionForce(m_rigidbody.mass * 50, transform.position + (collisionPos - transform.position).normalized * 3, 5);
+			Bash();
 			m_hull.Hit(0.5f);
 		} else {
-			m_hull.TakeDown();
+			m_hull.Hit(100);
 		}
 	}
 
@@ -61,7 +58,8 @@ public class PlayerShip : MonoBehaviour {
             return;
         }
         m_state = ShipState.Dead;
-        BattleContext.GUIController.SetDeadScore(BattleContext.World.Points);
+		BattleContext.ExplosionsController.PlayerShipExplosion(transform.position);
+		BattleContext.GUIController.SetDeadScore(BattleContext.World.Points);
         StartCoroutine(DieProcess());
     }
 
@@ -69,7 +67,7 @@ public class PlayerShip : MonoBehaviour {
         float a = 0;
         while (true) {
             BattleContext.GUIController.SetDeadPanelOpacity(a);
-            a += DeltaTime * 0.5f;
+            a += 0.02f * 0.5f;
             if (a > 1) {
                 break;
             }
@@ -79,38 +77,38 @@ public class PlayerShip : MonoBehaviour {
         SceneManager.LoadScene("BattleScene");
     }
 
-	private void FixedUpdate() {
-		if (m_rotateForce < 70) {
-			m_rotateForce += DeltaTime * 70 / 2;
-		}
-		if (m_drag < 19) {
-			m_drag += DeltaTime * 38 / 2;
-		}
-		if (m_moveForce < 900) {
-			m_moveForce += DeltaTime * 900 / 2;
-		}
+	private void Stun() {
+		StopCoroutine("StunProcedure");
+		StartCoroutine(StunProcedure());
+	}
 
-		m_rigidbody.angularDrag = m_drag;
+	private void Bash() {
+		StopCoroutine("BashProcedure");
+		StartCoroutine(BashProcedure());
+	}
+
+	private void FixedUpdate() {
+		m_hull.UpdateHull();
+
 		UpdateMovement();
 
-        m_hull.EngineSystem.SetFlyingParameters(m_state, m_rigidbody.angularVelocity.y, m_moveForce < 450 ? 0 : m_power);
-		BattleContext.GUIController.SetRightJoystickAngle(m_angle);
-	    BattleContext.GUIController.SetLeftJoysticValue(m_power);
+        m_hull.SetFlyingParameters(m_rigidbody.angularVelocity.y, m_moveForce < 450 ? 0 : m_power);
 	}
 
 	private void UpdateMovement() {
 		switch (m_state) {
 			case ShipState.OnMove:
                 // Rotation //
-				float longAngle = -Mathf.Sign(AngleToTarget) * (360 - Mathf.Abs(AngleToTarget));
-				float actualAngle = AngleToTarget;
+				float angleToTarget = AngleToNeedAngle;
+				float longAngle = -Mathf.Sign(angleToTarget) * (360 - Mathf.Abs(angleToTarget));
+				float actualAngle = angleToTarget;
 				if ((m_rigidbody.angularVelocity.y * longAngle > 0) && (Mathf.Abs(m_rigidbody.angularVelocity.y) > 1)) {
-				    if (Mathf.Abs(m_rigidbody.angularVelocity.y * 30) > Mathf.Abs(longAngle + AngleToTarget)) {
+				    if (Mathf.Abs(m_rigidbody.angularVelocity.y * 30) > Mathf.Abs(longAngle + angleToTarget)) {
 				        actualAngle = longAngle;
 				    }
 				}
 				float angularForce = Mathf.Sign(actualAngle) * Mathf.Sqrt(Mathf.Abs(actualAngle)) * m_rotateForce;
-				m_rigidbody.AddTorque(new Vector3(0, angularForce * m_rigidbody.mass * DeltaTime, 0));
+				m_rigidbody.AddTorque(new Vector3(0, angularForce * m_rigidbody.mass * 0.02f, 0));
 				
                 // Velocity //
 				float powerCoefficient = 0;
@@ -119,13 +117,13 @@ public class PlayerShip : MonoBehaviour {
 				} else if (m_power < 0) {
 				    powerCoefficient = -1;
 				}
-				m_rigidbody.AddForce(m_power * LookVector * m_rigidbody.mass * DeltaTime * m_moveForce);
+				m_rigidbody.AddForce(m_power * LookVector * m_rigidbody.mass * 0.02f * m_moveForce);
 				if (m_rigidbody.velocity.magnitude > 5) {
 				    m_rigidbody.velocity = m_rigidbody.velocity.normalized * 5;
 				}
 
                 // Roll hull //
-		        m_hull.Roll(-m_rigidbody.angularVelocity.y * 15 * powerCoefficient);
+		        m_hull.SetRollAngle(-m_rigidbody.angularVelocity.y * 15 * powerCoefficient);
 		 
 				break;
 		}
@@ -168,26 +166,15 @@ public class PlayerShip : MonoBehaviour {
 	}
 
 	public void SetAngle(float angle) {
-		switch (m_state) {
-			case ShipState.OnMove:
-				m_angle = angle;
-				break;
-		}
+		m_neededAngle = angle;
 	}
 
 	public void SetPower(float power) {
-		power = Mathf.Clamp(power, -1, 1);
-		switch (m_state) {
-			case ShipState.OnMove:
-				m_power = power;
-				break;
-		}
+		m_power = Mathf.Clamp(power, -1, 1);
 	}
 
-	private float LookAngle {
-		get {
-			return -transform.rotation.eulerAngles.y;
-		}
+	public void AddFuel() {
+		m_chargeSystem.AddFuel();
 	}
 
 	public Vector3 LookVector {
@@ -196,17 +183,64 @@ public class PlayerShip : MonoBehaviour {
 		}
 	}
 
-	private float AngleToTarget  {
+	private float AngleToNeedAngle  {
 		get {
-			Vector3 vectorToTarget = new Vector3(Mathf.Cos(m_angle * Mathf.PI / 180), 0, Mathf.Sin(m_angle * Mathf.PI / 180));
+			Vector3 vectorToTarget = new Vector3(Mathf.Cos(m_neededAngle * Mathf.PI / 180), 0, Mathf.Sin(m_neededAngle * Mathf.PI / 180));
 			return MathHelper.AngleBetweenVectors(LookVector, vectorToTarget);
 		}
 	}
 
-	public PlayerShipChargeSystem ChargeSystem {
-		get {
-			return m_chargeSystem;
+	private IEnumerator StunProcedure() {
+		m_rotateForce = 0;
+		m_moveForce = 0;
+
+		m_stunFx.Play();
+		yield return new WaitForSeconds(1.0f);
+		m_stunFx.Stop();
+
+		bool rotationWork = false;
+		bool engineWork = false;
+		while (!(rotationWork && engineWork)) {
+			if (m_rotateForce < 70) {
+				m_rotateForce += 0.7f;
+			} else {
+				rotationWork = true;
+			}
+			if (m_moveForce < 900) {
+				m_moveForce += 9.0f;
+			} else {
+				engineWork = true;
+			}
+			yield return new WaitForFixedUpdate();
 		}
+	}
+
+	private IEnumerator BashProcedure() {
+		m_rotateForce = 0;
+		m_moveForce = 0;
+
+		m_rigidbody.angularDrag = 0;
+		yield return new WaitForSeconds(0.25f);
+		
+		bool rotationWork = false;
+		bool engineWork = false;
+		while (!(rotationWork && engineWork)) {
+			if (m_rigidbody.angularDrag < 19) {
+				m_rigidbody.angularDrag += 1.0f;
+			}
+			if (m_rotateForce < 70) {
+				m_rotateForce += 1.4f;
+			} else {
+				rotationWork = true;
+			}
+			if (m_moveForce < 900) {
+				m_moveForce += 18.0f;
+			} else {
+				engineWork = true;
+			}
+			yield return new WaitForFixedUpdate();
+		}
+		m_rigidbody.angularDrag = 19;
 	}
 
 }
