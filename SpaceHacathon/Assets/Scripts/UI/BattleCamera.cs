@@ -6,7 +6,7 @@ public class BattleCamera : MonoBehaviour {
 	}
 
 	protected void Update() {
-		Vector3 position = BattleContext.PlayerShip.transform.position;
+		Vector3 position = BattleContext.PlayerShip.Position;
 		position.y = 7.5f;
 		position.z -= 9;
 		transform.position = position;

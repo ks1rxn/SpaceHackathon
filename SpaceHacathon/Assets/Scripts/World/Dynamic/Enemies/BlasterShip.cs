@@ -85,7 +85,7 @@ public class BlasterShip : MonoBehaviour, IEnemyShip {
 		switch (m_state) {
 			case BlasterShipState.Moving:
 				if (m_movingTimer > 0) {
-					Vector3 enemyPosition = BattleContext.PlayerShip.transform.position;
+					Vector3 enemyPosition = BattleContext.PlayerShip.Position;
 					Vector3 forcesSumm = new Vector3();
 					float distance = (enemyPosition - transform.position).magnitude;
 					if (distance > 6) {
@@ -169,13 +169,13 @@ public class BlasterShip : MonoBehaviour, IEnemyShip {
 		m_movingTimer -= Time.deltaTime;
 		UpdateGun();
 
-		if (Vector3.Distance(BattleContext.PlayerShip.transform.position, transform.position) > 80) {
+		if (Vector3.Distance(BattleContext.PlayerShip.Position, transform.position) > 80) {
 			Die();
 		}
 	}
 
 	private void UpdateGun() {
-		Vector3 enemyPosition = BattleContext.PlayerShip.transform.position;
+		Vector3 enemyPosition = BattleContext.PlayerShip.Position;
 		Vector3 gunDirection = new Vector3(Mathf.Cos(-m_gun.transform.eulerAngles.y * Mathf.PI / 180), 0, Mathf.Sin(-m_gun.transform.eulerAngles.y * Mathf.PI / 180));
 		float angleToTarget = MathHelper.AngleBetweenVectors(gunDirection, enemyPosition - transform.position);
 
@@ -186,14 +186,14 @@ public class BlasterShip : MonoBehaviour, IEnemyShip {
 		}
 
 		m_blasterTimer -= Time.deltaTime;
-		if ((m_blasterTimer <= 0) && (Mathf.Abs(angleToTarget) < 10) && Vector3.Distance(BattleContext.PlayerShip.transform.position, transform.position) < 15 && !HittingAlly(gunDirection)) {
+		if ((m_blasterTimer <= 0) && (Mathf.Abs(angleToTarget) < 10) && Vector3.Distance(BattleContext.PlayerShip.Position, transform.position) < 15 && !HittingAlly(gunDirection)) {
 			BattleContext.BulletsController.SpawnBlaster(m_gun.transform.position, m_gun.transform.eulerAngles.y);
 			m_blasterTimer = m_blasterCooldown;
 		}
 	}
 
 	private bool HittingAlly(Vector3 gunDirection) {
-		float disntaceToPlayer = Vector3.Distance(Position, BattleContext.PlayerShip.transform.position);
+		float disntaceToPlayer = Vector3.Distance(Position, BattleContext.PlayerShip.Position);
 		foreach (IEnemyShip ship in BattleContext.EnemiesController.Ships) {
 			if (ReferenceEquals(ship, this)) {
 				continue;

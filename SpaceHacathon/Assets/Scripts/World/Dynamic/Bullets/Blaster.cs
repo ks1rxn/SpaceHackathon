@@ -27,7 +27,7 @@ public class Blaster : MonoBehaviour {
 		Vector3 moveVector = new Vector3(Mathf.Cos(-m_angle * Mathf.PI / 180), 0, Mathf.Sin(-m_angle * Mathf.PI / 180));
 		transform.position += moveVector * 0.2f;
 
-		float distToPlayer = Vector3.Distance(BattleContext.PlayerShip.transform.position, transform.position);
+		float distToPlayer = Vector3.Distance(BattleContext.PlayerShip.Position, transform.position);
 		if (distToPlayer > 20) {
 			Die();
 		}

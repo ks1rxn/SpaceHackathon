@@ -89,10 +89,10 @@ public class PlayerShipChargeSystem : MonoBehaviour {
 	}
 
 	private static bool IsOnTarget(Vector3 position) {
-		if (Vector3.Distance(position, BattleContext.PlayerShip.transform.position) > 7.5f) {
+		if (Vector3.Distance(position, BattleContext.PlayerShip.Position) > 7.5f) {
 			return false;
 		}
-		float angle = MathHelper.AngleBetweenVectors(BattleContext.PlayerShip.LookVector, position - BattleContext.PlayerShip.transform.position);
+		float angle = MathHelper.AngleBetweenVectors(BattleContext.PlayerShip.LookVector, position - BattleContext.PlayerShip.Position);
 		if (Mathf.Abs(angle) < 30) {
 			return true;
 		}

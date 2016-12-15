@@ -33,7 +33,7 @@ public class Rocket : MonoBehaviour {
     }
 
 	public void UpdateBullet() {
-		Vector3 enemyPosition = BattleContext.PlayerShip.transform.position;
+		Vector3 enemyPosition = BattleContext.PlayerShip.Position;
 		Vector3 lookVector = new Vector3(Mathf.Cos(-transform.rotation.eulerAngles.y * Mathf.PI / 180), 0, Mathf.Sin(-transform.rotation.eulerAngles.y * Mathf.PI / 180));
 
 		float angle = MathHelper.AngleBetweenVectors(lookVector, enemyPosition - transform.position);
@@ -53,7 +53,7 @@ public class Rocket : MonoBehaviour {
 			BattleContext.ExplosionsController.RocketExplosion(transform.position);
 		}
 
-		float distToPlayer = Vector3.Distance(BattleContext.PlayerShip.transform.position, transform.position);
+		float distToPlayer = Vector3.Distance(BattleContext.PlayerShip.Position, transform.position);
 		if (distToPlayer > 25) {
 			Die();
 		}

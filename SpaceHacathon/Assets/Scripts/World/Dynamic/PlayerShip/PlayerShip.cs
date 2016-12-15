@@ -190,6 +190,12 @@ public class PlayerShip : MonoBehaviour {
 		}
 	}
 
+	public Vector3 Position {
+		get {
+			return transform.position;
+		}
+	}
+
 	private IEnumerator StunProcedure() {
 		m_rotateForce = 0;
 		m_moveForce = 0;

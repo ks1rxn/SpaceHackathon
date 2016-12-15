@@ -78,7 +78,7 @@ public class RocketShip : MonoBehaviour, IEnemyShip {
 	}
 
 	public void UpdateShip() {
-		Vector3 enemyPosition = BattleContext.PlayerShip.transform.position;
+		Vector3 enemyPosition = BattleContext.PlayerShip.Position;
 		Vector3 lookVector = new Vector3(Mathf.Cos(-transform.rotation.eulerAngles.y * Mathf.PI / 180), 0, Mathf.Sin(-transform.rotation.eulerAngles.y * Mathf.PI / 180));
 
 		if (m_rigidbody.velocity.magnitude > 0) {
@@ -98,7 +98,7 @@ public class RocketShip : MonoBehaviour, IEnemyShip {
 			}
 		}
 
-		if ((Mathf.Abs(angle) < 45) && Vector3.Distance(BattleContext.PlayerShip.transform.position, transform.position) < 20) {
+		if ((Mathf.Abs(angle) < 45) && Vector3.Distance(BattleContext.PlayerShip.Position, transform.position) < 20) {
 			if ((m_gun1Cooldown <= 0) && (m_globalCooldown <= 0)) {
 				SpawnRocket1();
 				m_gun1Cooldown = m_gunCooldownValue;
@@ -114,7 +114,7 @@ public class RocketShip : MonoBehaviour, IEnemyShip {
 		m_gun2Cooldown -= 0.02f;
 		m_globalCooldown -= 0.02f;
 
-		if (Vector3.Distance(BattleContext.PlayerShip.transform.position, transform.position) > 80) {
+		if (Vector3.Distance(BattleContext.PlayerShip.Position, transform.position) > 80) {
 			Die();
 		}
 	}

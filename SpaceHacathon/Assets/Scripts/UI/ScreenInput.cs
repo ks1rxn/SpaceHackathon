@@ -12,8 +12,6 @@ public class ScreenInput : MonoBehaviour {
 	}
 
 	private void ListenAndroid() {
-		PlayerShip ship = BattleContext.PlayerShip;
-
 		bool hasSpeedSetter = false;
 
 		foreach (Touch touch in Input.touches) {
@@ -26,7 +24,7 @@ public class ScreenInput : MonoBehaviour {
 				SetShipAngle(power);
 				hasSpeedSetter = true;
 			} else if ((touch.position.x > Screen.width / 4f) && (touch.position.x < Screen.width / 2f) && (touch.position.y < Screen.height / 4f)) {
-				ship.Charge();
+				Charge();
 			}
 		}
 		if (!hasSpeedSetter) {
@@ -35,8 +33,6 @@ public class ScreenInput : MonoBehaviour {
 	}
 
 	private void ListenPc() {
-		PlayerShip ship = BattleContext.PlayerShip;
-
 		// Ship angle //
 		if (Input.GetMouseButton(0)) {
 			float d = Vector3.Distance(Input.mousePosition, BattleContext.GUIController.Button.transform.position);
@@ -55,12 +51,12 @@ public class ScreenInput : MonoBehaviour {
 		}
 
 		if (Input.GetKeyDown(KeyCode.R)) {
-			ship.AddFuel();
+			AddFuel();
 		}
 
 		// Ship charge //
 		if (Input.GetKeyDown(KeyCode.Space)) {
-			ship.Charge();
+			Charge();
 		}
 	}
 
@@ -72,6 +68,14 @@ public class ScreenInput : MonoBehaviour {
 	private void SetShipAngle(float angle) {
 		BattleContext.PlayerShip.SetAngle(angle);
 		BattleContext.GUIController.SetRightJoystickAngle(angle);
+	}
+
+	private void Charge() {
+		BattleContext.PlayerShip.Charge();
+	}
+
+	private void AddFuel() {
+		BattleContext.PlayerShip.AddFuel();
 	}
 
 }
