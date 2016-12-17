@@ -18,8 +18,6 @@ public class PlayerShipHull : MonoBehaviour {
         m_health = 1.0f;
     }
 
-    
-
 	public void SetFlyingParameters(float rotation, float enginePower) {
 		m_engineSystem.SetFlyingParameters(rotation, enginePower);
 	}

@@ -9,6 +9,8 @@ public class PlayerShip : MonoBehaviour {
 	private float m_power;
 
 	private ShipState m_state;
+	private EffectsOnShip m_effects;
+	private ShipMovementSystem m_shipMovementSystem;
 
     [SerializeField]
     private PlayerShipHull m_hull;
@@ -19,9 +21,6 @@ public class PlayerShip : MonoBehaviour {
 	[SerializeField]
 	private ParticleSystem m_stunFx;
 
-	private float m_rotateForce;
-	private float m_moveForce;
-
 	private void Awake() {
 		BattleContext.PlayerShip = this;
 
@@ -31,8 +30,9 @@ public class PlayerShip : MonoBehaviour {
 		m_rigidbody = GetComponent<Rigidbody>();
 		m_rigidbody.centerOfMass = new Vector3(0, 0, 0);
 
-		m_rotateForce = 70f;
-		m_moveForce = 900;
+		m_state = ShipState.OnMove;
+		m_effects = new EffectsOnShip();
+		m_shipMovementSystem = new ShipMovementSystem();
 	}
 
 	private void OnTriggerEnter(Collider other) { 
@@ -92,7 +92,7 @@ public class PlayerShip : MonoBehaviour {
 
 		UpdateMovement();
 
-        m_hull.SetFlyingParameters(m_rigidbody.angularVelocity.y, m_moveForce < 450 ? 0 : m_power);
+        m_hull.SetFlyingParameters(m_rigidbody.angularVelocity.y, m_shipMovementSystem.EnginePower < 450 ? 0 : m_power);
 	}
 
 	private void UpdateMovement() {
@@ -107,7 +107,7 @@ public class PlayerShip : MonoBehaviour {
 				        actualAngle = longAngle;
 				    }
 				}
-				float angularForce = Mathf.Sign(actualAngle) * Mathf.Sqrt(Mathf.Abs(actualAngle)) * m_rotateForce;
+				float angularForce = Mathf.Sign(actualAngle) * Mathf.Sqrt(Mathf.Abs(actualAngle)) * m_shipMovementSystem.RotationPower;
 				m_rigidbody.AddTorque(new Vector3(0, angularForce * m_rigidbody.mass * 0.02f, 0));
 				
                 // Velocity //
@@ -117,7 +117,7 @@ public class PlayerShip : MonoBehaviour {
 				} else if (m_power < 0) {
 				    powerCoefficient = -1;
 				}
-				m_rigidbody.AddForce(m_power * LookVector * m_rigidbody.mass * 0.02f * m_moveForce);
+				m_rigidbody.AddForce(m_power * LookVector * m_rigidbody.mass * 0.02f * m_shipMovementSystem.EnginePower);
 				if (m_rigidbody.velocity.magnitude > 5) {
 				    m_rigidbody.velocity = m_rigidbody.velocity.normalized * 5;
 				}
@@ -197,8 +197,11 @@ public class PlayerShip : MonoBehaviour {
 	}
 
 	private IEnumerator StunProcedure() {
-		m_rotateForce = 0;
-		m_moveForce = 0;
+		m_effects.Stunned = true;
+
+		m_shipMovementSystem.RotationPower = 0;
+		m_shipMovementSystem.EnginePower = 0;
+		m_rigidbody.angularDrag = 0;
 
 		m_stunFx.Play();
 		yield return new WaitForSeconds(1.0f);
@@ -207,23 +210,31 @@ public class PlayerShip : MonoBehaviour {
 		bool rotationWork = false;
 		bool engineWork = false;
 		while (!(rotationWork && engineWork)) {
-			if (m_rotateForce < 70) {
-				m_rotateForce += 0.7f;
+			if (m_rigidbody.angularDrag < 19) {
+				m_rigidbody.angularDrag += 1.0f;
+			}
+			if (m_shipMovementSystem.RotationPower < 70) {
+				m_shipMovementSystem.RotationPower += 0.7f;
 			} else {
 				rotationWork = true;
 			}
-			if (m_moveForce < 900) {
-				m_moveForce += 9.0f;
+			if (m_shipMovementSystem.EnginePower < 900) {
+				m_shipMovementSystem.EnginePower += 9.0f;
 			} else {
 				engineWork = true;
 			}
 			yield return new WaitForFixedUpdate();
 		}
+		m_rigidbody.angularDrag = 19;
+
+		m_effects.Stunned = false;
 	}
 
 	private IEnumerator BashProcedure() {
-		m_rotateForce = 0;
-		m_moveForce = 0;
+		m_effects.Bashed = true;
+
+		m_shipMovementSystem.RotationPower = 0;
+		m_shipMovementSystem.EnginePower = 0;
 
 		m_rigidbody.angularDrag = 0;
 		yield return new WaitForSeconds(0.25f);
@@ -234,25 +245,47 @@ public class PlayerShip : MonoBehaviour {
 			if (m_rigidbody.angularDrag < 19) {
 				m_rigidbody.angularDrag += 1.0f;
 			}
-			if (m_rotateForce < 70) {
-				m_rotateForce += 1.4f;
+			if (m_shipMovementSystem.RotationPower < 70) {
+				m_shipMovementSystem.RotationPower += 1.4f;
 			} else {
 				rotationWork = true;
 			}
-			if (m_moveForce < 900) {
-				m_moveForce += 18.0f;
+			if (m_shipMovementSystem.EnginePower < 900) {
+				m_shipMovementSystem.EnginePower += 18.0f;
 			} else {
 				engineWork = true;
 			}
 			yield return new WaitForFixedUpdate();
 		}
 		m_rigidbody.angularDrag = 19;
+
+		m_effects.Bashed = false;
 	}
 
 }
 
 public enum ShipState {
-	OnMove = 0,
-	InCharge = 1,
-	Dead = 2
+	OnMove,
+	InCharge,
+	Dead
+}
+
+public class EffectsOnShip {
+	public bool Stunned { get; set; }
+	public bool Bashed { get; set; }
+
+	public EffectsOnShip() {
+		Stunned = false;
+		Bashed = false;
+	}
+}
+
+public class ShipMovementSystem {
+	public float EnginePower { get; set; }
+	public float RotationPower { get; set; }
+
+	public ShipMovementSystem() {
+		EnginePower = 900;
+		RotationPower = 70;
+	}
 }
