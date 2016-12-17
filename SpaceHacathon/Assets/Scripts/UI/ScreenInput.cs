@@ -18,10 +18,10 @@ public class ScreenInput : MonoBehaviour {
 			float distanceToAngle = Vector3.Distance(touch.position, BattleContext.GUIController.Button.transform.position);
 			if (distanceToAngle < Screen.width / 3f) {
 				Vector3 position = new Vector3(touch.position.x, touch.position.y, 0);
-				SetShipPower(MathHelper.AngleBetweenVectorsZ(new Vector3(1, 0, 0), position - BattleContext.GUIController.Button.transform.position));
+				SetShipAngle(MathHelper.AngleBetweenVectorsZ(new Vector3(1, 0, 0), position - BattleContext.GUIController.Button.transform.position));
 			} else if ((touch.position.x < Screen.width / 4f) && (touch.position.y < Screen.height / 3f * 2f)) {
 				float power = Mathf.Sign(touch.position.y - Screen.height / 4f);
-				SetShipAngle(power);
+				SetShipPower(power);
 				hasSpeedSetter = true;
 			} else if ((touch.position.x > Screen.width / 4f) && (touch.position.x < Screen.width / 2f) && (touch.position.y < Screen.height / 4f)) {
 				Charge();
