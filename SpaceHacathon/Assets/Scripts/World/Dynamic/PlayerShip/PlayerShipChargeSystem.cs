@@ -61,7 +61,7 @@ public class PlayerShipChargeSystem : MonoBehaviour {
 	private void Update() {
 		BattleContext.GUIController.SetCharge(m_chargeFuel / 5.0f);
 		if (InChargeTargeting) {
-			int onTarget = MarkTargets();
+//			int onTarget = MarkTargets();
 //			switch (onTarget) {
 //				case 0:
 //					BattleContext.World.SetTimeScaleMode(TimeScaleMode.Normal);

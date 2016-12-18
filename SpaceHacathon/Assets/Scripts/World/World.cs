@@ -41,9 +41,9 @@ public class World : MonoBehaviour {
 				}
 			    break;
 			case TimeScaleMode.SuperSlow:
-				if (Time.timeScale > 0.2f) {
+				if (Time.timeScale > 0.1f) {
 					Time.timeScale -= Time.deltaTime * 2;
-				} else if (Time.timeScale < 0.18f) {
+				} else if (Time.timeScale < 0.09f) {
 					Time.timeScale += Time.deltaTime * 2;
 				}
 			    break;

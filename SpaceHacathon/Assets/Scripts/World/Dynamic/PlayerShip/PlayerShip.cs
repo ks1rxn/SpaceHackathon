@@ -136,8 +136,72 @@ public class PlayerShip : MonoBehaviour {
 			return;
 		}
 		m_chargeSystem.Charge();
-		BattleContext.World.SetTimeScaleMode(TimeScaleMode.Stopped);
-		StartCoroutine(part());
+		BattleContext.World.SetTimeScaleMode(TimeScaleMode.SuperSlow);
+		StartCoroutine(ChargeProcess());
+	}
+
+	private IEnumerator ChargeProcess() {
+		float time = 0;
+//		ParticleSystem[] pss = m_ps.GetComponentsInChildren<ParticleSystem>();
+//		foreach (ParticleSystem system in pss) {
+//			system.Clear();
+//		}
+//		m_ps.Simulate(Time.unscaledDeltaTime, true, true, false);
+//		while (true) {
+//			m_ps.Simulate(Time.unscaledDeltaTime, true, false, false);
+//			time += Time.unscaledDeltaTime;
+//			if (time >= 0.2) {
+//				break;
+//			}
+//			yield return new WaitForEndOfFrame();
+//		}
+		float scale = 1.0f;
+		while (true) {
+			time += Time.unscaledDeltaTime;
+			scale -= Time.unscaledDeltaTime * 10;
+			m_hull.gameObject.transform.localScale = new Vector3(scale, scale, scale);
+			if (scale <= 0.1f) {
+				break;
+			}
+//			m_ps.Simulate(Time.unscaledDeltaTime, true, false, false);
+			yield return new WaitForEndOfFrame();
+		}
+		m_hull.gameObject.SetActive(false);
+//		while (true) {
+//			time += Time.unscaledDeltaTime;
+//			m_ps.Simulate(Time.unscaledDeltaTime, true, false, false);
+//			if (time >= 1.0f) {
+//				break;
+//			}
+//			yield return new WaitForEndOfFrame();
+//		}
+		m_chargeSystem.ChargeEffect.SetActive(true);
+		ParticleSystem effectCharge = m_chargeSystem.ChargeEffect.GetComponent<ParticleSystem>();
+		effectCharge.Clear();
+		effectCharge.Simulate(Time.unscaledDeltaTime, true, true, false);
+		time = 0;
+		while (true) {
+			time += Time.unscaledDeltaTime;
+			transform.position += LookVector * Time.unscaledDeltaTime * 32;
+			effectCharge.Simulate(Time.unscaledDeltaTime, true, false, false);
+			if (time >= 0.5f) {
+				break;
+			}
+			yield return new WaitForEndOfFrame();
+		}
+		m_chargeSystem.ChargeEffect.SetActive(false);
+		scale = 0.1f;
+		m_hull.gameObject.SetActive(true);
+		while (true) {
+			transform.position += LookVector * Time.unscaledDeltaTime * 32;
+			scale += Time.unscaledDeltaTime * 10;
+			m_hull.gameObject.transform.localScale = new Vector3(scale, scale, scale);
+			if (scale >= 1) {
+				break;
+			}
+			yield return new WaitForEndOfFrame();
+		}
+		BattleContext.World.SetTimeScaleMode(TimeScaleMode.Normal);
 	}
 
 	private IEnumerator part() {
