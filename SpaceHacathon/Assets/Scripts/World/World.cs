@@ -30,7 +30,7 @@ public class World : MonoBehaviour {
 	    switch (m_timeScaleMode) {
 			case TimeScaleMode.Normal:
 				if (Time.timeScale < 1) {
-					Time.timeScale += Time.deltaTime * 4;
+					Time.timeScale += Time.deltaTime * 8;
 				}
 			    break;
 			case TimeScaleMode.Slow:

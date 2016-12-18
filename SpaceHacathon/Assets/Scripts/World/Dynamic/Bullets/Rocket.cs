@@ -47,7 +47,7 @@ public class Rocket : MonoBehaviour {
 			m_rigidbody.velocity = m_rigidbody.velocity.normalized * 6;
 		}
 
-		m_lifeTime -= 0.02f;
+		m_lifeTime -= 10 * Time.fixedDeltaTime;
 		if (m_lifeTime <= 0) {
 			Die();
 			BattleContext.ExplosionsController.RocketExplosion(transform.position);
@@ -61,7 +61,7 @@ public class Rocket : MonoBehaviour {
 		if (m_detonatorActivateTime <= 0) {
 			GetComponent<Collider>().enabled = true;
 		} else {
-			m_detonatorActivateTime -= 0.02f;
+			m_detonatorActivateTime -= 10 * Time.fixedDeltaTime;
 		}
 	}
 

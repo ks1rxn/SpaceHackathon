@@ -25,7 +25,7 @@ public class Blaster : MonoBehaviour {
 
 	public void UpdateBullet() {
 		Vector3 moveVector = new Vector3(Mathf.Cos(-m_angle * Mathf.PI / 180), 0, Mathf.Sin(-m_angle * Mathf.PI / 180));
-		transform.position += moveVector * 0.2f;
+		transform.position += moveVector * 10 * Time.fixedDeltaTime;
 
 		float distToPlayer = Vector3.Distance(BattleContext.PlayerShip.Position, transform.position);
 		if (distToPlayer > 20) {
@@ -35,7 +35,7 @@ public class Blaster : MonoBehaviour {
 		if (m_detonatorActivateTime <= 0) {
 			GetComponent<Collider>().enabled = true;
 		} else {
-			m_detonatorActivateTime -= 0.02f;
+			m_detonatorActivateTime -= 10 * Time.fixedDeltaTime;
 		}
 	}
 

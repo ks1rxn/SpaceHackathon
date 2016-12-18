@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class PlayerShipChargeSystem : MonoBehaviour {
 	[SerializeField]
@@ -50,11 +51,11 @@ public class PlayerShipChargeSystem : MonoBehaviour {
 		foreach (GameObject enginesAsObject in m_chargeEnginesAsObjects) {
 			enginesAsObject.SetActive(false);
 		}
-		foreach (IEnemyShip ship in BattleContext.EnemiesController.Ships) {
-			if (IsOnTarget(ship.Position)) {
-				ship.Kill();
-			}
-		}
+//		foreach (IEnemyShip ship in BattleContext.EnemiesController.Ships) {
+//			if (IsOnTarget(ship.Position)) {
+//				ship.Kill();
+//			}
+//		}
 	}
 
 	private void Update() {
@@ -88,6 +89,16 @@ public class PlayerShipChargeSystem : MonoBehaviour {
 		return count;
 	}
 
+	public static List<IEnemyShip> GetTargets() {
+		List<IEnemyShip> targets = new List<IEnemyShip>();
+		foreach (IEnemyShip ship in BattleContext.EnemiesController.Ships) {
+			if (IsOnTarget(ship.Position)) {
+				targets.Add(ship);
+			}
+		}
+		return targets;
+	} 
+
 	private static bool IsOnTarget(Vector3 position) {
 		if (Vector3.Distance(position, BattleContext.PlayerShip.Position) > 7.5f) {
 			return false;
@@ -102,6 +113,12 @@ public class PlayerShipChargeSystem : MonoBehaviour {
 	public bool InChargeTargeting {
 		get {
 			return m_chargeFuel == 5;
+		}
+	}
+
+	public GameObject ChargeEffect {
+		get {
+			return m_chargeEffect;
 		}
 	}
 

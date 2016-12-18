@@ -48,7 +48,7 @@ public class PlayerShipHull : MonoBehaviour {
     private void UpdateRolling() {
 		float delta = 2.0f;
 		if (Mathf.Abs(m_needRoll - m_currentRoll) > delta) {
-			m_currentRoll += m_needRoll > m_currentRoll ? 1.0f : -1.0f;
+			m_currentRoll += m_needRoll > m_currentRoll ? 50.0f * Time.fixedDeltaTime : -50.0f * Time.fixedDeltaTime;
 		}
 		transform.localEulerAngles = new Vector3(m_currentRoll, 0, 0);
 	}
