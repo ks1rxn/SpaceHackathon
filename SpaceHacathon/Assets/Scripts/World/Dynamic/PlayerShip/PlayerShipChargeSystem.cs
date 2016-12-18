@@ -7,6 +7,8 @@ public class PlayerShipChargeSystem : MonoBehaviour {
 	private ParticleSystem[] m_chargeEngines;
 	[SerializeField]
 	private GameObject[] m_chargeEnginesAsObjects;
+	[SerializeField]
+	private GameObject m_chargeEffect;
 
     private int m_chargeFuel;
 
@@ -59,19 +61,17 @@ public class PlayerShipChargeSystem : MonoBehaviour {
 		BattleContext.GUIController.SetCharge(m_chargeFuel / 5.0f);
 		if (InChargeTargeting) {
 			int onTarget = MarkTargets();
-			switch (onTarget) {
-				case 0:
-					BattleContext.World.SetTimeScaleMode(TimeScaleMode.Normal);
-					break;
-				case 1:
-					BattleContext.World.SetTimeScaleMode(TimeScaleMode.Slow);
-					break;
-				default:
-					BattleContext.World.SetTimeScaleMode(TimeScaleMode.SuperSlow);
-					break;
-			}
-		} else {
-			BattleContext.World.SetTimeScaleMode(TimeScaleMode.Normal);
+//			switch (onTarget) {
+//				case 0:
+//					BattleContext.World.SetTimeScaleMode(TimeScaleMode.Normal);
+//					break;
+//				case 1:
+//					BattleContext.World.SetTimeScaleMode(TimeScaleMode.Slow);
+//					break;
+//				default:
+//					BattleContext.World.SetTimeScaleMode(TimeScaleMode.SuperSlow);
+//					break;
+//			}
 		}
 	}
 

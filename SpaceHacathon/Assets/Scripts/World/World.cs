@@ -8,6 +8,7 @@ public class World : MonoBehaviour {
     private void Awake() {
         BattleContext.World = this;
         m_points = 0;
+		SetTimeScaleMode(TimeScaleMode.Normal);
     }
 
 	public void SetTimeScaleMode(TimeScaleMode mode) {
@@ -42,6 +43,14 @@ public class World : MonoBehaviour {
 			case TimeScaleMode.SuperSlow:
 				if (Time.timeScale > 0.2f) {
 					Time.timeScale -= Time.deltaTime * 2;
+				} else if (Time.timeScale < 0.18f) {
+					Time.timeScale += Time.deltaTime * 2;
+				}
+			    break;
+			case TimeScaleMode.Stopped:
+				if (Time.timeScale > 0f) {
+					float newScale = Time.timeScale - Time.deltaTime * 8;
+					Time.timeScale = newScale < 0 ? 0 : newScale;
 				}
 			    break;
 	    }
@@ -56,6 +65,7 @@ public class World : MonoBehaviour {
 }
 
 public enum TimeScaleMode {
+	Stopped,
 	SuperSlow,
 	Slow,
 	Normal
