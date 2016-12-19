@@ -87,37 +87,32 @@ public class PlayerShip : MonoBehaviour {
 	}
 
 	private void UpdateMovement() {
-		switch (m_state) {
-			case ShipState.OnMove:
-                // Rotation //
-				float angleToTarget = AngleToNeedAngle;
-				float longAngle = -Mathf.Sign(angleToTarget) * (360 - Mathf.Abs(angleToTarget));
-				float actualAngle = angleToTarget;
-				if ((m_rigidbody.angularVelocity.y * longAngle > 0) && (Mathf.Abs(m_rigidbody.angularVelocity.y) > 1)) {
-				    if (Mathf.Abs(m_rigidbody.angularVelocity.y * 30) > Mathf.Abs(longAngle + angleToTarget)) {
-				        actualAngle = longAngle;
-				    }
-				}
-				float angularForce = Mathf.Sign(actualAngle) * Mathf.Sqrt(Mathf.Abs(actualAngle)) * m_shipParams.RotationPower;
-				m_rigidbody.AddTorque(new Vector3(0, angularForce * m_rigidbody.mass * 0.02f, 0));
-				
-                // Velocity //
-				float powerCoefficient = 0;
-				if (m_power > 0) {
-				    powerCoefficient = 1;
-				} else if (m_power < 0) {
-				    powerCoefficient = -1;
-				}
-				m_rigidbody.AddForce(m_power * LookVector * m_rigidbody.mass * 0.02f * m_shipParams.EnginePower);
-				if (m_rigidbody.velocity.magnitude > 5) {
-				    m_rigidbody.velocity = m_rigidbody.velocity.normalized * 5;
-				}
-
-                // Roll hull //
-		        m_hull.SetRollAngle(-m_rigidbody.angularVelocity.y * 15 * powerCoefficient);
-		 
-				break;
+        // Rotation //
+		float angleToTarget = AngleToNeedAngle;
+		float longAngle = -Mathf.Sign(angleToTarget) * (360 - Mathf.Abs(angleToTarget));
+		float actualAngle = angleToTarget;
+		if ((m_rigidbody.angularVelocity.y * longAngle > 0) && (Mathf.Abs(m_rigidbody.angularVelocity.y) > 1)) {
+			if (Mathf.Abs(m_rigidbody.angularVelocity.y * 30) > Mathf.Abs(longAngle + angleToTarget)) {
+				actualAngle = longAngle;
+			}
 		}
+		float angularForce = Mathf.Sign(actualAngle) * Mathf.Sqrt(Mathf.Abs(actualAngle)) * m_shipParams.RotationPower;
+		m_rigidbody.AddTorque(new Vector3(0, angularForce * m_rigidbody.mass * 0.02f, 0));
+				
+        // Velocity //
+		float powerCoefficient = 0;
+		if (m_power > 0) {
+			powerCoefficient = 1;
+		} else if (m_power < 0) {
+			powerCoefficient = -1;
+		}
+		m_rigidbody.AddForce(m_power * LookVector * m_rigidbody.mass * 0.02f * m_shipParams.EnginePower);
+		if (m_rigidbody.velocity.magnitude > 5) {
+			m_rigidbody.velocity = m_rigidbody.velocity.normalized * 5;
+		}
+
+        // Roll hull //
+		m_hull.SetRollAngle(-m_rigidbody.angularVelocity.y * 15 * powerCoefficient);
 	}
 
 	public void SetAngle(float angle) {
@@ -135,6 +130,10 @@ public class PlayerShip : MonoBehaviour {
 		if (!m_chargeSystem.InChargeTargeting) {
 			return;
 		}
+		if (m_state == ShipState.InCharge) {
+			return;
+		}
+		m_state = ShipState.InCharge;
 		m_chargeSystem.Charge();
 		BattleContext.World.SetTimeScaleMode(TimeScaleMode.SuperSlow);
 		StartCoroutine(ChargeProcess());
@@ -202,6 +201,7 @@ public class PlayerShip : MonoBehaviour {
 			yield return new WaitForEndOfFrame();
 		}
 		BattleContext.World.SetTimeScaleMode(TimeScaleMode.Normal);
+		m_state = ShipState.OnMove;
 	}
 
 	private IEnumerator part() {

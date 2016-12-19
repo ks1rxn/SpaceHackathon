@@ -35,7 +35,7 @@ public class Blaster : MonoBehaviour {
 		if (m_detonatorActivateTime <= 0) {
 			GetComponent<Collider>().enabled = true;
 		} else {
-			m_detonatorActivateTime -= 10 * Time.fixedDeltaTime;
+			m_detonatorActivateTime -= Time.fixedDeltaTime;
 		}
 	}
 

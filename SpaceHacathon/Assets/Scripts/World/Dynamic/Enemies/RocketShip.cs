@@ -110,9 +110,9 @@ public class RocketShip : MonoBehaviour, IEnemyShip {
 			}
 		}
 
-		m_gun1Cooldown -= 10 * Time.fixedDeltaTime;
-		m_gun2Cooldown -= 10 * Time.fixedDeltaTime;
-		m_globalCooldown -= 10 * Time.fixedDeltaTime;
+		m_gun1Cooldown -= Time.fixedDeltaTime;
+		m_gun2Cooldown -= Time.fixedDeltaTime;
+		m_globalCooldown -= Time.fixedDeltaTime;
 
 		if (Vector3.Distance(BattleContext.PlayerShip.Position, transform.position) > 80) {
 			Die();
