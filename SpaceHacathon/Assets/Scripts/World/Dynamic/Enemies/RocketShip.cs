@@ -120,7 +120,7 @@ public class RocketShip : MonoBehaviour, IEnemyShip {
 	}
 
 	private void SpawnRocket1() {
-		BattleContext.BulletsController.SpawnRocket(m_launcher1.position, transform.rotation.eulerAngles.y);
+		BattleContext.BulletsController.SpawnRocket(m_launcher1.position);
 
 		m_rigidbody.AddExplosionForce(120, m_launcher1.position, 3);
 		m_launcher1.GetComponent<ParticleSystem>().Play();
@@ -128,7 +128,7 @@ public class RocketShip : MonoBehaviour, IEnemyShip {
 	}
 
 	private void SpawnRocket2() {
-		BattleContext.BulletsController.SpawnRocket(m_launcher2.position, transform.rotation.eulerAngles.y);
+		BattleContext.BulletsController.SpawnRocket(m_launcher2.position);
 
 		m_rigidbody.AddExplosionForce(120, m_launcher2.position, 3);
 		m_launcher2.GetComponent<ParticleSystem>().Play();

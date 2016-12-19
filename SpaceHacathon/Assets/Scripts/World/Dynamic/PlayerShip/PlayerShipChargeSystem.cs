@@ -92,19 +92,6 @@ public class PlayerShipChargeSystem : MonoBehaviour {
 		}
 	}
 
-	private static int MarkTargets() {
-		int count = 0;
-		foreach (IEnemyShip ship in BattleContext.EnemiesController.Ships) {
-			if (IsOnTarget(ship.Position)) {
-				ship.CheckAsTarget();
-				count++;
-			} else {
-				ship.UncheckAsTarget();
-			}
-		}
-		return count;
-	}
-
 	public static List<IEnemyShip> GetTargets() {
 		List<IEnemyShip> targets = new List<IEnemyShip>();
 		foreach (IEnemyShip ship in BattleContext.EnemiesController.Ships) {

@@ -40,7 +40,7 @@ public class BulletsController : MonoBehaviour {
 		}
 	}
 
-	public void SpawnRocket(Vector3 position, float angle) {
+	public void SpawnRocket(Vector3 position) {
 		Rocket targetRocket = null;
 		foreach (Rocket rocket in m_rockets) {
 			if (!rocket.gameObject.activeInHierarchy) {
@@ -51,7 +51,7 @@ public class BulletsController : MonoBehaviour {
 		if (targetRocket == null) {
 			targetRocket = CreateRocket();
 		}
-		targetRocket.Spawn(position, angle);
+		targetRocket.Spawn(position);
 	}
 
 	public void SpawnBlaster(Vector3 position, float angle) {

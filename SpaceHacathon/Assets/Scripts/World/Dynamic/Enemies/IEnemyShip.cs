@@ -8,9 +8,5 @@ public interface IEnemyShip {
 
 	void Kill();
 
-	void CheckAsTarget();
-
-	void UncheckAsTarget();
-
 	Vector3 Position { get; }
 }

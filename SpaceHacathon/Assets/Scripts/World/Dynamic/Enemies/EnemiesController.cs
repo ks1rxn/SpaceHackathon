@@ -6,6 +6,8 @@ public class EnemiesController : MonoBehaviour {
 	private GameObject m_rocketShipPrefab;
 	[SerializeField]
 	private GameObject m_blasterShipPrefab;
+	[SerializeField]
+	private GameObject m_rocketLauncherPrefab;
 
 	private List<IEnemyShip> m_ships;
 
@@ -15,10 +17,10 @@ public class EnemiesController : MonoBehaviour {
 		m_ships = new List<IEnemyShip>();
 
 		for (int i = 0; i != 20; i++) {
-			CreateRocketShip();
+			CreateRocketLauncher();
 		}
 		for (int i = 0; i != 2; i++) {
-			CreateBlasterShip();
+//			CreateBlasterShip();
 		}
 	}
 
@@ -53,6 +55,13 @@ public class EnemiesController : MonoBehaviour {
 		blasterShip.transform.parent = transform;
 		m_ships.Add(blasterShip);
 		return blasterShip;
+	}
+
+	private RocketLauncher CreateRocketLauncher() {
+		RocketLauncher rocketLauncher = (Instantiate(m_rocketLauncherPrefab)).GetComponent<RocketLauncher>();
+		rocketLauncher.transform.parent = transform;
+		m_ships.Add(rocketLauncher);
+		return rocketLauncher;
 	}
 
 	public List<IEnemyShip> Ships {
