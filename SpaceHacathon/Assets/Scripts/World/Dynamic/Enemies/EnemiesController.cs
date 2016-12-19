@@ -40,7 +40,7 @@ public class EnemiesController : MonoBehaviour {
 		Vector3 playerPos = BattleContext.PlayerShip.Position;
 		float angle = (float) MathHelper.Random.NextDouble() * 360;
 		float distance = MathHelper.Random.Next(35) + 5;
-		ship.Spawn(new Vector3(playerPos.x + Mathf.Cos(angle * Mathf.PI / 180) * distance, 0 , playerPos.z + Mathf.Sin(angle * Mathf.PI / 180) * distance), 0);
+		ship.Spawn(new Vector3(playerPos.x + Mathf.Cos(angle * Mathf.PI / 180) * distance, -0.4f, playerPos.z + Mathf.Sin(angle * Mathf.PI / 180) * distance), 0);
 	}
 
 	private RocketShip CreateRocketShip() {

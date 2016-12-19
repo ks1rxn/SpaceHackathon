@@ -80,7 +80,7 @@ public class Rocket : MonoBehaviour {
  
         m_rigidbody.AddTorque(headingCorrection * 1.2f);
 
-		m_rigidbody.AddRelativeForce(0, 60, 0);
+		m_rigidbody.AddRelativeForce(0, 120, 0);
 		if (m_rigidbody.velocity.magnitude > 6) {
 			m_rigidbody.velocity = m_rigidbody.velocity.normalized * 6;
 		}
