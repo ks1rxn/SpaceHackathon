@@ -16,10 +16,10 @@ public class EnemiesController : MonoBehaviour {
 
 		m_ships = new List<IEnemyShip>();
 
-		for (int i = 0; i != 1; i++) {
+		for (int i = 0; i != 5; i++) {
 			CreateRocketLauncher();
 		}
-		for (int i = 0; i != 2; i++) {
+		for (int i = 0; i != 5; i++) {
 //			CreateBlasterShip();
 		}
 	}
@@ -39,7 +39,7 @@ public class EnemiesController : MonoBehaviour {
 	public void Respawn(IEnemyShip ship) {
 		Vector3 playerPos = BattleContext.PlayerShip.Position;
 		float angle = (float) MathHelper.Random.NextDouble() * 360;
-		float distance = MathHelper.Random.Next(5) + 5;
+		float distance = MathHelper.Random.Next(35) + 5;
 		ship.Spawn(new Vector3(playerPos.x + Mathf.Cos(angle * Mathf.PI / 180) * distance, -0.4f, playerPos.z + Mathf.Sin(angle * Mathf.PI / 180) * distance), 0);
 	}
 
