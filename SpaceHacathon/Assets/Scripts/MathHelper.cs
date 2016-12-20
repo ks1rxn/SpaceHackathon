@@ -41,7 +41,7 @@ public class VectorPid {
  
      public Vector3 Update(Vector3 currentError, float timeFrame) {
          integral += currentError * timeFrame;
-         var deriv = (currentError - lastError) / timeFrame;
+         Vector3 deriv = (currentError - lastError) / timeFrame;
          lastError = currentError;
          return currentError * pFactor
              + integral * iFactor

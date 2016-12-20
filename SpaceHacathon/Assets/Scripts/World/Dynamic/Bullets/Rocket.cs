@@ -9,6 +9,7 @@ public class Rocket : MonoBehaviour {
 	[SerializeField]
 	private ParticleSystem m_trail;
 
+	private float m_power;
 	private bool m_inactive;
 
 	private readonly VectorPid angularVelocityController = new VectorPid(33.7766f, 0, 0.2553191f);
@@ -33,12 +34,13 @@ public class Rocket : MonoBehaviour {
 	}
 
 	private IEnumerator LaunchProcess() {
+		m_power = 1.1f;
 		m_inactive = true;
-		m_rigidbody.drag = 3.0f;
+		m_rigidbody.drag = 2.0f;
 		GetComponent<Collider>().enabled = false;
 
-		m_rigidbody.AddExplosionForce(160 * m_rigidbody.mass, transform.position + new Vector3(0, -0.04f, 0), 1);
-		yield return new WaitForSeconds(1.0f);
+		m_rigidbody.AddExplosionForce(340 * m_rigidbody.mass, transform.position + new Vector3(0, -0.04f, 0), 1);
+		yield return new WaitForSeconds(0.75f);
 
 		m_trail.Play();
 
@@ -80,7 +82,10 @@ public class Rocket : MonoBehaviour {
  
         m_rigidbody.AddTorque(headingCorrection * 1.2f);
 
-		m_rigidbody.AddRelativeForce(0, 120, 0);
+		if (m_power < 120) {
+			m_power += Time.fixedDeltaTime * Mathf.Min(m_power * m_power * m_power, 50);
+		}
+		m_rigidbody.AddRelativeForce(0, m_power, 0);
 		if (m_rigidbody.velocity.magnitude > 6) {
 			m_rigidbody.velocity = m_rigidbody.velocity.normalized * 6;
 		}
