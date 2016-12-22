@@ -7,6 +7,8 @@ public class GUIController : MonoBehaviour {
 	private GameObject m_rotationJoystick;
 	[SerializeField]
 	private GameObject m_joystickHandle;
+	[SerializeField]
+	private Image m_rotationDirection;
 
 	
 	[SerializeField]
@@ -89,6 +91,12 @@ public class GUIController : MonoBehaviour {
     }
 
 	// Rotation Joystick //
+
+	public void SetRotationParams(float angleTo, float diff) {
+		m_rotationDirection.transform.eulerAngles = new Vector3(0, 0, angleTo);
+		m_rotationDirection.fillClockwise = diff < 0;
+		m_rotationDirection.fillAmount = Mathf.Abs(diff) / 360f;
+	}
 
 	public void SetRightJoystickAngle(float angle) {
 		//fucking hack: all questions to @Gigamesh
