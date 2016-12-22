@@ -21,14 +21,10 @@ public class World : MonoBehaviour {
 		m_timeScaleMode = mode;
 	}
 
-    public void AddPoints(float points) {
-        m_points += points;
-    }
-
     private void Update() {
         UpdateTimeSpeed();
 
-        m_points += 2 * Time.deltaTime;
+        m_points += Time.deltaTime;
         BattleContext.GUIController.SetPoints(m_points);
     }
 

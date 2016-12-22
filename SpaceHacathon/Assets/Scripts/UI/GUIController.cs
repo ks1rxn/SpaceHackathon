@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -63,10 +64,6 @@ public class GUIController : MonoBehaviour {
 		m_fpsCounter.text = "FPS: " + Mathf.RoundToInt(average) + " - " + min;
 	}
 
-    public void SetPoints(float points) {
-        m_pointsCounter.text = ((int)points).ToString();
-    }
-
     public void SetDeadPanelOpacity(float opacity) {
         Color color = m_deadPanel.color;
         color.a = opacity;
@@ -79,6 +76,15 @@ public class GUIController : MonoBehaviour {
 
     public void SetDeadScore(float score) {
         m_deadLabel.text = "Score : " + (int) score;
+    }
+
+	// Points //
+
+	public void SetPoints(float points) {
+	    int time = (int) points;
+	    int minutes = time / 60;
+	    int seconds = time % 60;
+	    m_pointsCounter.text = minutes.ToString("D2") + ":" + seconds.ToString("D2");
     }
 
 	// Power //
