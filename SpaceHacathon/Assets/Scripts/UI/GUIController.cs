@@ -4,9 +4,9 @@ using UnityEngine.UI;
 
 public class GUIController : MonoBehaviour {
 	[SerializeField]
-	private GameObject m_button;
+	private GameObject m_rotationJoystick;
 	[SerializeField]
-	private GameObject m_smallButton;
+	private GameObject m_joystickHandle;
 	[SerializeField]
 	private Slider m_powerBar;
 	[SerializeField]
@@ -48,11 +48,12 @@ public class GUIController : MonoBehaviour {
 	}
 
 	public void SetRightJoystickAngle(float angle) {
-		float radius = 8;
-#if UNITY_EDITOR
-		radius = 16;
-#endif
-		m_smallButton.transform.localPosition = new Vector3(Mathf.Cos(angle * Mathf.PI / 180) * Screen.width / radius, Mathf.Sin(angle * Mathf.PI / 180) * Screen.width / radius, 0);
+//		float radius = 8;
+//#if UNITY_EDITOR
+//		radius = 16;
+//#endif
+//		float radius = 0.01f;
+//		m_joystickHandle.transform.localPosition = new Vector3(Mathf.Cos(angle * Mathf.PI / 180) * Screen.width / radius, Mathf.Sin(angle * Mathf.PI / 180) * Screen.width / radius, 0);
 	}
 
 	public void SetLeftJoysticValue(float value) {
@@ -85,9 +86,10 @@ public class GUIController : MonoBehaviour {
         m_deadLabel.text = "Score : " + (int) score;
     }
 
-	public GameObject Button {
+	public Vector3 RotationJoystickCenter {
 		get {
-			return m_button;
+			return m_rotationJoystick.transform.position;
 		}
 	}
+
 }
