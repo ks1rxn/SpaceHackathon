@@ -7,12 +7,19 @@ public class GUIController : MonoBehaviour {
 	private GameObject m_rotationJoystick;
 	[SerializeField]
 	private GameObject m_joystickHandle;
-	[SerializeField]
-	private Slider m_powerBar;
+
+	
 	[SerializeField]
 	private Image m_health;
-    [SerializeField]
-	private Slider m_charge;
+	[SerializeField]
+	private Image[] m_chargeIndicator;
+	[SerializeField]
+	private Sprite m_chargeBlue;
+	[SerializeField]
+	private Sprite m_chargeOrange;
+
+	[SerializeField]
+	private Slider m_powerBar;
 	[SerializeField]
 	private Text m_fpsCounter;
     [SerializeField]
@@ -51,14 +58,6 @@ public class GUIController : MonoBehaviour {
 		m_powerBar.value = value / 2 + 0.5f;
 	}
 
-	public void SetHealth(float value) {
-		m_health.fillAmount = 1 - value;
-	}
-
-    public void SetCharge(float value) {
-        m_charge.value = 1 - value;
-    }
-
     public void SetPoints(float points) {
         m_pointsCounter.text = ((int)points).ToString();
     }
@@ -75,6 +74,18 @@ public class GUIController : MonoBehaviour {
 
     public void SetDeadScore(float score) {
         m_deadLabel.text = "Score : " + (int) score;
+    }
+
+	// Health + Power //
+
+	public void SetHealth(float value) {
+		m_health.fillAmount = value;
+	}
+
+    public void SetCharge(int value) {
+	    for (int i = 0; i != 5; i++) {
+		    m_chargeIndicator[i].gameObject.SetActive(i < value);
+	    }
     }
 
 	// Rotation Joystick //

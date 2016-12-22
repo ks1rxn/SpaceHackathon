@@ -75,7 +75,7 @@ public class PlayerShipChargeSystem : MonoBehaviour {
 	}
 
 	private void Update() {
-		BattleContext.GUIController.SetCharge(m_chargeFuel / 5.0f);
+		BattleContext.GUIController.SetCharge(m_chargeFuel);
 		if (InChargeTargeting) {
 //			int onTarget = MarkTargets();
 //			switch (onTarget) {
