@@ -37,7 +37,6 @@ public class ScreenInput : MonoBehaviour {
 		if (Input.GetMouseButton(0)) {
 			float d = Vector3.Distance(Input.mousePosition, BattleContext.GUIController.RotationJoystickCenter);
 			if (d < Screen.width / 3f) {
-				Debug.Log(Input.mousePosition + " " + BattleContext.GUIController.RotationJoystickCenter);
 				SetShipAngle(MathHelper.AngleBetweenVectorsZ(new Vector3(1, 0, 0), Input.mousePosition - BattleContext.GUIController.RotationJoystickCenter));
 			}
 		}

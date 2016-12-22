@@ -47,15 +47,6 @@ public class GUIController : MonoBehaviour {
 		m_fpsCounter.text = "FPS: " + Mathf.RoundToInt(average) + " - " + min;
 	}
 
-	public void SetRightJoystickAngle(float angle) {
-//		float radius = 8;
-//#if UNITY_EDITOR
-//		radius = 16;
-//#endif
-//		float radius = 0.01f;
-//		m_joystickHandle.transform.localPosition = new Vector3(Mathf.Cos(angle * Mathf.PI / 180) * Screen.width / radius, Mathf.Sin(angle * Mathf.PI / 180) * Screen.width / radius, 0);
-	}
-
 	public void SetLeftJoysticValue(float value) {
 		m_powerBar.value = value / 2 + 0.5f;
 	}
@@ -85,6 +76,13 @@ public class GUIController : MonoBehaviour {
     public void SetDeadScore(float score) {
         m_deadLabel.text = "Score : " + (int) score;
     }
+
+	// Rotation Joystick //
+
+	public void SetRightJoystickAngle(float angle) {
+		//fucking hack: all questions to @Gigamesh
+		m_joystickHandle.transform.eulerAngles = new Vector3(0, 0, -60 + angle);
+	}
 
 	public Vector3 RotationJoystickCenter {
 		get {
