@@ -10,7 +10,7 @@ public class GUIController : MonoBehaviour {
 	[SerializeField]
 	private Slider m_powerBar;
 	[SerializeField]
-	private Slider m_health;
+	private Image m_health;
     [SerializeField]
 	private Slider m_charge;
 	[SerializeField]
@@ -60,7 +60,7 @@ public class GUIController : MonoBehaviour {
 	}
 
 	public void SetHealth(float value) {
-		m_health.value = 1 - value;
+		m_health.fillAmount = 1 - value;
 	}
 
     public void SetCharge(float value) {
