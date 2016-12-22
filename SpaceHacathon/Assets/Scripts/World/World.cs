@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Analytics;
 
 public class World : MonoBehaviour {
 	private TimeScaleMode m_timeScaleMode;
@@ -9,6 +11,10 @@ public class World : MonoBehaviour {
         BattleContext.World = this;
         m_points = 0;
 		SetTimeScaleMode(TimeScaleMode.Normal);
+
+		Analytics.CustomEvent("gameStart", new Dictionary<string, object> {
+			{ "time", System.DateTime.Now },
+		});
     }
 
 	public void SetTimeScaleMode(TimeScaleMode mode) {

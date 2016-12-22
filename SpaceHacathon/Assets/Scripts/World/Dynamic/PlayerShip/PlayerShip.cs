@@ -46,7 +46,7 @@ public class PlayerShip : MonoBehaviour {
 	public void RocketHit(Vector3 position) {
 		//hack
 		position.y = 0;
-		m_rigidbody.AddExplosionForce(m_rigidbody.mass * 50, transform.position + (position - transform.position).normalized * 3, 5);
+		m_rigidbody.AddExplosionForce(m_rigidbody.mass * 50, Position + (position - Position).normalized * 3, 5);
 		m_hull.Hit(0.5f);
 		StopCoroutine("BashProcedure");
 		StartCoroutine(BashProcedure());
