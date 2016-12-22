@@ -20,7 +20,7 @@ public class ScreenInput : MonoBehaviour {
 				Vector3 position = new Vector3(touch.position.x, touch.position.y, 0);
 				SetShipAngle(MathHelper.AngleBetweenVectorsZ(new Vector3(1, 0, 0), position - BattleContext.GUIController.RotationJoystickCenter));
 			} else if ((touch.position.x < Screen.width / 4f) && (touch.position.y < Screen.height / 3f * 2f)) {
-				float power = Mathf.Sign(touch.position.y - Screen.height / 4f);
+				int power = (int)Mathf.Sign(touch.position.y - Screen.height / 4f);
 				SetShipPower(power);
 				hasSpeedSetter = true;
 			} else if ((touch.position.x > Screen.width / 4f) && (touch.position.x < Screen.width / 2f) && (touch.position.y < Screen.height / 4f)) {
@@ -43,9 +43,9 @@ public class ScreenInput : MonoBehaviour {
 
 		// Ship velocity //
 		if (Input.GetKey(KeyCode.W)) {
-			SetShipPower(1.0f);
+			SetShipPower(1);
 		} else if (Input.GetKey(KeyCode.S)) {
-			SetShipPower(-1.0f);
+			SetShipPower(-1);
 		} else {
 			SetShipPower(0);
 		}
@@ -60,7 +60,7 @@ public class ScreenInput : MonoBehaviour {
 		}
 	}
 
-	private void SetShipPower(float power) {
+	private void SetShipPower(int power) {
 		BattleContext.PlayerShip.SetPower(power);
 		BattleContext.GUIController.SetLeftJoysticValue(power);
 	}

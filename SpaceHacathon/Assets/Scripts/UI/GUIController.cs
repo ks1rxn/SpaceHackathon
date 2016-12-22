@@ -21,7 +21,14 @@ public class GUIController : MonoBehaviour {
 	private Sprite m_chargeOrange;
 
 	[SerializeField]
-	private Slider m_powerBar;
+	private Image m_powerUp;
+	[SerializeField]
+	private Image m_powerDown;
+	[SerializeField]
+	private Sprite m_spritePowerOn;
+	[SerializeField]
+	private Sprite m_spritePowerOff;
+
 	[SerializeField]
 	private Text m_fpsCounter;
     [SerializeField]
@@ -56,10 +63,6 @@ public class GUIController : MonoBehaviour {
 		m_fpsCounter.text = "FPS: " + Mathf.RoundToInt(average) + " - " + min;
 	}
 
-	public void SetLeftJoysticValue(float value) {
-		m_powerBar.value = value / 2 + 0.5f;
-	}
-
     public void SetPoints(float points) {
         m_pointsCounter.text = ((int)points).ToString();
     }
@@ -78,7 +81,26 @@ public class GUIController : MonoBehaviour {
         m_deadLabel.text = "Score : " + (int) score;
     }
 
-	// Health + Power //
+	// Power //
+
+	public void SetLeftJoysticValue(int value) {
+		switch (value) {
+			case 0:
+				m_powerUp.sprite = m_spritePowerOff;
+				m_powerDown.sprite = m_spritePowerOff;
+				break;
+			case 1:
+				m_powerUp.sprite = m_spritePowerOn;
+				m_powerDown.sprite = m_spritePowerOff;
+				break;
+			case -1:
+				m_powerUp.sprite = m_spritePowerOff;
+				m_powerDown.sprite = m_spritePowerOn;
+				break;
+		}
+	}
+
+	// Health + Charge fuel //
 
 	public void SetHealth(float value) {
 		m_health.fillAmount = value;
