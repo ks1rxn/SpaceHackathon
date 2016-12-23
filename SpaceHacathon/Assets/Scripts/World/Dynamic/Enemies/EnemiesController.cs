@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemiesController : MonoBehaviour {
@@ -8,6 +9,8 @@ public class EnemiesController : MonoBehaviour {
 	private GameObject m_blasterShipPrefab;
 	[SerializeField]
 	private GameObject m_rocketLauncherPrefab;
+	[SerializeField]
+	private GameObject m_ramShipPrefab;
 
 	private List<IEnemyShip> m_ships;
 
@@ -15,9 +18,8 @@ public class EnemiesController : MonoBehaviour {
 		BattleContext.EnemiesController = this;
 
 		m_ships = new List<IEnemyShip>();
-
 		for (int i = 0; i != 5; i++) {
-			CreateRocketLauncher();
+//			CreateRocketLauncher();
 		}
 		for (int i = 0; i != 5; i++) {
 //			CreateBlasterShip();
@@ -28,12 +30,23 @@ public class EnemiesController : MonoBehaviour {
 		foreach (IEnemyShip ship in m_ships) {
 			Respawn(ship);
 		}
+		StartCoroutine(DelayedSpawn());
+	}
+
+	private IEnumerator DelayedSpawn() {
+		yield return new WaitForSecondsRealtime(0.5f);
+		SpawnRamShipAt(new Vector3(4, 0, 0));
 	}
 
 	private void FixedUpdate() {
 		for (int i = 0; i != m_ships.Count; i++) {
 			m_ships[i].UpdateShip();
 		}
+	}
+
+	public void SpawnRamShipAt(Vector3 position) {
+		IEnemyShip ship = CreateRamShip();
+		ship.Spawn(position, 0);
 	}
 
 	public void Respawn(IEnemyShip ship) {
@@ -62,6 +75,13 @@ public class EnemiesController : MonoBehaviour {
 		rocketLauncher.transform.parent = transform;
 		m_ships.Add(rocketLauncher);
 		return rocketLauncher;
+	}
+
+	private RamShip CreateRamShip() {
+		RamShip ramShip = (Instantiate(m_ramShipPrefab)).GetComponent<RamShip>();
+		ramShip.transform.parent = transform;
+		m_ships.Add(ramShip);
+		return ramShip;
 	}
 
 	public List<IEnemyShip> Ships {
