@@ -2,9 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class RocketLauncher : MonoBehaviour, IEnemyShip {
-	private Rigidbody m_rigidbody;
-
+public class RocketLauncher : IEnemyShip {
 	private float m_cooldown;
 
 	[SerializeField]
@@ -13,23 +11,19 @@ public class RocketLauncher : MonoBehaviour, IEnemyShip {
 	[SerializeField]
 	private Transform m_launcher;
 
-	protected void Awake() {
-		m_rigidbody = GetComponent<Rigidbody>();
+	public override void Initiate() {
+		base.Initiate();
 	}
 
-	public void Spawn(Vector3 position, float angle) {
-		transform.position = position;
+	public override void Spawn(Vector3 position, float angle) {
+		base.Spawn(position, angle);
 
 		m_cooldown = 0;
 	}
 
-	public void Kill() {
+	public override void Kill() {
+		base.Kill();
 		BattleContext.ExplosionsController.PlayerShipExplosion(transform.position);
-		Die();
-	}
-
-	private void Die() {
-		BattleContext.EnemiesController.Respawn(this);
 	}
 
 	private void OnTriggerEnter(Collider other) { 
@@ -38,7 +32,9 @@ public class RocketLauncher : MonoBehaviour, IEnemyShip {
 		}
     }
 
-	public void UpdateShip() {
+	public override void UpdateShip() {
+		base.UpdateShip();
+
 		if (m_rigidbody.velocity.magnitude > 0.01f) {
 			m_rigidbody.AddForce(-m_rigidbody.velocity * 2);
 		}
@@ -51,10 +47,6 @@ public class RocketLauncher : MonoBehaviour, IEnemyShip {
 		}
 
 		m_cooldown -= Time.fixedDeltaTime;
-
-		if (Vector3.Distance(BattleContext.PlayerShip.Position, transform.position) > 80) {
-			Die();
-		}
 	}
 
 	private void SpawnRocket() {
@@ -65,9 +57,12 @@ public class RocketLauncher : MonoBehaviour, IEnemyShip {
 //		m_rigidbody.AddTorque(0, 30, 0);
 	}
 
-	public Vector3 Position {
+	public override bool IsAlive {
 		get {
-			return transform.position;
+			return gameObject.activeInHierarchy;
+		}
+		set {
+			gameObject.SetActive(value);
 		}
 	}
 

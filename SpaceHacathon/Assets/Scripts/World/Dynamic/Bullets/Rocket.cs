@@ -15,15 +15,17 @@ public class Rocket : MonoBehaviour {
 	private readonly VectorPid angularVelocityController = new VectorPid(33.7766f, 0, 0.2553191f);
     private readonly VectorPid headingController = new VectorPid(9.244681f, 0, 0.06382979f);
 
-	protected void Awake() {
+	public void Initiate() {
 		m_rigidbody = GetComponent<Rigidbody>();
+		IsAlive = false;
 	}
 
 	public void Spawn(Vector3 position) {
+		IsAlive = true;
+
 		m_rigidbody.velocity = Vector3.zero;
 		m_rigidbody.angularVelocity = Vector3.zero;
 		m_trail.Stop();
-		gameObject.SetActive(true);
 	
 		transform.position = position;
 		m_lifeTime = 10;
@@ -52,7 +54,7 @@ public class Rocket : MonoBehaviour {
 	private void OnTriggerEnter(Collider other) {
 		if (other.GetComponent<PlayerShipHull>() != null || other.GetComponent<ChargeFuel>() != null || other.GetComponent<Rocket>() != null) {
 			BattleContext.ExplosionsController.RocketExplosion(transform.position);
-			Die();
+			IsAlive = false;
 		}
 	}
 
@@ -94,19 +96,26 @@ public class Rocket : MonoBehaviour {
 
 		m_lifeTime -= Time.fixedDeltaTime;
 		if (m_lifeTime <= 0) {
-			Die();
+			IsAlive = false;
 			BattleContext.ExplosionsController.RocketExplosion(transform.position);
 		}
 
 		float distToPlayer = Vector3.Distance(BattleContext.PlayerShip.Position, transform.position);
 		if (distToPlayer > 25) {
-			Die();
+			IsAlive = false;
 		}
 	}
 
-	private void Die() {
-		m_trail.Stop();
-		gameObject.SetActive(false);
+	public bool IsAlive {
+		get {
+			return gameObject.activeInHierarchy;
+		}
+		set {
+			gameObject.SetActive(value);
+			if (!value) {
+				m_trail.Stop();
+			}
+		}
 	}
 
 }

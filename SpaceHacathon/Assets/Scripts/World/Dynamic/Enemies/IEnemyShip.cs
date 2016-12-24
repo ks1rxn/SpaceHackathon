@@ -1,12 +1,40 @@
 ﻿
 using UnityEngine;
 
-public interface IEnemyShip {
-	void Spawn(Vector3 position, float rotation);
+public abstract class IEnemyShip : MonoBehaviour {
+	protected Rigidbody m_rigidbody;
 
-	void UpdateShip();
+	public virtual void Initiate() {
+		m_rigidbody = GetComponent<Rigidbody>();
+		IsAlive = false;
+	}
 
-	void Kill();
+	public virtual void Spawn(Vector3 position, float rotation) {
+		IsAlive = true;
 
-	Vector3 Position { get; }
+		transform.position = position;
+		transform.rotation = new Quaternion();
+		transform.Rotate(0, rotation, 0);
+
+		m_rigidbody.velocity = Vector3.zero;
+		m_rigidbody.angularVelocity = Vector3.zero;
+	}
+
+	public virtual void UpdateShip() {
+		if (Vector3.Distance(BattleContext.PlayerShip.Position, Position) > 80) {
+			IsAlive = false;
+		}
+	}
+
+	public virtual void Kill() {
+		IsAlive = false;
+	}
+
+	public abstract bool IsAlive { get; set; }
+
+	public Vector3 Position {
+		get {
+			return transform.position;
+		}
+	}
 }

@@ -1,9 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class BlasterShip : MonoBehaviour, IEnemyShip {
-	private Rigidbody m_rigidbody;
-
+public class StunShip : IEnemyShip {
 	[SerializeField]
 	private GameObject m_gun;
 
@@ -24,27 +22,23 @@ public class BlasterShip : MonoBehaviour, IEnemyShip {
 	private float m_blasterCooldown;
 
 	[SerializeField]
-	private GameObject m_chargeTarget;
-	[SerializeField]
 	private ParticleSystem[] m_engines;
 	private bool[] m_engineState;
 
-	protected void Awake() {
-		m_rigidbody = GetComponent<Rigidbody>();
+	public override void Initiate() {
+		base.Initiate();
 		m_material = GetComponent<MeshRenderer>().material;
 		m_engineState = new bool[m_engines.Length];
 	}
 
-	public void Spawn(Vector3 position, float angle) {
-		transform.position = position;
+	public override void Spawn(Vector3 position, float angle) {
+		base.Spawn(position, angle);
 
 		m_blasterTimer = m_blasterCooldown;
 		m_state = BlasterShipState.Moving;
 		m_movingTimer = m_flyCooldown;
 
 		StartCoroutine(SpawnEffect());
-
-		UncheckAsTarget();
 	}
 
 	private IEnumerator SpawnEffect() {
@@ -58,13 +52,9 @@ public class BlasterShip : MonoBehaviour, IEnemyShip {
 		m_material.SetFloat("_SliceAmount", 0.0f);
 	}
 
-	public void Kill() {
+	public override void Kill() {
+		base.Kill();
 		BattleContext.ExplosionsController.PlayerShipExplosion(transform.position);
-		Die();
-	}
-
-	private void Die() {
-		BattleContext.EnemiesController.Respawn(this);
 	}
 
 	private void OnTriggerEnter(Collider other) {
@@ -73,15 +63,9 @@ public class BlasterShip : MonoBehaviour, IEnemyShip {
 		}
 	}
 
-	public void CheckAsTarget() {
-		m_chargeTarget.SetActive(true);
-	}
+	public override void UpdateShip() {
+		base.UpdateShip();
 
-	public void UncheckAsTarget() {
-		m_chargeTarget.SetActive(false);
-	}
-
-	public void UpdateShip() {
 		switch (m_state) {
 			case BlasterShipState.Moving:
 				if (m_movingTimer > 0) {
@@ -168,10 +152,6 @@ public class BlasterShip : MonoBehaviour, IEnemyShip {
 
 		m_movingTimer -= Time.deltaTime;
 		UpdateGun();
-
-		if (Vector3.Distance(BattleContext.PlayerShip.Position, transform.position) > 80) {
-			Die();
-		}
 	}
 
 	private void UpdateGun() {
@@ -224,9 +204,12 @@ public class BlasterShip : MonoBehaviour, IEnemyShip {
 		}
 	}
 
-	public Vector3 Position {
+	public override bool IsAlive {
 		get {
-			return transform.position;
+			return gameObject.activeInHierarchy;
+		}
+		set {
+			gameObject.SetActive(value);
 		}
 	}
 

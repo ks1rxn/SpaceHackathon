@@ -29,21 +29,21 @@ public class BulletsController : MonoBehaviour {
 
 	private void FixedUpdate() {
 		for (int i = 0; i != m_rockets.Count; i++) {
-			if (m_rockets[i].gameObject.activeInHierarchy) {
+			if (m_rockets[i].IsAlive) {
 				m_rockets[i].UpdateBullet();
 			}
 		}
 		for (int i = 0; i != m_blasters.Count; i++) {
-			if (m_blasters[i].gameObject.activeInHierarchy) {
+			if (m_blasters[i].IsAlive) {
 				m_blasters[i].UpdateBullet();
 			}
 		}
 	}
 
-	public void SpawnRocket(Vector3 position) {
+	public Rocket SpawnRocket(Vector3 position) {
 		Rocket targetRocket = null;
 		foreach (Rocket rocket in m_rockets) {
-			if (!rocket.gameObject.activeInHierarchy) {
+			if (!rocket.IsAlive) {
 				targetRocket = rocket;
 				break;
 			}
@@ -52,12 +52,13 @@ public class BulletsController : MonoBehaviour {
 			targetRocket = CreateRocket();
 		}
 		targetRocket.Spawn(position);
+		return targetRocket;
 	}
 
-	public void SpawnBlaster(Vector3 position, float angle) {
+	public Blaster SpawnBlaster(Vector3 position, float angle) {
 		Blaster targetBlaster = null;
 		foreach (Blaster blaster in m_blasters) {
-			if (!blaster.gameObject.activeInHierarchy) {
+			if (!blaster.IsAlive) {
 				targetBlaster = blaster;
 				break;
 			}
@@ -66,20 +67,21 @@ public class BulletsController : MonoBehaviour {
 			targetBlaster = CreateBlaster();
 		}
 		targetBlaster.Spawn(position, angle);
+		return targetBlaster;
 	}
 
 	private Rocket CreateRocket() {
 		Rocket rocket = (Instantiate(m_rocketPrefab)).GetComponent<Rocket>();
-		rocket.gameObject.SetActive(false);
 		rocket.transform.parent = transform;
+		rocket.Initiate();
 		m_rockets.Add(rocket);
 		return rocket;
 	}
 
 	private Blaster CreateBlaster() {
 		Blaster blaster = (Instantiate(m_blasterPrefab)).GetComponent<Blaster>();
-		blaster.gameObject.SetActive(false);
 		blaster.transform.parent = transform;
+		blaster.Initiate();
 		m_blasters.Add(blaster);
 		return blaster;
 	}

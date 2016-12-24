@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 
-public class RamShip : MonoBehaviour, IEnemyShip {
-	private Rigidbody m_rigidbody;
+public class RamShip : IEnemyShip {
 	[SerializeField]
 	private Transform m_hull;
 	private RamShipState m_state;
@@ -9,25 +8,22 @@ public class RamShip : MonoBehaviour, IEnemyShip {
 	private float m_rotationSpeed;
 	private float m_needRotationSpeed;
 
-	protected void Awake() {
-		m_rigidbody = GetComponent<Rigidbody>();
+	public override void Initiate() {
+		base.Initiate();
 	}
 
-	public void Spawn(Vector3 position, float angle) {
-		transform.position = position;
+	public override void Spawn(Vector3 position, float angle) {
+		base.Spawn(position, angle);
+
 		m_rotationSpeed = 0;
 		m_needRotationSpeed = 0;
 
 		m_state = RamShipState.Aiming;
 	}
 
-	public void Kill() {
+	public override void Kill() {
+		base.Kill();
 		BattleContext.ExplosionsController.PlayerShipExplosion(transform.position);
-		Die();
-	}
-
-	private void Die() {
-		BattleContext.EnemiesController.Respawn(this);
 	}
 
 	private void OnTriggerEnter(Collider other) { 
@@ -36,7 +32,9 @@ public class RamShip : MonoBehaviour, IEnemyShip {
 		}
     }
 
-	public void UpdateShip() {
+	public override void UpdateShip() {
+		base.UpdateShip();
+
 		switch (m_state) {
 			case RamShipState.Aiming:
 				Aiming();
@@ -58,10 +56,6 @@ public class RamShip : MonoBehaviour, IEnemyShip {
 			m_rotationSpeed -= 180 * Time.fixedDeltaTime;
 		}
 		m_hull.Rotate(m_rotationSpeed * Time.fixedDeltaTime, 0, 0);
-
-		if (Vector3.Distance(BattleContext.PlayerShip.Position, Position) > 80) {
-			Die();
-		}
 	}
 
 	private void Aiming() {
@@ -140,9 +134,12 @@ public class RamShip : MonoBehaviour, IEnemyShip {
 		return false;
 	}
 
-	public Vector3 Position {
+	public override bool IsAlive {
 		get {
-			return transform.position;
+			return gameObject.activeInHierarchy;
+		}
+		set {
+			gameObject.SetActive(value);
 		}
 	}
 

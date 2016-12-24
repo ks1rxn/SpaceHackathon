@@ -9,8 +9,12 @@ public class Blaster : MonoBehaviour {
 	[SerializeField]
 	private TrailRenderer m_trail2;
 
+	public void Initiate() {
+		IsAlive = false;
+	}
+
 	public void Spawn(Vector3 position, float angle) {
-		gameObject.SetActive(true);
+		IsAlive = true;
 
 		m_angle = angle;
 		transform.position = position;
@@ -29,7 +33,7 @@ public class Blaster : MonoBehaviour {
 
 		float distToPlayer = Vector3.Distance(BattleContext.PlayerShip.Position, transform.position);
 		if (distToPlayer > 20) {
-			Die();
+			IsAlive = false;
 		}
 
 		if (m_detonatorActivateTime <= 0) {
@@ -41,11 +45,16 @@ public class Blaster : MonoBehaviour {
 
 	private void OnTriggerEnter(Collider other) { 
 		BattleContext.ExplosionsController.BlasterExplosion(transform.position);
-		Die();
-    }
+		IsAlive = false;
+	}
 
-	private void Die() {
-		gameObject.SetActive(false);
+	public bool IsAlive {
+		get {
+			return gameObject.activeInHierarchy;
+		}
+		set {
+			gameObject.SetActive(value);
+		}
 	}
 
 }
