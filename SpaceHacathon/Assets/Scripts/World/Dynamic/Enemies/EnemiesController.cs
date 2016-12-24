@@ -36,6 +36,7 @@ public class EnemiesController : MonoBehaviour {
 	private IEnumerator DelayedSpawn() {
 		yield return new WaitForSecondsRealtime(0.5f);
 		SpawnRamShipAt(new Vector3(4, 0, 0));
+		SpawnLauncherAt(new Vector3(-3, 0, 0));
 	}
 
 	private void FixedUpdate() {
@@ -46,6 +47,11 @@ public class EnemiesController : MonoBehaviour {
 
 	public void SpawnRamShipAt(Vector3 position) {
 		IEnemyShip ship = CreateRamShip();
+		ship.Spawn(position, 0);
+	}
+
+	public void SpawnLauncherAt(Vector3 position) {
+		IEnemyShip ship = CreateRocketLauncher();
 		ship.Spawn(position, 0);
 	}
 
