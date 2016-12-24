@@ -51,10 +51,6 @@ public class RocketLauncher : IEnemyShip {
 
 	private void SpawnRocket() {
 		BattleContext.BulletsController.SpawnRocket(m_launcher.position);
-
-//		m_rigidbody.AddExplosionForce(120, m_launcher1.position, 3);
-//		m_launcher.GetComponent<ParticleSystem>().Play();
-//		m_rigidbody.AddTorque(0, 30, 0);
 	}
 
 	public override bool IsAlive {

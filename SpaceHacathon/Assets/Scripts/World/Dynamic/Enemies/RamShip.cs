@@ -116,17 +116,15 @@ public class RamShip : IEnemyShip {
 	}
 
 	private bool HittingLauncher() {
-		foreach (IEnemyShip ship in BattleContext.EnemiesController.Ships) {
-			if (ship is RocketLauncher) {
-				if (Vector3.Distance(ship.Position, Position) < Vector3.Distance(Position, BattleContext.PlayerShip.Position)) { 
-					RaycastHit hit;
-					Ray ray = new Ray(Position, transform.right);
-					if (Physics.Raycast(ray, out hit)) {
-						Transform objectHit = hit.transform;
-						if (objectHit.GetComponent<RocketLauncher>() != null) {
-							m_state = RamShipState.Stopping;
-							return true;
-						}
+		foreach (RocketLauncher ship in BattleContext.EnemiesController.RocketLaunchers) {
+			if (Vector3.Distance(ship.Position, Position) < Vector3.Distance(Position, BattleContext.PlayerShip.Position)) { 
+				RaycastHit hit;
+				Ray ray = new Ray(Position, transform.right);
+				if (Physics.Raycast(ray, out hit)) {
+					Transform objectHit = hit.transform;
+					if (objectHit.GetComponent<RocketLauncher>() != null) {
+						m_state = RamShipState.Stopping;
+						return true;
 					}
 				}
 			}
