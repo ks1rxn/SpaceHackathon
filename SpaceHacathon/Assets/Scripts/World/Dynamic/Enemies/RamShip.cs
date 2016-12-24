@@ -74,7 +74,9 @@ public class RamShip : MonoBehaviour, IEnemyShip {
 		if (Mathf.Abs(MathHelper.AngleBetweenVectors(transform.right, BattleContext.PlayerShip.Position - Position)) < 5 &&
 			m_rigidbody.angularVelocity.magnitude < 0.3f) {
 
-			m_state = RamShipState.Running;
+			if (!HittingLauncher()) {
+				m_state = RamShipState.Running;
+			}
 		}
 	}
 
@@ -88,6 +90,10 @@ public class RamShip : MonoBehaviour, IEnemyShip {
 	}
 
 	private void Running() {
+		if (HittingLauncher()) {
+			m_state = RamShipState.Stopping;
+			return;
+		}
 		m_needRotationSpeed = 360;
 		Vector3 headingCorrection = headingController.Update(Vector3.Cross(transform.right, BattleContext.PlayerShip.Position - Position), Time.fixedDeltaTime);
 		m_rigidbody.AddTorque(headingCorrection * 0.2f);
@@ -113,6 +119,25 @@ public class RamShip : MonoBehaviour, IEnemyShip {
 		} else {
 			m_state = RamShipState.Aiming;
 		}
+	}
+
+	private bool HittingLauncher() {
+		foreach (IEnemyShip ship in BattleContext.EnemiesController.Ships) {
+			if (ship is RocketLauncher) {
+				if (Vector3.Distance(ship.Position, Position) < Vector3.Distance(Position, BattleContext.PlayerShip.Position)) { 
+					RaycastHit hit;
+					Ray ray = new Ray(Position, transform.right);
+					if (Physics.Raycast(ray, out hit)) {
+						Transform objectHit = hit.transform;
+						if (objectHit.GetComponent<RocketLauncher>() != null) {
+							m_state = RamShipState.Stopping;
+							return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
 	}
 
 	public Vector3 Position {

@@ -63,19 +63,13 @@ public class Rocket : MonoBehaviour {
 
 		Vector3 enemyPosition = BattleContext.PlayerShip.Position;
 
-		Vector3 angularVelocityError = m_rigidbody.angularVelocity * -1;
-        Debug.DrawRay(transform.position, m_rigidbody.angularVelocity * 10, Color.red);
-         
+		Vector3 angularVelocityError = m_rigidbody.angularVelocity * -1;         
         Vector3 angularVelocityCorrection = angularVelocityController.Update(angularVelocityError, Time.fixedDeltaTime);
-        Debug.DrawRay(transform.position, angularVelocityCorrection, Color.green);
  
         m_rigidbody.AddTorque(angularVelocityCorrection * 1.0f);
  
-        Vector3 desiredHeading = enemyPosition - transform.position;
-        Debug.DrawRay(transform.position, desiredHeading, Color.magenta);
- 
+        Vector3 desiredHeading = enemyPosition - transform.position; 
         Vector3 currentHeading = transform.up;
-        Debug.DrawRay(transform.position, currentHeading * 15, Color.blue);
  
         Vector3 headingError = Vector3.Cross(currentHeading, desiredHeading);
         Vector3 headingCorrection = headingController.Update(headingError, Time.fixedDeltaTime);
