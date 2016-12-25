@@ -68,7 +68,7 @@ public class RamShip : IEnemyShip {
 		if (Mathf.Abs(MathHelper.AngleBetweenVectors(transform.right, BattleContext.PlayerShip.Position - Position)) < 5 &&
 			m_rigidbody.angularVelocity.magnitude < 0.3f) {
 
-			if (!HittingLauncher()) {
+			if (!IsLauncherOnMyWay()) {
 				m_state = RamShipState.Running;
 			}
 		}
@@ -84,7 +84,7 @@ public class RamShip : IEnemyShip {
 	}
 
 	private void Running() {
-		if (HittingLauncher()) {
+		if (IsLauncherOnMyWay()) {
 			m_state = RamShipState.Stopping;
 			return;
 		}
@@ -115,7 +115,7 @@ public class RamShip : IEnemyShip {
 		}
 	}
 
-	private bool HittingLauncher() {
+	private bool IsLauncherOnMyWay() {
 		foreach (RocketLauncher ship in BattleContext.EnemiesController.RocketLaunchers) {
 			if (Vector3.Distance(ship.Position, Position) < Vector3.Distance(Position, BattleContext.PlayerShip.Position)) { 
 				RaycastHit hit;
