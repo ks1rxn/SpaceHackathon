@@ -20,6 +20,10 @@ class MathHelper {
 		return angleToTarget;
 	}
 
+	public static float AngleFrom360To180(float angle) {
+		return angle > 180 ? angle - 360 : angle;
+	}
+
 	public static Random Random {
 		get {
 			return m_random;
@@ -42,6 +46,29 @@ public class VectorPid {
      public Vector3 Update(Vector3 currentError, float timeFrame) {
          integral += currentError * timeFrame;
          Vector3 deriv = (currentError - lastError) / timeFrame;
+         lastError = currentError;
+         return currentError * pFactor
+             + integral * iFactor
+             + deriv * dFactor;
+	}
+
+ }
+
+public class FloatPid {
+     public float pFactor, iFactor, dFactor;
+
+	 private float integral;
+     private float lastError;
+ 
+     public FloatPid(float pFactor, float iFactor, float dFactor) {
+         this.pFactor = pFactor;
+         this.iFactor = iFactor;
+         this.dFactor = dFactor;
+     }
+ 
+     public float Update(float currentError, float timeFrame) {
+         integral += currentError * timeFrame;
+         float deriv = (currentError - lastError) / timeFrame;
          lastError = currentError;
          return currentError * pFactor
              + integral * iFactor
