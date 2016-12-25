@@ -10,11 +10,11 @@ public class PlayerShipHull : MonoBehaviour {
 
 	private float m_needRoll = 0;
 	private float m_rollSpeed = 0;
-	private readonly FloatPid rollingController = new FloatPid(4.244681f, 1.1f, 2.1f);
+	private readonly FloatPid rollingController = new FloatPid(4.244681f, 1.1f, 1.9f);
 
-	private float m_needAlt = 0;
-	private float m_speedAlt = 0;
-	private readonly FloatPid altController = new FloatPid(4.244681f, 0.1f, 2.1f);
+	private float m_needTilt = 0;
+	private float m_tiltSpeed = 0;
+	private readonly FloatPid tiltController = new FloatPid(4.244681f, 0.1f, 0.75f);
 
     public void Initiate() {
         m_engineSystem.Initiate();
@@ -32,7 +32,10 @@ public class PlayerShipHull : MonoBehaviour {
     public void UpdateHull() {
         UpdateHealth();
         UpdateRolling();
-		UpdateAltitude();
+		UpdateTilt();
+	    Vector3 rot = transform.localEulerAngles;
+	    rot.y = 0;
+	    transform.localEulerAngles = rot;
     }
 
     private void UpdateHealth() {
@@ -51,16 +54,20 @@ public class PlayerShipHull : MonoBehaviour {
         m_needRoll = Mathf.Clamp(angle, -max, max);
     }
 
+	public void SetAcceleration(float acceleration) {
+		m_needTilt = -acceleration / 20;
+	}
+
+	private void UpdateTilt() {
+		float tiltCorrection = tiltController.Update(m_needTilt - MathHelper.AngleFrom360To180(transform.localEulerAngles.z), Time.fixedDeltaTime);
+	    m_tiltSpeed += tiltCorrection * Time.fixedDeltaTime;
+		transform.Rotate(0, 0, m_tiltSpeed * Time.fixedDeltaTime);
+	}
+
     private void UpdateRolling() {
 		float rollingCorrection = rollingController.Update(m_needRoll - MathHelper.AngleFrom360To180(transform.localEulerAngles.x), Time.fixedDeltaTime);
 	    m_rollSpeed += rollingCorrection * Time.fixedDeltaTime;
 		transform.Rotate(m_rollSpeed * Time.fixedDeltaTime, 0, 0);
     }
-
-	private void UpdateAltitude() {
-		float altCorrection = altController.Update(m_needAlt - transform.localPosition.y, Time.fixedDeltaTime);
-	    m_speedAlt += altCorrection * Time.fixedDeltaTime;
-		transform.Translate(0, m_speedAlt * Time.fixedDeltaTime, 0);
-	}
 
 }
