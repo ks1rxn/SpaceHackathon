@@ -24,6 +24,10 @@ class MathHelper {
 		return angle > 180 ? angle - 360 : angle;
 	}
 
+	public static Vector3 AngleFrom360To180(Vector3 angle) {
+		return new Vector3(angle.x > 180 ? angle.x - 360 : angle.x, angle.y > 180 ? angle.y - 360 : angle.y, angle.z > 180 ? angle.z - 360 : angle.z);
+	}
+
 	public static Random Random {
 		get {
 			return m_random;

@@ -8,19 +8,12 @@ public class PlayerShipHull : MonoBehaviour {
 
     private float m_health;
 
-	private float m_needRoll = 0;
-	private float m_rollSpeed = 0;
-	private readonly FloatPid rollingController = new FloatPid(4.244681f, 1.1f, 1.9f);
-
-	private float m_needTilt = 0;
-	private float m_tiltSpeed = 0;
-	private readonly FloatPid tiltController = new FloatPid(4.244681f, 0.1f, 0.75f);
-
-	private float m_needY = 0;
-	private float m_ySpeed = 0;
-	private readonly FloatPid yController = new FloatPid(4.244681f, 0.1f, 1.75f);
+	private readonly VectorPid rotationController = new VectorPid(4.244681f, 0.1f, 1.25f);
+	private Vector3 m_needRotation;
+	private Vector3 m_rotationSpeed;
 
     public void Initiate() {
+		m_needRotation = Vector3.zero;
         m_engineSystem.Initiate();
         m_health = 1.0f;  
     }
@@ -34,11 +27,8 @@ public class PlayerShipHull : MonoBehaviour {
     }
 
     public void UpdateHull() {
-		//todo: change to VectorPid
         UpdateHealth();
-        UpdateRolling();
-		UpdateTilt();
-		UpdateY();
+		UpdateRotation();
     }
 
     private void UpdateHealth() {
@@ -54,29 +44,17 @@ public class PlayerShipHull : MonoBehaviour {
 	public void SetRollAngle(float angle) {
 		// prevent ship from showing his underwear
 		const float max = 23;
-        m_needRoll = Mathf.Clamp(angle, -max, max);
+		m_needRotation.x = Mathf.Clamp(angle, -max, max);
     }
 
 	public void SetAcceleration(float acceleration) {
-		m_needTilt = -acceleration / 30;
+		m_needRotation.z = -acceleration / 30;
 	}
 
-	private void UpdateTilt() {
-		float tiltCorrection = tiltController.Update(m_needTilt - MathHelper.AngleFrom360To180(transform.localEulerAngles.z), Time.fixedDeltaTime);
-	    m_tiltSpeed += tiltCorrection * Time.fixedDeltaTime;
-		transform.Rotate(0, 0, m_tiltSpeed * Time.fixedDeltaTime);
+	private void UpdateRotation() {
+		Vector3 rotationCorrection = rotationController.Update(m_needRotation - MathHelper.AngleFrom360To180(transform.localEulerAngles), Time.fixedDeltaTime);
+	    m_rotationSpeed += rotationCorrection * Time.fixedDeltaTime;
+		transform.Rotate(m_rotationSpeed * Time.fixedDeltaTime);
 	}
-
-	private void UpdateY() {
-		float yCorrection = yController.Update(-MathHelper.AngleFrom360To180(transform.localEulerAngles.y), Time.fixedDeltaTime);
-	    m_ySpeed += yCorrection * Time.fixedDeltaTime;
-		transform.Rotate(0, m_ySpeed * Time.fixedDeltaTime, 0);
-	}
-
-    private void UpdateRolling() {
-		float rollingCorrection = rollingController.Update(m_needRoll - MathHelper.AngleFrom360To180(transform.localEulerAngles.x), Time.fixedDeltaTime);
-	    m_rollSpeed += rollingCorrection * Time.fixedDeltaTime;
-		transform.Rotate(m_rollSpeed * Time.fixedDeltaTime, 0, 0);
-    }
 
 }
