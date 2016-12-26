@@ -18,39 +18,15 @@ public class PlayerShipChargeSystem : MonoBehaviour {
     public void Initiate() {
 	    m_chargeFuel = 0;
 		UpdateChargeIndicators();
-		m_chargeIndicator.SetActive(false);
-
-	    foreach (ParticleSystem engine in m_chargeEngines) {
-			engine.Stop();
-			engine.Clear();
-		}
-		foreach (GameObject enginesAsObject in m_chargeEnginesAsObjects) {
-			enginesAsObject.SetActive(false);
-		}
+		UpdateChargeEngines();
     }
 
 	public void AddFuel() {
 		if (m_chargeFuel < 5) {
 			m_chargeFuel++;
 			UpdateChargeIndicators();
-			if (InChargeTargeting) {
-				m_chargeIndicator.SetActive(true);
-				foreach (ParticleSystem engine in m_chargeEngines) {
-					engine.Play();
-				}
-				foreach (GameObject enginesAsObject in m_chargeEnginesAsObjects) {
-					enginesAsObject.SetActive(true);
-				}
-			}
+			UpdateChargeEngines();
 		}
-	}
-
-	private void UpdateChargeIndicators() {
-		m_chargeIndicators[0].SetActive(m_chargeFuel >= 1);
-		m_chargeIndicators[1].SetActive(m_chargeFuel >= 2);
-		m_chargeIndicators[2].SetActive(m_chargeFuel >= 3);
-		m_chargeIndicators[3].SetActive(m_chargeFuel >= 4);
-		m_chargeIndicators[4].SetActive(m_chargeFuel >= 5);
 	}
 
 	public void Charge() {
@@ -59,58 +35,38 @@ public class PlayerShipChargeSystem : MonoBehaviour {
 		}
 		m_chargeFuel -= 1;
 		UpdateChargeIndicators();
-		m_chargeIndicator.SetActive(false);
-		foreach (ParticleSystem engine in m_chargeEngines) {
-			engine.Stop();
-			engine.Clear();
-		}
-		foreach (GameObject enginesAsObject in m_chargeEnginesAsObjects) {
-			enginesAsObject.SetActive(false);
-		}
-//		foreach (IEnemyShip ship in BattleContext.EnemiesController.Ships) {
-//			if (IsOnTarget(ship.Position)) {
-//				ship.Kill();
-//			}
-//		}
+		UpdateChargeEngines();
 	}
 
-	private void Update() {
+	private void UpdateChargeIndicators() {
 		BattleContext.GUIController.SetCharge(m_chargeFuel);
-		if (InChargeTargeting) {
-//			int onTarget = MarkTargets();
-//			switch (onTarget) {
-//				case 0:
-//					BattleContext.World.SetTimeScaleMode(TimeScaleMode.Normal);
-//					break;
-//				case 1:
-//					BattleContext.World.SetTimeScaleMode(TimeScaleMode.Slow);
-//					break;
-//				default:
-//					BattleContext.World.SetTimeScaleMode(TimeScaleMode.SuperSlow);
-//					break;
-//			}
-		}
+
+		m_chargeIndicators[0].SetActive(m_chargeFuel >= 1);
+		m_chargeIndicators[1].SetActive(m_chargeFuel >= 2);
+		m_chargeIndicators[2].SetActive(m_chargeFuel >= 3);
+		m_chargeIndicators[3].SetActive(m_chargeFuel >= 4);
+		m_chargeIndicators[4].SetActive(m_chargeFuel >= 5);
 	}
 
-	public static List<IEnemyShip> GetTargets() {
-		List<IEnemyShip> targets = new List<IEnemyShip>();
-		foreach (IEnemyShip ship in BattleContext.EnemiesController.Ships) {
-			if (IsOnTarget(ship.Position)) {
-				targets.Add(ship);
+	private void UpdateChargeEngines() {
+		if (InChargeTargeting) {
+			m_chargeIndicator.SetActive(true);
+			foreach (ParticleSystem engine in m_chargeEngines) {
+				engine.Play();
+			}
+			foreach (GameObject enginesAsObject in m_chargeEnginesAsObjects) {
+				enginesAsObject.SetActive(true);
+			}
+		} else {
+			m_chargeIndicator.SetActive(false);
+			foreach (ParticleSystem engine in m_chargeEngines) {
+				engine.Stop();
+				engine.Clear();
+			}
+			foreach (GameObject enginesAsObject in m_chargeEnginesAsObjects) {
+				enginesAsObject.SetActive(false);
 			}
 		}
-		return targets;
-	} 
-
-	private static bool IsOnTarget(Vector3 position) {
-		if (Vector3.Distance(position, BattleContext.PlayerShip.Position) > 7.5f) {
-			return false;
-		}
-		float angle = MathHelper.AngleBetweenVectors(BattleContext.PlayerShip.LookVector, position - BattleContext.PlayerShip.Position);
-		if (Mathf.Abs(angle) < 30) {
-			return true;
-		}
-		return false;
 	}
 
 	public bool InChargeTargeting {

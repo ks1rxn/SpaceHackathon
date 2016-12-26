@@ -17,6 +17,10 @@ public class World : MonoBehaviour {
 		});
     }
 
+	private void Start() {
+		BattleContext.PlayerShip.Initiate();
+	}
+
 	public void SetTimeScaleMode(TimeScaleMode mode) {
 		m_timeScaleMode = mode;
 	}
@@ -35,25 +39,10 @@ public class World : MonoBehaviour {
 					Time.timeScale += Time.deltaTime * 8;
 				}
 			    break;
-			case TimeScaleMode.Slow:
-				if (Time.timeScale < 0.48f) {
-					Time.timeScale += Time.deltaTime * 3;
-				} else if (Time.timeScale > 0.52f) {
-					Time.timeScale -= Time.deltaTime * 2;
-				}
-			    break;
 			case TimeScaleMode.SuperSlow:
 				if (Time.timeScale > 0.1f) {
-					Time.timeScale -= Time.deltaTime * 2;
-				} else if (Time.timeScale < 0.09f) {
-					Time.timeScale += Time.deltaTime * 2;
-				}
-			    break;
-			case TimeScaleMode.Stopped:
-				if (Time.timeScale > 0f) {
-					float newScale = Time.timeScale - Time.deltaTime * 8;
-					Time.timeScale = newScale < 0 ? 0 : newScale;
-				}
+					Time.timeScale -= Time.deltaTime * 4;
+				} 
 			    break;
 	    }
 		Time.fixedDeltaTime = 0.02F * Time.timeScale;
@@ -67,8 +56,6 @@ public class World : MonoBehaviour {
 }
 
 public enum TimeScaleMode {
-	Stopped,
 	SuperSlow,
-	Slow,
 	Normal
 }
