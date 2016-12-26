@@ -16,6 +16,10 @@ public class PlayerShipHull : MonoBehaviour {
 	private float m_tiltSpeed = 0;
 	private readonly FloatPid tiltController = new FloatPid(4.244681f, 0.1f, 0.75f);
 
+	private float m_needY = 0;
+	private float m_ySpeed = 0;
+	private readonly FloatPid yController = new FloatPid(4.244681f, 0.1f, 1.75f);
+
     public void Initiate() {
         m_engineSystem.Initiate();
         m_health = 1.0f;  
@@ -30,12 +34,11 @@ public class PlayerShipHull : MonoBehaviour {
     }
 
     public void UpdateHull() {
+		//todo: change to VectorPid
         UpdateHealth();
         UpdateRolling();
 		UpdateTilt();
-	    Vector3 rot = transform.localEulerAngles;
-	    rot.y = 0;
-	    transform.localEulerAngles = rot;
+		UpdateY();
     }
 
     private void UpdateHealth() {
@@ -55,13 +58,19 @@ public class PlayerShipHull : MonoBehaviour {
     }
 
 	public void SetAcceleration(float acceleration) {
-		m_needTilt = -acceleration / 20;
+		m_needTilt = -acceleration / 30;
 	}
 
 	private void UpdateTilt() {
 		float tiltCorrection = tiltController.Update(m_needTilt - MathHelper.AngleFrom360To180(transform.localEulerAngles.z), Time.fixedDeltaTime);
 	    m_tiltSpeed += tiltCorrection * Time.fixedDeltaTime;
 		transform.Rotate(0, 0, m_tiltSpeed * Time.fixedDeltaTime);
+	}
+
+	private void UpdateY() {
+		float yCorrection = yController.Update(-MathHelper.AngleFrom360To180(transform.localEulerAngles.y), Time.fixedDeltaTime);
+	    m_ySpeed += yCorrection * Time.fixedDeltaTime;
+		transform.Rotate(0, m_ySpeed * Time.fixedDeltaTime, 0);
 	}
 
     private void UpdateRolling() {

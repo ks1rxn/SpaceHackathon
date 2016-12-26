@@ -113,7 +113,7 @@ public class PlayerShip : MonoBehaviour {
 		}
 
         // Roll hull //
-		m_hull.SetAcceleration((m_power * LookVector * m_rigidbody.mass * 0.02f * m_shipParams.EnginePower).magnitude);
+		m_hull.SetAcceleration((LookVector * m_rigidbody.mass * 0.02f * m_shipParams.EnginePower).magnitude * m_power);
 		m_hull.SetRollAngle(-m_rigidbody.angularVelocity.y * 15 * powerCoefficient);
 	}
 
