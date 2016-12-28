@@ -38,6 +38,8 @@ public class EnemiesController : MonoBehaviour {
 		yield return new WaitForSecondsRealtime(0.5f);
 		SpawnRamShip(new Vector3(4, 0, 0), 90);
 		SpawnRocketLauncher(new Vector3(-3, 0, 0), 0);
+		SpawnStunShip(new Vector3(7, 0, 7), 0);
+		SpawnStunShip(new Vector3(-7, 0, 7), 0);
 	}
 
 	private void FixedUpdate() {
