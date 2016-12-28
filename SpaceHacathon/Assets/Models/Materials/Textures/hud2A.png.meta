@@ -1,14 +1,13 @@
 fileFormatVersion: 2
 guid: f5e6b9ee30befdd43a9a90100b38d94f
-timeCreated: 1482779678
+timeCreated: 1482956852
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: hud2A_0
     21300002: hud2A_1
-    21300004: hud2A_2
-    21300006: hud2A_4
-    21300008: hud2A_5
+    21300004: hud2A_4
+    21300006: hud2A_5
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -49,7 +48,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 128
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
   textureType: 8
@@ -61,10 +60,10 @@ TextureImporter:
       name: hud2A_0
       rect:
         serializedVersion: 2
-        x: 6
-        y: 506
-        width: 512
-        height: 515
+        x: 74
+        y: 768
+        width: 376
+        height: 229
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -84,28 +83,15 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: hud2A_2
-      rect:
-        serializedVersion: 2
-        x: 14
-        y: 209
-        width: 256
-        height: 257
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
       name: hud2A_4
       rect:
         serializedVersion: 2
-        x: 278
-        y: 40
-        width: 164
-        height: 164
+        x: 6
+        y: 24
+        width: 509
+        height: 516
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -113,10 +99,10 @@ TextureImporter:
       name: hud2A_5
       rect:
         serializedVersion: 2
-        x: 516
-        y: 10
-        width: 501
-        height: 505
+        x: 528
+        y: 25
+        width: 489
+        height: 515
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
