@@ -20,15 +20,11 @@ public class GUIController : MonoBehaviour {
 	private Sprite m_chargeBlue;
 	[SerializeField]
 	private Sprite m_chargeOrange;
+	[SerializeField]
+	private GameObject m_chargeButton;
 
 	[SerializeField]
-	private Image m_powerUp;
-	[SerializeField]
-	private Image m_powerDown;
-	[SerializeField]
-	private Sprite m_spritePowerOn;
-	[SerializeField]
-	private Sprite m_spritePowerOff;
+	private Image m_powerIndicator;
 
 	[SerializeField]
 	private Text m_fpsCounter;
@@ -89,19 +85,18 @@ public class GUIController : MonoBehaviour {
 
 	// Power //
 
-	public void SetLeftJoysticValue(int value) {
+	public void SetLeftJoysticValue(ThrottleState value) {
 		switch (value) {
-			case 0:
-				m_powerUp.sprite = m_spritePowerOff;
-				m_powerDown.sprite = m_spritePowerOff;
+			case ThrottleState.Off:
+				m_powerIndicator.fillAmount = 0;
 				break;
-			case 1:
-				m_powerUp.sprite = m_spritePowerOn;
-				m_powerDown.sprite = m_spritePowerOff;
+			case ThrottleState.Forward:
+				m_powerIndicator.fillAmount = 0.5f;
+				m_powerIndicator.fillOrigin = 1;
 				break;
-			case -1:
-				m_powerUp.sprite = m_spritePowerOff;
-				m_powerDown.sprite = m_spritePowerOn;
+			case ThrottleState.Backward:
+				m_powerIndicator.fillAmount = 0.5f;
+				m_powerIndicator.fillOrigin = 0;
 				break;
 		}
 	}
@@ -117,6 +112,10 @@ public class GUIController : MonoBehaviour {
 		    m_chargeIndicator[i].gameObject.SetActive(i < value);
 	    }
     }
+
+	public void SetChargeButtonActive(bool active) {
+		m_chargeButton.SetActive(active);
+	}
 
 	// Rotation Joystick //
 

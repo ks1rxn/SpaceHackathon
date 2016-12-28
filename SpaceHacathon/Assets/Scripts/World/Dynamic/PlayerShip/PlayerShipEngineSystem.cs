@@ -9,9 +9,9 @@ public class PlayerShipEngineSystem : MonoBehaviour {
         m_engineState = new bool[m_engines.Length];
     }
 
-    public void SetFlyingParameters(float rotation, float enginePower) {
+    public void SetFlyingParameters(float rotation, ThrottleState enginePower) {
         float powerCoef = 1;
-		if (enginePower < -0.1f) {
+		if (enginePower == ThrottleState.Backward) {
 			powerCoef = -1;
 		}
         if (Mathf.Abs(rotation) > 0.5f) {
@@ -32,13 +32,13 @@ public class PlayerShipEngineSystem : MonoBehaviour {
 			SetEngineState(4, false);
 			SetEngineState(5, false);
 		}
-		if (enginePower > 0.1f) {
+		if (enginePower == ThrottleState.Forward) {
 			SetEngineState(0, true);
 			SetEngineState(1, true);
 			SetEngineState(2, true);
 			SetEngineState(7, false);
 			SetEngineState(8, false);
-		} else if (enginePower < -0.1f) {
+		} else if (enginePower == ThrottleState.Backward) {
 			SetEngineState(0, false);
 			SetEngineState(1, false);
 			SetEngineState(2, false);
@@ -64,4 +64,10 @@ public class PlayerShipEngineSystem : MonoBehaviour {
 		}
 	}
 
+}
+
+public enum ThrottleState {
+	Forward = 1,
+	Off = 0,
+	Backward = -1
 }

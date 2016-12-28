@@ -21,14 +21,14 @@ public class ScreenInput : MonoBehaviour {
 				SetShipAngle(MathHelper.AngleBetweenVectorsZ(new Vector3(1, 0, 0), position - BattleContext.GUIController.RotationJoystickCenter));
 			} else if ((touch.position.x < Screen.width / 4f) && (touch.position.y < Screen.height / 3f * 2f)) {
 				int power = (int)Mathf.Sign(touch.position.y - Screen.height / 4f);
-				SetShipPower(power);
+				SetShipPower(power > 0 ? ThrottleState.Forward : ThrottleState.Backward);
 				hasSpeedSetter = true;
 			} else if ((touch.position.x > Screen.width / 4f) && (touch.position.x < Screen.width / 2f) && (touch.position.y < Screen.height / 4f)) {
 				Charge();
 			}
 		}
 		if (!hasSpeedSetter) {
-			SetShipPower(0);
+			SetShipPower(ThrottleState.Off);
 		}
 	}
 
@@ -43,11 +43,11 @@ public class ScreenInput : MonoBehaviour {
 
 		// Ship velocity //
 		if (Input.GetKey(KeyCode.W)) {
-			SetShipPower(1);
+			SetShipPower(ThrottleState.Forward);
 		} else if (Input.GetKey(KeyCode.S)) {
-			SetShipPower(-1);
+			SetShipPower(ThrottleState.Backward);
 		} else {
-			SetShipPower(0);
+			SetShipPower(ThrottleState.Off);
 		}
 
 		if (Input.GetKeyDown(KeyCode.R)) {
@@ -60,7 +60,7 @@ public class ScreenInput : MonoBehaviour {
 		}
 	}
 
-	private void SetShipPower(int power) {
+	private void SetShipPower(ThrottleState power) {
 		BattleContext.PlayerShip.SetPower(power);
 		BattleContext.GUIController.SetLeftJoysticValue(power);
 	}

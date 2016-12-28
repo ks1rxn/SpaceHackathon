@@ -8,7 +8,7 @@ public class PlayerShip : MonoBehaviour {
 	private Rigidbody m_rigidbody;
 
 	private float m_neededAngle;
-	private float m_power;
+	private ThrottleState m_power;
 
 	private ShipState m_state;
 	private EffectsOnShip m_effects;
@@ -84,7 +84,7 @@ public class PlayerShip : MonoBehaviour {
 	private void FixedUpdate() {
 		UpdateMovement();
 		m_hull.UpdateHull();
-        m_hull.SetFlyingParameters(m_rigidbody.angularVelocity.y, m_shipParams.EnginePower < 450 ? 0 : m_power);
+        m_hull.SetFlyingParameters(m_rigidbody.angularVelocity.y, m_shipParams.EnginePower < 450  || m_state == ShipState.InCharge ? ThrottleState.Off : m_power);
 	}
 
 	private void UpdateMovement() {
@@ -108,13 +108,13 @@ public class PlayerShip : MonoBehaviour {
 		} else if (m_power < 0) {
 			powerCoefficient = -1;
 		}
-		m_rigidbody.AddForce(m_power * LookVector * m_rigidbody.mass * 0.02f * m_shipParams.EnginePower);
+		m_rigidbody.AddForce((int)m_power * LookVector * m_rigidbody.mass * 0.02f * m_shipParams.EnginePower);
 		if (m_rigidbody.velocity.magnitude > 5) {
 			m_rigidbody.velocity = m_rigidbody.velocity.normalized * 5;
 		}
 
         // Rotate hull //
-		m_hull.SetAcceleration((LookVector * m_rigidbody.mass * 0.02f * m_shipParams.EnginePower).magnitude * m_power);
+		m_hull.SetAcceleration((LookVector * m_rigidbody.mass * 0.02f * m_shipParams.EnginePower).magnitude * (int)m_power);
 		m_hull.SetRollAngle(-m_rigidbody.angularVelocity.y * 15 * powerCoefficient);
 	}
 
@@ -122,8 +122,8 @@ public class PlayerShip : MonoBehaviour {
 		m_neededAngle = angle;
 	}
 
-	public void SetPower(float power) {
-		m_power = Mathf.Clamp(power, -1, 1);
+	public void SetPower(ThrottleState power) {
+		m_power = power;
 	}
 
 	public void Charge() {
