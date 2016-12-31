@@ -38,7 +38,7 @@ public class RocketLauncher : IEnemyShip {
 	}
 
 	private void OnTriggerEnter(Collider other) { 
-		if (other.GetComponent<PlayerShip>() != null) {
+		if (other.CompareTag("Player")) {
 			Kill();
 		}
     }

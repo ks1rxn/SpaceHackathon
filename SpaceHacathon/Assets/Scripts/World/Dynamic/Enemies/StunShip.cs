@@ -58,7 +58,7 @@ public class StunShip : IEnemyShip {
 	}
 
 	private void OnTriggerEnter(Collider other) {
-		if (other.GetComponent<PlayerShip>() != null) {
+		if (other.CompareTag("Player")) {
 			Kill();
 		}
 	}
@@ -81,7 +81,7 @@ public class StunShip : IEnemyShip {
 						if (ReferenceEquals(this, ship)) {
 							continue;
 						}
-						if (Vector3.Distance(ship.Position, Position) > 5) {
+						if (Vector3.Distance(ship.Position, Position) > 8) {
 							continue;
 						}
 						forcesSumm += (Position - ship.Position).normalized * m_rigidbody.mass * 75 / Vector3.Distance(ship.Position, Position);

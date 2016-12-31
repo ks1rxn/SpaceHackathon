@@ -33,7 +33,7 @@ public class PlayerShipHull : MonoBehaviour {
 
     private void UpdateHealth() {
         if (m_health <= 0) {
-//			m_ship.Die();
+			m_ship.Die();
 		}
 		if (m_health < 1) {
 			m_health += 0.1f / 50;

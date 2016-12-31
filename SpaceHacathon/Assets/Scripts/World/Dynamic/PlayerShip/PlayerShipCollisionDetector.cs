@@ -11,7 +11,11 @@ public class PlayerShipCollisionDetector : MonoBehaviour {
 			m_ship.BlasterHit();
 		} else if (other.gameObject.GetComponent<Rocket>() != null) {
 			m_ship.RocketHit(other.transform.position);
-		} 
+		} else if (other.gameObject.GetComponent<Laser>() != null) {
+			m_ship.LaserHit();
+		} else {
+			m_ship.EnemyShipHit();
+		}
 	}
 
 }

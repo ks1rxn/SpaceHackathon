@@ -28,7 +28,7 @@ public class Rocket : MonoBehaviour {
 		m_trail.Stop();
 	
 		transform.position = position;
-		m_lifeTime = 10;
+		m_lifeTime = 20;
 
 		transform.rotation = new Quaternion();;
 		

@@ -39,18 +39,41 @@ public class PlayerShip : MonoBehaviour {
 	}
 
 	public void BlasterHit() {
+		if (m_state != ShipState.OnMove) {
+			return;
+		}
 		m_hull.Hit(0.1f);
 		StopCoroutine("StunProcedure");
 		StartCoroutine(StunProcedure());
 	}
 
+	public void LaserHit() {
+		if (m_state != ShipState.OnMove) {
+			return;
+		}
+		m_hull.Hit(0.05f);
+	}
+
 	public void RocketHit(Vector3 position) {
+		if (m_state != ShipState.OnMove) {
+			return;
+		}
 		//hack
 		position.y = 0;
 		m_rigidbody.AddExplosionForce(m_rigidbody.mass * 50, Position + (position - Position).normalized * 3, 5);
 		m_hull.Hit(0.5f);
 		StopCoroutine("BashProcedure");
 		StartCoroutine(BashProcedure());
+	}
+
+	public void EnemyShipHit() {
+		switch (m_state) {
+			case ShipState.OnMove:
+				m_hull.Hit(1.0f);
+				break;
+			case ShipState.InCharge:
+				break;
+		}
 	}
 
 	public void AddFuel() {
@@ -82,6 +105,15 @@ public class PlayerShip : MonoBehaviour {
     }
 
 	private void FixedUpdate() {
+		if (m_state == ShipState.Dead) {
+			if (m_rigidbody.velocity.magnitude > 0.05f) {
+				m_rigidbody.velocity *= 0.95f;
+			}
+			if (m_rigidbody.angularVelocity.magnitude > 0.05f) {
+				m_rigidbody.angularVelocity *= 0.95f;
+			}
+			return;
+		}
 		UpdateMovement();
 		m_hull.UpdateHull();
         m_hull.SetFlyingParameters(m_rigidbody.angularVelocity.y, m_shipParams.EnginePower < 450  || m_state == ShipState.InCharge ? ThrottleState.Off : m_power);
@@ -119,14 +151,23 @@ public class PlayerShip : MonoBehaviour {
 	}
 
 	public void SetAngle(float angle) {
+		if (m_state == ShipState.Dead) {
+			return;
+		}
 		m_neededAngle = angle;
 	}
 
 	public void SetPower(ThrottleState power) {
+		if (m_state == ShipState.Dead) {
+			return;
+		}
 		m_power = power;
 	}
 
 	public void Charge() {
+		if (m_state == ShipState.Dead) {
+			return;
+		}
 		if (m_effects.Stunned) {
 			return;
 		}

@@ -36,9 +36,10 @@ public class EnemiesController : MonoBehaviour {
 
 	private IEnumerator DelayedSpawn() {
 		yield return new WaitForSecondsRealtime(0.5f);
-//		SpawnRamShip(new Vector3(4, 0, 0), 90);
+		SpawnRamShip(new Vector3(4, 0, 0), 90);
 		SpawnRocketLauncher(new Vector3(-5, -0.75f, 5), 20);
-//		SpawnStunShip(new Vector3(7, 0, 7), 0);
+		SpawnRocketLauncher(new Vector3(-3, -0.75f, -1), 20);
+		SpawnStunShip(new Vector3(7, 0, 7), 0);
 //		SpawnStunShip(new Vector3(-7, 0, 7), 0);
 	}
 
