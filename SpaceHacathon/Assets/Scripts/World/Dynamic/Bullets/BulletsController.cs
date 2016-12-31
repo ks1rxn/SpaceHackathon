@@ -7,9 +7,12 @@ public class BulletsController : MonoBehaviour {
 	private GameObject m_rocketPrefab;
 	[SerializeField]
 	private GameObject m_blasterPrefab;
+	[SerializeField]
+	private GameObject m_laserPrefab;
 
 	private List<Rocket> m_rockets;
 	private List<Blaster> m_blasters;
+	private List<Laser> m_lasers;
 
 	private Random m_random = new Random();
 
@@ -18,12 +21,16 @@ public class BulletsController : MonoBehaviour {
 
 		m_rockets = new List<Rocket>();
 		m_blasters = new List<Blaster>();
+		m_lasers = new List<Laser>();
 
 		for (int i = 0; i != 10; i++) {
 			CreateRocket();
 		}
 		for (int i = 0; i != 5; i++) {
 			CreateBlaster();
+		}
+		for (int i = 0; i != 10; i++) {
+			CreateLaser();
 		}
 	}
 
@@ -36,6 +43,11 @@ public class BulletsController : MonoBehaviour {
 		for (int i = 0; i != m_blasters.Count; i++) {
 			if (m_blasters[i].IsAlive) {
 				m_blasters[i].UpdateBullet();
+			}
+		}
+		for (int i = 0; i != m_lasers.Count; i++) {
+			if (m_lasers[i].IsAlive) {
+				m_lasers[i].UpdateBullet();
 			}
 		}
 	}
@@ -70,6 +82,21 @@ public class BulletsController : MonoBehaviour {
 		return targetBlaster;
 	}
 
+	public Laser SpawnLaser(Vector3 position, float angle) {
+		Laser targetLaser = null;
+		foreach (Laser laser in m_lasers) {
+			if (!laser.IsAlive) {
+				targetLaser = laser;
+				break;
+			}
+		}
+		if (targetLaser == null) {
+			targetLaser = CreateLaser();
+		}
+		targetLaser.Spawn(position, angle);
+		return targetLaser;
+	}
+
 	private Rocket CreateRocket() {
 		Rocket rocket = (Instantiate(m_rocketPrefab)).GetComponent<Rocket>();
 		rocket.transform.parent = transform;
@@ -84,6 +111,14 @@ public class BulletsController : MonoBehaviour {
 		blaster.Initiate();
 		m_blasters.Add(blaster);
 		return blaster;
+	}
+
+	private Laser CreateLaser() {
+		Laser laser = (Instantiate(m_laserPrefab)).GetComponent<Laser>();
+		laser.transform.parent = transform;
+		laser.Initiate();
+		m_lasers.Add(laser);
+		return laser;
 	}
 
 }
