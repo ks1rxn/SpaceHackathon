@@ -69,7 +69,7 @@ public class PlayerShip : MonoBehaviour {
 	public void EnemyShipHit() {
 		switch (m_state) {
 			case ShipState.OnMove:
-				m_hull.Hit(1.0f);
+				m_hull.Hit(10.0f);
 				break;
 			case ShipState.InCharge:
 				break;
