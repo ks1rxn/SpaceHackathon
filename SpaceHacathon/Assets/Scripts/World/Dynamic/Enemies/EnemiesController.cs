@@ -22,16 +22,19 @@ public class EnemiesController : MonoBehaviour {
 		m_ramShips = new List<RamShip>();
 		m_stunShips = new List<StunShip>();
 		m_rocketLaunchers = new List<RocketLauncher>();
-		for (int i = 0; i != 5; i++) {
+		for (int i = 0; i != 6; i++) {
 			CreateRocketLauncher();
 		}
-		for (int i = 0; i != 5; i++) {
+		for (int i = 0; i != 1; i++) {
 			CreateStunShip();
+		}
+		for (int i = 0; i != 1; i++) {
+			CreateRamShip();
 		}
 	}
 
 	private void Start() {
-		StartCoroutine(DelayedSpawn());
+//		StartCoroutine(DelayedSpawn());
 	}
 
 	private IEnumerator DelayedSpawn() {
@@ -47,16 +50,22 @@ public class EnemiesController : MonoBehaviour {
 		for (int i = 0; i != m_ships.Count; i++) {
 			if (m_ships[i].IsAlive) {
 				m_ships[i].UpdateShip();
+			} else {
+				Respawn(m_ships[i]);
 			}
 		}
 	}
 
-//	public void Respawn(IEnemyShip ship) {
-//		Vector3 playerPos = BattleContext.PlayerShip.Position;
-//		float angle = (float) MathHelper.Random.NextDouble() * 360;
-//		float distance = MathHelper.Random.Next(35) + 5;
-//		ship.Spawn(new Vector3(playerPos.x + Mathf.Cos(angle * Mathf.PI / 180) * distance, -0.4f, playerPos.z + Mathf.Sin(angle * Mathf.PI / 180) * distance), 0);
-//	}
+	public void Respawn(IEnemyShip ship) {
+		Vector3 playerPos = BattleContext.PlayerShip.Position;
+		float angle = (float) MathHelper.Random.NextDouble() * 360;
+		float distance = MathHelper.Random.Next(35) + 5;
+		float yPos = 0;
+		if (ship is RocketLauncher) {
+			yPos = -0.75f;
+		}
+		ship.Spawn(new Vector3(playerPos.x + Mathf.Cos(angle * Mathf.PI / 180) * distance, yPos, playerPos.z + Mathf.Sin(angle * Mathf.PI / 180) * distance), MathHelper.Random.Next(360));
+	}
 	
 	public StunShip SpawnStunShip(Vector3 position, float rotation) {
 		StunShip targetShip = null;
