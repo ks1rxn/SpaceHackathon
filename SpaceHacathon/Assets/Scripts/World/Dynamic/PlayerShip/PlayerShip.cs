@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
 using UnityEngine.SceneManagement;
 
 public class PlayerShip : MonoBehaviour {
@@ -13,6 +14,7 @@ public class PlayerShip : MonoBehaviour {
 	private ShipState m_state;
 	private EffectsOnShip m_effects;
 	private ShipParams m_shipParams;
+	private ShipStatistics m_shipStatistics;
 
     [SerializeField]
     private PlayerShipHull m_hull;
@@ -25,13 +27,13 @@ public class PlayerShip : MonoBehaviour {
 		BattleContext.PlayerShip = this;
 
 		m_rigidbody = GetComponent<Rigidbody>();
-		m_rigidbody.centerOfMass = new Vector3(0, 0, 0);
-		
-		m_effects = new EffectsOnShip();
-		m_shipParams = new ShipParams();
 	}
 
 	public void Initiate() {
+		m_effects = new EffectsOnShip();
+		m_shipParams = new ShipParams();
+		m_shipStatistics = new ShipStatistics();
+
 		m_hull.Initiate();
         m_chargeSystem.Initiate();
 
@@ -43,6 +45,7 @@ public class PlayerShip : MonoBehaviour {
 			return;
 		}
 		m_hull.Hit(0.1f);
+		m_shipStatistics.StunHitEvent();
 		StopCoroutine("StunProcedure");
 		StartCoroutine(StunProcedure());
 	}
@@ -52,6 +55,7 @@ public class PlayerShip : MonoBehaviour {
 			return;
 		}
 		m_hull.Hit(0.05f);
+		m_shipStatistics.LaserHitEvent();
 	}
 
 	public void RocketHit(Vector3 position) {
@@ -62,6 +66,7 @@ public class PlayerShip : MonoBehaviour {
 		position.y = 0;
 		m_rigidbody.AddExplosionForce(m_rigidbody.mass * 50, Position + (position - Position).normalized * 3, 5);
 		m_hull.Hit(0.5f);
+		m_shipStatistics.RocketHitEvent();
 		StopCoroutine("BashProcedure");
 		StartCoroutine(BashProcedure());
 	}
@@ -70,6 +75,7 @@ public class PlayerShip : MonoBehaviour {
 		switch (m_state) {
 			case ShipState.OnMove:
 				m_hull.Hit(10.0f);
+				m_shipStatistics.EnemyShipHitEvent();
 				break;
 			case ShipState.InCharge:
 				break;
@@ -84,6 +90,15 @@ public class PlayerShip : MonoBehaviour {
         if (m_state == ShipState.Dead) {
             return;
         }
+
+		Analytics.CustomEvent("playerDied", new Dictionary<string, object> {
+			{ "rocketHit", m_shipStatistics.RocketHit },
+			{ "stunHit", m_shipStatistics.StunHit },
+			{ "laserHit", m_shipStatistics.LaserHit },
+			{ "enemyShipHit", m_shipStatistics.EnemyShipHit },
+			{ "chargeUsed", m_shipStatistics.ChargeUsed }
+		});
+
         m_state = ShipState.Dead;
 		BattleContext.ExplosionsController.PlayerShipExplosion(transform.position);
 		BattleContext.GUIController.SetDeadScore(BattleContext.World.Points);
@@ -178,6 +193,7 @@ public class PlayerShip : MonoBehaviour {
 			return;
 		}
 		m_state = ShipState.InCharge;
+		m_shipStatistics.UseChargeEvent();
 		m_chargeSystem.Charge();
 		StartCoroutine(ChargeProcess());
 	}
@@ -337,4 +353,70 @@ public class ShipParams {
 		EnginePower = 900;
 		RotationPower = 70;
 	}
+}
+
+public class ShipStatistics {
+	private int m_rocketHit;
+	private int m_stunHit;
+	private int m_laserHit;
+	private int m_enemyShipHit;
+	private int m_chargeUsed;
+
+	public ShipStatistics() {
+		m_rocketHit = 0;
+		m_stunHit = 0;
+		m_laserHit = 0;
+		m_enemyShipHit = 0;
+	}
+
+	public void RocketHitEvent() {
+		m_rocketHit++;
+	}
+
+	public void StunHitEvent() {
+		m_stunHit++;
+	}
+
+	public void LaserHitEvent() {
+		m_laserHit++;
+	}
+
+	public void EnemyShipHitEvent() {
+		m_enemyShipHit++;
+	}
+
+	public void UseChargeEvent() {
+		m_chargeUsed++;
+	}
+
+	public int RocketHit {
+		get {
+			return m_rocketHit;
+		}
+	}
+
+	public int StunHit {
+		get {
+			return m_stunHit;
+		}
+	}
+
+	public int LaserHit {
+		get {
+			return m_laserHit;
+		}
+	}
+
+	public int EnemyShipHit {
+		get {
+			return m_enemyShipHit;
+		}
+	}
+
+	public int ChargeUsed {
+		get {
+			return m_chargeUsed;
+		}
+	}
+
 }

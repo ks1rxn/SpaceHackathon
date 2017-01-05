@@ -13,7 +13,10 @@ public class World : MonoBehaviour {
 		SetTimeScaleMode(TimeScaleMode.Normal);
 
 		Analytics.CustomEvent("gameStart", new Dictionary<string, object> {
-			{ "time", System.DateTime.Now },
+			{ "device", SystemInfo.deviceModel },
+			{ "platform", Application.platform },
+			{ "install", Application.installMode },
+			{ "version", Application.version }
 		});
     }
 
