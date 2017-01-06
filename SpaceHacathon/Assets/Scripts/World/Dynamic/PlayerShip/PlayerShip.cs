@@ -101,6 +101,7 @@ public class PlayerShip : MonoBehaviour {
 
         m_state = ShipState.Dead;
 		BattleContext.ExplosionsController.PlayerShipExplosion(transform.position);
+		m_hull.gameObject.SetActive(false);
 		BattleContext.GUIController.SetDeadScore(BattleContext.World.Points);
         StartCoroutine(DieProcess());
     }
@@ -239,6 +240,8 @@ public class PlayerShip : MonoBehaviour {
 			yield return new WaitForEndOfFrame();
 		}
 		BattleContext.World.SetTimeScaleMode(TimeScaleMode.Normal);
+		m_rigidbody.angularVelocity = Vector3.zero;
+		m_rigidbody.velocity = LookVector * 10;
 		m_state = ShipState.OnMove;
 	}
 

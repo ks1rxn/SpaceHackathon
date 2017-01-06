@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Analytics;
+﻿using UnityEngine;
 
 public class World : MonoBehaviour {
 	private TimeScaleMode m_timeScaleMode;
@@ -10,19 +8,7 @@ public class World : MonoBehaviour {
     private void Awake() {
         BattleContext.World = this;
         m_points = 0;
-		SetTimeScaleMode(TimeScaleMode.Normal);
-
-		Analytics.CustomEvent("gameStart", new Dictionary<string, object> {
-			{ "device", SystemInfo.deviceModel },
-			{ "platform", Application.platform },
-			{ "install", Application.installMode },
-			{ "version", Application.version }
-		});
     }
-
-	private void Start() {
-		BattleContext.PlayerShip.Initiate();
-	}
 
 	public void SetTimeScaleMode(TimeScaleMode mode) {
 		m_timeScaleMode = mode;
