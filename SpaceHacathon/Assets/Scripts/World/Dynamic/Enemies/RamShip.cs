@@ -149,13 +149,19 @@ public class RamShip : IEnemyShip {
 		}
 	}
 
+	public RamShipState State {
+		get {
+			return m_state;
+		}
+	}
+
 	protected override float DistanceFromPlayerToDie {
 		get {
 			return 80;
 		}
 	}
 
-	private enum RamShipState {
+	public enum RamShipState {
 		Aiming,
 		Stabilizing,
 		Running,

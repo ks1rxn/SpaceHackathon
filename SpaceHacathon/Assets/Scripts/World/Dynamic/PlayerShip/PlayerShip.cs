@@ -23,6 +23,11 @@ public class PlayerShip : MonoBehaviour {
 	[SerializeField]
 	private ParticleSystem m_stunFx;
 
+	[SerializeField]
+	private GameObject m_ramDirection;
+	[SerializeField]
+	private Animation m_ramDirectionIndicator;
+
 	private void Awake() {
 		BattleContext.PlayerShip = this;
 
@@ -129,6 +134,16 @@ public class PlayerShip : MonoBehaviour {
 				m_rigidbody.angularVelocity *= 0.95f;
 			}
 			return;
+		}
+		RamShip ramShip = BattleContext.EnemiesController.RamShips[0];
+		if (ramShip.IsAlive && ramShip.State == RamShip.RamShipState.Running && Vector3.Distance(Position, ramShip.Position) < 60) {
+			m_ramDirection.SetActive(true);
+			float angle = MathHelper.AngleBetweenVectors(LookVector, ramShip.Position - Position);
+			m_ramDirection.transform.localEulerAngles = new Vector3(0, angle, 0);
+			float distance = Vector3.Distance(Position, ramShip.Position);
+			m_ramDirectionIndicator["indicator"].speed = Mathf.Max(1 / distance * 40, 1);
+		} else {
+			m_ramDirection.SetActive(false);
 		}
 		UpdateMovement();
 		m_hull.UpdateHull();
