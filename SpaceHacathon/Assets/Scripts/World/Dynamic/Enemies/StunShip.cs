@@ -54,11 +54,18 @@ public class StunShip : IEnemyShip {
 
 	public override void Kill() {
 		base.Kill();
-		BattleContext.ExplosionsController.PlayerShipExplosion(transform.position);
+		BattleContext.ExplosionsController.PlayerShipExplosion(Position);
+		BattleContext.EnemiesController.OnStunShipDie();
 	}
 
 	private void OnTriggerEnter(Collider other) {
 		if (other.CompareTag("Player")) {
+			Kill();
+		} else if (other.CompareTag("RocketLauncherShip")) {
+			Kill();
+		} else if (other.CompareTag("StunShip")) {
+			Kill();
+		} else if (other.CompareTag("RamShip")) {
 			Kill();
 		}
 	}
@@ -210,6 +217,12 @@ public class StunShip : IEnemyShip {
 		}
 		set {
 			gameObject.SetActive(value);
+		}
+	}
+
+	protected override float DistanceFromPlayerToDie {
+		get {
+			return 50;
 		}
 	}
 

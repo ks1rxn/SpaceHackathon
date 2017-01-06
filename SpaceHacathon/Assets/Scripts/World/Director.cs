@@ -16,4 +16,12 @@ public class Director : MonoBehaviour {
 		BattleContext.World.SetTimeScaleMode(TimeScaleMode.Normal);
 	}
 
+	public void OnPlayerDie() {
+		
+	}
+
+	public void OnEnemyKill(IEnemyShip enemy) {
+		
+	}
+
 }

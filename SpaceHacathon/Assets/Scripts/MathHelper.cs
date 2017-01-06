@@ -4,6 +4,18 @@ using Random = System.Random;
 class MathHelper {
 	private static Random m_random = new Random();
 
+	public static Vector3 GetPointAround(Vector3 initialPoint, float minDistance, float maxDistance) {
+		float angle = (float) Random.NextDouble() * 360;
+		float distance = Random.Next((int)(maxDistance - minDistance)) + minDistance;
+		return new Vector3(initialPoint.x + Mathf.Cos(angle * Mathf.PI / 180) * distance, 0, initialPoint.z + Mathf.Sin(angle * Mathf.PI / 180) * distance);
+	}
+
+	public static Vector3 GetPointAround(Vector3 initialPoint, Vector3 lookVector, float maxAngleFromLook, float minDistance, float maxDistance) {
+		float angle = -AngleBetweenVectors(Vector3.right, lookVector) + ((float) Random.NextDouble() * maxAngleFromLook * 2 - maxAngleFromLook);
+		float distance = Random.Next((int)(maxDistance - minDistance)) + minDistance;
+		return new Vector3(initialPoint.x + Mathf.Cos(angle * Mathf.PI / 180) * distance, 0, initialPoint.z + Mathf.Sin(angle * Mathf.PI / 180) * distance);
+	}
+
 	public static float AngleBetweenVectors(Vector3 a, Vector3 b) {
 		float angleToTarget = Vector3.Angle(a, b);
 		if (Vector3.Cross(a, b).y < 0) {

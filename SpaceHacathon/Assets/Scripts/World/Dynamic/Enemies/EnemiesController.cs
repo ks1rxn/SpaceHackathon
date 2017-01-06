@@ -13,7 +13,13 @@ public class EnemiesController : MonoBehaviour {
 	private List<IEnemyShip> m_ships;
 	private List<RamShip> m_ramShips; 
 	private List<StunShip> m_stunShips; 
-	private List<RocketLauncher> m_rocketLaunchers; 
+	private List<RocketLauncher> m_rocketLaunchers;
+
+	private float m_ramShipCooldown;
+	private bool m_ramShipAlive;
+
+	private float m_stunShipCooldown;
+	private bool m_stunShipAlive;
 
 	private void Awake() {
 		BattleContext.EnemiesController = this;
@@ -22,7 +28,7 @@ public class EnemiesController : MonoBehaviour {
 		m_ramShips = new List<RamShip>();
 		m_stunShips = new List<StunShip>();
 		m_rocketLaunchers = new List<RocketLauncher>();
-		for (int i = 0; i != 6; i++) {
+		for (int i = 0; i != 4; i++) {
 			CreateRocketLauncher();
 		}
 		for (int i = 0; i != 1; i++) {
@@ -31,46 +37,60 @@ public class EnemiesController : MonoBehaviour {
 		for (int i = 0; i != 1; i++) {
 			CreateRamShip();
 		}
-	}
 
-	private void Start() {
-//		StartCoroutine(DelayedSpawn());
-	}
+		m_ramShipCooldown = MathHelper.Random.Next(20);
+		m_ramShipAlive = false;
 
-	private IEnumerator DelayedSpawn() {
-		yield return new WaitForSecondsRealtime(0.5f);
-		SpawnRamShip(new Vector3(4, 0, 0), 90);
-		SpawnRocketLauncher(new Vector3(-5, -0.75f, 5), 20);
-		SpawnRocketLauncher(new Vector3(-3, -0.75f, -1), 20);
-		SpawnStunShip(new Vector3(7, 0, 7), 0);
-//		SpawnStunShip(new Vector3(-7, 0, 7), 0);
+		m_stunShipCooldown = MathHelper.Random.Next(5);
+		m_stunShipAlive = false;
 	}
 
 	private void FixedUpdate() {
+		if (!m_ramShipAlive) {
+			if (m_ramShipCooldown > 0) {
+				m_ramShipCooldown -= Time.fixedDeltaTime;
+			} else {
+				SpawnRamShip(MathHelper.GetPointAround(BattleContext.PlayerShip.Position, 30, 40), 0);
+				m_ramShipAlive = true;
+			}
+		}
+
+		if (!m_stunShipAlive) {
+			if (m_stunShipCooldown > 0) {
+				m_stunShipCooldown -= Time.fixedDeltaTime;
+			} else {
+				SpawnStunShip(MathHelper.GetPointAround(BattleContext.PlayerShip.Position, 30, 40), 0);
+				m_stunShipAlive = true;
+			}
+		}
+
 		for (int i = 0; i != m_ships.Count; i++) {
 			if (m_ships[i].IsAlive) {
 				m_ships[i].UpdateShip();
 			} else {
-				Respawn(m_ships[i]);
+				if (m_ships[i] is RocketLauncher) {
+					Vector3 rocketLauncherPosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, BattleContext.PlayerShip.LookVector, 90, 20, 30);
+					rocketLauncherPosition.y = -0.75f;
+					SpawnRocketLauncher(rocketLauncherPosition, MathHelper.Random.Next(360));
+				}
 			}
 		}
 	}
 
-	public void Respawn(IEnemyShip ship) {
-		Vector3 playerPos = BattleContext.PlayerShip.Position;
-		float angle = (float) MathHelper.Random.NextDouble() * 360;
-		float distance = MathHelper.Random.Next(35) + 5;
-		float yPos = 0;
-		if (ship is RocketLauncher) {
-			yPos = -0.75f;
-		}
-		ship.Spawn(new Vector3(playerPos.x + Mathf.Cos(angle * Mathf.PI / 180) * distance, yPos, playerPos.z + Mathf.Sin(angle * Mathf.PI / 180) * distance), MathHelper.Random.Next(360));
+	public void OnRamShipDie() {
+		m_ramShipCooldown = MathHelper.Random.Next(15) + 15;
+		m_ramShipAlive = false;
 	}
-	
+
+	public void OnStunShipDie() {
+		m_stunShipCooldown = MathHelper.Random.Next(10) + 5;
+		m_stunShipAlive = false;
+	}
+
 	public StunShip SpawnStunShip(Vector3 position, float rotation) {
 		StunShip targetShip = null;
 		foreach (StunShip ship in m_stunShips) {
-			if (!ship) {
+			if (!ship.IsAlive) {
 				targetShip = ship;
 				break;
 			}
@@ -85,7 +105,7 @@ public class EnemiesController : MonoBehaviour {
 	public RocketLauncher SpawnRocketLauncher(Vector3 position, float rotation) {
 		RocketLauncher targetShip = null;
 		foreach (RocketLauncher ship in m_rocketLaunchers) {
-			if (!ship) {
+			if (!ship.IsAlive) {
 				targetShip = ship;
 				break;
 			}
@@ -100,7 +120,7 @@ public class EnemiesController : MonoBehaviour {
 	public RamShip SpawnRamShip(Vector3 position, float rotation) {
 		RamShip targetShip = null;
 		foreach (RamShip ship in m_ramShips) {
-			if (!ship) {
+			if (!ship.IsAlive) {
 				targetShip = ship;
 				break;
 			}

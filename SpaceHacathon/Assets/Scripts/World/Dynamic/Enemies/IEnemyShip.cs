@@ -21,7 +21,7 @@ public abstract class IEnemyShip : MonoBehaviour {
 	}
 
 	public virtual void UpdateShip() {
-		if (Vector3.Distance(BattleContext.PlayerShip.Position, Position) > 80) {
+		if (Vector3.Distance(BattleContext.PlayerShip.Position, Position) > DistanceFromPlayerToDie) {
 			IsAlive = false;
 		}
 	}
@@ -37,4 +37,6 @@ public abstract class IEnemyShip : MonoBehaviour {
 			return transform.position;
 		}
 	}
+
+	protected abstract float DistanceFromPlayerToDie { get; }
 }

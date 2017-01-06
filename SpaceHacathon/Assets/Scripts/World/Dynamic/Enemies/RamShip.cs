@@ -23,11 +23,18 @@ public class RamShip : IEnemyShip {
 
 	public override void Kill() {
 		base.Kill();
-		BattleContext.ExplosionsController.PlayerShipExplosion(transform.position);
+		BattleContext.ExplosionsController.PlayerShipExplosion(Position);
+		BattleContext.EnemiesController.OnRamShipDie();
 	}
 
 	private void OnTriggerEnter(Collider other) { 
 		if (other.CompareTag("Player")) {
+			Kill();
+		} else if (other.CompareTag("RocketLauncherShip")) {
+			Kill();
+		} else if (other.CompareTag("StunShip")) {
+			Kill();
+		} else if (other.CompareTag("RamShip")) {
 			Kill();
 		}
     }
@@ -90,6 +97,7 @@ public class RamShip : IEnemyShip {
 		}
 		m_needRotationSpeed = 360;
 		Vector3 headingCorrection = headingController.Update(Vector3.Cross(transform.right, BattleContext.PlayerShip.Position - Position), Time.fixedDeltaTime);
+		headingCorrection.y = Mathf.Clamp(headingCorrection.y, -5, 5);
 		m_rigidbody.AddTorque(headingCorrection * 0.2f);
 
 		if (m_rigidbody.velocity.magnitude < 12) {
@@ -138,6 +146,12 @@ public class RamShip : IEnemyShip {
 		}
 		set {
 			gameObject.SetActive(value);
+		}
+	}
+
+	protected override float DistanceFromPlayerToDie {
+		get {
+			return 80;
 		}
 	}
 

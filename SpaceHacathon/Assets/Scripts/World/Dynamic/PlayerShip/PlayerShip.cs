@@ -40,7 +40,7 @@ public class PlayerShip : MonoBehaviour {
 		m_state = ShipState.OnMove;
 	}
 
-	public void BlasterHit() {
+	public void OnBlasterHit() {
 		if (m_state != ShipState.OnMove) {
 			return;
 		}
@@ -50,7 +50,7 @@ public class PlayerShip : MonoBehaviour {
 		StartCoroutine(StunProcedure());
 	}
 
-	public void LaserHit() {
+	public void OnLaserHit() {
 		if (m_state != ShipState.OnMove) {
 			return;
 		}
@@ -58,7 +58,7 @@ public class PlayerShip : MonoBehaviour {
 		m_shipStatistics.LaserHitEvent();
 	}
 
-	public void RocketHit(Vector3 position) {
+	public void OnRocketHit(Vector3 position) {
 		if (m_state != ShipState.OnMove) {
 			return;
 		}
@@ -71,7 +71,7 @@ public class PlayerShip : MonoBehaviour {
 		StartCoroutine(BashProcedure());
 	}
 
-	public void EnemyShipHit() {
+	public void OnEnemyShipHit() {
 		switch (m_state) {
 			case ShipState.OnMove:
 				m_hull.Hit(10.0f);
