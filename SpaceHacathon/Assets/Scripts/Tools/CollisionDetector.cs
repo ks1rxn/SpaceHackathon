@@ -10,8 +10,8 @@ public class CollisionDetector : MonoBehaviour {
 		m_callbacks = new Dictionary<string, Action<GameObject>>();
 	}
 
-	public void RegisterListener(string tag, Action<GameObject> callback) {
-		m_callbacks.Add(new KeyValuePair<string, Action<GameObject>>(tag, callback));
+	public void RegisterListener(string listenerTag, Action<GameObject> callback) {
+		m_callbacks.Add(new KeyValuePair<string, Action<GameObject>>(listenerTag, callback));
 	}
 
 	public void RegisterDefaultListener(Action<GameObject> callback) {
