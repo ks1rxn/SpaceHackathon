@@ -6,9 +6,14 @@ public class Laser : MonoBehaviour {
 	private float m_lifetime;
 
 	[SerializeField]
+	private CollisionDetector m_collisionDetector;
+	[SerializeField]
 	private TrailRenderer m_trail;
 
 	public void Initiate() {
+		m_collisionDetector.Initiate();
+		m_collisionDetector.RegisterDefaultListener(OnTargetHit);
+
 		IsAlive = false;
 	}
 
@@ -43,7 +48,7 @@ public class Laser : MonoBehaviour {
 		}
 	}
 
-	private void OnTriggerEnter(Collider other) { 
+	private void OnTargetHit(GameObject other) {
 		BattleContext.ExplosionsController.BlasterExplosion(transform.position);
 		IsAlive = false;
 	}

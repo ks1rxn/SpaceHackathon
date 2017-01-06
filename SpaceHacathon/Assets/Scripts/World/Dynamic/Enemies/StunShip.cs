@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class StunShip : IEnemyShip {
 	[SerializeField]
+	private CollisionDetector m_collisionDetector;
+	[SerializeField]
 	private GameObject m_gun;
 
 	[SerializeField]
@@ -27,6 +29,13 @@ public class StunShip : IEnemyShip {
 
 	public override void Initiate() {
 		base.Initiate();
+
+		m_collisionDetector.Initiate();
+		m_collisionDetector.RegisterListener("Player", OnOtherShipHit);
+		m_collisionDetector.RegisterListener("RocketLauncherShip", OnOtherShipHit);
+		m_collisionDetector.RegisterListener("StunShip", OnOtherShipHit);
+		m_collisionDetector.RegisterListener("RamShip", OnOtherShipHit);
+
 		m_material = GetComponent<MeshRenderer>().material;
 		m_engineState = new bool[m_engines.Length];
 	}
@@ -58,16 +67,8 @@ public class StunShip : IEnemyShip {
 		BattleContext.EnemiesController.OnStunShipDie();
 	}
 
-	private void OnTriggerEnter(Collider other) {
-		if (other.CompareTag("Player")) {
-			Kill();
-		} else if (other.CompareTag("RocketLauncherShip")) {
-			Kill();
-		} else if (other.CompareTag("StunShip")) {
-			Kill();
-		} else if (other.CompareTag("RamShip")) {
-			Kill();
-		}
+	private void OnOtherShipHit(GameObject other) {
+		Kill();
 	}
 
 	public override void UpdateShip() {
@@ -174,7 +175,7 @@ public class StunShip : IEnemyShip {
 
 		m_blasterTimer -= Time.deltaTime;
 		if ((m_blasterTimer <= 0) && (Mathf.Abs(angleToTarget) < 10) && Vector3.Distance(BattleContext.PlayerShip.Position, transform.position) < 15 && !HittingAlly(gunDirection)) {
-			BattleContext.BulletsController.SpawnBlaster(m_gun.transform.position, m_gun.transform.eulerAngles.y);
+			BattleContext.BulletsController.SpawnStunProjectile(m_gun.transform.position, m_gun.transform.eulerAngles.y);
 			m_blasterTimer = m_blasterCooldown;
 		}
 	}

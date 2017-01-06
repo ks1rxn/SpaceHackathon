@@ -1,15 +1,20 @@
 ﻿using UnityEngine;
 
-public class Blaster : MonoBehaviour {
+public class StunProjectile : MonoBehaviour {
 	private float m_angle;
 	private float m_detonatorActivateTime;
 
+	[SerializeField]
+	private CollisionDetector m_collisionDetector;
 	[SerializeField]
 	private TrailRenderer m_trail1;
 	[SerializeField]
 	private TrailRenderer m_trail2;
 
 	public void Initiate() {
+		m_collisionDetector.Initiate();
+		m_collisionDetector.RegisterDefaultListener(OnTargetHit);
+
 		IsAlive = false;
 	}
 
@@ -42,8 +47,8 @@ public class Blaster : MonoBehaviour {
 			m_detonatorActivateTime -= Time.fixedDeltaTime;
 		}
 	}
-
-	private void OnTriggerEnter(Collider other) { 
+	
+	private void OnTargetHit(GameObject other) {
 		BattleContext.ExplosionsController.BlasterExplosion(transform.position);
 		IsAlive = false;
 	}

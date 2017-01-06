@@ -75,7 +75,7 @@ public class ScreenInput : MonoBehaviour {
 	}
 
 	private void AddFuel() {
-		BattleContext.PlayerShip.AddFuel();
+		BattleContext.PlayerShip.OnChargeFuelHit(null);
 	}
 
 }

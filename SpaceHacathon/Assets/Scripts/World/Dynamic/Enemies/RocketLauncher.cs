@@ -8,6 +8,9 @@ public class RocketLauncher : IEnemyShip {
 	private float m_blasterTimerRear;
 
 	[SerializeField]
+	private CollisionDetector m_collisionDetector;
+
+	[SerializeField]
 	private float m_globalCooldownValue;
 	[SerializeField]
 	private float m_blasterCooldown;
@@ -21,6 +24,12 @@ public class RocketLauncher : IEnemyShip {
 
 	public override void Initiate() {
 		base.Initiate();
+
+		m_collisionDetector.Initiate();
+		m_collisionDetector.RegisterListener("Player", OnOtherShipHit);
+		m_collisionDetector.RegisterListener("RocketLauncherShip", OnOtherShipHit);
+		m_collisionDetector.RegisterListener("StunShip", OnOtherShipHit);
+		m_collisionDetector.RegisterListener("RamShip", OnOtherShipHit);
 	}
 
 	public override void Spawn(Vector3 position, float angle) {
@@ -37,17 +46,9 @@ public class RocketLauncher : IEnemyShip {
 		BattleContext.ExplosionsController.PlayerShipExplosion(Position);
 	}
 
-	private void OnTriggerEnter(Collider other) { 
-		if (other.CompareTag("Player")) {
-			Kill();
-		} else if (other.CompareTag("RocketLauncherShip")) {
-			Kill();
-		} else if (other.CompareTag("StunShip")) {
-			Kill();
-		} else if (other.CompareTag("RamShip")) {
-			Kill();
-		}
-    }
+	private void OnOtherShipHit(GameObject other) {
+		Kill();
+	}
 
 	public override void UpdateShip() {
 		base.UpdateShip();

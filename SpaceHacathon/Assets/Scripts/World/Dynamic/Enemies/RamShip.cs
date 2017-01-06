@@ -2,7 +2,10 @@
 
 public class RamShip : IEnemyShip {
 	[SerializeField]
+	private CollisionDetector m_collisionDetector;
+	[SerializeField]
 	private Transform m_hull;
+
 	private RamShipState m_state;
 	private readonly VectorPid headingController = new VectorPid(1.244681f, 0.1f, 1.1f);
 	private float m_rotationSpeed;
@@ -10,6 +13,12 @@ public class RamShip : IEnemyShip {
 
 	public override void Initiate() {
 		base.Initiate();
+
+		m_collisionDetector.Initiate();
+		m_collisionDetector.RegisterListener("Player", OnOtherShipHit);
+		m_collisionDetector.RegisterListener("RocketLauncherShip", OnOtherShipHit);
+		m_collisionDetector.RegisterListener("StunShip", OnOtherShipHit);
+		m_collisionDetector.RegisterListener("RamShip", OnOtherShipHit);
 	}
 
 	public override void Spawn(Vector3 position, float angle) {
@@ -27,17 +36,9 @@ public class RamShip : IEnemyShip {
 		BattleContext.EnemiesController.OnRamShipDie();
 	}
 
-	private void OnTriggerEnter(Collider other) { 
-		if (other.CompareTag("Player")) {
-			Kill();
-		} else if (other.CompareTag("RocketLauncherShip")) {
-			Kill();
-		} else if (other.CompareTag("StunShip")) {
-			Kill();
-		} else if (other.CompareTag("RamShip")) {
-			Kill();
-		}
-    }
+	private void OnOtherShipHit(GameObject other) {
+		Kill();
+	}
 
 	public override void UpdateShip() {
 		base.UpdateShip();

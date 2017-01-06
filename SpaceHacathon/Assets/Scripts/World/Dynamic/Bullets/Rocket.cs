@@ -7,6 +7,8 @@ public class Rocket : MonoBehaviour {
 	private float m_detonatorActivateTime;
 
 	[SerializeField]
+	private CollisionDetector m_collisionDetector;
+	[SerializeField]
 	private ParticleSystem m_trail;
 
 	private float m_power;
@@ -16,6 +18,11 @@ public class Rocket : MonoBehaviour {
     private readonly VectorPid headingController = new VectorPid(9.244681f, 0, 0.06382979f);
 
 	public void Initiate() {
+		m_collisionDetector.Initiate();
+		m_collisionDetector.RegisterListener("Player", OnTargetHit);
+		m_collisionDetector.RegisterListener("ChargeFuel", OnTargetHit);
+		m_collisionDetector.RegisterListener("Rocket", OnTargetHit);
+
 		m_rigidbody = GetComponent<Rigidbody>();
 		IsAlive = false;
 	}
@@ -51,11 +58,9 @@ public class Rocket : MonoBehaviour {
 		m_inactive = false;
 	}
 
-	private void OnTriggerEnter(Collider other) {
-		if (other.GetComponent<PlayerShipHull>() != null || other.GetComponent<ChargeFuel>() != null || other.GetComponent<Rocket>() != null) {
-			BattleContext.ExplosionsController.RocketExplosion(transform.position);
-			IsAlive = false;
-		}
+	private void OnTargetHit(GameObject other) {
+		BattleContext.ExplosionsController.RocketExplosion(transform.position);
+		IsAlive = false;
 	}
 
 	public void UpdateBullet() {

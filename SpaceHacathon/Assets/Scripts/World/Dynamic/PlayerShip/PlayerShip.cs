@@ -6,6 +6,7 @@ using UnityEngine.Analytics;
 using UnityEngine.SceneManagement;
 
 public class PlayerShip : MonoBehaviour {
+	[SerializeField]
 	private Rigidbody m_rigidbody;
 
 	private float m_neededAngle;
@@ -22,6 +23,8 @@ public class PlayerShip : MonoBehaviour {
 	private PlayerShipChargeSystem m_chargeSystem;
 	[SerializeField]
 	private ParticleSystem m_stunFx;
+	[SerializeField]
+	private CollisionDetector m_collisionDetector;
 
 	[SerializeField]
 	private GameObject m_ramDirection;
@@ -30,8 +33,6 @@ public class PlayerShip : MonoBehaviour {
 
 	private void Awake() {
 		BattleContext.PlayerShip = this;
-
-		m_rigidbody = GetComponent<Rigidbody>();
 	}
 
 	public void Initiate() {
@@ -42,10 +43,19 @@ public class PlayerShip : MonoBehaviour {
 		m_hull.Initiate();
         m_chargeSystem.Initiate();
 
+		m_collisionDetector.Initiate();
+		m_collisionDetector.RegisterListener("StunProjectile", OnStunProjectileHit);
+		m_collisionDetector.RegisterListener("Rocket", OnRocketHit);
+		m_collisionDetector.RegisterListener("Laser", OnLaserHit);
+		m_collisionDetector.RegisterListener("RocketLauncherShip", OnEnemyShipHit);
+		m_collisionDetector.RegisterListener("StunShip", OnEnemyShipHit);
+		m_collisionDetector.RegisterListener("RamShip", OnEnemyShipHit);
+		m_collisionDetector.RegisterListener("ChargeFuel", OnChargeFuelHit);
+
 		m_state = ShipState.OnMove;
 	}
 
-	public void OnBlasterHit() {
+	public void OnStunProjectileHit(GameObject other) {
 		if (m_state != ShipState.OnMove) {
 			return;
 		}
@@ -55,7 +65,7 @@ public class PlayerShip : MonoBehaviour {
 		StartCoroutine(StunProcedure());
 	}
 
-	public void OnLaserHit() {
+	public void OnLaserHit(GameObject other) {
 		if (m_state != ShipState.OnMove) {
 			return;
 		}
@@ -63,11 +73,12 @@ public class PlayerShip : MonoBehaviour {
 		m_shipStatistics.LaserHitEvent();
 	}
 
-	public void OnRocketHit(Vector3 position) {
+	public void OnRocketHit(GameObject other) {
 		if (m_state != ShipState.OnMove) {
 			return;
 		}
 		//hack
+		Vector3 position = other.transform.position;
 		position.y = 0;
 		m_rigidbody.AddExplosionForce(m_rigidbody.mass * 50, Position + (position - Position).normalized * 3, 5);
 		m_hull.Hit(0.5f);
@@ -76,7 +87,7 @@ public class PlayerShip : MonoBehaviour {
 		StartCoroutine(BashProcedure());
 	}
 
-	public void OnEnemyShipHit() {
+	public void OnEnemyShipHit(GameObject other) {
 		switch (m_state) {
 			case ShipState.OnMove:
 				m_hull.Hit(10.0f);
@@ -87,7 +98,7 @@ public class PlayerShip : MonoBehaviour {
 		}
 	}
 
-	public void AddFuel() {
+	public void OnChargeFuelHit(GameObject other) {
 		m_chargeSystem.AddFuel();
 	}
 
