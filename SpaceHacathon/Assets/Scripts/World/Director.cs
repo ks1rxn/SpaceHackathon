@@ -17,8 +17,10 @@ public class Director : MonoBehaviour {
 		BattleContext.PlayerShip.Initiate();
 		BattleContext.World.SetTimeScaleMode(TimeScaleMode.Normal);
 
-		m_analytics.StartSession();
-		m_analytics.LogEvent("GameProcess", "StartGame", "Director", 1);
+		m_analytics.LogScreen(new AppViewHitBuilder().SetScreenName("BattleScene").SetCustomDimension(1, SystemInfo.deviceModel));
+		m_analytics.LogEvent("GameProcess2", "StartGame", "Director", -1);
+		m_analytics.LogEvent(new EventHitBuilder().SetEventCategory("GP").SetEventAction("SG").SetEventLabel("D").SetEventValue(2)
+			.SetCustomMetric(3, "test"));
 	}
 
 	public void OnPlayerDie() {
