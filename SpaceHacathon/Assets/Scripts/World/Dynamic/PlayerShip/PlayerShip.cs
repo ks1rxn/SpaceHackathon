@@ -107,13 +107,13 @@ public class PlayerShip : MonoBehaviour {
             return;
         }
 
-		Analytics.CustomEvent("playerDied", new Dictionary<string, object> {
-			{ "rocketHit", m_shipStatistics.RocketHit },
-			{ "stunHit", m_shipStatistics.StunHit },
-			{ "laserHit", m_shipStatistics.LaserHit },
-			{ "enemyShipHit", m_shipStatistics.EnemyShipHit },
-			{ "chargeUsed", m_shipStatistics.ChargeUsed }
-		});
+//		Analytics.CustomEvent("playerDied", new Dictionary<string, object> {
+//			{ "rocketHit", m_shipStatistics.RocketHit },
+//			{ "stunHit", m_shipStatistics.StunHit },
+//			{ "laserHit", m_shipStatistics.LaserHit },
+//			{ "enemyShipHit", m_shipStatistics.EnemyShipHit },
+//			{ "chargeUsed", m_shipStatistics.ChargeUsed }
+//		});
 
         m_state = ShipState.Dead;
 		BattleContext.ExplosionsController.PlayerShipExplosion(transform.position);
