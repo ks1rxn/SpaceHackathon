@@ -29,7 +29,7 @@ public class BonusesController : MonoBehaviour {
 			if (Vector3.Distance(m_chargeFuels[i].transform.position, playerPosition) < 50) {
 				m_chargeFuels[i].UpdateState();
 			} else if (Vector3.Distance(m_chargeFuels[i].transform.position, playerPosition) > 80) {
-				m_chargeFuels[i].Die();
+				m_chargeFuels[i].IsAlive = false;
 			}
 		}
 	}
@@ -44,6 +44,7 @@ public class BonusesController : MonoBehaviour {
 	private ChargeFuel CreateChargeFuel() {
 		ChargeFuel chargeFuel = (Instantiate(m_chargeFuelPrefab)).GetComponent<ChargeFuel>();
 		chargeFuel.transform.parent = transform;
+		chargeFuel.Initiate();
 		m_chargeFuels.Add(chargeFuel);
 		return chargeFuel;
 	}

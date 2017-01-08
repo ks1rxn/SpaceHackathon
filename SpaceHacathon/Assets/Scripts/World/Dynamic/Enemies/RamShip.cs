@@ -7,7 +7,7 @@ public class RamShip : IEnemyShip {
 	private Transform m_hull;
 
 	private RamShipState m_state;
-	private readonly VectorPid headingController = new VectorPid(1.244681f, 0.1f, 1.1f);
+	private readonly VectorPid m_headingController = new VectorPid(1.244681f, 0.1f, 1.1f);
 	private float m_rotationSpeed;
 	private float m_needRotationSpeed;
 
@@ -19,6 +19,7 @@ public class RamShip : IEnemyShip {
 		m_collisionDetector.RegisterListener("RocketLauncherShip", OnOtherShipHit);
 		m_collisionDetector.RegisterListener("StunShip", OnOtherShipHit);
 		m_collisionDetector.RegisterListener("RamShip", OnOtherShipHit);
+		m_collisionDetector.RegisterListener("SpaceMine", OnOtherShipHit);
 	}
 
 	public override void Spawn(Vector3 position, float angle) {
@@ -71,7 +72,7 @@ public class RamShip : IEnemyShip {
 		if (m_rigidbody.velocity.magnitude > 0.1f) {
 			m_rigidbody.velocity *= 0.5f;
 		}
-		Vector3 headingCorrection = headingController.Update(Vector3.Cross(transform.right, BattleContext.PlayerShip.Position - Position), Time.fixedDeltaTime);
+		Vector3 headingCorrection = m_headingController.Update(Vector3.Cross(transform.right, BattleContext.PlayerShip.Position - Position), Time.fixedDeltaTime);
 		m_rigidbody.AddTorque(headingCorrection * 0.2f);
 		if (Mathf.Abs(MathHelper.AngleBetweenVectors(transform.right, BattleContext.PlayerShip.Position - Position)) < 5 &&
 			m_rigidbody.angularVelocity.magnitude < 0.3f) {
@@ -97,7 +98,7 @@ public class RamShip : IEnemyShip {
 			return;
 		}
 		m_needRotationSpeed = 360;
-		Vector3 headingCorrection = headingController.Update(Vector3.Cross(transform.right, BattleContext.PlayerShip.Position - Position), Time.fixedDeltaTime);
+		Vector3 headingCorrection = m_headingController.Update(Vector3.Cross(transform.right, BattleContext.PlayerShip.Position - Position), Time.fixedDeltaTime);
 		headingCorrection.y = Mathf.Clamp(headingCorrection.y, -5, 5);
 		m_rigidbody.AddTorque(headingCorrection * 0.2f);
 
@@ -162,12 +163,11 @@ public class RamShip : IEnemyShip {
 		}
 	}
 
-	public enum RamShipState {
-		Aiming,
-		Stabilizing,
-		Running,
-		Stopping,
-		Dead
-	}
+}
 
+public enum RamShipState {
+	Aiming,
+	Stabilizing,
+	Running,
+	Stopping
 }

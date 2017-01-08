@@ -30,6 +30,7 @@ public class RocketLauncher : IEnemyShip {
 		m_collisionDetector.RegisterListener("RocketLauncherShip", OnOtherShipHit);
 		m_collisionDetector.RegisterListener("StunShip", OnOtherShipHit);
 		m_collisionDetector.RegisterListener("RamShip", OnOtherShipHit);
+		m_collisionDetector.RegisterListener("SpaceMine", OnOtherShipHit);
 	}
 
 	public override void Spawn(Vector3 position, float angle) {

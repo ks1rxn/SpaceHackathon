@@ -35,6 +35,7 @@ public class StunShip : IEnemyShip {
 		m_collisionDetector.RegisterListener("RocketLauncherShip", OnOtherShipHit);
 		m_collisionDetector.RegisterListener("StunShip", OnOtherShipHit);
 		m_collisionDetector.RegisterListener("RamShip", OnOtherShipHit);
+		m_collisionDetector.RegisterListener("SpaceMine", OnOtherShipHit);
 
 		m_material = GetComponent<MeshRenderer>().material;
 		m_engineState = new bool[m_engines.Length];

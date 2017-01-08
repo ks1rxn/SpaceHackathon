@@ -48,6 +48,7 @@ public class PlayerShip : MonoBehaviour {
 		m_collisionDetector.RegisterListener("Rocket", OnRocketHit);
 		m_collisionDetector.RegisterListener("Laser", OnLaserHit);
 		m_collisionDetector.RegisterListener("RocketLauncherShip", OnEnemyShipHit);
+		m_collisionDetector.RegisterListener("SpaceMine", OnEnemyShipHit);
 		m_collisionDetector.RegisterListener("StunShip", OnEnemyShipHit);
 		m_collisionDetector.RegisterListener("RamShip", OnEnemyShipHit);
 		m_collisionDetector.RegisterListener("ChargeFuel", OnChargeFuelHit);
@@ -147,7 +148,7 @@ public class PlayerShip : MonoBehaviour {
 			return;
 		}
 		RamShip ramShip = BattleContext.EnemiesController.RamShips[0];
-		if (ramShip.IsAlive && ramShip.State == RamShip.RamShipState.Running && Vector3.Distance(Position, ramShip.Position) < 60) {
+		if (ramShip.IsAlive && ramShip.State == RamShipState.Running && Vector3.Distance(Position, ramShip.Position) < 60) {
 			m_ramDirection.SetActive(true);
 			float angle = MathHelper.AngleBetweenVectors(LookVector, ramShip.Position - Position);
 			m_ramDirection.transform.localEulerAngles = new Vector3(0, angle, 0);

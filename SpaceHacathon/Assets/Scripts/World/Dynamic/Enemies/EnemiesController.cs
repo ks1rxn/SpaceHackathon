@@ -9,10 +9,13 @@ public class EnemiesController : MonoBehaviour {
 	private GameObject m_rocketLauncherPrefab;
 	[SerializeField]
 	private GameObject m_ramShipPrefab;
+	[SerializeField]
+	private GameObject m_spaceMinePrefab;
 
 	private List<IEnemyShip> m_ships;
 	private List<RamShip> m_ramShips; 
 	private List<StunShip> m_stunShips; 
+	private List<SpaceMine> m_spaceMines; 
 	private List<RocketLauncher> m_rocketLaunchers;
 
 	private float m_ramShipCooldown;
@@ -27,6 +30,7 @@ public class EnemiesController : MonoBehaviour {
 		m_ships = new List<IEnemyShip>();
 		m_ramShips = new List<RamShip>();
 		m_stunShips = new List<StunShip>();
+		m_spaceMines = new List<SpaceMine>();
 		m_rocketLaunchers = new List<RocketLauncher>();
 		for (int i = 0; i != 4; i++) {
 			CreateRocketLauncher();
@@ -36,6 +40,9 @@ public class EnemiesController : MonoBehaviour {
 		}
 		for (int i = 0; i != 1; i++) {
 			CreateRamShip();
+		}
+		for (int i = 0; i != 3; i++) {
+			CreateSpaceMine();
 		}
 
 		m_ramShipCooldown = MathHelper.Random.Next(20);
@@ -72,6 +79,11 @@ public class EnemiesController : MonoBehaviour {
 					Vector3 rocketLauncherPosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, BattleContext.PlayerShip.LookVector, 90, 20, 30);
 					rocketLauncherPosition.y = -0.75f;
 					SpawnRocketLauncher(rocketLauncherPosition, MathHelper.Random.Next(360));
+				}
+				if (m_ships[i] is SpaceMine) {
+					Vector3 spaceMinePosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, BattleContext.PlayerShip.LookVector, 90, 20, 30);
+					spaceMinePosition.y = -2.5f;
+					SpawnSpaceMine(spaceMinePosition);
 				}
 			}
 		}
@@ -132,6 +144,21 @@ public class EnemiesController : MonoBehaviour {
 		return targetShip;
 	}
 
+	public SpaceMine SpawnSpaceMine(Vector3 position) {
+		SpaceMine targetShip = null;
+		foreach (SpaceMine ship in m_spaceMines) {
+			if (!ship.IsAlive) {
+				targetShip = ship;
+				break;
+			}
+		}
+		if (targetShip == null) {
+			targetShip = CreateSpaceMine();
+		}
+		targetShip.Spawn(position, 0);
+		return targetShip;
+	}
+
 	private StunShip CreateStunShip() {
 		StunShip stunShip = (Instantiate(m_blasterShipPrefab)).GetComponent<StunShip>();
 		stunShip.transform.parent = transform;
@@ -159,6 +186,15 @@ public class EnemiesController : MonoBehaviour {
 		return ramShip;
 	}
 
+	private SpaceMine CreateSpaceMine() {
+		SpaceMine spaceMine = (Instantiate(m_spaceMinePrefab)).GetComponent<SpaceMine>();
+		spaceMine.transform.parent = transform;
+		spaceMine.Initiate();
+		m_ships.Add(spaceMine);
+		m_spaceMines.Add(spaceMine);
+		return spaceMine;
+	}
+
 	public List<IEnemyShip> Ships {
 		get {
 			return m_ships;
@@ -180,6 +216,12 @@ public class EnemiesController : MonoBehaviour {
 	public List<RocketLauncher> RocketLaunchers {
 		get {
 			return m_rocketLaunchers;
+		}
+	}
+
+	public List<SpaceMine> SpaceMines {
+		get {
+			return m_spaceMines;
 		}
 	}
 

@@ -4,7 +4,17 @@ public class ChargeFuel : MonoBehaviour {
 	private Vector3 m_rotationVector;
 	private float m_rotationSpeed;
 
+	[SerializeField]
+	private CollisionDetector m_collisionDetector;
+
+	public void Initiate() {
+		m_collisionDetector.Initiate();
+		m_collisionDetector.RegisterDefaultListener(OnTargetHit);
+	}
+
 	public void Spawn(Vector3 position) {
+		IsAlive = true;
+
 		transform.position = position;
 		Vector3 intialRotation = new Vector3((float)MathHelper.Random.NextDouble() - 0.5f, (float)MathHelper.Random.NextDouble() - 0.5f, (float)MathHelper.Random.NextDouble() - 0.5f).normalized;
 		transform.Rotate(intialRotation, MathHelper.Random.Next(360));
@@ -17,16 +27,20 @@ public class ChargeFuel : MonoBehaviour {
 		transform.Rotate(m_rotationVector, m_rotationSpeed);
 	}
 
-	private void OnTriggerEnter(Collider other) {
-		if (other.gameObject.GetComponent<PlayerShip>() != null) {
-			Die();
-		} else {
-			Die();
-		}
+	private void OnTargetHit(GameObject other) {
+		IsAlive = false;
 	}
 
-	public void Die() {
-		BattleContext.BonusesController.Respawn(this);
+	public bool IsAlive {
+		get {
+			return gameObject.activeInHierarchy;
+		}
+		set {
+			gameObject.SetActive(value);
+			if (!value) {
+				BattleContext.BonusesController.Respawn(this);
+			}
+		}
 	}
 
 }
