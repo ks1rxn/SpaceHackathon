@@ -52,7 +52,7 @@ public class SpaceMine : IEnemyShip {
 
 	public override void Kill() {
 		base.Kill();
-		BattleContext.ExplosionsController.PlayerShipExplosion(Position);
+		BattleContext.ExplosionsController.MineExplosion(Position);
 	}
 
 	private void OnOtherShipHit(GameObject other) {
@@ -78,9 +78,9 @@ public class SpaceMine : IEnemyShip {
 	}
 
 	private void Waiting() {
-		Vector3 upPosition = Position;
-		upPosition.y = 0;
-		if (Vector3.Distance(BattleContext.PlayerShip.Position, upPosition) < 7) {
+		Vector3 projectionToPlane = Position;
+		projectionToPlane.y = 0;
+		if (Vector3.Distance(BattleContext.PlayerShip.Position, projectionToPlane) < 7) {
 			m_waitingIndicator.SetActive(false);
 			m_armedIndicator.SetActive(true);
 

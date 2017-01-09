@@ -8,6 +8,8 @@ public class ExplosionsController : MonoBehaviour {
 	private GameObject m_rocketExplosionPrefab;
 	[SerializeField]
 	private GameObject m_blasterShipExplosionPrefab;
+	[SerializeField]
+	private GameObject m_mineExplosionPrefab;
 
 	private List<Explosion> m_explosions; 
 
@@ -31,6 +33,10 @@ public class ExplosionsController : MonoBehaviour {
 		CreateExplosion(ExplosionType.RocketExplosion);
 		CreateExplosion(ExplosionType.RocketExplosion);
 		CreateExplosion(ExplosionType.RocketExplosion);
+
+		CreateExplosion(ExplosionType.MineExplosion);
+		CreateExplosion(ExplosionType.MineExplosion);
+		CreateExplosion(ExplosionType.MineExplosion);
 	}
 
 	public void PlayerShipExplosion(Vector3 position) {
@@ -43,6 +49,10 @@ public class ExplosionsController : MonoBehaviour {
 
 	public void BlasterExplosion(Vector3 position) {
 		SpawnExplosion(ExplosionType.BlasterExplosion, position);
+	}
+
+	public void MineExplosion(Vector3 position) {
+		SpawnExplosion(ExplosionType.MineExplosion, position);
 	}
 
 	private void SpawnExplosion(ExplosionType type, Vector3 position) {
@@ -82,6 +92,13 @@ public class ExplosionsController : MonoBehaviour {
 				e3.Initiate(ExplosionType.BlasterExplosion);
 				m_explosions.Add(e3);
 				return e3;
+			case ExplosionType.MineExplosion:
+				Explosion e4 = (Instantiate(m_mineExplosionPrefab)).GetComponent<Explosion>();
+				e4.gameObject.SetActive(false);
+				e4.transform.parent = transform;
+				e4.Initiate(ExplosionType.MineExplosion);
+				m_explosions.Add(e4);
+				return e4;
 			default:
 				return null;
 		}

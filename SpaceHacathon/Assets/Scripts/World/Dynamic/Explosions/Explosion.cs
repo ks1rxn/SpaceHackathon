@@ -43,7 +43,8 @@ public class Explosion : MonoBehaviour {
 }
 
 public enum ExplosionType {
-	PlayerShipExplosion = 0,
-	RocketExplosion = 1,
-	BlasterExplosion = 2
+	PlayerShipExplosion,
+	RocketExplosion,
+	BlasterExplosion,
+	MineExplosion
 }
