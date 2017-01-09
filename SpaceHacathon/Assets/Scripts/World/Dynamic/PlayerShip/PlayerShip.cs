@@ -61,7 +61,7 @@ public class PlayerShip : MonoBehaviour {
 			return;
 		}
 		m_hull.Hit(0.1f);
-		m_shipStatistics.StunHitEvent();
+		m_shipStatistics.StunHit++;
 		StopCoroutine("StunProcedure");
 		StartCoroutine(StunProcedure());
 	}
@@ -71,7 +71,7 @@ public class PlayerShip : MonoBehaviour {
 			return;
 		}
 		m_hull.Hit(0.05f);
-		m_shipStatistics.LaserHitEvent();
+		m_shipStatistics.LaserHit++;
 	}
 
 	public void OnRocketHit(GameObject other) {
@@ -83,7 +83,7 @@ public class PlayerShip : MonoBehaviour {
 		position.y = 0;
 		m_rigidbody.AddExplosionForce(m_rigidbody.mass * 50, Position + (position - Position).normalized * 3, 5);
 		m_hull.Hit(0.5f);
-		m_shipStatistics.RocketHitEvent();
+		m_shipStatistics.RocketHit++;
 		StopCoroutine("BashProcedure");
 		StartCoroutine(BashProcedure());
 	}
@@ -91,8 +91,17 @@ public class PlayerShip : MonoBehaviour {
 	public void OnEnemyShipHit(GameObject other) {
 		switch (m_state) {
 			case ShipState.OnMove:
+				//todo: remove this shit
+				if (other.CompareTag("SpaceMine")) {
+					m_shipStatistics.MineHit++;
+				} else if (other.CompareTag("StunShip")) {
+					m_shipStatistics.EnemyShipHit++;
+				} else if (other.CompareTag("RamShip")) {
+					m_shipStatistics.RamShipHit++;
+				} else if (other.CompareTag("RocketLauncherShip")) {
+					m_shipStatistics.EnemyShipHit++;
+				}
 				m_hull.Hit(10.0f);
-				m_shipStatistics.EnemyShipHitEvent();
 				break;
 			case ShipState.InCharge:
 				break;
@@ -115,6 +124,17 @@ public class PlayerShip : MonoBehaviour {
 //			{ "enemyShipHit", m_shipStatistics.EnemyShipHit },
 //			{ "chargeUsed", m_shipStatistics.ChargeUsed }
 //		});
+
+		BattleContext.Director.OnPlayerDie();
+
+		BattleContext.Director.Analytics.LogEvent("BattleScene", "EndBattle", "TimeAlive", (int)BattleContext.World.Points);
+		BattleContext.Director.Analytics.LogEvent("BattleScene", "EndBattle", "RamShipHit", m_shipStatistics.RamShipHit);
+		BattleContext.Director.Analytics.LogEvent("BattleScene", "EndBattle", "MineHit", m_shipStatistics.MineHit);
+		BattleContext.Director.Analytics.LogEvent("BattleScene", "EndBattle", "EnemyShipHit", m_shipStatistics.EnemyShipHit);
+		BattleContext.Director.Analytics.LogEvent("BattleScene", "EndBattle", "ChargeUsed", m_shipStatistics.ChargeUsed);
+		BattleContext.Director.Analytics.LogEvent("BattleScene", "EndBattle", "RocketHit", m_shipStatistics.RocketHit);
+		BattleContext.Director.Analytics.LogEvent("BattleScene", "EndBattle", "StunHit", m_shipStatistics.StunHit);
+		BattleContext.Director.Analytics.LogEvent("BattleScene", "EndBattle", "LaserHit", m_shipStatistics.LaserHit);
 
         m_state = ShipState.Dead;
 		BattleContext.ExplosionsController.PlayerShipExplosion(transform.position);
@@ -221,7 +241,7 @@ public class PlayerShip : MonoBehaviour {
 			return;
 		}
 		m_state = ShipState.InCharge;
-		m_shipStatistics.UseChargeEvent();
+		m_shipStatistics.ChargeUsed++;
 		m_chargeSystem.Charge();
 		StartCoroutine(ChargeProcess());
 	}
@@ -386,67 +406,11 @@ public class ShipParams {
 }
 
 public class ShipStatistics {
-	private int m_rocketHit;
-	private int m_stunHit;
-	private int m_laserHit;
-	private int m_enemyShipHit;
-	private int m_chargeUsed;
-
-	public ShipStatistics() {
-		m_rocketHit = 0;
-		m_stunHit = 0;
-		m_laserHit = 0;
-		m_enemyShipHit = 0;
-	}
-
-	public void RocketHitEvent() {
-		m_rocketHit++;
-	}
-
-	public void StunHitEvent() {
-		m_stunHit++;
-	}
-
-	public void LaserHitEvent() {
-		m_laserHit++;
-	}
-
-	public void EnemyShipHitEvent() {
-		m_enemyShipHit++;
-	}
-
-	public void UseChargeEvent() {
-		m_chargeUsed++;
-	}
-
-	public int RocketHit {
-		get {
-			return m_rocketHit;
-		}
-	}
-
-	public int StunHit {
-		get {
-			return m_stunHit;
-		}
-	}
-
-	public int LaserHit {
-		get {
-			return m_laserHit;
-		}
-	}
-
-	public int EnemyShipHit {
-		get {
-			return m_enemyShipHit;
-		}
-	}
-
-	public int ChargeUsed {
-		get {
-			return m_chargeUsed;
-		}
-	}
-
+	public int RocketHit { get; set; }
+	public int StunHit { get; set; }
+	public int LaserHit { get; set; }
+	public int EnemyShipHit { get; set; }
+	public int RamShipHit { get; set; }
+	public int MineHit { get; set; }
+	public int ChargeUsed { get; set; }
 }

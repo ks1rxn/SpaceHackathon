@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
 public class BattleContext {
+	private static Director m_director;
     private static World m_world;
 	private static PlayerShip m_playerShip;
 	private static BattleCamera m_battleCamera;
@@ -81,4 +82,14 @@ public class BattleContext {
 			m_bonusesController = value;
 		}
 	}
+
+	public static Director Director {
+		get {
+			return m_director;
+		}
+		set {
+			m_director = value;
+		}
+	}
+
 }
