@@ -11,6 +11,7 @@ public class SpaceMine : IEnemyShip {
 	private SpaceMineState m_state;
 
 	private readonly VectorPid m_speedController = new VectorPid(1.244681f, 0.1f, 1.1f);
+	private readonly FloatPid m_yStabilizer = new FloatPid(1.244681f, 0.1f, 1.1f);
 
 	private Vector3 m_waitingPosition;
 	private float m_speedValue;
@@ -19,6 +20,8 @@ public class SpaceMine : IEnemyShip {
 	private MeshRenderer m_hullRenderer;
 	[SerializeField]
 	private Material[] m_materials;
+	[SerializeField]
+	private LineRenderer m_lineRenderer;
 
 	public override void Initiate() {
 		base.Initiate();
@@ -61,24 +64,28 @@ public class SpaceMine : IEnemyShip {
 
 		switch (m_state) {
 			case SpaceMineState.Waiting:
+				m_lineRenderer.SetPosition(0, Position);
+				m_lineRenderer.SetPosition(1, Position);
 				Waiting();
 				break;
-			case SpaceMineState.MovingUp:
-				MovingUp();
-				break;
 			case SpaceMineState.Chasing:
+				m_lineRenderer.SetPosition(0, Position);
+				m_lineRenderer.SetPosition(1, BattleContext.PlayerShip.Position);
 				Chasing();
 				break;
 		}
+
 	}
 
 	private void Waiting() {
-		if (Vector3.Distance(BattleContext.PlayerShip.Position, Position) < 8) {
+		Vector3 upPosition = Position;
+		upPosition.y = 0;
+		if (Vector3.Distance(BattleContext.PlayerShip.Position, upPosition) < 7) {
 			m_waitingIndicator.SetActive(false);
 			m_armedIndicator.SetActive(true);
 
 			m_hullRenderer.material = m_materials[1];
-			m_state = SpaceMineState.MovingUp;
+			m_state = SpaceMineState.Chasing;
 			m_speedValue = 0.0f;
 		}
 		transform.Rotate(0, Time.fixedDeltaTime * 35, 0);
@@ -89,28 +96,16 @@ public class SpaceMine : IEnemyShip {
 		}
 	}
 
-	private void MovingUp() {
-		if (Position.y < -0.2f) {
-			Vector3 up = Position;
-			up.y = 0;
-			Vector3 dest = up + (BattleContext.PlayerShip.Position - up) * (1 + Mathf.Max(Position.y * 0.5f, -1));
-			Vector3 speedCorrection = m_speedController.Update(dest - Position, Time.fixedDeltaTime);
-			m_rigidbody.AddForce(speedCorrection * m_speedValue);
-
-			if (m_speedValue < 0.5f) {
-				m_speedValue += Time.fixedDeltaTime;
-			}
-			if (m_rigidbody.velocity.magnitude > 5) {
-				m_rigidbody.velocity = m_rigidbody.velocity.normalized * 5;
-			}
-		} else {
-			m_state = SpaceMineState.Chasing;
-		}
-	}
-
 	private void Chasing() {
+		Vector3 projectionToPlane = Position;
+		projectionToPlane.y = 0;
+
 		Vector3 speedCorrection = m_speedController.Update(BattleContext.PlayerShip.Position - Position, Time.fixedDeltaTime);
 		m_rigidbody.AddForce(speedCorrection * m_speedValue * 0.9f);
+
+		float yCorrection = m_yStabilizer.Update(-Position.y, Time.fixedDeltaTime);
+		m_rigidbody.AddForce(0, yCorrection * 0.5f, 0);
+
 		float distCoef = Mathf.Clamp((BattleContext.PlayerShip.Position - Position).magnitude, 3, 8);
 		if (m_rigidbody.velocity.magnitude > distCoef) {
 			m_rigidbody.velocity = m_rigidbody.velocity.normalized * distCoef;
@@ -118,7 +113,7 @@ public class SpaceMine : IEnemyShip {
 		if (m_speedValue < 0.5f) {
 			m_speedValue += Time.fixedDeltaTime;
 		}
-		if (Vector3.Distance(BattleContext.PlayerShip.Position, Position) > 8) {
+		if (Vector3.Distance(BattleContext.PlayerShip.Position, projectionToPlane) > 9) {
 			m_waitingIndicator.SetActive(true);
 			m_armedIndicator.SetActive(false);
 
@@ -149,6 +144,5 @@ public class SpaceMine : IEnemyShip {
 
 public enum SpaceMineState {
 	Waiting,
-	MovingUp,
 	Chasing
 }
