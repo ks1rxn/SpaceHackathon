@@ -7,8 +7,6 @@ public class SpaceMine : IEnemyShip {
 	private GameObject m_waitingIndicator;
 	[SerializeField]
 	private GameObject m_armedIndicator;
-	[SerializeField]
-	private Animator m_animator;
 
 	private SpaceMineState m_state;
 
@@ -40,7 +38,6 @@ public class SpaceMine : IEnemyShip {
 		m_armedIndicator.SetActive(false);
 
 		m_state = SpaceMineState.Waiting;
-		m_animator.SetBool("armed", false);
 		m_hullRenderer.material = m_materials[0];
 
 		position.y = -2.5f + (float) MathHelper.Random.NextDouble() - 0.5f;
@@ -80,7 +77,6 @@ public class SpaceMine : IEnemyShip {
 			m_waitingIndicator.SetActive(false);
 			m_armedIndicator.SetActive(true);
 
-			m_animator.SetBool("armed", true);
 			m_hullRenderer.material = m_materials[1];
 			m_state = SpaceMineState.MovingUp;
 			m_speedValue = 0.0f;
@@ -126,7 +122,6 @@ public class SpaceMine : IEnemyShip {
 			m_waitingIndicator.SetActive(true);
 			m_armedIndicator.SetActive(false);
 
-			m_animator.SetBool("armed", false);
 			m_hullRenderer.material = m_materials[0];
 			m_state = SpaceMineState.Waiting;
 
