@@ -311,6 +311,12 @@ public class PlayerShip : MonoBehaviour {
 		}
 	}
 
+	public Vector3 SpeedValue {
+		get {
+			return m_rigidbody.velocity;
+		}
+	}
+
 	private IEnumerator StunProcedure() {
 		m_effects.Stunned = true;
 
