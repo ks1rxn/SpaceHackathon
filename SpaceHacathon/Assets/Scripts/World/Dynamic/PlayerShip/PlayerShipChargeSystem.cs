@@ -18,24 +18,27 @@ public class PlayerShipChargeSystem : MonoBehaviour {
     public void Initiate() {
 	    m_chargeFuel = 0;
 		UpdateChargeIndicators();
-		UpdateChargeEngines();
+//		UpdateChargeEngines();
     }
 
 	public void AddFuel() {
 		if (m_chargeFuel < 5) {
 			m_chargeFuel++;
 			UpdateChargeIndicators();
-			UpdateChargeEngines();
+//			UpdateChargeEngines();
 		}
 	}
 
 	public void Charge() {
-		if (!InChargeTargeting) {
-			return;
-		}
-		m_chargeFuel --;
-		UpdateChargeIndicators();
-		UpdateChargeEngines();
+//		if (!InChargeTargeting) {
+//			return;
+//		}
+//		PlayerShipHull hull = BattleContext.PlayerShip.Hull;
+//		if (hull.TryToGetFuel(0.2f)) {
+//			
+//		}
+//		UpdateChargeIndicators();
+//		UpdateChargeEngines();
 	}
 
 	private void UpdateChargeIndicators() {
@@ -49,32 +52,32 @@ public class PlayerShipChargeSystem : MonoBehaviour {
 		m_chargeIndicators[4].SetActive(m_chargeFuel >= 5);
 	}
 
-	private void UpdateChargeEngines() {
-		if (InChargeTargeting) {
-			m_chargeIndicator.SetActive(true);
-			foreach (ParticleSystem engine in m_chargeEngines) {
-				engine.Play();
-			}
-			foreach (GameObject enginesAsObject in m_chargeEnginesAsObjects) {
-				enginesAsObject.SetActive(true);
-			}
-		} else {
-			m_chargeIndicator.SetActive(false);
-			foreach (ParticleSystem engine in m_chargeEngines) {
-				engine.Stop();
-				engine.Clear();
-			}
-			foreach (GameObject enginesAsObject in m_chargeEnginesAsObjects) {
-				enginesAsObject.SetActive(false);
-			}
-		}
-	}
+//	private void UpdateChargeEngines() {
+//		if (InChargeTargeting) {
+//			m_chargeIndicator.SetActive(true);
+//			foreach (ParticleSystem engine in m_chargeEngines) {
+//				engine.Play();
+//			}
+//			foreach (GameObject enginesAsObject in m_chargeEnginesAsObjects) {
+//				enginesAsObject.SetActive(true);
+//			}
+//		} else {
+//			m_chargeIndicator.SetActive(false);
+//			foreach (ParticleSystem engine in m_chargeEngines) {
+//				engine.Stop();
+//				engine.Clear();
+//			}
+//			foreach (GameObject enginesAsObject in m_chargeEnginesAsObjects) {
+//				enginesAsObject.SetActive(false);
+//			}
+//		}
+//	}
 
-	public bool InChargeTargeting {
-		get {
-			return m_chargeFuel > 0;
-		}
-	}
+//	public bool InChargeTargeting {
+//		get {
+//			return m_chargeFuel > 0;
+//		}
+//	}
 
 	public GameObject ChargeEffect {
 		get {
