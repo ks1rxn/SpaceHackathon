@@ -39,7 +39,7 @@ public class RocketLauncher : IEnemyShip {
 		const float speed = 0.3f;
 		m_rigidbody.velocity = new Vector3(Mathf.Cos(angle * Mathf.PI / 180) * speed, 0, -Mathf.Sin(angle * Mathf.PI / 180) * speed);
 
-		m_cooldown = 0;
+		m_cooldown = MathHelper.Random.Next((int)m_globalCooldownValue);
 	}
 
 	public override void Kill() {

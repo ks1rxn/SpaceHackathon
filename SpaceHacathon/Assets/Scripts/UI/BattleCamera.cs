@@ -23,7 +23,7 @@ public class BattleCamera : MonoBehaviour {
 		neededPosition.z -= 9;
 
 		Vector3 speedCorrection = m_speedController.Update(neededPosition - transform.position, Time.fixedDeltaTime);
-		m_speed += 0.0002f * speedCorrection * Time.fixedDeltaTime;
+		m_speed += 0.0003f * speedCorrection * Time.fixedDeltaTime;
 //		m_speed += 0.0001f * speedCorrection * Time.fixedDeltaTime;
 		transform.Translate(0.4f * m_speed * Time.fixedDeltaTime);
 		Vector3 pos = transform.position;
