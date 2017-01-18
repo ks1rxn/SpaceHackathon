@@ -15,8 +15,6 @@ public class GUIController : MonoBehaviour {
 	[SerializeField]
 	private Image m_health;
 	[SerializeField]
-	private Image m_fuel;
-	[SerializeField]
 	private Image[] m_chargeIndicator;
 	[SerializeField]
 	private Sprite m_chargeBlue;
@@ -107,10 +105,6 @@ public class GUIController : MonoBehaviour {
 
 	public void SetHealth(float value) {
 		m_health.fillAmount = value;
-	}
-
-	public void SetFuel(float value) {
-		m_fuel.fillAmount = value;
 	}
 
     public void SetCharge(int value) {

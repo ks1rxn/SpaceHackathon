@@ -110,7 +110,6 @@ public class PlayerShip : MonoBehaviour {
 
 	public void OnChargeFuelHit(GameObject other) {
 		m_chargeSystem.AddFuel();
-		m_hull.AddFuel(0.3f);
 	}
 
     public void Die() {
@@ -195,9 +194,7 @@ public class PlayerShip : MonoBehaviour {
 		}
 		BattleContext.GUIController.SetRotationParams(m_neededAngle, actualAngle);
 		float angularForce = Mathf.Sign(actualAngle) * Mathf.Sqrt(Mathf.Abs(actualAngle)) * m_shipParams.RotationPower;
-		if (!angularForce.Equals(0) && m_hull.TryToGetFuel(Mathf.Abs(angularForce) / 1000 * 0.001f)) {
-			m_rigidbody.AddTorque(new Vector3(0, angularForce * m_rigidbody.mass * 0.02f, 0));
-		}
+		m_rigidbody.AddTorque(new Vector3(0, angularForce * m_rigidbody.mass * 0.02f, 0));
 				
         // Velocity //
 		float powerCoefficient = 0;
@@ -206,9 +203,7 @@ public class PlayerShip : MonoBehaviour {
 		} else if (m_power < 0) {
 			powerCoefficient = -1;
 		}
-		if (m_power != ThrottleState.Off && m_hull.TryToGetFuel(0.001f)) {
-			m_rigidbody.AddForce((int) m_power * LookVector * m_rigidbody.mass * 0.013f * m_shipParams.EnginePower);
-		}
+		m_rigidbody.AddForce((int)m_power * LookVector * m_rigidbody.mass * 0.013f * m_shipParams.EnginePower);
 		if (m_rigidbody.velocity.magnitude > 5) {
 			m_rigidbody.velocity = m_rigidbody.velocity.normalized * 5;
 		}
@@ -239,10 +234,10 @@ public class PlayerShip : MonoBehaviour {
 		if (m_effects.Stunned) {
 			return;
 		}
-		if (m_state == ShipState.InCharge) {
+		if (!m_chargeSystem.InChargeTargeting) {
 			return;
 		}
-		if (!m_hull.TryToGetFuel(0.2f)) {
+		if (m_state == ShipState.InCharge) {
 			return;
 		}
 		m_state = ShipState.InCharge;
@@ -319,12 +314,6 @@ public class PlayerShip : MonoBehaviour {
 	public Vector3 SpeedValue {
 		get {
 			return m_rigidbody.velocity;
-		}
-	}
-
-	public PlayerShipHull Hull {
-		get {
-			return m_hull;
 		}
 	}
 
