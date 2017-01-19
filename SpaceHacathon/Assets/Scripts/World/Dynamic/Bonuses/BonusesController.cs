@@ -7,9 +7,7 @@ public class BonusesController : MonoBehaviour {
 
 	private List<ChargeFuel> m_chargeFuels;
 
-	private void Awake() {
-		BattleContext.BonusesController = this;
-
+	public void Initiate() {
 		m_chargeFuels = new List<ChargeFuel>();
 
 		for (int i = 0; i != 20; i++) {
@@ -17,19 +15,17 @@ public class BonusesController : MonoBehaviour {
 		}
 	}
 
-	private void Start() {
-		foreach (ChargeFuel fuel in m_chargeFuels) {
-			Respawn(fuel);
-		}
-	}
-
-	private void FixedUpdate() {
+	public void UpdateEntity() {
 		Vector3 playerPosition = BattleContext.PlayerShip.Position;
 		for (int i = 0; i != m_chargeFuels.Count; i++) {
-			if (Vector3.Distance(m_chargeFuels[i].transform.position, playerPosition) < 50) {
-				m_chargeFuels[i].UpdateState();
-			} else if (Vector3.Distance(m_chargeFuels[i].transform.position, playerPosition) > 80) {
-				m_chargeFuels[i].IsAlive = false;
+			if (!m_chargeFuels[i].IsAlive) {
+				Respawn(m_chargeFuels[i]);
+			} else {
+				if (Vector3.Distance(m_chargeFuels[i].transform.position, playerPosition) < 50) {
+					m_chargeFuels[i].UpdateState();
+				} else if (Vector3.Distance(m_chargeFuels[i].transform.position, playerPosition) > 80) {
+					m_chargeFuels[i].IsAlive = false;
+				}
 			}
 		}
 	}

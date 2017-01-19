@@ -12,7 +12,7 @@ public class RocketLauncher : IEnemyShip {
 
 	[SerializeField]
 	private float m_globalCooldownValue;
-	[SerializeField]
+	[SerializeField, Range(1.0f, 3.0f)]
 	private float m_blasterCooldown;
 
 	[SerializeField]

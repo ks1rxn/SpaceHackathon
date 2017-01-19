@@ -39,7 +39,6 @@ public class GUIController : MonoBehaviour {
 	private Queue<int> m_fps; 
 
 	protected void Awake() {
-		BattleContext.GUIController = this;
 		m_fps = new Queue<int>();
 	}
 

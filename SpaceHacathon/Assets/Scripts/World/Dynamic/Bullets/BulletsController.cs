@@ -14,11 +14,7 @@ public class BulletsController : MonoBehaviour {
 	private List<StunProjectile> m_stunProjectiles;
 	private List<Laser> m_lasers;
 
-	private Random m_random = new Random();
-
-	private void Awake() {
-		BattleContext.BulletsController = this;
-
+	public void Initiate() {
 		m_rockets = new List<Rocket>();
 		m_stunProjectiles = new List<StunProjectile>();
 		m_lasers = new List<Laser>();
@@ -34,7 +30,7 @@ public class BulletsController : MonoBehaviour {
 		}
 	}
 
-	private void FixedUpdate() {
+	public void UpdateEntity() {
 		for (int i = 0; i != m_rockets.Count; i++) {
 			if (m_rockets[i].IsAlive) {
 				m_rockets[i].UpdateBullet();

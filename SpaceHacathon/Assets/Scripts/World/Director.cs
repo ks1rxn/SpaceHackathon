@@ -8,10 +8,6 @@ public class Director : MonoBehaviour {
 	private int m_frames;
 
 	private void Awake() {
-		BattleContext.Director = this;
-	}
-
-	private void Start() {
 //		Analytics.CustomEvent("gameStart", new Dictionary<string, object> {
 //			{ "device", SystemInfo.deviceModel },
 //			{ "platform", Application.platform },
@@ -20,12 +16,25 @@ public class Director : MonoBehaviour {
 //		});
 
 		BattleContext.PlayerShip.Initiate();
+		BattleContext.BonusesController.Initiate();
+		BattleContext.BulletsController.Initiate();
+		BattleContext.EnemiesController.Initiate();
+		BattleContext.ExplosionsController.Initiate();
+
 		BattleContext.World.SetTimeScaleMode(TimeScaleMode.Normal);
 	}
 
 	private void Update() {
 		m_fps += Mathf.RoundToInt(1 / Time.deltaTime * Time.timeScale);
 		m_frames++;
+	}
+
+	private void FixedUpdate() {
+		BattleContext.PlayerShip.UpdateEntity();
+		BattleContext.BattleCamera.UpdateEntity();
+		BattleContext.BulletsController.UpdateEntity();
+		BattleContext.BonusesController.UpdateEntity();
+		BattleContext.EnemiesController.UpdateEntity();
 	}
 
 	public void OnPlayerDie() {

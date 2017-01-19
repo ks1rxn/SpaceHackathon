@@ -13,83 +13,95 @@ public class BattleContext {
 
     public static World World {
         get {
+			if (m_world == null) {
+				m_world = GameObject.Find(EntitiesNames.World).GetComponent<World>();
+			}
             return m_world;
-        }
-        set {
-            m_world = value;
         }
     }
 
     public static PlayerShip PlayerShip {
 		get {
+			if (m_playerShip == null) {
+				m_playerShip = GameObject.Find(EntitiesNames.PlayerShip).GetComponent<PlayerShip>();
+			}
 			return m_playerShip;
-		}
-		set {
-			m_playerShip = value;
 		}
 	}
 
 	public static BattleCamera BattleCamera {
 		get {
+			if (m_battleCamera == null) {
+				m_battleCamera = GameObject.Find(EntitiesNames.BattleCamera).GetComponent<BattleCamera>();
+			}
 			return m_battleCamera;
-		}
-		set {
-			m_battleCamera = value;
 		}
 	}
 
 	public static GUIController GUIController {
 		get {
+			if (m_guiController == null) {
+				m_guiController = GameObject.Find(EntitiesNames.GUIController).GetComponent<GUIController>();
+			}
 			return m_guiController;
-		}
-		set {
-			m_guiController = value;
 		}
 	}
 
 	public static ExplosionsController ExplosionsController {
 		get {
+			if (m_explosionsController == null) {
+				m_explosionsController = GameObject.Find(EntitiesNames.ExplosionsController).GetComponent<ExplosionsController>();
+			}
 			return m_explosionsController;
-		}
-		set {
-			m_explosionsController = value;
 		}
 	}
 
 	public static EnemiesController EnemiesController {
 		get {
+			if (m_enemiesController == null) {
+				m_enemiesController = GameObject.Find(EntitiesNames.EnemiesController).GetComponent<EnemiesController>();
+			}
 			return m_enemiesController;
-		}
-		set {
-			m_enemiesController = value;
 		}
 	}
 
 	public static BulletsController BulletsController {
 		get {
+			if (m_bulletsController == null) {
+				m_bulletsController = GameObject.Find(EntitiesNames.BulletsController).GetComponent<BulletsController>();
+			}
 			return m_bulletsController;
-		}
-		set {
-			m_bulletsController = value;
 		}
 	}
 
 	public static BonusesController BonusesController {
 		get {
+			if (m_bonusesController == null) {
+				m_bonusesController = GameObject.Find(EntitiesNames.BonusesController).GetComponent<BonusesController>();
+			}
 			return m_bonusesController;
-		}
-		set {
-			m_bonusesController = value;
 		}
 	}
 
 	public static Director Director {
 		get {
+			if (m_director == null) {
+				m_director = GameObject.Find(EntitiesNames.Director).GetComponent<Director>();
+			}
 			return m_director;
-		}
-		set {
-			m_director = value;
 		}
 	}
 
+}
+
+class EntitiesNames {
+	public const string PlayerShip = "PlayerShip";
+	public const string World = "Dynamic";
+	public const string Director = "Director";
+	public const string BattleCamera = "Camera";
+	public const string GUIController = "GUI";
+	public const string ExplosionsController = "ExplosionsController";
+	public const string EnemiesController = "EnemiesController";
+	public const string BulletsController = "BulletsController";
+	public const string BonusesController = "BonusesController";
 }

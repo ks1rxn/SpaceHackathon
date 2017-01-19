@@ -24,9 +24,7 @@ public class EnemiesController : MonoBehaviour {
 	private float m_stunShipCooldown;
 	private bool m_stunShipAlive;
 
-	private void Awake() {
-		BattleContext.EnemiesController = this;
-
+	public void Initiate() {
 		m_ships = new List<IEnemyShip>();
 		m_ramShips = new List<RamShip>();
 		m_stunShips = new List<StunShip>();
@@ -52,7 +50,7 @@ public class EnemiesController : MonoBehaviour {
 		m_stunShipAlive = false;
 	}
 
-	private void FixedUpdate() {
+	public void UpdateEntity() {
 		if (!m_ramShipAlive) {
 			if (m_ramShipCooldown > 0) {
 				m_ramShipCooldown -= Time.fixedDeltaTime;

@@ -13,9 +13,7 @@ public class ExplosionsController : MonoBehaviour {
 
 	private List<Explosion> m_explosions; 
 
-	protected void Awake() {
-		BattleContext.ExplosionsController = this;
-
+	public void Initiate() {
 		m_explosions = new List<Explosion>();
 
 		CreateExplosion(ExplosionType.PlayerShipExplosion);

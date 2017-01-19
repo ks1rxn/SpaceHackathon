@@ -31,10 +31,6 @@ public class PlayerShip : MonoBehaviour {
 	[SerializeField]
 	private Animation m_ramDirectionIndicator;
 
-	private void Awake() {
-		BattleContext.PlayerShip = this;
-	}
-
 	public void Initiate() {
 		m_effects = new EffectsOnShip();
 		m_shipParams = new ShipParams();
@@ -157,7 +153,7 @@ public class PlayerShip : MonoBehaviour {
         SceneManager.LoadScene("BattleScene");
     }
 
-	private void FixedUpdate() {
+	public void UpdateEntity() {
 		if (m_state == ShipState.Dead) {
 			if (m_rigidbody.velocity.magnitude > 0.05f) {
 				m_rigidbody.velocity *= 0.95f;
@@ -247,6 +243,7 @@ public class PlayerShip : MonoBehaviour {
 	}
 
 	private IEnumerator ChargeProcess() {
+		WaitForEndOfFrame delay = new WaitForEndOfFrame();
 		BattleContext.World.SetTimeScaleMode(TimeScaleMode.SuperSlow);
 		float time = 0;
 		float scale = 1.0f;
@@ -257,7 +254,7 @@ public class PlayerShip : MonoBehaviour {
 			if (scale <= 0.1f) {
 				break;
 			}
-			yield return new WaitForEndOfFrame();
+			yield return delay;
 		}
 		m_hull.gameObject.SetActive(false);
 		m_chargeSystem.ChargeEffect.SetActive(true);
@@ -272,7 +269,7 @@ public class PlayerShip : MonoBehaviour {
 			if (time >= 0.5f) {
 				break;
 			}
-			yield return new WaitForEndOfFrame();
+			yield return delay;
 		}
 		m_chargeSystem.ChargeEffect.SetActive(false);
 		scale = 0.1f;
@@ -284,7 +281,7 @@ public class PlayerShip : MonoBehaviour {
 			if (scale >= 1) {
 				break;
 			}
-			yield return new WaitForEndOfFrame();
+			yield return delay;
 		}
 		BattleContext.World.SetTimeScaleMode(TimeScaleMode.Normal);
 		m_rigidbody.angularVelocity = Vector3.zero;
@@ -330,6 +327,7 @@ public class PlayerShip : MonoBehaviour {
 
 		bool rotationWork = false;
 		bool engineWork = false;
+		WaitForFixedUpdate delay = new WaitForFixedUpdate();
 		while (!(rotationWork && engineWork)) {
 			if (m_rigidbody.angularDrag < 19) {
 				m_rigidbody.angularDrag += 1.0f;
@@ -344,7 +342,7 @@ public class PlayerShip : MonoBehaviour {
 			} else {
 				engineWork = true;
 			}
-			yield return new WaitForFixedUpdate();
+			yield return delay;
 		}
 		m_rigidbody.angularDrag = 19;
 
@@ -362,6 +360,7 @@ public class PlayerShip : MonoBehaviour {
 		
 		bool rotationWork = false;
 		bool engineWork = false;
+		WaitForFixedUpdate delay = new WaitForFixedUpdate();
 		while (!(rotationWork && engineWork)) {
 			if (m_rigidbody.angularDrag < 19) {
 				m_rigidbody.angularDrag += 1.0f;
@@ -376,7 +375,7 @@ public class PlayerShip : MonoBehaviour {
 			} else {
 				engineWork = true;
 			}
-			yield return new WaitForFixedUpdate();
+			yield return delay;
 		}
 		m_rigidbody.angularDrag = 19;
 

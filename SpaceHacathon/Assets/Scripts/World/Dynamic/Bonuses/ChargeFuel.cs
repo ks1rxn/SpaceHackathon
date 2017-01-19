@@ -10,6 +10,8 @@ public class ChargeFuel : MonoBehaviour {
 	public void Initiate() {
 		m_collisionDetector.Initiate();
 		m_collisionDetector.RegisterDefaultListener(OnTargetHit);
+
+		IsAlive = false;
 	}
 
 	public void Spawn(Vector3 position) {
@@ -37,9 +39,6 @@ public class ChargeFuel : MonoBehaviour {
 		}
 		set {
 			gameObject.SetActive(value);
-			if (!value) {
-				BattleContext.BonusesController.Respawn(this);
-			}
 		}
 	}
 

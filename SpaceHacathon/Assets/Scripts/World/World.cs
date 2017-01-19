@@ -6,7 +6,6 @@ public class World : MonoBehaviour {
     private float m_points;
 
     private void Awake() {
-        BattleContext.World = this;
         m_points = 0;
     }
 
