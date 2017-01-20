@@ -199,7 +199,7 @@ public class PlayerShip : MonoBehaviour {
 		} else if (m_power < 0) {
 			powerCoefficient = -1;
 		}
-		m_rigidbody.AddForce((int)m_power * LookVector * m_rigidbody.mass * 0.013f * m_shipParams.EnginePower);
+		m_rigidbody.AddForce((int)m_power * LookVector * m_rigidbody.mass * 0.02f * m_shipParams.EnginePower);
 		if (m_rigidbody.velocity.magnitude > 5) {
 			m_rigidbody.velocity = m_rigidbody.velocity.normalized * 5;
 		}

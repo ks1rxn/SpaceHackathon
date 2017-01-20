@@ -11,11 +11,14 @@ public class EnemiesController : MonoBehaviour {
 	private GameObject m_ramShipPrefab;
 	[SerializeField]
 	private GameObject m_spaceMinePrefab;
+	[SerializeField]
+	private GameObject m_miniRocketShipPrefab;
 
 	private List<IEnemyShip> m_ships;
 	private List<RamShip> m_ramShips; 
 	private List<StunShip> m_stunShips; 
 	private List<SpaceMine> m_spaceMines; 
+	private List<MiniRocketShip> m_miniRocketShips; 
 	private List<RocketLauncher> m_rocketLaunchers;
 
 	private float m_ramShipCooldown;
@@ -30,8 +33,12 @@ public class EnemiesController : MonoBehaviour {
 		m_stunShips = new List<StunShip>();
 		m_spaceMines = new List<SpaceMine>();
 		m_rocketLaunchers = new List<RocketLauncher>();
+		m_miniRocketShips = new List<MiniRocketShip>();
 		for (int i = 0; i != 4; i++) {
 			CreateRocketLauncher();
+		}
+		for (int i = 0; i != 7; i++) {
+			CreateMiniRocketShip();
 		}
 		for (int i = 0; i != 1; i++) {
 			CreateStunShip();
@@ -51,32 +58,36 @@ public class EnemiesController : MonoBehaviour {
 	}
 
 	public void UpdateEntity() {
-		if (!m_ramShipAlive) {
-			if (m_ramShipCooldown > 0) {
-				m_ramShipCooldown -= Time.fixedDeltaTime;
-			} else {
-				SpawnRamShip(MathHelper.GetPointAround(BattleContext.PlayerShip.Position, 30, 40), 0);
-				m_ramShipAlive = true;
-			}
-		}
-
-		if (!m_stunShipAlive) {
-			if (m_stunShipCooldown > 0) {
-				m_stunShipCooldown -= Time.fixedDeltaTime;
-			} else {
-				SpawnStunShip(MathHelper.GetPointAround(BattleContext.PlayerShip.Position, 30, 40), 0);
-				m_stunShipAlive = true;
-			}
-		}
+//		if (!m_ramShipAlive) {
+//			if (m_ramShipCooldown > 0) {
+//				m_ramShipCooldown -= Time.fixedDeltaTime;
+//			} else {
+//				SpawnRamShip(MathHelper.GetPointAround(BattleContext.PlayerShip.Position, 30, 40), 0);
+//				m_ramShipAlive = true;
+//			}
+//		}
+//
+//		if (!m_stunShipAlive) {
+//			if (m_stunShipCooldown > 0) {
+//				m_stunShipCooldown -= Time.fixedDeltaTime;
+//			} else {
+//				SpawnStunShip(MathHelper.GetPointAround(BattleContext.PlayerShip.Position, 30, 40), 0);
+//				m_stunShipAlive = true;
+//			}
+//		}
 
 		for (int i = 0; i != m_ships.Count; i++) {
 			if (m_ships[i].IsAlive) {
 				m_ships[i].UpdateShip();
 			} else {
-				if (m_ships[i] is RocketLauncher) {
+//				if (m_ships[i] is RocketLauncher) {
+//					Vector3 rocketLauncherPosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, BattleContext.PlayerShip.LookVector, 90, 20, 30);
+//					rocketLauncherPosition.y = -0.75f;
+//					SpawnRocketLauncher(rocketLauncherPosition, MathHelper.Random.Next(360));
+//				}
+				if (m_ships[i] is MiniRocketShip) {
 					Vector3 rocketLauncherPosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, BattleContext.PlayerShip.LookVector, 90, 20, 30);
-					rocketLauncherPosition.y = -0.75f;
-					SpawnRocketLauncher(rocketLauncherPosition, MathHelper.Random.Next(360));
+					SpawnMiniRocketShip(rocketLauncherPosition, MathHelper.Random.Next(360));
 				}
 //				if (m_ships[i] is SpaceMine) {
 //					Vector3 spaceMinePosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, BattleContext.PlayerShip.LookVector, 90, 20, 30);
@@ -127,6 +138,21 @@ public class EnemiesController : MonoBehaviour {
 		return targetShip;
 	}
 
+	public MiniRocketShip SpawnMiniRocketShip(Vector3 position, float rotation) {
+		MiniRocketShip targetShip = null;
+		foreach (MiniRocketShip ship in m_miniRocketShips) {
+			if (!ship.IsAlive) {
+				targetShip = ship;
+				break;
+			}
+		}
+		if (targetShip == null) {
+			targetShip = CreateMiniRocketShip();
+		}
+		targetShip.Spawn(position, rotation);
+		return targetShip;
+	}
+
 	public RamShip SpawnRamShip(Vector3 position, float rotation) {
 		RamShip targetShip = null;
 		foreach (RamShip ship in m_ramShips) {
@@ -172,6 +198,15 @@ public class EnemiesController : MonoBehaviour {
 		rocketLauncher.Initiate();
 		m_ships.Add(rocketLauncher);
 		m_rocketLaunchers.Add(rocketLauncher);
+		return rocketLauncher;
+	}
+
+	private MiniRocketShip CreateMiniRocketShip() {
+		MiniRocketShip rocketLauncher = (Instantiate(m_miniRocketShipPrefab)).GetComponent<MiniRocketShip>();
+		rocketLauncher.transform.parent = transform;
+		rocketLauncher.Initiate();
+		m_ships.Add(rocketLauncher);
+		m_miniRocketShips.Add(rocketLauncher);
 		return rocketLauncher;
 	}
 
