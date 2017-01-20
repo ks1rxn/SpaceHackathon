@@ -78,11 +78,11 @@ public class EnemiesController : MonoBehaviour {
 					rocketLauncherPosition.y = -0.75f;
 					SpawnRocketLauncher(rocketLauncherPosition, MathHelper.Random.Next(360));
 				}
-				if (m_ships[i] is SpaceMine) {
-					Vector3 spaceMinePosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, BattleContext.PlayerShip.LookVector, 90, 20, 30);
-					spaceMinePosition.y = -2.5f;
-					SpawnSpaceMine(spaceMinePosition);
-				}
+//				if (m_ships[i] is SpaceMine) {
+//					Vector3 spaceMinePosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, BattleContext.PlayerShip.LookVector, 90, 20, 30);
+//					spaceMinePosition.y = -2.5f;
+//					SpawnSpaceMine(spaceMinePosition);
+//				}
 			}
 		}
 	}

@@ -17,9 +17,13 @@ public class Rocket : MonoBehaviour {
 	private readonly VectorPid angularVelocityController = new VectorPid(33.7766f, 0, 0.2553191f);
     private readonly VectorPid headingController = new VectorPid(9.244681f, 0, 0.06382979f);
 
+	private float m_maxSpeed = 0;
+	private float m_maxRotationSpeed = 0;
+
 	public void Initiate() {
 		m_collisionDetector.Initiate();
 		m_collisionDetector.RegisterListener("Player", OnTargetHit);
+		m_collisionDetector.RegisterListener("RamShip", OnTargetHit);
 		m_collisionDetector.RegisterListener("ChargeFuel", OnTargetHit);
 		m_collisionDetector.RegisterListener("Rocket", OnTargetHit);
 
@@ -38,7 +42,10 @@ public class Rocket : MonoBehaviour {
 		m_lifeTime = 20;
 
 		transform.rotation = new Quaternion();;
-		
+
+		m_maxSpeed = (float) MathHelper.Random.NextDouble() * 1.5f + 2.75f;
+		m_maxRotationSpeed = (float) MathHelper.Random.NextDouble() * 0.5f + 1.25f;
+
 		StartCoroutine(LaunchProcess());
 	}
 
@@ -82,13 +89,16 @@ public class Rocket : MonoBehaviour {
         Vector3 headingCorrection = headingController.Update(headingError, Time.fixedDeltaTime);
  
         m_rigidbody.AddTorque(headingCorrection * 1.2f);
+		if (m_rigidbody.angularVelocity.magnitude > m_maxRotationSpeed) {
+			m_rigidbody.angularVelocity = m_rigidbody.angularVelocity.normalized * m_maxRotationSpeed;
+		}
 
 		if (m_power < 120) {
 			m_power += Time.fixedDeltaTime * Mathf.Min(m_power * m_power * m_power, 50);
 		}
 		m_rigidbody.AddRelativeForce(0, m_power, 0);
-		if (m_rigidbody.velocity.magnitude > 6) {
-			m_rigidbody.velocity = m_rigidbody.velocity.normalized * 6;
+		if (m_rigidbody.velocity.magnitude > m_maxSpeed) {
+			m_rigidbody.velocity = m_rigidbody.velocity.normalized * m_maxSpeed;
 		}
 
 		Vector3 pos = transform.position;

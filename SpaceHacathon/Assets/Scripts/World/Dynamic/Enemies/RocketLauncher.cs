@@ -12,7 +12,7 @@ public class RocketLauncher : IEnemyShip {
 
 	[SerializeField]
 	private float m_globalCooldownValue;
-	[SerializeField, Range(1.0f, 3.0f)]
+	[SerializeField, Range(1.0f, 5.0f)]
 	private float m_blasterCooldown;
 
 	[SerializeField]
@@ -65,7 +65,7 @@ public class RocketLauncher : IEnemyShip {
 			return;
 		}
 		Vector3 gunDirection = new Vector3(Mathf.Cos(-gun.transform.eulerAngles.y * Mathf.PI / 180), 0, Mathf.Sin(-gun.transform.eulerAngles.y * Mathf.PI / 180));
-		float angleToTarget = MathHelper.AngleBetweenVectors(gunDirection, playerPosition - transform.position);
+		float angleToTarget = MathHelper.AngleBetweenVectors(gunDirection, playerPosition - Position);
 
 		if (angleToTarget > 5) {
 			gun.transform.Rotate(0, 3, 0);
@@ -73,10 +73,40 @@ public class RocketLauncher : IEnemyShip {
 			gun.transform.Rotate(0, -3, 0);
 		}
 
-		m_blasterTimerFront -= Time.deltaTime;
-		if ((m_blasterTimerFront <= 0) && (Mathf.Abs(angleToTarget) < 10) && Vector3.Distance(playerPosition, Position) < 15) {
-			StartCoroutine(GunFire(gun));
-			m_blasterTimerFront = m_blasterCooldown;
+		if (gun == m_frontGun) {
+			Vector3 angle = gun.transform.localEulerAngles;
+			if (angle.y > 90) {
+				angle.y = 90;
+			}
+			if (angle.y < -90) {
+				angle.y = -90;
+			}
+			gun.transform.localEulerAngles = angle;
+		}
+
+		if (gun == m_rearGun) {
+			Vector3 angle = gun.transform.localEulerAngles;
+			if (angle.y < 90) {
+				angle.y = 90;
+			}
+			if (angle.y > 270) {
+				angle.y = 270;
+			}
+			gun.transform.localEulerAngles = angle;
+		}
+
+		if (gun == m_frontGun) {
+			m_blasterTimerFront -= Time.deltaTime;
+			if ((m_blasterTimerFront <= 0) && (Mathf.Abs(angleToTarget) < 10) && Vector3.Distance(playerPosition, Position) < 15) {
+				StartCoroutine(GunFire(gun));
+				m_blasterTimerFront = m_blasterCooldown;
+			}
+		} else {
+			m_blasterTimerRear -= Time.deltaTime;
+			if ((m_blasterTimerRear <= 0) && (Mathf.Abs(angleToTarget) < 10) && Vector3.Distance(playerPosition, Position) < 15) {
+				StartCoroutine(GunFire(gun));
+				m_blasterTimerRear = m_blasterCooldown;
+			}
 		}
 
 	}
