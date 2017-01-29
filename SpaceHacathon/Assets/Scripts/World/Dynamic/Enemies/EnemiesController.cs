@@ -58,37 +58,37 @@ public class EnemiesController : MonoBehaviour {
 	}
 
 	public void UpdateEntity() {
-//		if (!m_ramShipAlive) {
-//			if (m_ramShipCooldown > 0) {
-//				m_ramShipCooldown -= Time.fixedDeltaTime;
-//			} else {
-//				SpawnRamShip(MathHelper.GetPointAround(BattleContext.PlayerShip.Position, 30, 40), 0);
-//				m_ramShipAlive = true;
-//			}
-//		}
-//
-//		if (!m_stunShipAlive) {
-//			if (m_stunShipCooldown > 0) {
-//				m_stunShipCooldown -= Time.fixedDeltaTime;
-//			} else {
-//				SpawnStunShip(MathHelper.GetPointAround(BattleContext.PlayerShip.Position, 30, 40), 0);
-//				m_stunShipAlive = true;
-//			}
-//		}
+		if (!m_ramShipAlive) {
+			if (m_ramShipCooldown > 0) {
+				m_ramShipCooldown -= Time.fixedDeltaTime;
+			} else {
+				SpawnRamShip(MathHelper.GetPointAround(BattleContext.PlayerShip.Position, 30, 40), 0);
+				m_ramShipAlive = true;
+			}
+		}
+
+		if (!m_stunShipAlive) {
+			if (m_stunShipCooldown > 0) {
+				m_stunShipCooldown -= Time.fixedDeltaTime;
+			} else {
+				SpawnStunShip(MathHelper.GetPointAround(BattleContext.PlayerShip.Position, 30, 40), 0);
+				m_stunShipAlive = true;
+			}
+		}
 
 		for (int i = 0; i != m_ships.Count; i++) {
 			if (m_ships[i].IsAlive) {
 				m_ships[i].UpdateShip();
 			} else {
-//				if (m_ships[i] is RocketLauncher) {
-//					Vector3 rocketLauncherPosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, BattleContext.PlayerShip.LookVector, 90, 20, 30);
-//					rocketLauncherPosition.y = -0.75f;
-//					SpawnRocketLauncher(rocketLauncherPosition, MathHelper.Random.Next(360));
-//				}
-				if (m_ships[i] is MiniRocketShip) {
+				if (m_ships[i] is RocketLauncher) {
 					Vector3 rocketLauncherPosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, BattleContext.PlayerShip.LookVector, 90, 20, 30);
-					SpawnMiniRocketShip(rocketLauncherPosition, MathHelper.Random.Next(360));
+					rocketLauncherPosition.y = -0.75f;
+					SpawnRocketLauncher(rocketLauncherPosition, MathHelper.Random.Next(360));
 				}
+//				if (m_ships[i] is MiniRocketShip) {
+//					Vector3 rocketLauncherPosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, BattleContext.PlayerShip.LookVector, 90, 20, 30);
+//					SpawnMiniRocketShip(rocketLauncherPosition, MathHelper.Random.Next(360));
+//				}
 //				if (m_ships[i] is SpaceMine) {
 //					Vector3 spaceMinePosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, BattleContext.PlayerShip.LookVector, 90, 20, 30);
 //					spaceMinePosition.y = -2.5f;
