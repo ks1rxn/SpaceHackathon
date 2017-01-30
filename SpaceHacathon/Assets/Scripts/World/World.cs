@@ -17,7 +17,7 @@ public class World : MonoBehaviour {
         UpdateTimeSpeed();
 
         m_points += Time.deltaTime;
-        BattleContext.GUIController.SetPoints(m_points);
+        BattleContext.GUIManager.PlayerGUIController.SetPoints(m_points);
     }
 
     private void UpdateTimeSpeed() {

@@ -39,8 +39,8 @@ public class PlayerShipChargeSystem : MonoBehaviour {
 	}
 
 	private void UpdateChargeIndicators() {
-		BattleContext.GUIController.SetCharge(m_chargeFuel);
-		BattleContext.GUIController.SetChargeButtonActive(m_chargeFuel > 0);
+		BattleContext.GUIManager.PlayerGUIController.SetCharge(m_chargeFuel);
+		BattleContext.GUIManager.PlayerGUIController.SetChargeButtonActive(m_chargeFuel > 0);
 
 		m_chargeIndicators[0].SetActive(m_chargeFuel >= 1);
 		m_chargeIndicators[1].SetActive(m_chargeFuel >= 2);

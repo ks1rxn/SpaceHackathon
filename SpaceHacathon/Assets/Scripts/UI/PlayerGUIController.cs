@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GUIController : MonoBehaviour {
+public class PlayerGUIController : MonoBehaviour {
+	[SerializeField]
+	private ScreenInput m_screenInput;
+
 	[SerializeField]
 	private GameObject m_rotationJoystick;
 	[SerializeField]
@@ -43,6 +46,8 @@ public class GUIController : MonoBehaviour {
 	}
 
 	protected void Update() {
+		m_screenInput.ListerInput();
+
 		m_fps.Enqueue(Mathf.RoundToInt(1 / Time.deltaTime * Time.timeScale));
 		if (m_fps.Count > 30) {
 			m_fps.Dequeue();
@@ -57,6 +62,14 @@ public class GUIController : MonoBehaviour {
 		}
 		average /= m_fps.Count;
 		m_fpsCounter.text = "FPS: " + Mathf.RoundToInt(average) + " - " + min;
+	}
+
+	public void Show() {
+		gameObject.SetActive(true);
+	}
+
+	public void Hide() {
+		gameObject.SetActive(false);
 	}
 
     public void SetDeadPanelOpacity(float opacity) {

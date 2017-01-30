@@ -38,7 +38,7 @@ public class PlayerShipHull : MonoBehaviour {
 		if (m_health < 1) {
 			m_health += 0.1f / 50;
 		}
-        BattleContext.GUIController.SetHealth(m_health);
+        BattleContext.GUIManager.PlayerGUIController.SetHealth(m_health);
     }
 
 	public void SetRollAngle(float angle) {

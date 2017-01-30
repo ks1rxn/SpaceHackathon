@@ -5,7 +5,7 @@ public class BattleContext {
     private static World m_world;
 	private static PlayerShip m_playerShip;
 	private static BattleCamera m_battleCamera;
-	private static GUIController m_guiController;
+	private static GUIManager m_guiManager;
 	private static ExplosionsController m_explosionsController;
 	private static EnemiesController m_enemiesController;
 	private static BulletsController m_bulletsController;
@@ -38,12 +38,12 @@ public class BattleContext {
 		}
 	}
 
-	public static GUIController GUIController {
+	public static GUIManager GUIManager {
 		get {
-			if (m_guiController == null) {
-				m_guiController = GameObject.Find(EntitiesNames.GUIController).GetComponent<GUIController>();
+			if (m_guiManager == null) {
+				m_guiManager = GameObject.Find(EntitiesNames.GUIManager).GetComponent<GUIManager>();
 			}
-			return m_guiController;
+			return m_guiManager;
 		}
 	}
 
@@ -99,7 +99,7 @@ class EntitiesNames {
 	public const string World = "Dynamic";
 	public const string Director = "Director";
 	public const string BattleCamera = "Camera";
-	public const string GUIController = "GUI";
+	public const string GUIManager = "GUIManager";
 	public const string ExplosionsController = "ExplosionsController";
 	public const string EnemiesController = "EnemiesController";
 	public const string BulletsController = "BulletsController";

@@ -135,14 +135,14 @@ public class PlayerShip : MonoBehaviour {
         m_state = ShipState.Dead;
 		BattleContext.ExplosionsController.PlayerShipExplosion(transform.position);
 		m_hull.gameObject.SetActive(false);
-		BattleContext.GUIController.SetDeadScore(BattleContext.World.Points);
+		BattleContext.GUIManager.PlayerGUIController.SetDeadScore(BattleContext.World.Points);
         StartCoroutine(DieProcess());
     }
 
     private IEnumerator DieProcess() {
         float a = 0;
         while (true) {
-            BattleContext.GUIController.SetDeadPanelOpacity(a);
+            BattleContext.GUIManager.PlayerGUIController.SetDeadPanelOpacity(a);
             a += 0.02f * 0.5f;
             if (a > 1) {
                 break;
@@ -188,7 +188,7 @@ public class PlayerShip : MonoBehaviour {
 				actualAngle = longAngle;
 			}
 		}
-		BattleContext.GUIController.SetRotationParams(m_neededAngle, actualAngle);
+		BattleContext.GUIManager.PlayerGUIController.SetRotationParams(m_neededAngle, actualAngle);
 		float angularForce = Mathf.Sign(actualAngle) * Mathf.Sqrt(Mathf.Abs(actualAngle)) * m_shipParams.RotationPower;
 		m_rigidbody.AddTorque(new Vector3(0, angularForce * m_rigidbody.mass * 0.02f, 0));
 				

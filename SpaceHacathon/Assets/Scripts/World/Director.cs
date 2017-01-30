@@ -14,6 +14,12 @@ public class Director : MonoBehaviour {
 //			{ "install", Application.installMode },
 //			{ "version", Application.version }
 //		});
+		Time.timeScale = 1;
+		Time.fixedDeltaTime = 0.02F * Time.timeScale;
+
+		BattleContext.GUIManager.CreateGUI();
+
+		BattleContext.GUIManager.PlayerGUIController.Show();
 
 		BattleContext.PlayerShip.Initiate();
 		BattleContext.BonusesController.Initiate();
@@ -22,6 +28,21 @@ public class Director : MonoBehaviour {
 		BattleContext.ExplosionsController.Initiate();
 
 		BattleContext.World.SetTimeScaleMode(TimeScaleMode.Normal);
+	}
+
+	public void PauseGame() {
+		BattleContext.GUIManager.PlayerGUIController.Hide();
+		BattleContext.GUIManager.PauseMenu.Show();
+		Time.timeScale = 0;
+		Time.fixedDeltaTime = 0.02F * Time.timeScale;
+		//todo: unscaled time is used in charge process
+	}
+
+	public void UnpauseGame() {
+		BattleContext.GUIManager.PlayerGUIController.Show();
+		BattleContext.GUIManager.PauseMenu.Hide();
+		Time.timeScale = 1;
+		Time.fixedDeltaTime = 0.02F * Time.timeScale;
 	}
 
 	private void Update() {
