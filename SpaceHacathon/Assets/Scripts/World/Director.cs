@@ -14,9 +14,7 @@ public class Director : MonoBehaviour {
 //			{ "install", Application.installMode },
 //			{ "version", Application.version }
 //		});
-		Time.timeScale = 1;
-		Time.fixedDeltaTime = 0.02F * Time.timeScale;
-
+		BattleContext.TimeManager.Initiate();
 		BattleContext.GUIManager.CreateGUI();
 
 		BattleContext.GUIManager.PlayerGUIController.Show();
@@ -33,21 +31,20 @@ public class Director : MonoBehaviour {
 	public void PauseGame() {
 		BattleContext.GUIManager.PlayerGUIController.Hide();
 		BattleContext.GUIManager.PauseMenu.Show();
-		Time.timeScale = 0;
-		Time.fixedDeltaTime = 0.02F * Time.timeScale;
+		BattleContext.TimeManager.Pause();
 		//todo: unscaled time is used in charge process
 	}
 
 	public void UnpauseGame() {
 		BattleContext.GUIManager.PlayerGUIController.Show();
 		BattleContext.GUIManager.PauseMenu.Hide();
-		Time.timeScale = 1;
-		Time.fixedDeltaTime = 0.02F * Time.timeScale;
+		BattleContext.TimeManager.Unpause();
 	}
 
 	private void Update() {
 		m_fps += Mathf.RoundToInt(1 / Time.deltaTime * Time.timeScale);
 		m_frames++;
+		BattleContext.TimeManager.UpdateEntity();
 	}
 
 	private void FixedUpdate() {
@@ -61,8 +58,7 @@ public class Director : MonoBehaviour {
 	public void OnPlayerDie() {
 		BattleContext.GUIManager.PlayerGUIController.Hide();
 		BattleContext.GUIManager.DeathMenu.Show();
-		Time.timeScale = 0;
-		Time.fixedDeltaTime = 0.02F * Time.timeScale;
+		BattleContext.TimeManager.Pause();
 	}
 
 	public void OnEnemyKill(IEnemyShip enemy) {

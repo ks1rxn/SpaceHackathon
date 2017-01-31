@@ -2,18 +2,41 @@
 
 public class TimeManager : MonoBehaviour {
 	private TimeScaleMode m_timeScaleMode;
-    private bool m_slowModeOn;
-    private float m_points;
+    private bool m_onPause;
 
-    private void Awake() {
-        m_points = 0;
-    }
+	private float m_points;
+
+	public void Initiate() {
+		m_points = 0;
+		Time.timeScale = 1.0f;
+		Time.fixedDeltaTime = 0.02F * Time.timeScale;
+		m_timeScaleMode = TimeScaleMode.Normal;
+	}
 
 	public void SetTimeScaleMode(TimeScaleMode mode) {
 		m_timeScaleMode = mode;
 	}
 
-    private void Update() {
+	public void Pause() {
+		Time.timeScale = 0;
+		Time.fixedDeltaTime = 0.02F * Time.timeScale;
+		m_onPause = true;
+	}
+
+	public void Unpause() {
+		m_onPause = false;
+		switch (m_timeScaleMode) {
+			case TimeScaleMode.Normal:
+				Time.timeScale = 1.0f;
+				break;
+			case TimeScaleMode.SuperSlow:
+				Time.timeScale = 0.1f;
+				break;
+		}
+		Time.fixedDeltaTime = 0.02F * Time.timeScale;
+	}
+
+    public void UpdateEntity() {
         UpdateTimeSpeed();
 
         m_points += Time.deltaTime;
@@ -21,6 +44,9 @@ public class TimeManager : MonoBehaviour {
     }
 
     private void UpdateTimeSpeed() {
+	    if (m_onPause) {
+		    return;
+	    }
 	    switch (m_timeScaleMode) {
 			case TimeScaleMode.Normal:
 				if (Time.timeScale < 1) {
@@ -30,7 +56,9 @@ public class TimeManager : MonoBehaviour {
 			case TimeScaleMode.SuperSlow:
 				if (Time.timeScale > 0.1f) {
 					Time.timeScale -= Time.deltaTime * 4;
-				} 
+				} else if (Time.time < 0.08) {
+					Time.timeScale += Time.deltaTime * 4;
+				}
 			    break;
 	    }
 		Time.fixedDeltaTime = 0.02F * Time.timeScale;

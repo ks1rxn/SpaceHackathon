@@ -11,12 +11,6 @@ public class DeathMenu : MonoBehaviour {
 		gameObject.SetActive(false);
 	}
 
-	protected void Update() {
-		if (Input.GetKeyDown(KeyCode.Escape)) {
-			BattleContext.Director.UnpauseGame();
-		}
-	}
-
 	public void OnRestartClick() {
 		SceneManager.LoadScene("BattleScene");	
 	}
