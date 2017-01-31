@@ -67,33 +67,32 @@ public class RocketLauncher : IEnemyShip {
 		Vector3 gunDirection = new Vector3(Mathf.Cos(-gun.transform.eulerAngles.y * Mathf.PI / 180), 0, Mathf.Sin(-gun.transform.eulerAngles.y * Mathf.PI / 180));
 		float angleToTarget = MathHelper.AngleBetweenVectors(gunDirection, playerPosition - Position);
 
+		Vector3 angle = gun.transform.localEulerAngles;
 		if (angleToTarget > 5) {
-			gun.transform.Rotate(0, 3, 0);
+			angle.y += 3;
 		} else if (angleToTarget < -5) {
-			gun.transform.Rotate(0, -3, 0);
+			angle.y -= 3;
 		}
 
 		if (gun == m_frontGun) {
-			Vector3 angle = gun.transform.localEulerAngles;
-			if (angle.y > 90) {
+			if (angle.y > 90 && angle.y < 180) {
 				angle.y = 90;
 			}
-			if (angle.y < -90) {
-				angle.y = -90;
+			if (angle.y < 270 && angle.y > 180) {
+				angle.y = 270;
 			}
-			gun.transform.localEulerAngles = angle;
 		}
 
 		if (gun == m_rearGun) {
-			Vector3 angle = gun.transform.localEulerAngles;
 			if (angle.y < 90) {
 				angle.y = 90;
 			}
 			if (angle.y > 270) {
 				angle.y = 270;
 			}
-			gun.transform.localEulerAngles = angle;
 		}
+
+		gun.transform.localEulerAngles = angle;
 
 		if (gun == m_frontGun) {
 			m_blasterTimerFront -= Time.deltaTime;
