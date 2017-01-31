@@ -11,11 +11,11 @@ public class GUIManager : MonoBehaviour {
 
 	public void CreateGUI() {
 		m_playerGUIController = Instantiate(m_playerGUIPrefab).GetComponent<PlayerGUIController>();
-		m_playerGUIController.transform.parent = transform;
+		m_playerGUIController.transform.SetParent(transform, false);
 		m_playerGUIController.Hide();
 
 		m_pauseMenu = Instantiate(m_pauseMenuPrefab).GetComponent<PauseMenu>();
-		m_pauseMenu.transform.parent = transform;
+		m_pauseMenu.transform.SetParent(transform, false);
 		m_pauseMenu.Hide();
 	}
 
