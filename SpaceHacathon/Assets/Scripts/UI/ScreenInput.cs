@@ -13,7 +13,7 @@ public class ScreenInput : MonoBehaviour {
 
 	private void ListenAndroid() {
 		if (Input.GetKeyDown(KeyCode.Escape)) {
-			BattleContext.Director.PauseGame();
+			BattleContext.Director.OnPauseGame();
 			return;
 		}
 
@@ -39,7 +39,7 @@ public class ScreenInput : MonoBehaviour {
 
 	private void ListenPc() {
 		if (Input.GetKeyDown(KeyCode.Escape)) {
-			BattleContext.Director.PauseGame();
+			BattleContext.Director.OnPauseGame();
 			return;
 		}
 

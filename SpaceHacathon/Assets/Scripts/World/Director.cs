@@ -14,6 +14,9 @@ public class Director : MonoBehaviour {
 //			{ "install", Application.installMode },
 //			{ "version", Application.version }
 //		});
+
+		BattleContext.Initiate();
+
 		BattleContext.TimeManager.Initiate();
 		BattleContext.GUIManager.CreateGUI();
 
@@ -28,17 +31,23 @@ public class Director : MonoBehaviour {
 		BattleContext.TimeManager.SetTimeScaleMode(TimeScaleMode.Normal);
 	}
 
-	public void PauseGame() {
+	public void OnPauseGame() {
 		BattleContext.GUIManager.PlayerGUIController.Hide();
 		BattleContext.GUIManager.PauseMenu.Show();
 		BattleContext.TimeManager.Pause();
 		//todo: unscaled time is used in charge process
 	}
 
-	public void UnpauseGame() {
+	public void OnUnpauseGame() {
 		BattleContext.GUIManager.PlayerGUIController.Show();
 		BattleContext.GUIManager.PauseMenu.Hide();
 		BattleContext.TimeManager.Unpause();
+	}
+
+	public void OnPlayerDie() {
+		BattleContext.GUIManager.PlayerGUIController.Hide();
+		BattleContext.GUIManager.DeathMenu.Show();
+		BattleContext.TimeManager.Pause();
 	}
 
 	private void Update() {
@@ -53,12 +62,6 @@ public class Director : MonoBehaviour {
 		BattleContext.BulletsController.UpdateEntity();
 		BattleContext.BonusesController.UpdateEntity();
 		BattleContext.EnemiesController.UpdateEntity();
-	}
-
-	public void OnPlayerDie() {
-		BattleContext.GUIManager.PlayerGUIController.Hide();
-		BattleContext.GUIManager.DeathMenu.Show();
-		BattleContext.TimeManager.Pause();
 	}
 
 	public void OnEnemyKill(IEnemyShip enemy) {
