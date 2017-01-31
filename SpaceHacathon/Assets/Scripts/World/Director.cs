@@ -27,7 +27,7 @@ public class Director : MonoBehaviour {
 		BattleContext.EnemiesController.Initiate();
 		BattleContext.ExplosionsController.Initiate();
 
-		BattleContext.World.SetTimeScaleMode(TimeScaleMode.Normal);
+		BattleContext.TimeManager.SetTimeScaleMode(TimeScaleMode.Normal);
 	}
 
 	public void PauseGame() {
@@ -59,7 +59,10 @@ public class Director : MonoBehaviour {
 	}
 
 	public void OnPlayerDie() {
-		BattleContext.Director.Analytics.LogEvent("BattleScene", "EndBattle", "FPS", Mathf.RoundToInt(m_fps / m_frames));
+		BattleContext.GUIManager.PlayerGUIController.Hide();
+		BattleContext.GUIManager.DeathMenu.Show();
+		Time.timeScale = 0;
+		Time.fixedDeltaTime = 0.02F * Time.timeScale;
 	}
 
 	public void OnEnemyKill(IEnemyShip enemy) {

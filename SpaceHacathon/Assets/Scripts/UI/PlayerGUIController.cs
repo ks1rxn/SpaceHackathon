@@ -34,11 +34,6 @@ public class PlayerGUIController : MonoBehaviour {
     [SerializeField]
     private Text m_pointsCounter;
 
-    [SerializeField]
-    private Image m_deadPanel;
-    [SerializeField]
-    private Text m_deadLabel;
-
 	private Queue<int> m_fps; 
 
 	protected void Awake() {
@@ -71,20 +66,6 @@ public class PlayerGUIController : MonoBehaviour {
 	public void Hide() {
 		gameObject.SetActive(false);
 	}
-
-    public void SetDeadPanelOpacity(float opacity) {
-        Color color = m_deadPanel.color;
-        color.a = opacity;
-        m_deadPanel.color = color;
-
-        color = m_deadLabel.color;
-        color.a = opacity;
-        m_deadLabel.color = color;
-    }
-
-    public void SetDeadScore(float score) {
-        m_deadLabel.text = "Score : " + (int) score;
-    }
 
 	// Points //
 

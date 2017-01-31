@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.Analytics;
-using UnityEngine.SceneManagement;
 
 public class PlayerShip : MonoBehaviour {
 	[SerializeField]
@@ -121,9 +117,7 @@ public class PlayerShip : MonoBehaviour {
 //			{ "chargeUsed", m_shipStatistics.ChargeUsed }
 //		});
 
-		BattleContext.Director.OnPlayerDie();
-
-		BattleContext.Director.Analytics.LogEvent("BattleScene", "EndBattle", "TimeAlive", (int)BattleContext.World.Points);
+		BattleContext.Director.Analytics.LogEvent("BattleScene", "EndBattle", "TimeAlive", (int)BattleContext.TimeManager.Points);
 		BattleContext.Director.Analytics.LogEvent("BattleScene", "EndBattle", "RamShipHit", m_shipStatistics.RamShipHit);
 		BattleContext.Director.Analytics.LogEvent("BattleScene", "EndBattle", "MineHit", m_shipStatistics.MineHit);
 		BattleContext.Director.Analytics.LogEvent("BattleScene", "EndBattle", "EnemyShipHit", m_shipStatistics.EnemyShipHit);
@@ -135,22 +129,8 @@ public class PlayerShip : MonoBehaviour {
         m_state = ShipState.Dead;
 		BattleContext.ExplosionsController.PlayerShipExplosion(transform.position);
 		m_hull.gameObject.SetActive(false);
-		BattleContext.GUIManager.PlayerGUIController.SetDeadScore(BattleContext.World.Points);
-        StartCoroutine(DieProcess());
-    }
 
-    private IEnumerator DieProcess() {
-        float a = 0;
-        while (true) {
-            BattleContext.GUIManager.PlayerGUIController.SetDeadPanelOpacity(a);
-            a += 0.02f * 0.5f;
-            if (a > 1) {
-                break;
-            }
-            yield return new WaitForEndOfFrame();
-        }
-        yield return new WaitForSeconds(3);
-        SceneManager.LoadScene("BattleScene");
+		BattleContext.Director.OnPlayerDie();
     }
 
 	public void UpdateEntity() {
@@ -244,7 +224,7 @@ public class PlayerShip : MonoBehaviour {
 
 	private IEnumerator ChargeProcess() {
 		WaitForEndOfFrame delay = new WaitForEndOfFrame();
-		BattleContext.World.SetTimeScaleMode(TimeScaleMode.SuperSlow);
+		BattleContext.TimeManager.SetTimeScaleMode(TimeScaleMode.SuperSlow);
 		float time = 0;
 		float scale = 1.0f;
 		while (true) {
@@ -283,7 +263,7 @@ public class PlayerShip : MonoBehaviour {
 			}
 			yield return delay;
 		}
-		BattleContext.World.SetTimeScaleMode(TimeScaleMode.Normal);
+		BattleContext.TimeManager.SetTimeScaleMode(TimeScaleMode.Normal);
 		m_rigidbody.angularVelocity = Vector3.zero;
 		m_rigidbody.velocity = LookVector * 10;
 		m_state = ShipState.OnMove;

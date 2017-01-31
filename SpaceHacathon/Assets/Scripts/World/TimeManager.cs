@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class World : MonoBehaviour {
+public class TimeManager : MonoBehaviour {
 	private TimeScaleMode m_timeScaleMode;
     private bool m_slowModeOn;
     private float m_points;

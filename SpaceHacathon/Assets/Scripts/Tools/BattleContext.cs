@@ -2,7 +2,7 @@
 
 public class BattleContext {
 	private static Director m_director;
-    private static World m_world;
+    private static TimeManager m_timeManager;
 	private static PlayerShip m_playerShip;
 	private static BattleCamera m_battleCamera;
 	private static GUIManager m_guiManager;
@@ -11,12 +11,12 @@ public class BattleContext {
 	private static BulletsController m_bulletsController;
 	private static BonusesController m_bonusesController;
 
-    public static World World {
+    public static TimeManager TimeManager {
         get {
-			if (m_world == null) {
-				m_world = GameObject.Find(EntitiesNames.World).GetComponent<World>();
+			if (m_timeManager == null) {
+				m_timeManager = GameObject.Find(EntitiesNames.TimeManager).GetComponent<TimeManager>();
 			}
-            return m_world;
+            return m_timeManager;
         }
     }
 
@@ -96,8 +96,8 @@ public class BattleContext {
 
 class EntitiesNames {
 	public const string PlayerShip = "PlayerShip";
-	public const string World = "Dynamic";
-	public const string Director = "Director";
+	public const string TimeManager = "Dynamic";
+	public const string Director = "Dynamic";
 	public const string BattleCamera = "Camera";
 	public const string GUIManager = "GUIManager";
 	public const string ExplosionsController = "ExplosionsController";
