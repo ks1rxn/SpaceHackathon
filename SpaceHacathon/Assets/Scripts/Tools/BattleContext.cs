@@ -10,6 +10,7 @@ public class BattleContext {
 	private static EnemiesController m_enemiesController;
 	private static BulletsController m_bulletsController;
 	private static BonusesController m_bonusesController;
+	private static StatisticsManager m_statisticsManager;
 
 	public static void Initiate() {
 		m_timeManager = GameObject.Find(EntitiesNames.TimeManager).GetComponent<TimeManager>();
@@ -21,6 +22,7 @@ public class BattleContext {
 		m_bulletsController = GameObject.Find(EntitiesNames.BulletsController).GetComponent<BulletsController>();
 		m_bonusesController = GameObject.Find(EntitiesNames.BonusesController).GetComponent<BonusesController>();
 		m_director = GameObject.Find(EntitiesNames.Director).GetComponent<Director>();
+		m_statisticsManager = GameObject.Find(EntitiesNames.StatisticsManager).GetComponent<StatisticsManager>();
 	}
 
 	public static Director Director {
@@ -77,6 +79,12 @@ public class BattleContext {
 		}
 	}
 
+	public static StatisticsManager StatisticsManager {
+		get {
+			return m_statisticsManager;
+		}
+	}
+
 }
 
 class EntitiesNames {
@@ -89,4 +97,5 @@ class EntitiesNames {
 	public const string EnemiesController = "EnemiesController";
 	public const string BulletsController = "BulletsController";
 	public const string BonusesController = "BonusesController";
+	public const string StatisticsManager = "Dynamic";
 }

@@ -11,7 +11,6 @@ public class PlayerShip : MonoBehaviour {
 	private ShipState m_state;
 	private EffectsOnShip m_effects;
 	private ShipParams m_shipParams;
-	private ShipStatistics m_shipStatistics;
 
     [SerializeField]
     private PlayerShipHull m_hull;
@@ -30,7 +29,6 @@ public class PlayerShip : MonoBehaviour {
 	public void Initiate() {
 		m_effects = new EffectsOnShip();
 		m_shipParams = new ShipParams();
-		m_shipStatistics = new ShipStatistics();
 
 		m_hull.Initiate();
         m_chargeSystem.Initiate();
@@ -53,7 +51,7 @@ public class PlayerShip : MonoBehaviour {
 			return;
 		}
 		m_hull.Hit(0.1f);
-		m_shipStatistics.StunHit++;
+		BattleContext.StatisticsManager.PlayerShipStatistics.StunHit++;
 		StopCoroutine("StunProcedure");
 		StartCoroutine(StunProcedure());
 	}
@@ -63,7 +61,7 @@ public class PlayerShip : MonoBehaviour {
 			return;
 		}
 		m_hull.Hit(0.05f);
-		m_shipStatistics.LaserHit++;
+		BattleContext.StatisticsManager.PlayerShipStatistics.LaserHit++;
 	}
 
 	public void OnRocketHit(GameObject other) {
@@ -75,7 +73,7 @@ public class PlayerShip : MonoBehaviour {
 		position.y = 0;
 		m_rigidbody.AddExplosionForce(m_rigidbody.mass * 50, Position + (position - Position).normalized * 3, 5);
 		m_hull.Hit(0.5f);
-		m_shipStatistics.RocketHit++;
+		BattleContext.StatisticsManager.PlayerShipStatistics.RocketHit++;
 		StopCoroutine("BashProcedure");
 		StartCoroutine(BashProcedure());
 	}
@@ -85,13 +83,13 @@ public class PlayerShip : MonoBehaviour {
 			case ShipState.OnMove:
 				//todo: remove this shit
 				if (other.CompareTag("SpaceMine")) {
-					m_shipStatistics.MineHit++;
+					BattleContext.StatisticsManager.PlayerShipStatistics.MineHit++;
 				} else if (other.CompareTag("StunShip")) {
-					m_shipStatistics.EnemyShipHit++;
+					BattleContext.StatisticsManager.PlayerShipStatistics.EnemyShipHit++;
 				} else if (other.CompareTag("RamShip")) {
-					m_shipStatistics.RamShipHit++;
+					BattleContext.StatisticsManager.PlayerShipStatistics.RamShipHit++;
 				} else if (other.CompareTag("RocketLauncherShip")) {
-					m_shipStatistics.EnemyShipHit++;
+					BattleContext.StatisticsManager.PlayerShipStatistics.EnemyShipHit++;
 				}
 				m_hull.Hit(10.0f);
 				break;
@@ -105,28 +103,11 @@ public class PlayerShip : MonoBehaviour {
 	}
 
     public void Die() {
-        if (m_state == ShipState.Dead) {
-            return;
-        }
+	    if (m_state == ShipState.Dead) {
+		    return;
+	    }
 
-//		Analytics.CustomEvent("playerDied", new Dictionary<string, object> {
-//			{ "rocketHit", m_shipStatistics.RocketHit },
-//			{ "stunHit", m_shipStatistics.StunHit },
-//			{ "laserHit", m_shipStatistics.LaserHit },
-//			{ "enemyShipHit", m_shipStatistics.EnemyShipHit },
-//			{ "chargeUsed", m_shipStatistics.ChargeUsed }
-//		});
-
-		BattleContext.Director.Analytics.LogEvent("BattleScene", "EndBattle", "TimeAlive", (int)BattleContext.TimeManager.Points);
-		BattleContext.Director.Analytics.LogEvent("BattleScene", "EndBattle", "RamShipHit", m_shipStatistics.RamShipHit);
-		BattleContext.Director.Analytics.LogEvent("BattleScene", "EndBattle", "MineHit", m_shipStatistics.MineHit);
-		BattleContext.Director.Analytics.LogEvent("BattleScene", "EndBattle", "EnemyShipHit", m_shipStatistics.EnemyShipHit);
-		BattleContext.Director.Analytics.LogEvent("BattleScene", "EndBattle", "ChargeUsed", m_shipStatistics.ChargeUsed);
-		BattleContext.Director.Analytics.LogEvent("BattleScene", "EndBattle", "RocketHit", m_shipStatistics.RocketHit);
-		BattleContext.Director.Analytics.LogEvent("BattleScene", "EndBattle", "StunHit", m_shipStatistics.StunHit);
-		BattleContext.Director.Analytics.LogEvent("BattleScene", "EndBattle", "LaserHit", m_shipStatistics.LaserHit);
-
-        m_state = ShipState.Dead;
+	    m_state = ShipState.Dead;
 		BattleContext.ExplosionsController.PlayerShipExplosion(transform.position);
 		m_hull.gameObject.SetActive(false);
 
@@ -217,7 +198,7 @@ public class PlayerShip : MonoBehaviour {
 			return;
 		}
 		m_state = ShipState.InCharge;
-		m_shipStatistics.ChargeUsed++;
+		BattleContext.StatisticsManager.PlayerShipStatistics.ChargeUsed++;
 		m_chargeSystem.Charge();
 		StartCoroutine(ChargeProcess());
 	}
@@ -388,14 +369,4 @@ public class ShipParams {
 		EnginePower = 900;
 		RotationPower = 70;
 	}
-}
-
-public class ShipStatistics {
-	public int RocketHit { get; set; }
-	public int StunHit { get; set; }
-	public int LaserHit { get; set; }
-	public int EnemyShipHit { get; set; }
-	public int RamShipHit { get; set; }
-	public int MineHit { get; set; }
-	public int ChargeUsed { get; set; }
 }

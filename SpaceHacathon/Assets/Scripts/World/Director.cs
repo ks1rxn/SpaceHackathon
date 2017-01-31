@@ -1,9 +1,6 @@
 ﻿using UnityEngine;
 
 public class Director : MonoBehaviour {
-	[SerializeField]
-	private GoogleAnalyticsV4 m_analytics;
-
 	private float m_fps;
 	private int m_frames;
 
@@ -17,6 +14,7 @@ public class Director : MonoBehaviour {
 
 		BattleContext.Initiate();
 
+		BattleContext.StatisticsManager.Initiate();
 		BattleContext.TimeManager.Initiate();
 		BattleContext.GUIManager.CreateGUI();
 
@@ -48,11 +46,11 @@ public class Director : MonoBehaviour {
 		BattleContext.GUIManager.PlayerGUIController.Hide();
 		BattleContext.GUIManager.DeathMenu.Show();
 		BattleContext.TimeManager.Pause();
+		BattleContext.StatisticsManager.SendPlayerShipStatistics();
 	}
 
 	private void Update() {
-		m_fps += Mathf.RoundToInt(1 / Time.deltaTime * Time.timeScale);
-		m_frames++;
+		BattleContext.StatisticsManager.UpdateEntity();
 		BattleContext.TimeManager.UpdateEntity();
 	}
 
@@ -62,16 +60,6 @@ public class Director : MonoBehaviour {
 		BattleContext.BulletsController.UpdateEntity();
 		BattleContext.BonusesController.UpdateEntity();
 		BattleContext.EnemiesController.UpdateEntity();
-	}
-
-	public void OnEnemyKill(IEnemyShip enemy) {
-		
-	}
-
-	public GoogleAnalyticsV4 Analytics {
-		get {
-			return m_analytics;
-		}
 	}
 
 }
