@@ -290,7 +290,7 @@ public class PlayerShip : MonoBehaviour {
 		bool engineWork = false;
 		WaitForFixedUpdate delay = new WaitForFixedUpdate();
 		while (!(rotationWork && engineWork)) {
-			if (m_rigidbody.angularDrag < 19) {
+			if (m_rigidbody.angularDrag < 16) {
 				m_rigidbody.angularDrag += 1.0f;
 			}
 			if (m_shipParams.RotationPower < 70) {
@@ -305,7 +305,7 @@ public class PlayerShip : MonoBehaviour {
 			}
 			yield return delay;
 		}
-		m_rigidbody.angularDrag = 19;
+		m_rigidbody.angularDrag = 16;
 
 		m_effects.Stunned = false;
 	}
@@ -323,7 +323,7 @@ public class PlayerShip : MonoBehaviour {
 		bool engineWork = false;
 		WaitForFixedUpdate delay = new WaitForFixedUpdate();
 		while (!(rotationWork && engineWork)) {
-			if (m_rigidbody.angularDrag < 19) {
+			if (m_rigidbody.angularDrag < 16) {
 				m_rigidbody.angularDrag += 1.0f;
 			}
 			if (m_shipParams.RotationPower < 70) {
@@ -338,7 +338,7 @@ public class PlayerShip : MonoBehaviour {
 			}
 			yield return delay;
 		}
-		m_rigidbody.angularDrag = 19;
+		m_rigidbody.angularDrag = 16;
 
 		m_effects.Bashed = false;
 	}

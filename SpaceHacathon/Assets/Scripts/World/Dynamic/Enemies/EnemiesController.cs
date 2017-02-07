@@ -37,7 +37,7 @@ public class EnemiesController : MonoBehaviour {
 		for (int i = 0; i != 4; i++) {
 			CreateRocketLauncher();
 		}
-		for (int i = 0; i != 7; i++) {
+		for (int i = 0; i != 3; i++) {
 			CreateMiniRocketShip();
 		}
 		for (int i = 0; i != 1; i++) {
@@ -85,10 +85,10 @@ public class EnemiesController : MonoBehaviour {
 					rocketLauncherPosition.y = -0.75f;
 					SpawnRocketLauncher(rocketLauncherPosition, MathHelper.Random.Next(360));
 				}
-//				if (m_ships[i] is MiniRocketShip) {
-//					Vector3 rocketLauncherPosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, BattleContext.PlayerShip.LookVector, 90, 20, 30);
-//					SpawnMiniRocketShip(rocketLauncherPosition, MathHelper.Random.Next(360));
-//				}
+				if (m_ships[i] is MiniRocketShip) {
+					Vector3 rocketLauncherPosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, BattleContext.PlayerShip.LookVector, 90, 20, 30);
+					SpawnMiniRocketShip(rocketLauncherPosition, MathHelper.Random.Next(360));
+				}
 //				if (m_ships[i] is SpaceMine) {
 //					Vector3 spaceMinePosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, BattleContext.PlayerShip.LookVector, 90, 20, 30);
 //					spaceMinePosition.y = -2.5f;
