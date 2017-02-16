@@ -1,16 +1,42 @@
 fileFormatVersion: 2
-guid: 9e6090f2d0f7cc944b8706517af6833d
-timeCreated: 1482260580
+guid: 465aebb1eb1192c48986e43648a1a705
+timeCreated: 1487213126
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: pCylinder61
-    4300002: polySurface27
+    100000: DroneStationActive
+    100002: DroneStationBase
+    100004: //RootNode
+    100006: Projector
+    100008: Projector1
+    100010: Projector2
+    100012: Projector3
+    400000: DroneStationActive
+    400002: DroneStationBase
+    400004: //RootNode
+    400006: Projector
+    400008: Projector1
+    400010: Projector2
+    400012: Projector3
+    2300000: DroneStationActive
+    2300002: DroneStationBase
+    2300004: Projector
+    2300006: Projector1
+    2300008: Projector2
+    2300010: Projector3
+    3300000: DroneStationActive
+    3300002: DroneStationBase
+    3300004: Projector
+    3300006: Projector1
+    3300008: Projector2
+    3300010: Projector3
+    4300000: Projector
+    4300002: DroneStationBase
+    4300004: DroneStationActive
+    4300006: Projector3
+    4300008: Projector2
+    4300010: Projector1
   materials:
     importMaterials: 0
     materialName: 0
@@ -35,7 +61,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 3
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
