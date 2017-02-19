@@ -27,6 +27,17 @@ public class EnemiesController : MonoBehaviour {
 	private float m_stunShipCooldown;
 	private bool m_stunShipAlive;
 
+	[SerializeField]
+	private int m_DCCount, m_DCSpawnAngle, m_DCSpawnMinDistance, m_DCSpawnMaxDistance;
+	[SerializeField]
+	private int m_RSCount, m_RSSpawnAngle, m_RSSpawnMinDistance, m_RSSpawnMaxDistance;
+	[SerializeField]
+	private int m_SMCount, m_SMSpawnAngle, m_SMSpawnMinDistance, m_SMSpawnMaxDistance;
+	[SerializeField]
+	private int m_RAMCooldownValue, m_RAMCooldownDispertion, m_RAMSpawnMinDistance, m_RAMSpawnMaxDistance;
+	[SerializeField]
+	private int m_STUNCooldownValue, m_STUNCooldownDispertion, m_STUNSpawnMinDistance, m_STUNSpanwMaxDistance;
+
 	public void Initiate() {
 		m_ships = new List<IEnemyShip>();
 		m_ramShips = new List<RamShip>();
@@ -34,10 +45,10 @@ public class EnemiesController : MonoBehaviour {
 		m_spaceMines = new List<SpaceMine>();
 		m_rocketLaunchers = new List<RocketLauncher>();
 		m_miniRocketShips = new List<MiniRocketShip>();
-		for (int i = 0; i != 4; i++) {
+		for (int i = 0; i != m_DCCount; i++) {
 			CreateRocketLauncher();
 		}
-		for (int i = 0; i != 3; i++) {
+		for (int i = 0; i != m_RSCount; i++) {
 			CreateMiniRocketShip();
 		}
 		for (int i = 0; i != 1; i++) {
@@ -46,14 +57,14 @@ public class EnemiesController : MonoBehaviour {
 		for (int i = 0; i != 1; i++) {
 			CreateRamShip();
 		}
-		for (int i = 0; i != 3; i++) {
+		for (int i = 0; i != m_SMCount; i++) {
 			CreateSpaceMine();
 		}
 
-		m_ramShipCooldown = MathHelper.Random.Next(20);
+		m_ramShipCooldown = MathHelper.Random.Next(m_RAMCooldownDispertion) - m_RAMCooldownDispertion / 2 + m_RAMCooldownValue;
 		m_ramShipAlive = false;
 
-		m_stunShipCooldown = MathHelper.Random.Next(5);
+		m_stunShipCooldown = MathHelper.Random.Next(m_STUNCooldownDispertion) - m_STUNCooldownDispertion / 2 + m_STUNCooldownValue;
 		m_stunShipAlive = false;
 	}
 
@@ -62,7 +73,7 @@ public class EnemiesController : MonoBehaviour {
 			if (m_ramShipCooldown > 0) {
 				m_ramShipCooldown -= Time.fixedDeltaTime;
 			} else {
-				SpawnRamShip(MathHelper.GetPointAround(BattleContext.PlayerShip.Position, 30, 40), 0);
+				SpawnRamShip(MathHelper.GetPointAround(BattleContext.PlayerShip.Position, m_RAMSpawnMinDistance, m_RAMSpawnMaxDistance), 0);
 				m_ramShipAlive = true;
 			}
 		}
@@ -71,7 +82,7 @@ public class EnemiesController : MonoBehaviour {
 			if (m_stunShipCooldown > 0) {
 				m_stunShipCooldown -= Time.fixedDeltaTime;
 			} else {
-				SpawnStunShip(MathHelper.GetPointAround(BattleContext.PlayerShip.Position, 30, 40), 0);
+				SpawnStunShip(MathHelper.GetPointAround(BattleContext.PlayerShip.Position, m_STUNSpawnMinDistance, m_STUNSpanwMaxDistance), 0);
 				m_stunShipAlive = true;
 			}
 		}
@@ -81,30 +92,30 @@ public class EnemiesController : MonoBehaviour {
 				m_ships[i].UpdateShip();
 			} else {
 				if (m_ships[i] is RocketLauncher) {
-					Vector3 rocketLauncherPosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, BattleContext.PlayerShip.LookVector, 90, 20, 30);
+					Vector3 rocketLauncherPosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, BattleContext.PlayerShip.SpeedValue, m_DCSpawnAngle, m_DCSpawnMinDistance, m_DCSpawnMaxDistance);
 					rocketLauncherPosition.y = -0.75f;
 					SpawnRocketLauncher(rocketLauncherPosition, MathHelper.Random.Next(360));
 				}
 				if (m_ships[i] is MiniRocketShip) {
-					Vector3 rocketLauncherPosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, BattleContext.PlayerShip.LookVector, 90, 20, 30);
+					Vector3 rocketLauncherPosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, BattleContext.PlayerShip.SpeedValue, m_RSSpawnAngle, m_RSSpawnMinDistance, m_RSSpawnMaxDistance);
 					SpawnMiniRocketShip(rocketLauncherPosition, MathHelper.Random.Next(360));
 				}
-//				if (m_ships[i] is SpaceMine) {
-//					Vector3 spaceMinePosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, BattleContext.PlayerShip.LookVector, 90, 20, 30);
-//					spaceMinePosition.y = -2.5f;
-//					SpawnSpaceMine(spaceMinePosition);
-//				}
+				if (m_ships[i] is SpaceMine) {
+					Vector3 spaceMinePosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, BattleContext.PlayerShip.SpeedValue, m_SMSpawnAngle, m_SMSpawnMinDistance, m_SMSpawnMaxDistance);
+					spaceMinePosition.y = -2.5f;
+					SpawnSpaceMine(spaceMinePosition);
+				}
 			}
 		}
 	}
 
 	public void OnRamShipDie() {
-		m_ramShipCooldown = MathHelper.Random.Next(15) + 15;
+		m_ramShipCooldown = MathHelper.Random.Next(m_RAMCooldownDispertion) - m_RAMCooldownDispertion / 2 + m_RAMCooldownValue;
 		m_ramShipAlive = false;
 	}
 
 	public void OnStunShipDie() {
-		m_stunShipCooldown = MathHelper.Random.Next(10) + 5;
+		m_stunShipCooldown = MathHelper.Random.Next(m_STUNCooldownDispertion) - m_STUNCooldownDispertion / 2 + m_STUNCooldownValue;
 		m_stunShipAlive = false;
 	}
 

@@ -2839,6 +2839,26 @@ MonoBehaviour:
     type: 2}
   m_miniRocketShipPrefab: {fileID: 198206, guid: 7fe0248d775a9034fa7712061d0696a4,
     type: 2}
+  m_DCCount: 4
+  m_DCSpawnAngle: 90
+  m_DCSpawnMinDistance: 20
+  m_DCSpawnMaxDistance: 30
+  m_RSCount: 3
+  m_RSSpawnAngle: 90
+  m_RSSpawnMinDistance: 20
+  m_RSSpawnMaxDistance: 30
+  m_SMCount: 3
+  m_SMSpawnAngle: 90
+  m_SMSpawnMinDistance: 20
+  m_SMSpawnMaxDistance: 30
+  m_RAMCooldownValue: 20
+  m_RAMCooldownDispertion: 10
+  m_RAMSpawnMinDistance: 30
+  m_RAMSpawnMaxDistance: 40
+  m_STUNCooldownValue: 10
+  m_STUNCooldownDispertion: 5
+  m_STUNSpawnMinDistance: 25
+  m_STUNSpanwMaxDistance: 35
 --- !u!4 &1201949552
 Transform:
   m_ObjectHideFlags: 0
