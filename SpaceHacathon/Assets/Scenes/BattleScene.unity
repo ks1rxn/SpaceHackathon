@@ -2852,7 +2852,7 @@ MonoBehaviour:
   m_SMSpawnMinDistance: 20
   m_SMSpawnMaxDistance: 30
   m_RAMCooldownValue: 20
-  m_RAMCooldownDispertion: 10
+  m_RAMCooldownDispertion: 9
   m_RAMSpawnMinDistance: 30
   m_RAMSpawnMaxDistance: 40
   m_STUNCooldownValue: 10
