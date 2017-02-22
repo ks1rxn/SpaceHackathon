@@ -53,7 +53,13 @@ public class VectorPid {
          this.pFactor = pFactor;
          this.iFactor = iFactor;
          this.dFactor = dFactor;
-     }
+    }
+
+	public VectorPid(Vector3 factors) {
+		pFactor = factors.x;
+		iFactor = factors.y;
+		dFactor = factors.z;
+	}
  
      public Vector3 Update(Vector3 currentError, float timeFrame) {
          integral += currentError * timeFrame;

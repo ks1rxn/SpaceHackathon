@@ -7,12 +7,38 @@ public class RamShip : IEnemyShip {
 	private Transform m_hull;
 
 	private RamShipState m_state;
-	private readonly VectorPid m_headingController = new VectorPid(1.244681f, 0.1f, 1.1f);
+	private VectorPid m_headingController;
+
 	private float m_rotationSpeed;
 	private float m_needRotationSpeed;
 
+	[SerializeField, Range(0f, 1.0f)]
+	private float m_rotationSensitivityRun;
+	[SerializeField, Range(0f, 1.0f)]
+	private float m_rotationSensitivityAim;
+	[SerializeField]
+	private Vector3 m_headingParams;
+	[SerializeField, Range(0f, 30.0f)]
+	private float m_finishAimAngle;
+	[SerializeField, Range(0f, 1.0f)]
+	private float m_finishAimAngVelocity;
+	[SerializeField]
+	private float m_headingMaxOnRun;
+	[SerializeField, Range(0f, 50.0f)]
+	private float m_maxRunSpeed;
+	[SerializeField]
+	private Vector2 m_acceleration;
+	[SerializeField, Range(0f, 180.0f)]
+	private float m_angleToStartStop;
+	[SerializeField, Range(0f, 1.0f)]
+	private float m_stopAcceleration;
+	[SerializeField]
+	private float m_distanceToDie;
+
 	public override void Initiate() {
 		base.Initiate();
+
+		m_headingController = new VectorPid(m_headingParams);
 
 		m_collisionDetector.Initiate();
 		m_collisionDetector.RegisterListener("Player", OnOtherShipHit);
@@ -74,9 +100,9 @@ public class RamShip : IEnemyShip {
 			m_rigidbody.velocity *= 0.5f;
 		}
 		Vector3 headingCorrection = m_headingController.Update(Vector3.Cross(transform.right, BattleContext.PlayerShip.Position - Position), Time.fixedDeltaTime);
-		m_rigidbody.AddTorque(headingCorrection * 0.2f);
-		if (Mathf.Abs(MathHelper.AngleBetweenVectors(transform.right, BattleContext.PlayerShip.Position - Position)) < 5 &&
-			m_rigidbody.angularVelocity.magnitude < 0.3f) {
+		m_rigidbody.AddTorque(headingCorrection * m_rotationSensitivityAim);
+		if (Mathf.Abs(MathHelper.AngleBetweenVectors(transform.right, BattleContext.PlayerShip.Position - Position)) < m_finishAimAngle &&
+			m_rigidbody.angularVelocity.magnitude < m_finishAimAngVelocity) {
 
 			if (!IsLauncherOnMyWay()) {
 				m_state = RamShipState.Running;
@@ -100,19 +126,19 @@ public class RamShip : IEnemyShip {
 		}
 		m_needRotationSpeed = 360;
 		Vector3 headingCorrection = m_headingController.Update(Vector3.Cross(transform.right, BattleContext.PlayerShip.Position - Position), Time.fixedDeltaTime);
-		headingCorrection.y = Mathf.Clamp(headingCorrection.y, -5, 5);
-		m_rigidbody.AddTorque(headingCorrection * 0.2f);
+		headingCorrection.y = Mathf.Clamp(headingCorrection.y, -m_headingMaxOnRun, m_headingMaxOnRun);
+		m_rigidbody.AddTorque(headingCorrection * m_rotationSensitivityRun);
 
-		if (m_rigidbody.velocity.magnitude < 12) {
-			m_rigidbody.AddRelativeForce(Vector3.right * 10, ForceMode.Force);
+		if (m_rigidbody.velocity.magnitude < 0.75f * m_maxRunSpeed) {
+			m_rigidbody.AddRelativeForce(Vector3.right * m_acceleration[0], ForceMode.Force);
 		} else {
-			m_rigidbody.AddRelativeForce(Vector3.right * 80, ForceMode.Force);
+			m_rigidbody.AddRelativeForce(Vector3.right * m_acceleration[1], ForceMode.Force);
 		} 
 		
-		if (m_rigidbody.velocity.magnitude > 15) {
-			m_rigidbody.velocity = m_rigidbody.velocity.normalized * 15;
+		if (m_rigidbody.velocity.magnitude > m_maxRunSpeed) {
+			m_rigidbody.velocity = m_rigidbody.velocity.normalized * m_maxRunSpeed;
 		}
-		if (Mathf.Abs(MathHelper.AngleBetweenVectors(transform.right, BattleContext.PlayerShip.Position - Position)) > 75) {
+		if (Mathf.Abs(MathHelper.AngleBetweenVectors(transform.right, BattleContext.PlayerShip.Position - Position)) > m_angleToStartStop) {
 			m_state = RamShipState.Stopping;
 		}
 	}
@@ -120,7 +146,7 @@ public class RamShip : IEnemyShip {
 	private void Stopping() {
 		m_needRotationSpeed = 120;
 		if (m_rigidbody.velocity.magnitude > 0.5f) {
-			m_rigidbody.velocity *= 0.965f;
+			m_rigidbody.velocity *= m_stopAcceleration;
 		} else {
 			m_state = RamShipState.Aiming;
 		}
@@ -160,7 +186,7 @@ public class RamShip : IEnemyShip {
 
 	protected override float DistanceFromPlayerToDie {
 		get {
-			return 80;
+			return m_distanceToDie;
 		}
 	}
 
