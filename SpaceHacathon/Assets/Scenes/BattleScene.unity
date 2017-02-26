@@ -202,7 +202,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7a21fe64df487b469aaae25eb9a3e5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_rocketPrefab: {fileID: 143934, guid: fd0471d065e37ff4faf77305527f3def, type: 2}
+  m_rocketPrefab: {fileID: 1000013842758166, guid: b2ddcd660df55cb41b231f259631b15e,
+    type: 2}
   m_stunProjectilePrefab: {fileID: 1000011874940608, guid: 41875d6747d992746932c0955bc64306,
     type: 2}
   m_laserPrefab: {fileID: 124736, guid: e3513e92010ddd745a2b3f28f04733f9, type: 2}
@@ -2623,23 +2624,23 @@ MonoBehaviour:
     type: 2}
   m_miniRocketShipPrefab: {fileID: 198206, guid: 7fe0248d775a9034fa7712061d0696a4,
     type: 2}
-  m_DCCount: 0
+  m_DCCount: 2
   m_DCSpawnAngle: 90
   m_DCSpawnMinDistance: 22
   m_DCSpawnMaxDistance: 39
-  m_RSCount: 0
+  m_RSCount: 4
   m_RSSpawnAngle: 90
   m_RSSpawnMinDistance: 19
   m_RSSpawnMaxDistance: 37
-  m_SMCount: 0
+  m_SMCount: 4
   m_SMSpawnAngle: 90
   m_SMSpawnMinDistance: 18
   m_SMSpawnMaxDistance: 35
-  m_RAMCooldownValue: 1
+  m_RAMCooldownValue: 23
   m_RAMCooldownDispertion: 1
   m_RAMSpawnMinDistance: 35
   m_RAMSpawnMaxDistance: 45
-  m_STUNCooldownValue: 99999
+  m_STUNCooldownValue: 17
   m_STUNCooldownDispertion: 3
   m_STUNSpawnMinDistance: 20
   m_STUNSpanwMaxDistance: 38
