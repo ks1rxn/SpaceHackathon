@@ -2572,8 +2572,7 @@ MonoBehaviour:
     type: 2}
   m_spaceMinePrefab: {fileID: 1000012769182004, guid: ed3a0ebb084e48547883e0a9de1b879f,
     type: 2}
-  m_miniRocketShipPrefab: {fileID: 198206, guid: 7fe0248d775a9034fa7712061d0696a4,
-    type: 2}
+  m_rocketShipPrefab: {fileID: 198206, guid: 7fe0248d775a9034fa7712061d0696a4, type: 2}
   m_DCCount: 2
   m_DCSpawnAngle: 90
   m_DCSpawnMinDistance: 22
