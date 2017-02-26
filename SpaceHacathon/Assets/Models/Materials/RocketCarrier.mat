@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: RocketCarrier
-  m_Shader: {fileID: 12, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 10, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 1
   m_CustomRenderQueue: -1
@@ -129,7 +129,7 @@ Material:
       second: 0.02
     - first:
         name: _Shininess
-      second: 0.07
+      second: 0.38
     - first:
         name: _SliceAmount
       second: 0
@@ -151,4 +151,4 @@ Material:
       second: {r: 0, g: 0, b: 0, a: 1}
     - first:
         name: _SpecColor
-      second: {r: 0.644788, g: 0.7739455, b: 0.9852941, a: 1}
+      second: {r: 0.5033521, g: 0.6048159, b: 0.97794116, a: 1}

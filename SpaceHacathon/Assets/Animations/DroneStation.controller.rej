@@ -1,0 +1,13 @@
+diff a/SpaceHacathon/Assets/Animations/DroneStation.controller b/SpaceHacathon/Assets/Animations/DroneStation.controller	(rejected hunks)
+@@ -28,10 +28,7 @@
+   m_PrefabParentObject: {fileID: 0}
+   m_PrefabInternal: {fileID: 0}
+   m_Name: Base Layer
+-  m_ChildStates:
+-  - serializedVersion: 1
+-    m_State: {fileID: 1102000010275987230}
+-    m_Position: {x: 323, y: 173, z: 0}
++  m_ChildStates: []
+   m_ChildStateMachines: []
+   m_AnyStateTransitions: []
+   m_EntryTransitions: []
