@@ -12,7 +12,7 @@ public class EnemiesController : MonoBehaviour {
 	[SerializeField]
 	private GameObject m_spaceMinePrefab;
 	[SerializeField]
-	private GameObject m_miniRocketShipPrefab;
+	private GameObject m_rocketShipPrefab;
 
 	private List<IEnemyShip> m_ships;
 	private List<RamShip> m_ramShips; 
@@ -213,7 +213,7 @@ public class EnemiesController : MonoBehaviour {
 	}
 
 	private RocketShip CreateRocketShip() {
-		RocketShip rocketShip = (Instantiate(m_miniRocketShipPrefab)).GetComponent<RocketShip>();
+		RocketShip rocketShip = (Instantiate(m_rocketShipPrefab)).GetComponent<RocketShip>();
 		rocketShip.transform.parent = transform;
 		rocketShip.Initiate();
 		m_ships.Add(rocketShip);
