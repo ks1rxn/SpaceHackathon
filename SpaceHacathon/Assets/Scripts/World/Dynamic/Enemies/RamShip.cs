@@ -41,12 +41,12 @@ public class RamShip : IEnemyShip {
 		m_headingController = new VectorPid(m_headingParams);
 
 		m_collisionDetector.Initiate();
-		m_collisionDetector.RegisterListener("Player", OnOtherShipHit);
-		m_collisionDetector.RegisterListener("RocketLauncherShip", OnOtherShipHit);
-		m_collisionDetector.RegisterListener("StunShip", OnOtherShipHit);
-		m_collisionDetector.RegisterListener("RamShip", OnOtherShipHit);
-		m_collisionDetector.RegisterListener("SpaceMine", OnOtherShipHit);
-		m_collisionDetector.RegisterListener("Rocket", OnOtherShipHit);
+		m_collisionDetector.RegisterListener(CollisionTags.PlayerShip, OnOtherShipHit);
+		m_collisionDetector.RegisterListener(CollisionTags.DroneCarrier, OnOtherShipHit);
+		m_collisionDetector.RegisterListener(CollisionTags.StunShip, OnOtherShipHit);
+		m_collisionDetector.RegisterListener(CollisionTags.RamShip, OnOtherShipHit);
+		m_collisionDetector.RegisterListener(CollisionTags.SpaceMine, OnOtherShipHit);
+		m_collisionDetector.RegisterListener(CollisionTags.Missile, OnOtherShipHit);
 	}
 
 	public override void Spawn(Vector3 position, float angle) {
@@ -153,13 +153,13 @@ public class RamShip : IEnemyShip {
 	}
 
 	private bool IsLauncherOnMyWay() {
-		foreach (RocketLauncher ship in BattleContext.EnemiesController.RocketLaunchers) {
+		foreach (DroneCarrier ship in BattleContext.EnemiesController.DroneCarriers) {
 			if (Vector3.Distance(ship.Position, Position) < Vector3.Distance(Position, BattleContext.PlayerShip.Position)) { 
 				RaycastHit hit;
 				Ray ray = new Ray(Position, transform.right);
 				if (Physics.Raycast(ray, out hit)) {
 					Transform objectHit = hit.transform;
-					if (objectHit.GetComponent<RocketLauncher>() != null) {
+					if (objectHit.GetComponent<DroneCarrier>() != null) {
 						m_state = RamShipState.Stopping;
 						return true;
 					}

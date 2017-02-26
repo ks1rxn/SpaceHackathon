@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class MiniRocket : MonoBehaviour {
+public class Missile : MonoBehaviour {
 	[SerializeField]
 	private CollisionDetector m_collisionDetector;
 
@@ -10,10 +10,10 @@ public class MiniRocket : MonoBehaviour {
 
 	public void Initiate() {
 		m_collisionDetector.Initiate();
-		m_collisionDetector.RegisterListener("Player", OnTargetHit);
-		m_collisionDetector.RegisterListener("RamShip", OnTargetHit);
-		m_collisionDetector.RegisterListener("ChargeFuel", OnTargetHit);
-		m_collisionDetector.RegisterListener("Rocket", OnTargetHit);
+		m_collisionDetector.RegisterListener(CollisionTags.PlayerShip, OnTargetHit);
+		m_collisionDetector.RegisterListener(CollisionTags.RamShip, OnTargetHit);
+		m_collisionDetector.RegisterListener(CollisionTags.ChargeFuel, OnTargetHit);
+		m_collisionDetector.RegisterListener(CollisionTags.Missile, OnTargetHit);
 
 		m_rigidbody = GetComponent<Rigidbody>();
 		IsAlive = false;

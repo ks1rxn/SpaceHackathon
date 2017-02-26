@@ -23,7 +23,7 @@ GameObject:
   - 199: {fileID: 199000013984774678}
   m_Layer: 0
   m_Name: carrierrocket_aura_innercircle
-  m_TagString: ChargeFuel
+  m_TagString: CarrierRocket
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40,7 +40,7 @@ GameObject:
   - 199: {fileID: 199000013485425608}
   m_Layer: 0
   m_Name: CarrierRocketFlame
-  m_TagString: Untagged
+  m_TagString: CarrierRocket
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -62,7 +62,7 @@ GameObject:
   - 95: {fileID: 95000011164429596}
   m_Layer: 0
   m_Name: CarrierRocket
-  m_TagString: Untagged
+  m_TagString: CarrierRocket
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -210,8 +210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a074c46a14da9045810ab0bbedff6ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_collisionDetector: {fileID: 114000010322064646, guid: fd0471d065e37ff4faf77305527f3def,
-    type: 2}
+  m_collisionDetector: {fileID: 0}
   m_trail: {fileID: 19814118, guid: fd0471d065e37ff4faf77305527f3def, type: 2}
 --- !u!198 &198000010834205004
 ParticleSystem:

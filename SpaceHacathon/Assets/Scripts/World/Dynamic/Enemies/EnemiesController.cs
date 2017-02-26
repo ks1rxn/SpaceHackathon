@@ -6,7 +6,7 @@ public class EnemiesController : MonoBehaviour {
 	[SerializeField]
 	private GameObject m_blasterShipPrefab;
 	[SerializeField]
-	private GameObject m_rocketLauncherPrefab;
+	private GameObject m_droneCarrierPrefab;
 	[SerializeField]
 	private GameObject m_ramShipPrefab;
 	[SerializeField]
@@ -18,8 +18,8 @@ public class EnemiesController : MonoBehaviour {
 	private List<RamShip> m_ramShips; 
 	private List<StunShip> m_stunShips; 
 	private List<SpaceMine> m_spaceMines; 
-	private List<MiniRocketShip> m_miniRocketShips; 
-	private List<RocketLauncher> m_rocketLaunchers;
+	private List<RocketShip> m_rocketShips; 
+	private List<DroneCarrier> m_droneCarriers;
 
 	private float m_ramShipCooldown;
 	private bool m_ramShipAlive;
@@ -43,13 +43,13 @@ public class EnemiesController : MonoBehaviour {
 		m_ramShips = new List<RamShip>();
 		m_stunShips = new List<StunShip>();
 		m_spaceMines = new List<SpaceMine>();
-		m_rocketLaunchers = new List<RocketLauncher>();
-		m_miniRocketShips = new List<MiniRocketShip>();
+		m_droneCarriers = new List<DroneCarrier>();
+		m_rocketShips = new List<RocketShip>();
 		for (int i = 0; i != m_DCCount; i++) {
 			CreateRocketLauncher();
 		}
 		for (int i = 0; i != m_RSCount; i++) {
-			CreateMiniRocketShip();
+			CreateRocketShip();
 		}
 		for (int i = 0; i != 1; i++) {
 			CreateStunShip();
@@ -91,14 +91,14 @@ public class EnemiesController : MonoBehaviour {
 			if (m_ships[i].IsAlive) {
 				m_ships[i].UpdateShip();
 			} else {
-				if (m_ships[i] is RocketLauncher) {
-					Vector3 rocketLauncherPosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, BattleContext.PlayerShip.SpeedValue, m_DCSpawnAngle, m_DCSpawnMinDistance, m_DCSpawnMaxDistance);
-					rocketLauncherPosition.y = -0.75f;
-					SpawnRocketLauncher(rocketLauncherPosition, MathHelper.Random.Next(360));
+				if (m_ships[i] is DroneCarrier) {
+					Vector3 dcPosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, BattleContext.PlayerShip.SpeedValue, m_DCSpawnAngle, m_DCSpawnMinDistance, m_DCSpawnMaxDistance);
+					dcPosition.y = -0.75f;
+					SpawnDroneCarrier(dcPosition, MathHelper.Random.Next(360));
 				}
-				if (m_ships[i] is MiniRocketShip) {
-					Vector3 rocketLauncherPosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, BattleContext.PlayerShip.SpeedValue, m_RSSpawnAngle, m_RSSpawnMinDistance, m_RSSpawnMaxDistance);
-					SpawnMiniRocketShip(rocketLauncherPosition, MathHelper.Random.Next(360));
+				if (m_ships[i] is RocketShip) {
+					Vector3 rsPosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, BattleContext.PlayerShip.SpeedValue, m_RSSpawnAngle, m_RSSpawnMinDistance, m_RSSpawnMaxDistance);
+					SpawnRocketShip(rsPosition, MathHelper.Random.Next(360));
 				}
 				if (m_ships[i] is SpaceMine) {
 					Vector3 spaceMinePosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, BattleContext.PlayerShip.SpeedValue, m_SMSpawnAngle, m_SMSpawnMinDistance, m_SMSpawnMaxDistance);
@@ -134,9 +134,9 @@ public class EnemiesController : MonoBehaviour {
 		return targetShip;
 	}
 
-	public RocketLauncher SpawnRocketLauncher(Vector3 position, float rotation) {
-		RocketLauncher targetShip = null;
-		foreach (RocketLauncher ship in m_rocketLaunchers) {
+	public DroneCarrier SpawnDroneCarrier(Vector3 position, float rotation) {
+		DroneCarrier targetShip = null;
+		foreach (DroneCarrier ship in m_droneCarriers) {
 			if (!ship.IsAlive) {
 				targetShip = ship;
 				break;
@@ -149,16 +149,16 @@ public class EnemiesController : MonoBehaviour {
 		return targetShip;
 	}
 
-	public MiniRocketShip SpawnMiniRocketShip(Vector3 position, float rotation) {
-		MiniRocketShip targetShip = null;
-		foreach (MiniRocketShip ship in m_miniRocketShips) {
+	public RocketShip SpawnRocketShip(Vector3 position, float rotation) {
+		RocketShip targetShip = null;
+		foreach (RocketShip ship in m_rocketShips) {
 			if (!ship.IsAlive) {
 				targetShip = ship;
 				break;
 			}
 		}
 		if (targetShip == null) {
-			targetShip = CreateMiniRocketShip();
+			targetShip = CreateRocketShip();
 		}
 		targetShip.Spawn(position, rotation);
 		return targetShip;
@@ -203,22 +203,22 @@ public class EnemiesController : MonoBehaviour {
 		return stunShip;
 	}
 
-	private RocketLauncher CreateRocketLauncher() {
-		RocketLauncher rocketLauncher = (Instantiate(m_rocketLauncherPrefab)).GetComponent<RocketLauncher>();
-		rocketLauncher.transform.parent = transform;
-		rocketLauncher.Initiate();
-		m_ships.Add(rocketLauncher);
-		m_rocketLaunchers.Add(rocketLauncher);
-		return rocketLauncher;
+	private DroneCarrier CreateRocketLauncher() {
+		DroneCarrier droneCarrier = (Instantiate(m_droneCarrierPrefab)).GetComponent<DroneCarrier>();
+		droneCarrier.transform.parent = transform;
+		droneCarrier.Initiate();
+		m_ships.Add(droneCarrier);
+		m_droneCarriers.Add(droneCarrier);
+		return droneCarrier;
 	}
 
-	private MiniRocketShip CreateMiniRocketShip() {
-		MiniRocketShip rocketLauncher = (Instantiate(m_miniRocketShipPrefab)).GetComponent<MiniRocketShip>();
-		rocketLauncher.transform.parent = transform;
-		rocketLauncher.Initiate();
-		m_ships.Add(rocketLauncher);
-		m_miniRocketShips.Add(rocketLauncher);
-		return rocketLauncher;
+	private RocketShip CreateRocketShip() {
+		RocketShip rocketShip = (Instantiate(m_miniRocketShipPrefab)).GetComponent<RocketShip>();
+		rocketShip.transform.parent = transform;
+		rocketShip.Initiate();
+		m_ships.Add(rocketShip);
+		m_rocketShips.Add(rocketShip);
+		return rocketShip;
 	}
 
 	private RamShip CreateRamShip() {
@@ -257,9 +257,9 @@ public class EnemiesController : MonoBehaviour {
 		}
 	}
 
-	public List<RocketLauncher> RocketLaunchers {
+	public List<DroneCarrier> DroneCarriers {
 		get {
-			return m_rocketLaunchers;
+			return m_droneCarriers;
 		}
 	}
 

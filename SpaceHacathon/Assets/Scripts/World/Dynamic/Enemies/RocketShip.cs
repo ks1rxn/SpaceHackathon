@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class MiniRocketShip : IEnemyShip {
+public class RocketShip : IEnemyShip {
 	private float m_gun1Cooldown;
 	private float m_gun2Cooldown;
 	private float m_globalCooldown;
@@ -22,11 +22,11 @@ public class MiniRocketShip : IEnemyShip {
 		base.Initiate();
 
 		m_collisionDetector.Initiate();
-		m_collisionDetector.RegisterListener("Player", OnOtherShipHit);
-		m_collisionDetector.RegisterListener("RocketLauncherShip", OnOtherShipHit);
-		m_collisionDetector.RegisterListener("StunShip", OnOtherShipHit);
-		m_collisionDetector.RegisterListener("RamShip", OnOtherShipHit);
-		m_collisionDetector.RegisterListener("SpaceMine", OnOtherShipHit);
+		m_collisionDetector.RegisterListener(CollisionTags.PlayerShip, OnOtherShipHit);
+		m_collisionDetector.RegisterListener(CollisionTags.DroneCarrier, OnOtherShipHit);
+		m_collisionDetector.RegisterListener(CollisionTags.StunShip, OnOtherShipHit);
+		m_collisionDetector.RegisterListener(CollisionTags.RamShip, OnOtherShipHit);
+		m_collisionDetector.RegisterListener(CollisionTags.SpaceMine, OnOtherShipHit);
 	}
 
 	public override void Spawn(Vector3 position, float angle) {
@@ -87,7 +87,7 @@ public class MiniRocketShip : IEnemyShip {
 	}
 
 	private void SpawnRocket1() {
-		BattleContext.BulletsController.SpawnMiniRocket(m_launcher1.position, transform.rotation.eulerAngles.y);
+		BattleContext.BulletsController.SpawnMissile(m_launcher1.position, transform.rotation.eulerAngles.y);
 
 		m_rigidbody.AddExplosionForce(120, m_launcher1.position, 3);
 		m_launcher1.GetComponent<ParticleSystem>().Play();
@@ -95,7 +95,7 @@ public class MiniRocketShip : IEnemyShip {
 	}
 
 	private void SpawnRocket2() {
-		BattleContext.BulletsController.SpawnMiniRocket(m_launcher2.position, transform.rotation.eulerAngles.y);
+		BattleContext.BulletsController.SpawnMissile(m_launcher2.position, transform.rotation.eulerAngles.y);
 
 		m_rigidbody.AddExplosionForce(120, m_launcher2.position, 3);
 		m_launcher2.GetComponent<ParticleSystem>().Play();

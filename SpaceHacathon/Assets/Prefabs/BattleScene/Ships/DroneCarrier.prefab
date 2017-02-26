@@ -25,7 +25,7 @@ GameObject:
   - 114: {fileID: 114000013550378270}
   - 114: {fileID: 114000010526979724}
   m_Layer: 0
-  m_Name: RocketLauncherShip
+  m_Name: DroneCarrier
   m_TagString: RocketLauncherShip
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -27,11 +27,11 @@ public class SpaceMine : IEnemyShip {
 		base.Initiate();
 
 		m_collisionDetector.Initiate();
-		m_collisionDetector.RegisterListener("Player", OnOtherShipHit);
-		m_collisionDetector.RegisterListener("RocketLauncherShip", OnOtherShipHit);
-		m_collisionDetector.RegisterListener("StunShip", OnOtherShipHit);
-		m_collisionDetector.RegisterListener("RamShip", OnOtherShipHit);
-		m_collisionDetector.RegisterListener("SpaceMine", OnOtherShipHit);
+		m_collisionDetector.RegisterListener(CollisionTags.PlayerShip, OnOtherShipHit);
+		m_collisionDetector.RegisterListener(CollisionTags.DroneCarrier, OnOtherShipHit);
+		m_collisionDetector.RegisterListener(CollisionTags.StunShip, OnOtherShipHit);
+		m_collisionDetector.RegisterListener(CollisionTags.RamShip, OnOtherShipHit);
+		m_collisionDetector.RegisterListener(CollisionTags.SpaceMine, OnOtherShipHit);
 	}
 
 	public override void Spawn(Vector3 position, float angle) {

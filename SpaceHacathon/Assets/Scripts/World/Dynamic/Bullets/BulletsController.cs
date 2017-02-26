@@ -4,27 +4,23 @@ using Random = System.Random;
 
 public class BulletsController : MonoBehaviour {
 	[SerializeField]
-	private GameObject m_rocketPrefab;
-	[SerializeField]
 	private GameObject m_stunProjectilePrefab;
 	[SerializeField]
 	private GameObject m_laserPrefab;
 	[SerializeField]
-	private GameObject m_miniRocketPrefab;
+	private GameObject m_missilePrefab;
 
-	private List<Rocket> m_rockets;
 	private List<StunProjectile> m_stunProjectiles;
 	private List<Laser> m_lasers;
-	private List<MiniRocket> m_miniRockets; 
+	private List<Missile> m_missiles; 
 
 	public void Initiate() {
-		m_rockets = new List<Rocket>();
 		m_stunProjectiles = new List<StunProjectile>();
 		m_lasers = new List<Laser>();
-		m_miniRockets = new List<MiniRocket>();
+		m_missiles = new List<Missile>();
 
 		for (int i = 0; i != 10; i++) {
-			CreateRocket();
+			CreateMissile();
 		}
 		for (int i = 0; i != 5; i++) {
 			CreateStunProjectile();
@@ -35,14 +31,9 @@ public class BulletsController : MonoBehaviour {
 	}
 
 	public void UpdateEntity() {
-		for (int i = 0; i != m_rockets.Count; i++) {
-			if (m_rockets[i].IsAlive) {
-				m_rockets[i].UpdateBullet();
-			}
-		}
-		for (int i = 0; i != m_miniRockets.Count; i++) {
-			if (m_miniRockets[i].IsAlive) {
-				m_miniRockets[i].UpdateBullet();
+		for (int i = 0; i != m_missiles.Count; i++) {
+			if (m_missiles[i].IsAlive) {
+				m_missiles[i].UpdateBullet();
 			}
 		}
 		for (int i = 0; i != m_stunProjectiles.Count; i++) {
@@ -57,31 +48,16 @@ public class BulletsController : MonoBehaviour {
 		}
 	}
 
-	public Rocket SpawnRocket(Vector3 position) {
-		Rocket targetRocket = null;
-		foreach (Rocket rocket in m_rockets) {
+	public Missile SpawnMissile(Vector3 position, float angle) {
+		Missile targetRocket = null;
+		foreach (Missile rocket in m_missiles) {
 			if (!rocket.IsAlive) {
 				targetRocket = rocket;
 				break;
 			}
 		}
 		if (targetRocket == null) {
-			targetRocket = CreateRocket();
-		}
-		targetRocket.Spawn(position);
-		return targetRocket;
-	}
-
-	public MiniRocket SpawnMiniRocket(Vector3 position, float angle) {
-		MiniRocket targetRocket = null;
-		foreach (MiniRocket rocket in m_miniRockets) {
-			if (!rocket.IsAlive) {
-				targetRocket = rocket;
-				break;
-			}
-		}
-		if (targetRocket == null) {
-			targetRocket = CreateMiniRocket();
+			targetRocket = CreateMissile();
 		}
 		targetRocket.Spawn(position, angle);
 		return targetRocket;
@@ -117,14 +93,6 @@ public class BulletsController : MonoBehaviour {
 		return targetLaser;
 	}
 
-	private Rocket CreateRocket() {
-		Rocket rocket = (Instantiate(m_rocketPrefab)).GetComponent<Rocket>();
-		rocket.transform.parent = transform;
-		rocket.Initiate();
-		m_rockets.Add(rocket);
-		return rocket;
-	}
-
 	private StunProjectile CreateStunProjectile() {
 		StunProjectile stunProjectile = (Instantiate(m_stunProjectilePrefab)).GetComponent<StunProjectile>();
 		stunProjectile.transform.parent = transform;
@@ -141,12 +109,12 @@ public class BulletsController : MonoBehaviour {
 		return laser;
 	}
 
-	private MiniRocket CreateMiniRocket() {
-		MiniRocket miniRocket = (Instantiate(m_miniRocketPrefab)).GetComponent<MiniRocket>();
-		miniRocket.transform.parent = transform;
-		miniRocket.Initiate();
-		m_miniRockets.Add(miniRocket);
-		return miniRocket;
+	private Missile CreateMissile() {
+		Missile missile = (Instantiate(m_missilePrefab)).GetComponent<Missile>();
+		missile.transform.parent = transform;
+		missile.Initiate();
+		m_missiles.Add(missile);
+		return missile;
 	}
 
 }

@@ -49,7 +49,7 @@ GameObject:
   - 114: {fileID: 114000013479154126}
   - 135: {fileID: 135000012868924072}
   m_Layer: 0
-  m_Name: ShotgunShip
+  m_Name: RocketShip
   m_TagString: RocketLauncherShip
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

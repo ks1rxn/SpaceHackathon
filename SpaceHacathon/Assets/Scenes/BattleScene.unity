@@ -202,12 +202,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7a21fe64df487b469aaae25eb9a3e5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_rocketPrefab: {fileID: 1000013842758166, guid: b2ddcd660df55cb41b231f259631b15e,
-    type: 2}
   m_stunProjectilePrefab: {fileID: 1000011874940608, guid: 41875d6747d992746932c0955bc64306,
     type: 2}
   m_laserPrefab: {fileID: 124736, guid: e3513e92010ddd745a2b3f28f04733f9, type: 2}
-  m_miniRocketPrefab: {fileID: 1000014139105718, guid: 69ee776467efd7940a50383540058500,
+  m_missilePrefab: {fileID: 1000014139105718, guid: 69ee776467efd7940a50383540058500,
     type: 2}
 --- !u!4 &206581689 stripped
 Transform:
@@ -2259,53 +2257,6 @@ ParticleSystem:
     subEmitterCollision1: {fileID: 0}
     subEmitterDeath: {fileID: 0}
     subEmitterDeath1: {fileID: 0}
---- !u!1001 &581123473
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1148714763}
-    m_Modifications:
-    - target: {fileID: 4000011039898662, guid: fc7609c75af0d154cb18e1593aa914f3, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000011039898662, guid: fc7609c75af0d154cb18e1593aa914f3, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000011039898662, guid: fc7609c75af0d154cb18e1593aa914f3, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000011039898662, guid: fc7609c75af0d154cb18e1593aa914f3, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000011039898662, guid: fc7609c75af0d154cb18e1593aa914f3, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000011039898662, guid: fc7609c75af0d154cb18e1593aa914f3, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000011039898662, guid: fc7609c75af0d154cb18e1593aa914f3, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000011039898662, guid: fc7609c75af0d154cb18e1593aa914f3, type: 2}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: fc7609c75af0d154cb18e1593aa914f3, type: 2}
-  m_IsPrefabParent: 0
---- !u!4 &581123474 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4000011039898662, guid: fc7609c75af0d154cb18e1593aa914f3,
-    type: 2}
-  m_PrefabInternal: {fileID: 581123473}
 --- !u!1 &661514099
 GameObject:
   m_ObjectHideFlags: 0
@@ -2574,7 +2525,6 @@ Transform:
   - {fileID: 1307664929}
   - {fileID: 1309027163}
   - {fileID: 661514100}
-  - {fileID: 581123474}
   m_Father: {fileID: 0}
   m_RootOrder: 5
 --- !u!114 &1148714764
@@ -2616,7 +2566,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_blasterShipPrefab: {fileID: 158262, guid: df9128597e65378458be3fe2497ff62f, type: 2}
-  m_rocketLauncherPrefab: {fileID: 1000010957625058, guid: 04c970db0e7f0c841b61b0f89415d76a,
+  m_droneCarrierPrefab: {fileID: 1000010957625058, guid: 04c970db0e7f0c841b61b0f89415d76a,
     type: 2}
   m_ramShipPrefab: {fileID: 1000011009646898, guid: d64038ff0efaf2c499e747048726b005,
     type: 2}

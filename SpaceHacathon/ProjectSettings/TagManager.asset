@@ -4,15 +4,16 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - RocketLauncherShip
+  - DroneCarrier
   - StunShip
   - RamShip
   - StunProjectile
-  - Rocket
+  - Missile
   - Laser
   - ChargeFuel
   - SpaceMine
   - HealthDroneStation
+  - CarrierRocket
   layers:
   - Default
   - TransparentFX

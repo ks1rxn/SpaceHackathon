@@ -22,7 +22,7 @@ public class AlliesController : MonoBehaviour {
 			} else {
 				if (m_allies[i] is HealthDroneStation) {
 					Vector3 stationPosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, 30, 50);
-					SpawnHealthDroneStation(stationPosition, MathHelper.Random.Next(360));
+					SpawnHealthDroneStation(stationPosition, 0);
 				}
 			}
 		}

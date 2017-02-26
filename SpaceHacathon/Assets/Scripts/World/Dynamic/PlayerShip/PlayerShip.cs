@@ -34,14 +34,14 @@ public class PlayerShip : MonoBehaviour {
         m_chargeSystem.Initiate();
 
 		m_collisionDetector.Initiate();
-		m_collisionDetector.RegisterListener("StunProjectile", OnStunProjectileHit);
-		m_collisionDetector.RegisterListener("Rocket", OnRocketHit);
-		m_collisionDetector.RegisterListener("Laser", OnLaserHit);
-		m_collisionDetector.RegisterListener("RocketLauncherShip", OnEnemyShipHit);
-		m_collisionDetector.RegisterListener("SpaceMine", OnEnemyShipHit);
-		m_collisionDetector.RegisterListener("StunShip", OnEnemyShipHit);
-		m_collisionDetector.RegisterListener("RamShip", OnEnemyShipHit);
-		m_collisionDetector.RegisterListener("ChargeFuel", OnChargeFuelHit);
+		m_collisionDetector.RegisterListener(CollisionTags.StunProjectile, OnStunProjectileHit);
+		m_collisionDetector.RegisterListener(CollisionTags.Missile, OnRocketHit);
+		m_collisionDetector.RegisterListener(CollisionTags.Laser, OnLaserHit);
+		m_collisionDetector.RegisterListener(CollisionTags.DroneCarrier, OnEnemyShipHit);
+		m_collisionDetector.RegisterListener(CollisionTags.SpaceMine, OnEnemyShipHit);
+		m_collisionDetector.RegisterListener(CollisionTags.StunShip, OnEnemyShipHit);
+		m_collisionDetector.RegisterListener(CollisionTags.RamShip, OnEnemyShipHit);
+		m_collisionDetector.RegisterListener(CollisionTags.ChargeFuel, OnChargeFuelHit);
 
 		m_state = ShipState.OnMove;
 	}
@@ -82,13 +82,13 @@ public class PlayerShip : MonoBehaviour {
 		switch (m_state) {
 			case ShipState.OnMove:
 				//todo: remove this shit
-				if (other.CompareTag("SpaceMine")) {
+				if (other.CompareTag(CollisionTags.SpaceMine)) {
 					BattleContext.StatisticsManager.PlayerShipStatistics.MineHit++;
-				} else if (other.CompareTag("StunShip")) {
+				} else if (other.CompareTag(CollisionTags.StunShip)) {
 					BattleContext.StatisticsManager.PlayerShipStatistics.EnemyShipHit++;
-				} else if (other.CompareTag("RamShip")) {
+				} else if (other.CompareTag(CollisionTags.RamShip)) {
 					BattleContext.StatisticsManager.PlayerShipStatistics.RamShipHit++;
-				} else if (other.CompareTag("RocketLauncherShip")) {
+				} else if (other.CompareTag(CollisionTags.DroneCarrier)) {
 					BattleContext.StatisticsManager.PlayerShipStatistics.EnemyShipHit++;
 				}
 				m_hull.Hit(10.0f);
