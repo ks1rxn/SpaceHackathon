@@ -10,6 +10,8 @@ public class BattleContext {
 	private static EnemiesController m_enemiesController;
 	private static BulletsController m_bulletsController;
 	private static BonusesController m_bonusesController;
+	private static AlliesController m_alliesController;
+	private static EffectsController m_effectsController;
 	private static StatisticsManager m_statisticsManager;
 
 	public static void Initiate() {
@@ -21,6 +23,8 @@ public class BattleContext {
 		m_enemiesController = GameObject.Find(EntitiesNames.EnemiesController).GetComponent<EnemiesController>();
 		m_bulletsController = GameObject.Find(EntitiesNames.BulletsController).GetComponent<BulletsController>();
 		m_bonusesController = GameObject.Find(EntitiesNames.BonusesController).GetComponent<BonusesController>();
+		m_alliesController = GameObject.Find(EntitiesNames.AlliesController).GetComponent<AlliesController>();
+		m_effectsController = GameObject.Find(EntitiesNames.EffectsController).GetComponent<EffectsController>();
 		m_director = GameObject.Find(EntitiesNames.Director).GetComponent<Director>();
 		m_statisticsManager = GameObject.Find(EntitiesNames.StatisticsManager).GetComponent<StatisticsManager>();
 	}
@@ -79,6 +83,18 @@ public class BattleContext {
 		}
 	}
 
+	public static AlliesController AlliesController {
+		get {
+			return m_alliesController;
+		}
+	}
+
+	public static EffectsController EffectsController {
+		get {
+			return m_effectsController;
+		}
+	}
+
 	public static StatisticsManager StatisticsManager {
 		get {
 			return m_statisticsManager;
@@ -97,5 +113,7 @@ class EntitiesNames {
 	public const string EnemiesController = "EnemiesController";
 	public const string BulletsController = "BulletsController";
 	public const string BonusesController = "BonusesController";
+	public const string AlliesController = "AlliesController";
+	public const string EffectsController = "EffectsController";
 	public const string StatisticsManager = "Dynamic";
 }

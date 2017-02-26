@@ -22,6 +22,8 @@ public class Director : MonoBehaviour {
 
 		BattleContext.PlayerShip.Initiate();
 		BattleContext.BonusesController.Initiate();
+		BattleContext.AlliesController.Initiate();
+		BattleContext.EffectsController.Initiate();
 		BattleContext.BulletsController.Initiate();
 		BattleContext.EnemiesController.Initiate();
 		BattleContext.ExplosionsController.Initiate();
@@ -60,6 +62,8 @@ public class Director : MonoBehaviour {
 		BattleContext.BulletsController.UpdateEntity();
 		BattleContext.BonusesController.UpdateEntity();
 		BattleContext.EnemiesController.UpdateEntity();
+		BattleContext.AlliesController.UpdateEntity();
+		BattleContext.EffectsController.UpdateEntity();
 	}
 
 }

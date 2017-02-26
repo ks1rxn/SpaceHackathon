@@ -12,6 +12,7 @@ TagManager:
   - Laser
   - ChargeFuel
   - SpaceMine
+  - HealthDroneStation
   layers:
   - Default
   - TransparentFX
