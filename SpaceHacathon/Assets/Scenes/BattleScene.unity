@@ -824,8 +824,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b414e8cc2f43ad40a9e80b1e9109ad0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_chargeFuelPrefab: {fileID: 1000013695592742, guid: d306e640aaed268449195592fc06af19,
+  m_chargeFuelPrefab: {fileID: 1000010347929810, guid: ea964ccb3825aac428ed331710a204f2,
     type: 2}
+  m_timeBonusPrefab: {fileID: 1000013359168042, guid: 2309965fc8a9f3f478537b07976e9173,
+    type: 2}
+  m_fuelCount: 20
+  m_fuelSpawnMinDist: 25
+  m_fuelSpawnMaxDist: 50
+  m_fuelSpawnAngle: 180
+  m_timeCount: 10
+  m_timeSpawnMinDist: 25
+  m_timeSpawnMaxDist: 50
+  m_timeSpawnAngle: 180
 --- !u!1001 &1307664928
 Prefab:
   m_ObjectHideFlags: 0

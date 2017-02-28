@@ -41,4 +41,5 @@ public class CollisionTags {
 	public static readonly string RamShip = "RamShip";
 	public static readonly string SpaceMine = "SpaceMine";
 	public static readonly string ChargeFuel = "ChargeFuel";
+	public static readonly string TimeBonus = "TimeBonus";
 }

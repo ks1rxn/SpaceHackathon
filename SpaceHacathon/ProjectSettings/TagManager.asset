@@ -14,6 +14,9 @@ TagManager:
   - SpaceMine
   - HealthDroneStation
   - CarrierRocket
+  - RocketLauncherShip
+  - Rocket
+  - TimeBonus
   layers:
   - Default
   - TransparentFX

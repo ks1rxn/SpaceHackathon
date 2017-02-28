@@ -19,11 +19,13 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011138926560}
-  - 198: {fileID: 198000010927663846}
+  - 114: {fileID: 114000013472967468}
   - 199: {fileID: 199000010300768776}
+  - 114: {fileID: 114000013664820822}
+  - 198: {fileID: 198000010927663846}
   m_Layer: 0
   m_Name: ChargeFuel
-  m_TagString: Untagged
+  m_TagString: ChargeFuel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -41,6 +43,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &114000013472967468
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010347929810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71860be152cdc414f92aa85405ac5ecf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_collisionDetector: {fileID: 114000013664820822}
+--- !u!114 &114000013664820822
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010347929810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8ae04473e279b7428c4e56ae7ffb351, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!198 &198000010927663846
 ParticleSystem:
   m_ObjectHideFlags: 1

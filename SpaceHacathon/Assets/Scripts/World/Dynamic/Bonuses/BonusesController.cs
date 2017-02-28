@@ -4,14 +4,30 @@ using UnityEngine;
 public class BonusesController : MonoBehaviour {
 	[SerializeField]
 	private GameObject m_chargeFuelPrefab;
+	[SerializeField]
+	private GameObject m_timeBonusPrefab;
 
 	private List<ChargeFuel> m_chargeFuels;
+	private List<TimeBonus> m_timeBonuses;
+
+	[SerializeField]
+	private int m_fuelCount;
+	[SerializeField]
+	private float m_fuelSpawnMinDist, m_fuelSpawnMaxDist, m_fuelSpawnAngle;
+	[SerializeField]
+	private int m_timeCount;
+	[SerializeField]
+	private float m_timeSpawnMinDist, m_timeSpawnMaxDist, m_timeSpawnAngle;
 
 	public void Initiate() {
 		m_chargeFuels = new List<ChargeFuel>();
+		m_timeBonuses = new List<TimeBonus>();
 
-		for (int i = 0; i != 20; i++) {
+		for (int i = 0; i != m_fuelCount; i++) {
 			CreateChargeFuel();
+		}
+		for (int i = 0; i != m_timeCount; i++) {
+			CreateTimeBonus();
 		}
 	}
 
@@ -28,13 +44,27 @@ public class BonusesController : MonoBehaviour {
 				}
 			}
 		}
+		for (int i = 0; i != m_timeBonuses.Count; i++) {
+			if (!m_timeBonuses[i].IsAlive) {
+				Respawn(m_timeBonuses[i]);
+			} else {
+				if (Vector3.Distance(m_timeBonuses[i].transform.position, playerPosition) < 50) {
+					m_timeBonuses[i].UpdateState();
+				} else if (Vector3.Distance(m_timeBonuses[i].transform.position, playerPosition) > 80) {
+					m_timeBonuses[i].IsAlive = false;
+				}
+			}
+		}
 	}
 
-	public void Respawn(ChargeFuel fuel) {
+	private void Respawn(ChargeFuel fuel) {
 		Vector3 playerPos = BattleContext.PlayerShip.Position;
-		float angle = (float) MathHelper.Random.NextDouble() * 360;
-		float distance = MathHelper.Random.Next(30) + 25;
-		fuel.Spawn(new Vector3(playerPos.x + Mathf.Cos(angle * Mathf.PI / 180) * distance, 0 , playerPos.z + Mathf.Sin(angle * Mathf.PI / 180) * distance));
+		fuel.Spawn(MathHelper.GetPointAround(playerPos, BattleContext.PlayerShip.SpeedValue, m_fuelSpawnAngle, m_fuelSpawnMinDist, m_fuelSpawnMaxDist));
+	}
+
+	private void Respawn(TimeBonus fuel) {
+		Vector3 playerPos = BattleContext.PlayerShip.Position;
+		fuel.Spawn(MathHelper.GetPointAround(playerPos, BattleContext.PlayerShip.SpeedValue, m_timeSpawnAngle, m_timeSpawnMinDist, m_timeSpawnMaxDist));
 	}
 
 	private ChargeFuel CreateChargeFuel() {
@@ -43,6 +73,14 @@ public class BonusesController : MonoBehaviour {
 		chargeFuel.Initiate();
 		m_chargeFuels.Add(chargeFuel);
 		return chargeFuel;
+	}
+
+	private TimeBonus CreateTimeBonus() {
+		TimeBonus timeBonus = (Instantiate(m_timeBonusPrefab)).GetComponent<TimeBonus>();
+		timeBonus.transform.parent = transform;
+		timeBonus.Initiate();
+		m_timeBonuses.Add(timeBonus);
+		return timeBonus;
 	}
 
 	public List<ChargeFuel> ChargeFuels {
