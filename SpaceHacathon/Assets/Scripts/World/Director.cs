@@ -1,9 +1,14 @@
 ﻿using UnityEngine;
 
 public class Director : MonoBehaviour {
-	private float m_fps;
-	private int m_frames;
-
+	[SerializeField]
+	private Vector3 m_playerShipPosition;
+	[SerializeField]
+	private float m_playerShipAngle;
+	[SerializeField]
+	private GameObject m_playerShipPrefab;
+	private PlayerShip m_playerShip;
+	
 	private void Awake() {
 //		Analytics.CustomEvent("gameStart", new Dictionary<string, object> {
 //			{ "device", SystemInfo.deviceModel },
@@ -11,7 +16,6 @@ public class Director : MonoBehaviour {
 //			{ "install", Application.installMode },
 //			{ "version", Application.version }
 //		});
-
 		BattleContext.Initiate();
 
 		BattleContext.StatisticsManager.Initiate();
@@ -20,7 +24,6 @@ public class Director : MonoBehaviour {
 
 		BattleContext.GUIManager.PlayerGUIController.Show();
 
-		BattleContext.PlayerShip.Initiate();
 		BattleContext.BonusesController.Initiate();
 		BattleContext.AlliesController.Initiate();
 		BattleContext.EffectsController.Initiate();
@@ -29,6 +32,8 @@ public class Director : MonoBehaviour {
 		BattleContext.ExplosionsController.Initiate();
 
 		BattleContext.TimeManager.SetTimeScaleMode(TimeScaleMode.Normal);
+
+		SpawnPlayerShip(m_playerShipPosition, m_playerShipAngle);
 	}
 
 	public void OnPauseGame() {
@@ -51,6 +56,13 @@ public class Director : MonoBehaviour {
 		BattleContext.StatisticsManager.SendPlayerShipStatistics();
 	}
 
+	public void OnTimeExprire() {
+		BattleContext.GUIManager.PlayerGUIController.Hide();
+		BattleContext.GUIManager.DeathMenu.Show();
+		BattleContext.TimeManager.Pause();
+		BattleContext.StatisticsManager.SendPlayerShipStatistics();
+	}
+
 	private void Update() {
 		BattleContext.StatisticsManager.UpdateEntity();
 		BattleContext.TimeManager.UpdateEntity();
@@ -64,6 +76,19 @@ public class Director : MonoBehaviour {
 		BattleContext.EnemiesController.UpdateEntity();
 		BattleContext.AlliesController.UpdateEntity();
 		BattleContext.EffectsController.UpdateEntity();
+	}
+
+	private void SpawnPlayerShip(Vector3 position, float angle) {
+		m_playerShip = (Instantiate(m_playerShipPrefab)).GetComponent<PlayerShip>();
+		m_playerShip.transform.parent = transform;
+		m_playerShip.Initiate();
+		m_playerShip.Spawn(position, angle);
+	}
+
+	public PlayerShip PlayerShip {
+		get {
+			return m_playerShip;
+		}
 	}
 
 }

@@ -28,6 +28,8 @@ public class EnemiesController : MonoBehaviour {
 	private bool m_stunShipAlive;
 
 	[SerializeField]
+	private bool m_enableDC, m_enableRS, m_enableSM, m_enableRAM, m_enableSTUN;
+	[SerializeField]
 	private int m_DCCount, m_DCSpawnAngle, m_DCSpawnMinDistance, m_DCSpawnMaxDistance;
 	[SerializeField]
 	private int m_RSCount, m_RSSpawnAngle, m_RSSpawnMinDistance, m_RSSpawnMaxDistance;
@@ -45,31 +47,31 @@ public class EnemiesController : MonoBehaviour {
 		m_spaceMines = new List<SpaceMine>();
 		m_droneCarriers = new List<DroneCarrier>();
 		m_rocketShips = new List<RocketShip>();
-		for (int i = 0; i != m_DCCount; i++) {
-			CreateRocketLauncher();
+		if (m_enableDC) {
+			for (int i = 0; i != m_DCCount; i++) {
+				CreateDroneCarrier();
+			}
 		}
-		for (int i = 0; i != m_RSCount; i++) {
-			CreateRocketShip();
+		if (m_enableRS) {
+			for (int i = 0; i != m_RSCount; i++) {
+				CreateRocketShip();
+			}
 		}
-		for (int i = 0; i != 1; i++) {
-			CreateStunShip();
+		if (m_enableSM) {
+			for (int i = 0; i != m_SMCount; i++) {
+				CreateSpaceMine();
+			}
 		}
-		for (int i = 0; i != 1; i++) {
-			CreateRamShip();
-		}
-		for (int i = 0; i != m_SMCount; i++) {
-			CreateSpaceMine();
-		}
-
-		m_ramShipCooldown = MathHelper.Random.Next(m_RAMCooldownDispertion) - m_RAMCooldownDispertion / 2 + m_RAMCooldownValue;
+		
+		m_ramShipCooldown = MathHelper.Random.Next(m_RAMCooldownDispertion * 2) - m_RAMCooldownDispertion + m_RAMCooldownValue;
 		m_ramShipAlive = false;
 
-		m_stunShipCooldown = MathHelper.Random.Next(m_STUNCooldownDispertion) - m_STUNCooldownDispertion / 2 + m_STUNCooldownValue;
+		m_stunShipCooldown = MathHelper.Random.Next(m_STUNCooldownDispertion * 2) - m_STUNCooldownDispertion + m_STUNCooldownValue;
 		m_stunShipAlive = false;
 	}
 
 	public void UpdateEntity() {
-		if (!m_ramShipAlive) {
+		if (m_enableRAM && !m_ramShipAlive) {
 			if (m_ramShipCooldown > 0) {
 				m_ramShipCooldown -= Time.fixedDeltaTime;
 			} else {
@@ -78,7 +80,7 @@ public class EnemiesController : MonoBehaviour {
 			}
 		}
 
-		if (!m_stunShipAlive) {
+		if (m_enableSTUN && !m_stunShipAlive) {
 			if (m_stunShipCooldown > 0) {
 				m_stunShipCooldown -= Time.fixedDeltaTime;
 			} else {
@@ -110,12 +112,12 @@ public class EnemiesController : MonoBehaviour {
 	}
 
 	public void OnRamShipDie() {
-		m_ramShipCooldown = MathHelper.Random.Next(m_RAMCooldownDispertion) - m_RAMCooldownDispertion / 2 + m_RAMCooldownValue;
+		m_ramShipCooldown = MathHelper.Random.Next(m_RAMCooldownDispertion * 2) - m_RAMCooldownDispertion + m_RAMCooldownValue;
 		m_ramShipAlive = false;
 	}
 
 	public void OnStunShipDie() {
-		m_stunShipCooldown = MathHelper.Random.Next(m_STUNCooldownDispertion) - m_STUNCooldownDispertion / 2 + m_STUNCooldownValue;
+		m_stunShipCooldown = MathHelper.Random.Next(m_STUNCooldownDispertion * 2) - m_STUNCooldownDispertion + m_STUNCooldownValue;
 		m_stunShipAlive = false;
 	}
 
@@ -143,7 +145,7 @@ public class EnemiesController : MonoBehaviour {
 			}
 		}
 		if (targetShip == null) {
-			targetShip = CreateRocketLauncher();
+			targetShip = CreateDroneCarrier();
 		}
 		targetShip.Spawn(position, rotation);
 		return targetShip;
@@ -203,7 +205,7 @@ public class EnemiesController : MonoBehaviour {
 		return stunShip;
 	}
 
-	private DroneCarrier CreateRocketLauncher() {
+	private DroneCarrier CreateDroneCarrier() {
 		DroneCarrier droneCarrier = (Instantiate(m_droneCarrierPrefab)).GetComponent<DroneCarrier>();
 		droneCarrier.transform.parent = transform;
 		droneCarrier.Initiate();

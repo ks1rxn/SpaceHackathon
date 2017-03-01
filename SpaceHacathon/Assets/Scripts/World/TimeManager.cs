@@ -1,16 +1,26 @@
 ﻿using UnityEngine;
 
 public class TimeManager : MonoBehaviour {
+	[SerializeField]
+	private float m_gameTime;
+
 	private TimeScaleMode m_timeScaleMode;
     private bool m_onPause;
 
-	private float m_points;
+	public float GameTime { get; set; }
+	public float TimeLeft { get; set; }
 
 	public void Initiate() {
-		m_points = 0;
+		GameTime = 0;
+		TimeLeft = m_gameTime;
+
 		Time.timeScale = 1.0f;
 		Time.fixedDeltaTime = 0.02F * Time.timeScale;
 		m_timeScaleMode = TimeScaleMode.Normal;
+	}
+
+	public void AddGameTime(float time) {
+		TimeLeft += time;
 	}
 
 	public void SetTimeScaleMode(TimeScaleMode mode) {
@@ -39,8 +49,13 @@ public class TimeManager : MonoBehaviour {
     public void UpdateEntity() {
         UpdateTimeSpeed();
 
-        m_points += Time.deltaTime;
-        BattleContext.GUIManager.PlayerGUIController.SetPoints(m_points);
+        GameTime += Time.deltaTime;
+	    TimeLeft -= Time.deltaTime;
+        BattleContext.GUIManager.PlayerGUIController.SetPoints(TimeLeft);
+
+	    if (TimeLeft <= 0) {
+		    BattleContext.Director.OnTimeExprire();
+	    }
     }
 
     private void UpdateTimeSpeed() {
@@ -64,11 +79,6 @@ public class TimeManager : MonoBehaviour {
 		Time.fixedDeltaTime = 0.02F * Time.timeScale;
 	}
 
-    public float Points {
-        get {
-            return m_points;
-        }
-    }
 }
 
 public enum TimeScaleMode {

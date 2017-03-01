@@ -23,6 +23,7 @@ GameObject:
   - 199: {fileID: 199000010300768776}
   - 114: {fileID: 114000013664820822}
   - 198: {fileID: 198000010927663846}
+  - 65: {fileID: 65000012961457370}
   m_Layer: 0
   m_Name: ChargeFuel
   m_TagString: ChargeFuel
@@ -43,6 +44,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!65 &65000012961457370
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010347929810}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114000013472967468
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -116,7 +129,7 @@ ParticleSystem:
   moveWithTransform: 1
   autoRandomSeed: 1
   scalingMode: 1
-  randomSeed: -1467393449
+  randomSeed: 1223002168
   InitialModule:
     serializedVersion: 2
     enabled: 1
