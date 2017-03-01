@@ -19,7 +19,7 @@ public class StatisticsManager : MonoBehaviour {
 	}
 
 	public void SendPlayerShipStatistics() {
-		m_analytics.LogEvent("BattleScene", "EndBattle", "TimeAlive", (int)BattleContext.TimeManager.Points);
+		m_analytics.LogEvent("BattleScene", "EndBattle", "TimeAlive", (int)BattleContext.TimeManager.GameTime);
 		m_analytics.LogEvent("BattleScene", "EndBattle", "RamShipHit", m_playerShipStatistics.RamShipHit);
 		m_analytics.LogEvent("BattleScene", "EndBattle", "MineHit", m_playerShipStatistics.MineHit);
 		m_analytics.LogEvent("BattleScene", "EndBattle", "EnemyShipHit", m_playerShipStatistics.EnemyShipHit);

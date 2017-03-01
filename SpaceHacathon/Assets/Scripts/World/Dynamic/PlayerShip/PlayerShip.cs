@@ -42,8 +42,15 @@ public class PlayerShip : MonoBehaviour {
 		m_collisionDetector.RegisterListener(CollisionTags.StunShip, OnEnemyShipHit);
 		m_collisionDetector.RegisterListener(CollisionTags.RamShip, OnEnemyShipHit);
 		m_collisionDetector.RegisterListener(CollisionTags.ChargeFuel, OnChargeFuelHit);
+		m_collisionDetector.RegisterListener(CollisionTags.TimeBonus, OnTimeBonusHit);
 
 		m_state = ShipState.OnMove;
+	}
+
+	public void Spawn(Vector3 position, float angle) {
+		transform.position = position;
+		transform.Rotate(0, -angle, 0);
+		SetAngle(angle);
 	}
 
 	public void OnStunProjectileHit(GameObject other) {
@@ -102,6 +109,10 @@ public class PlayerShip : MonoBehaviour {
 		m_chargeSystem.AddFuel();
 	}
 
+	public void OnTimeBonusHit(GameObject other) {
+		BattleContext.TimeManager.AddGameTime(other.GetComponent<TimeBonus>().GiveSeconds);
+	}
+
     public void Die() {
 	    if (m_state == ShipState.Dead) {
 		    return;
@@ -124,6 +135,18 @@ public class PlayerShip : MonoBehaviour {
 			}
 			return;
 		}
+		UpdateMovement();
+		DrawRamIndicator();
+
+		m_hull.UpdateHull();
+        m_hull.SetFlyingParameters(m_rigidbody.angularVelocity.y, m_shipParams.EnginePower < 450  || m_state == ShipState.InCharge ? ThrottleState.Off : m_power);
+	}
+
+	private void DrawRamIndicator() {
+		if (BattleContext.EnemiesController.RamShips.Count == 0) {
+			m_ramDirection.SetActive(false);
+			return;
+		}
 		RamShip ramShip = BattleContext.EnemiesController.RamShips[0];
 		if (ramShip.IsAlive && ramShip.State == RamShipState.Running && Vector3.Distance(Position, ramShip.Position) < 60) {
 			m_ramDirection.SetActive(true);
@@ -134,9 +157,6 @@ public class PlayerShip : MonoBehaviour {
 		} else {
 			m_ramDirection.SetActive(false);
 		}
-		UpdateMovement();
-		m_hull.UpdateHull();
-        m_hull.SetFlyingParameters(m_rigidbody.angularVelocity.y, m_shipParams.EnginePower < 450  || m_state == ShipState.InCharge ? ThrottleState.Off : m_power);
 	}
 
 	private void UpdateMovement() {
@@ -175,6 +195,7 @@ public class PlayerShip : MonoBehaviour {
 			return;
 		}
 		m_neededAngle = angle;
+		BattleContext.GUIManager.PlayerGUIController.SetRightJoystickAngle(angle);
 	}
 
 	public void SetPower(ThrottleState power) {
@@ -182,6 +203,7 @@ public class PlayerShip : MonoBehaviour {
 			return;
 		}
 		m_power = power;
+		BattleContext.GUIManager.PlayerGUIController.SetLeftJoysticValue(power);
 	}
 
 	public void Charge() {

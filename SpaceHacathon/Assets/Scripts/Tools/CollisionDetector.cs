@@ -29,6 +29,17 @@ public class CollisionDetector : MonoBehaviour {
 		}
 	}
 
+	private void OnCollisionEnter(Collision collision) {
+		Action<GameObject> callback;
+		if (m_callbacks.TryGetValue(collision.gameObject.tag, out callback)) {
+			callback(collision.gameObject);
+			return;
+		}
+		if (m_defaultCallback != null) {
+			m_defaultCallback(collision.gameObject);
+		}
+	}
+
 }
 
 public class CollisionTags {

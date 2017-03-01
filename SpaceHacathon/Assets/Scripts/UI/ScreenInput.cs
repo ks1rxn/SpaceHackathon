@@ -72,12 +72,10 @@ public class ScreenInput : MonoBehaviour {
 
 	private void SetShipPower(ThrottleState power) {
 		BattleContext.PlayerShip.SetPower(power);
-		BattleContext.GUIManager.PlayerGUIController.SetLeftJoysticValue(power);
 	}
 
 	private void SetShipAngle(float angle) {
 		BattleContext.PlayerShip.SetAngle(angle);
-		BattleContext.GUIManager.PlayerGUIController.SetRightJoystickAngle(angle);
 	}
 
 	private void Charge() {

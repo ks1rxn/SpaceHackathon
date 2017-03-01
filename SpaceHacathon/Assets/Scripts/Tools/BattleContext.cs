@@ -3,7 +3,6 @@
 public class BattleContext {
 	private static Director m_director;
     private static TimeManager m_timeManager;
-	private static PlayerShip m_playerShip;
 	private static BattleCamera m_battleCamera;
 	private static GUIManager m_guiManager;
 	private static ExplosionsController m_explosionsController;
@@ -16,7 +15,6 @@ public class BattleContext {
 
 	public static void Initiate() {
 		m_timeManager = GameObject.Find(EntitiesNames.TimeManager).GetComponent<TimeManager>();
-		m_playerShip = GameObject.Find(EntitiesNames.PlayerShip).GetComponent<PlayerShip>();
 		m_battleCamera = GameObject.Find(EntitiesNames.BattleCamera).GetComponent<BattleCamera>();
 		m_guiManager = GameObject.Find(EntitiesNames.GUIManager).GetComponent<GUIManager>();
 		m_explosionsController = GameObject.Find(EntitiesNames.ExplosionsController).GetComponent<ExplosionsController>();
@@ -43,7 +41,7 @@ public class BattleContext {
 
 	public static PlayerShip PlayerShip {
 		get {
-			return m_playerShip;
+			return m_director.PlayerShip;
 		}
 	}
 

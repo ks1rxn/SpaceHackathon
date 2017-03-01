@@ -11,6 +11,10 @@ public class BonusesController : MonoBehaviour {
 	private List<TimeBonus> m_timeBonuses;
 
 	[SerializeField]
+	private bool m_enableFuel;
+	[SerializeField]
+	private bool m_enableTime;
+	[SerializeField]
 	private int m_fuelCount;
 	[SerializeField]
 	private float m_fuelSpawnMinDist, m_fuelSpawnMaxDist, m_fuelSpawnAngle;
@@ -23,11 +27,15 @@ public class BonusesController : MonoBehaviour {
 		m_chargeFuels = new List<ChargeFuel>();
 		m_timeBonuses = new List<TimeBonus>();
 
-		for (int i = 0; i != m_fuelCount; i++) {
-			CreateChargeFuel();
+		if (m_enableFuel) {
+			for (int i = 0; i != m_fuelCount; i++) {
+				CreateChargeFuel();
+			}
 		}
-		for (int i = 0; i != m_timeCount; i++) {
-			CreateTimeBonus();
+		if (m_enableTime) {
+			for (int i = 0; i != m_timeCount; i++) {
+				CreateTimeBonus();
+			}
 		}
 	}
 
