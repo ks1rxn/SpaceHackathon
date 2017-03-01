@@ -705,7 +705,7 @@ MonoBehaviour:
   m_DCSpawnAngle: 90
   m_DCSpawnMinDistance: 22
   m_DCSpawnMaxDistance: 39
-  m_RSCount: 4
+  m_RSCount: 3
   m_RSSpawnAngle: 90
   m_RSSpawnMinDistance: 19
   m_RSSpawnMaxDistance: 37
