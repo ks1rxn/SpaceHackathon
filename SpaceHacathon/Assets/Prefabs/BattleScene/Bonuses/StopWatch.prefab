@@ -109,7 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa5fcfc61b1b25c46a4c896bac356ade, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_giveSecondsValue: 20
+  m_giveSecondsValue: 21
   m_giveSecondsDispertion: 5
   m_collisionDetector: {fileID: 114000010909646636}
 --- !u!198 &198000011449496946
