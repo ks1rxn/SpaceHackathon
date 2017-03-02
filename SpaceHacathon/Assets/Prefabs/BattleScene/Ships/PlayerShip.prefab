@@ -320,7 +320,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 186194}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 3.656805, y: -5.3920584, z: 4.7992153}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: -63.942, z: 0}
   m_Children:
@@ -16708,7 +16708,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1000010856190268
 GameObject:
   m_ObjectHideFlags: 0
@@ -30414,7 +30414,7 @@ ParticleSystem:
   moveWithTransform: 1
   autoRandomSeed: 1
   scalingMode: 1
-  randomSeed: -1793936727
+  randomSeed: 1034965567
   InitialModule:
     serializedVersion: 2
     enabled: 1
@@ -30577,7 +30577,7 @@ ParticleSystem:
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 1}
+      maxColor: {r: 0.59607846, g: 0.59607846, b: 0.59607846, a: 0.67058825}
       minMaxState: 0
     startSize:
       scalar: 5
@@ -42682,7 +42682,7 @@ ParticleSystem:
   moveWithTransform: 1
   autoRandomSeed: 1
   scalingMode: 1
-  randomSeed: 1487805344
+  randomSeed: 292914760
   InitialModule:
     serializedVersion: 2
     enabled: 1
@@ -42845,7 +42845,7 @@ ParticleSystem:
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 1}
+      maxColor: {r: 0.6117647, g: 0.6117647, b: 0.6117647, a: 1}
       minMaxState: 0
     startSize:
       scalar: 5
@@ -66633,6 +66633,6 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300006, guid: 17f43eb7a86fa024eb45bbca52079c76, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.45588237, g: 0.45588237, b: 0.45588237, a: 1}
   m_FlipX: 0
   m_FlipY: 0
