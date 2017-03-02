@@ -64,17 +64,29 @@ public class SpaceMine : IEnemyShip {
 
 		switch (m_state) {
 			case SpaceMineState.Waiting:
-				m_lineRenderer.SetPosition(0, Position);
-				m_lineRenderer.SetPosition(1, Position);
 				Waiting();
 				break;
 			case SpaceMineState.Chasing:
-				m_lineRenderer.SetPosition(0, Position);
-				m_lineRenderer.SetPosition(1, BattleContext.PlayerShip.Position);
 				Chasing();
 				break;
 		}
 
+	}
+
+	private void LateUpdate() {
+		switch (m_state) {
+			case SpaceMineState.Waiting:
+				m_lineRenderer.SetPosition(0, Position);
+				m_lineRenderer.SetPosition(1, Position);
+				break;
+			case SpaceMineState.Chasing:
+				Vector3 pos = Position;
+				pos.y = 0;
+				m_lineRenderer.SetPosition(0, pos);
+				Vector3 toTarget = (BattleContext.PlayerShip.Position - pos).normalized * 1.31f;
+				m_lineRenderer.SetPosition(1, BattleContext.PlayerShip.Position - toTarget);
+				break;
+		}
 	}
 
 	private void Waiting() {

@@ -25,6 +25,8 @@ public class PlayerShip : MonoBehaviour {
 	private GameObject m_ramDirection;
 	[SerializeField]
 	private Animation m_ramDirectionIndicator;
+	[SerializeField]
+	private GameObject m_mineIndicator;
 
 	public void Initiate() {
 		m_effects = new EffectsOnShip();
@@ -140,6 +142,30 @@ public class PlayerShip : MonoBehaviour {
 
 		m_hull.UpdateHull();
         m_hull.SetFlyingParameters(m_rigidbody.angularVelocity.y, m_shipParams.EnginePower < 450  || m_state == ShipState.InCharge ? ThrottleState.Off : m_power);
+	}
+
+	private void LateUpdate() {
+		DrawMineIndicator();
+	}
+
+	private void DrawMineIndicator() {
+		if (BattleContext.EnemiesController.SpaceMines.Count == 0) {
+			return;
+		}
+		SpaceMine nearest = null;
+		float minDist = float.MaxValue;
+		foreach (SpaceMine spaceMine in BattleContext.EnemiesController.SpaceMines) {
+			float dist = (Position - spaceMine.Position).magnitude;
+			if (dist < minDist) {
+				minDist = dist;
+				nearest = spaceMine;
+			}
+		}
+		Vector3 pos = nearest.Position;
+		pos.y = 0;
+		float angle = MathHelper.AngleBetweenVectors(LookVector, pos - Position);
+		m_mineIndicator.transform.rotation = new Quaternion();
+		m_mineIndicator.transform.Rotate(90, angle, 0);
 	}
 
 	private void DrawRamIndicator() {

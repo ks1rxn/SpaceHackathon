@@ -484,14 +484,14 @@ LineRenderer:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   m_Parameters:
-    startWidth: 0.08
-    endWidth: 0.08
+    startWidth: 0.04
+    endWidth: 0.04
     m_StartColor:
       serializedVersion: 2
-      rgba: 4294967295
+      rgba: 2835349503
     m_EndColor:
       serializedVersion: 2
-      rgba: 4294967295
+      rgba: 2835349503
   m_UseWorldSpace: 1
 --- !u!198 &198000010441962736
 ParticleSystem:

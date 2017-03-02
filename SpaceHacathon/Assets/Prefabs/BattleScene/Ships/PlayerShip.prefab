@@ -517,6 +517,7 @@ MonoBehaviour:
   m_collisionDetector: {fileID: 114000013761609690}
   m_ramDirection: {fileID: 1000013331395630}
   m_ramDirectionIndicator: {fileID: 111000013333872800}
+  m_mineIndicator: {fileID: 1000010804759492}
 --- !u!114 &11483050
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -30413,7 +30414,7 @@ ParticleSystem:
   moveWithTransform: 1
   autoRandomSeed: 1
   scalingMode: 1
-  randomSeed: 215352094
+  randomSeed: -1793936727
   InitialModule:
     serializedVersion: 2
     enabled: 1
@@ -42681,7 +42682,7 @@ ParticleSystem:
   moveWithTransform: 1
   autoRandomSeed: 1
   scalingMode: 1
-  randomSeed: -1910907565
+  randomSeed: 1487805344
   InitialModule:
     serializedVersion: 2
     enabled: 1
