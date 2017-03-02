@@ -140,32 +140,17 @@ public class PlayerShip : MonoBehaviour {
 		UpdateMovement();
 		DrawRamIndicator();
 
-		m_hull.UpdateHull();
-        m_hull.SetFlyingParameters(m_rigidbody.angularVelocity.y, m_shipParams.EnginePower < 450  || m_state == ShipState.InCharge ? ThrottleState.Off : m_power);
-	}
-
-	private void LateUpdate() {
-		DrawMineIndicator();
-	}
-
-	private void DrawMineIndicator() {
-		if (BattleContext.EnemiesController.SpaceMines.Count == 0) {
-			return;
-		}
-		SpaceMine nearest = null;
-		float minDist = float.MaxValue;
-		foreach (SpaceMine spaceMine in BattleContext.EnemiesController.SpaceMines) {
-			float dist = (Position - spaceMine.Position).magnitude;
-			if (dist < minDist) {
-				minDist = dist;
-				nearest = spaceMine;
+		bool isOnMineTarget = false;
+		foreach (SpaceMine mine in BattleContext.EnemiesController.SpaceMines) {
+			if (mine.IsAlive && mine.State == SpaceMineState.Chasing) {
+				isOnMineTarget = true;
+				break;
 			}
 		}
-		Vector3 pos = nearest.Position;
-		pos.y = 0;
-		float angle = MathHelper.AngleBetweenVectors(LookVector, pos - Position);
-		m_mineIndicator.transform.rotation = new Quaternion();
-		m_mineIndicator.transform.Rotate(90, angle, 0);
+		m_mineIndicator.SetActive(isOnMineTarget);
+
+		m_hull.UpdateHull();
+        m_hull.SetFlyingParameters(m_rigidbody.angularVelocity.y, m_shipParams.EnginePower < 450  || m_state == ShipState.InCharge ? ThrottleState.Off : m_power);
 	}
 
 	private void DrawRamIndicator() {

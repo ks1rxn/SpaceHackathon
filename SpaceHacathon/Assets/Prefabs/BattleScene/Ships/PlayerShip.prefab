@@ -320,7 +320,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 186194}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.656805, y: -5.3920584, z: 4.7992153}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: -63.942, z: 0}
   m_Children:
@@ -517,7 +517,7 @@ MonoBehaviour:
   m_collisionDetector: {fileID: 114000013761609690}
   m_ramDirection: {fileID: 1000013331395630}
   m_ramDirectionIndicator: {fileID: 111000013333872800}
-  m_mineIndicator: {fileID: 1000010804759492}
+  m_mineIndicator: {fileID: 1000011241889890}
 --- !u!114 &11483050
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -30414,7 +30414,7 @@ ParticleSystem:
   moveWithTransform: 1
   autoRandomSeed: 1
   scalingMode: 1
-  randomSeed: 1034965567
+  randomSeed: 255490255
   InitialModule:
     serializedVersion: 2
     enabled: 1
@@ -42682,7 +42682,7 @@ ParticleSystem:
   moveWithTransform: 1
   autoRandomSeed: 1
   scalingMode: 1
-  randomSeed: 292914760
+  randomSeed: -1438216316
   InitialModule:
     serializedVersion: 2
     enabled: 1

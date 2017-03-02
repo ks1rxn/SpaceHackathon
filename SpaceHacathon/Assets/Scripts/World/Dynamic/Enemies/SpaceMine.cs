@@ -82,7 +82,7 @@ public class SpaceMine : IEnemyShip {
 			case SpaceMineState.Chasing:
 				Vector3 pos = Position;
 				pos.y = 0;
-				m_lineRenderer.SetPosition(0, pos);
+				m_lineRenderer.SetPosition(0, Position);
 				Vector3 toTarget = (BattleContext.PlayerShip.Position - pos).normalized * 1.31f;
 				m_lineRenderer.SetPosition(1, BattleContext.PlayerShip.Position - toTarget);
 				break;
@@ -134,6 +134,12 @@ public class SpaceMine : IEnemyShip {
 
 			m_waitingPosition = Position;
 			m_waitingPosition.y = -3 + MathHelper.Random.Next(1);
+		}
+	}
+
+	public SpaceMineState State {
+		get {
+			return m_state;
 		}
 	}
 
