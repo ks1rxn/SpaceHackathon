@@ -14,7 +14,7 @@ TagManager:
   - SpaceMine
   - HealthDroneStation
   - CarrierRocket
-  - RocketLauncherShip
+  - RocketShip
   - Rocket
   - TimeBonus
   layers:

@@ -45,9 +45,11 @@ public class CollisionDetector : MonoBehaviour {
 public class CollisionTags {
 	public static readonly string PlayerShip = "Player";
 	public static readonly string StunProjectile = "StunProjectile";
-	public static readonly string Missile = "Rocket";
+	public static readonly string Missile = "Missile";
+	public static readonly string CarrierRocket = "CarrierRocket";
 	public static readonly string Laser = "Laser";
-	public static readonly string DroneCarrier = "RocketLauncherShip";
+	public static readonly string DroneCarrier = "DroneCarrier";
+	public static readonly string RocketShip = "RocketShip";
 	public static readonly string StunShip = "StunShip";
 	public static readonly string RamShip = "RamShip";
 	public static readonly string SpaceMine = "SpaceMine";
