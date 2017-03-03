@@ -17,6 +17,8 @@ TagManager:
   - RocketShip
   - Rocket
   - TimeBonus
+  - RocketLauncherShip
+  - SlowingCloud
   layers:
   - Default
   - TransparentFX

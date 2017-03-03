@@ -510,6 +510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1070a727a78dfde4998bbe65bfaf1458, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_immortal: 1
   m_rigidbody: {fileID: 5431050}
   m_hull: {fileID: 11496306}
   m_chargeSystem: {fileID: 114000012093317442}

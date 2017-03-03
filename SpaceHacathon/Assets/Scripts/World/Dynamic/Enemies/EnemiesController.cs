@@ -94,16 +94,16 @@ public class EnemiesController : MonoBehaviour {
 				m_ships[i].UpdateShip();
 			} else {
 				if (m_ships[i] is DroneCarrier) {
-					Vector3 dcPosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, BattleContext.PlayerShip.SpeedValue, m_DCSpawnAngle, m_DCSpawnMinDistance, m_DCSpawnMaxDistance);
+					Vector3 dcPosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, BattleContext.PlayerShip.SpeedVector, m_DCSpawnAngle, m_DCSpawnMinDistance, m_DCSpawnMaxDistance);
 					dcPosition.y = -0.75f;
 					SpawnDroneCarrier(dcPosition, MathHelper.Random.Next(360));
 				}
 				if (m_ships[i] is RocketShip) {
-					Vector3 rsPosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, BattleContext.PlayerShip.SpeedValue, m_RSSpawnAngle, m_RSSpawnMinDistance, m_RSSpawnMaxDistance);
+					Vector3 rsPosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, BattleContext.PlayerShip.SpeedVector, m_RSSpawnAngle, m_RSSpawnMinDistance, m_RSSpawnMaxDistance);
 					SpawnRocketShip(rsPosition, MathHelper.Random.Next(360));
 				}
 				if (m_ships[i] is SpaceMine) {
-					Vector3 spaceMinePosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, BattleContext.PlayerShip.SpeedValue, m_SMSpawnAngle, m_SMSpawnMinDistance, m_SMSpawnMaxDistance);
+					Vector3 spaceMinePosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, BattleContext.PlayerShip.SpeedVector, m_SMSpawnAngle, m_SMSpawnMinDistance, m_SMSpawnMaxDistance);
 					spaceMinePosition.y = -2.5f;
 					SpawnSpaceMine(spaceMinePosition);
 				}

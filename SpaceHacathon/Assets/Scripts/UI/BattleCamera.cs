@@ -13,7 +13,7 @@ public class BattleCamera : MonoBehaviour {
 	private readonly FloatPid m_yController = new FloatPid(1.5f, 0, 9f);
 
 	public void UpdateEntity() {
-		Vector3 neededPosition = BattleContext.PlayerShip.Position + BattleContext.PlayerShip.SpeedValue * 0.2f;
+		Vector3 neededPosition = BattleContext.PlayerShip.Position + BattleContext.PlayerShip.SpeedVector * 0.2f;
 		neededPosition.y = 7.5f;
 		neededPosition.z -= 9;
 

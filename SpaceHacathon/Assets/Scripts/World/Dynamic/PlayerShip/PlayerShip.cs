@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class PlayerShip : MonoBehaviour {
 	[SerializeField]
+	private bool m_immortal;
+
+	[SerializeField]
 	private Rigidbody m_rigidbody;
 
 	private float m_neededAngle;
@@ -45,6 +48,7 @@ public class PlayerShip : MonoBehaviour {
 		m_collisionDetector.RegisterListener(CollisionTags.RamShip, OnEnemyShipHit);
 		m_collisionDetector.RegisterListener(CollisionTags.ChargeFuel, OnChargeFuelHit);
 		m_collisionDetector.RegisterListener(CollisionTags.TimeBonus, OnTimeBonusHit);
+		m_collisionDetector.RegisterStayListener(CollisionTags.SlowingCloud, OnSlowingCloudStay);
 
 		m_state = ShipState.OnMove;
 	}
@@ -55,67 +59,10 @@ public class PlayerShip : MonoBehaviour {
 		SetAngle(angle);
 	}
 
-	public void OnStunProjectileHit(GameObject other) {
-		if (m_state != ShipState.OnMove) {
-			return;
-		}
-		m_hull.Hit(0.1f);
-		BattleContext.StatisticsManager.PlayerShipStatistics.StunHit++;
-		StopCoroutine("StunProcedure");
-		StartCoroutine(StunProcedure());
-	}
-
-	public void OnLaserHit(GameObject other) {
-		if (m_state != ShipState.OnMove) {
-			return;
-		}
-		m_hull.Hit(0.05f);
-		BattleContext.StatisticsManager.PlayerShipStatistics.LaserHit++;
-	}
-
-	public void OnRocketHit(GameObject other) {
-		if (m_state != ShipState.OnMove) {
-			return;
-		}
-		//hack
-		Vector3 position = other.transform.position;
-		position.y = 0;
-		m_rigidbody.AddExplosionForce(m_rigidbody.mass * 50, Position + (position - Position).normalized * 3, 5);
-		m_hull.Hit(0.5f);
-		BattleContext.StatisticsManager.PlayerShipStatistics.RocketHit++;
-		StopCoroutine("BashProcedure");
-		StartCoroutine(BashProcedure());
-	}
-
-	public void OnEnemyShipHit(GameObject other) {
-		switch (m_state) {
-			case ShipState.OnMove:
-				//todo: remove this shit
-				if (other.CompareTag(CollisionTags.SpaceMine)) {
-					BattleContext.StatisticsManager.PlayerShipStatistics.MineHit++;
-				} else if (other.CompareTag(CollisionTags.StunShip)) {
-					BattleContext.StatisticsManager.PlayerShipStatistics.EnemyShipHit++;
-				} else if (other.CompareTag(CollisionTags.RamShip)) {
-					BattleContext.StatisticsManager.PlayerShipStatistics.RamShipHit++;
-				} else if (other.CompareTag(CollisionTags.DroneCarrier)) {
-					BattleContext.StatisticsManager.PlayerShipStatistics.EnemyShipHit++;
-				}
-				m_hull.Hit(10.0f);
-				break;
-			case ShipState.InCharge:
-				break;
-		}
-	}
-
-	public void OnChargeFuelHit(GameObject other) {
-		m_chargeSystem.AddFuel();
-	}
-
-	public void OnTimeBonusHit(GameObject other) {
-		BattleContext.TimeManager.AddGameTime(other.GetComponent<TimeBonus>().GiveSeconds);
-	}
-
     public void Die() {
+	    if (m_immortal) {
+		    return;
+	    }
 	    if (m_state == ShipState.Dead) {
 		    return;
 	    }
@@ -171,7 +118,10 @@ public class PlayerShip : MonoBehaviour {
 	}
 
 	private void UpdateMovement() {
-        // Rotation //
+		if (m_effects.Slowing < 1) {
+			m_effects.Slowing += Time.fixedDeltaTime * 2f;
+		}
+		// Rotation //
 		float angleToTarget = AngleToNeedAngle;
 		float longAngle = -Mathf.Sign(angleToTarget) * (360 - Mathf.Abs(angleToTarget));
 		float actualAngle = angleToTarget;
@@ -182,7 +132,7 @@ public class PlayerShip : MonoBehaviour {
 		}
 		BattleContext.GUIManager.PlayerGUIController.SetRotationParams(m_neededAngle, actualAngle);
 		float angularForce = Mathf.Sign(actualAngle) * Mathf.Sqrt(Mathf.Abs(actualAngle)) * m_shipParams.RotationPower;
-		m_rigidbody.AddTorque(new Vector3(0, angularForce * m_rigidbody.mass * 0.02f, 0));
+		m_rigidbody.AddTorque(new Vector3(0, angularForce * m_rigidbody.mass * Time.fixedDeltaTime * m_effects.Slowing, 0));
 				
         // Velocity //
 		float powerCoefficient = 0;
@@ -191,13 +141,13 @@ public class PlayerShip : MonoBehaviour {
 		} else if (m_power < 0) {
 			powerCoefficient = -1;
 		}
-		m_rigidbody.AddForce((int)m_power * LookVector * m_rigidbody.mass * 0.02f * m_shipParams.EnginePower);
-		if (m_rigidbody.velocity.magnitude > 5) {
-			m_rigidbody.velocity = m_rigidbody.velocity.normalized * 5;
+		m_rigidbody.AddForce((int)m_power * LookVector * m_rigidbody.mass * Time.fixedDeltaTime * m_shipParams.EnginePower * m_effects.Slowing);
+		if (m_rigidbody.velocity.magnitude > 5 * m_effects.Slowing) {
+			m_rigidbody.velocity = m_rigidbody.velocity.normalized * 5 * m_effects.Slowing;
 		}
 
         // Rotate hull //
-		m_hull.SetAcceleration((LookVector * m_rigidbody.mass * 0.02f * m_shipParams.EnginePower).magnitude * (int)m_power);
+		m_hull.SetAcceleration((LookVector * m_rigidbody.mass * Time.fixedDeltaTime * m_shipParams.EnginePower).magnitude * (int)m_power);
 		m_hull.SetRollAngle(-m_rigidbody.angularVelocity.y * 15 * powerCoefficient);
 	}
 
@@ -283,16 +233,75 @@ public class PlayerShip : MonoBehaviour {
 		m_state = ShipState.OnMove;
 	}
 
-	public Vector3 LookVector {
-		get {
-			return new Vector3(Mathf.Cos(-transform.rotation.eulerAngles.y * Mathf.PI / 180), 0, Mathf.Sin(-transform.rotation.eulerAngles.y * Mathf.PI / 180));
+	private void OnStunProjectileHit(GameObject other) {
+		if (m_state != ShipState.OnMove) {
+			return;
+		}
+		m_hull.Hit(0.1f);
+		BattleContext.StatisticsManager.PlayerShipStatistics.StunHit++;
+		StopCoroutine("StunProcedure");
+		StartCoroutine(StunProcedure());
+	}
+
+	private void OnLaserHit(GameObject other) {
+		if (m_state != ShipState.OnMove) {
+			return;
+		}
+		m_hull.Hit(0.05f);
+		BattleContext.StatisticsManager.PlayerShipStatistics.LaserHit++;
+	}
+
+	private void OnRocketHit(GameObject other) {
+		if (m_state != ShipState.OnMove) {
+			return;
+		}
+		//hack
+		Vector3 position = other.transform.position;
+		position.y = 0;
+		m_rigidbody.AddExplosionForce(m_rigidbody.mass * 50, Position + (position - Position).normalized * 3, 5);
+		m_hull.Hit(0.5f);
+		BattleContext.StatisticsManager.PlayerShipStatistics.RocketHit++;
+		StopCoroutine("BashProcedure");
+		StartCoroutine(BashProcedure());
+	}
+
+	private void OnEnemyShipHit(GameObject other) {
+		switch (m_state) {
+			case ShipState.OnMove:
+				//todo: remove this shit
+				if (other.CompareTag(CollisionTags.SpaceMine)) {
+					BattleContext.StatisticsManager.PlayerShipStatistics.MineHit++;
+				} else if (other.CompareTag(CollisionTags.StunShip)) {
+					BattleContext.StatisticsManager.PlayerShipStatistics.EnemyShipHit++;
+				} else if (other.CompareTag(CollisionTags.RamShip)) {
+					BattleContext.StatisticsManager.PlayerShipStatistics.RamShipHit++;
+				} else if (other.CompareTag(CollisionTags.DroneCarrier)) {
+					BattleContext.StatisticsManager.PlayerShipStatistics.EnemyShipHit++;
+				}
+				m_hull.Hit(10.0f);
+				break;
+			case ShipState.InCharge:
+				break;
 		}
 	}
 
-	private float AngleToNeedAngle  {
+	private void OnSlowingCloudStay(GameObject other) {
+		if (m_effects.Slowing > 0.4f) {
+			m_effects.Slowing -= Time.fixedDeltaTime * 3;
+		}
+	}
+
+	public void OnChargeFuelHit(GameObject other) {
+		m_chargeSystem.AddFuel();
+	}
+
+	private void OnTimeBonusHit(GameObject other) {
+		BattleContext.TimeManager.AddGameTime(other.GetComponent<TimeBonus>().GiveSeconds);
+	}
+
+	public Vector3 LookVector {
 		get {
-			Vector3 vectorToTarget = new Vector3(Mathf.Cos(m_neededAngle * Mathf.PI / 180), 0, Mathf.Sin(m_neededAngle * Mathf.PI / 180));
-			return MathHelper.AngleBetweenVectors(LookVector, vectorToTarget);
+			return new Vector3(Mathf.Cos(-transform.rotation.eulerAngles.y * Mathf.PI / 180), 0, Mathf.Sin(-transform.rotation.eulerAngles.y * Mathf.PI / 180));
 		}
 	}
 
@@ -302,9 +311,16 @@ public class PlayerShip : MonoBehaviour {
 		}
 	}
 
-	public Vector3 SpeedValue {
+	public Vector3 SpeedVector {
 		get {
 			return m_rigidbody.velocity;
+		}
+	}
+
+	private float AngleToNeedAngle  {
+		get {
+			Vector3 vectorToTarget = new Vector3(Mathf.Cos(m_neededAngle * Mathf.PI / 180), 0, Mathf.Sin(m_neededAngle * Mathf.PI / 180));
+			return MathHelper.AngleBetweenVectors(LookVector, vectorToTarget);
 		}
 	}
 
@@ -387,10 +403,12 @@ public enum ShipState {
 public class EffectsOnShip {
 	public bool Stunned { get; set; }
 	public bool Bashed { get; set; }
+	public float Slowing { get; set; }
 
 	public EffectsOnShip() {
 		Stunned = false;
 		Bashed = false;
+		Slowing = 1.0f;
 	}
 }
 

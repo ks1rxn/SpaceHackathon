@@ -67,12 +67,12 @@ public class BonusesController : MonoBehaviour {
 
 	private void Respawn(ChargeFuel fuel) {
 		Vector3 playerPos = BattleContext.PlayerShip.Position;
-		fuel.Spawn(MathHelper.GetPointAround(playerPos, BattleContext.PlayerShip.SpeedValue, m_fuelSpawnAngle, m_fuelSpawnMinDist, m_fuelSpawnMaxDist));
+		fuel.Spawn(MathHelper.GetPointAround(playerPos, BattleContext.PlayerShip.SpeedVector, m_fuelSpawnAngle, m_fuelSpawnMinDist, m_fuelSpawnMaxDist));
 	}
 
 	private void Respawn(TimeBonus fuel) {
 		Vector3 playerPos = BattleContext.PlayerShip.Position;
-		fuel.Spawn(MathHelper.GetPointAround(playerPos, BattleContext.PlayerShip.SpeedValue, m_timeSpawnAngle, m_timeSpawnMinDist, m_timeSpawnMaxDist));
+		fuel.Spawn(MathHelper.GetPointAround(playerPos, BattleContext.PlayerShip.SpeedVector, m_timeSpawnAngle, m_timeSpawnMinDist, m_timeSpawnMaxDist));
 	}
 
 	private ChargeFuel CreateChargeFuel() {
