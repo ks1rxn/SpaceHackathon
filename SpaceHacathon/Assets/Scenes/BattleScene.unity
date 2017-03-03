@@ -709,7 +709,7 @@ MonoBehaviour:
   m_RSSpawnAngle: 90
   m_RSSpawnMinDistance: 19
   m_RSSpawnMaxDistance: 37
-  m_SMCount: 4
+  m_SMCount: 3
   m_SMSpawnAngle: 90
   m_SMSpawnMinDistance: 18
   m_SMSpawnMaxDistance: 35
@@ -780,13 +780,13 @@ MonoBehaviour:
     type: 2}
   m_enableFuel: 1
   m_enableTime: 1
-  m_fuelCount: 17
+  m_fuelCount: 10
   m_fuelSpawnMinDist: 20
-  m_fuelSpawnMaxDist: 50
+  m_fuelSpawnMaxDist: 55
   m_fuelSpawnAngle: 180
   m_timeCount: 8
   m_timeSpawnMinDist: 25
-  m_timeSpawnMaxDist: 50
+  m_timeSpawnMaxDist: 55
   m_timeSpawnAngle: 180
 --- !u!1001 &1307664928
 Prefab:
