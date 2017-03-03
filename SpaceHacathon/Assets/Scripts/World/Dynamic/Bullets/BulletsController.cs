@@ -9,15 +9,19 @@ public class BulletsController : MonoBehaviour {
 	private GameObject m_laserPrefab;
 	[SerializeField]
 	private GameObject m_missilePrefab;
+	[SerializeField]
+	private GameObject m_droneCarrierRocket;
 
 	private List<StunProjectile> m_stunProjectiles;
 	private List<Laser> m_lasers;
 	private List<Missile> m_missiles; 
+	private List<CarrierRocket> m_carrierRockets; 
 
 	public void Initiate() {
 		m_stunProjectiles = new List<StunProjectile>();
 		m_lasers = new List<Laser>();
 		m_missiles = new List<Missile>();
+		m_carrierRockets = new List<CarrierRocket>();
 
 		for (int i = 0; i != 10; i++) {
 			CreateMissile();
@@ -27,6 +31,9 @@ public class BulletsController : MonoBehaviour {
 		}
 		for (int i = 0; i != 10; i++) {
 			CreateLaser();
+		}
+		for (int i = 0; i != 3; i++) {
+			CreateCarrierRocket();
 		}
 	}
 
@@ -46,6 +53,11 @@ public class BulletsController : MonoBehaviour {
 				m_lasers[i].UpdateBullet();
 			}
 		}
+		for (int i = 0; i != m_carrierRockets.Count; i++) {
+			if (m_carrierRockets[i].IsAlive) {
+				m_carrierRockets[i].UpdateBullet();
+			}
+		}
 	}
 
 	public Missile SpawnMissile(Vector3 position, float angle) {
@@ -60,6 +72,21 @@ public class BulletsController : MonoBehaviour {
 			targetRocket = CreateMissile();
 		}
 		targetRocket.Spawn(position, angle);
+		return targetRocket;
+	}
+
+	public CarrierRocket SpawnCarrierRocket(Vector3 position) {
+		CarrierRocket targetRocket = null;
+		foreach (CarrierRocket rocket in m_carrierRockets) {
+			if (!rocket.IsAlive) {
+				targetRocket = rocket;
+				break;
+			}
+		}
+		if (targetRocket == null) {
+			targetRocket = CreateCarrierRocket();
+		}
+		targetRocket.Spawn(position);
 		return targetRocket;
 	}
 
@@ -114,6 +141,14 @@ public class BulletsController : MonoBehaviour {
 		missile.transform.parent = transform;
 		missile.Initiate();
 		m_missiles.Add(missile);
+		return missile;
+	}
+
+	private CarrierRocket CreateCarrierRocket() {
+		CarrierRocket missile = (Instantiate(m_droneCarrierRocket)).GetComponent<CarrierRocket>();
+		missile.transform.parent = transform;
+		missile.Initiate();
+		m_carrierRockets.Add(missile);
 		return missile;
 	}
 

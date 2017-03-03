@@ -1,9 +1,8 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class Rocket : MonoBehaviour {
+public class CarrierRocket : MonoBehaviour {
 	private Rigidbody m_rigidbody;
-	private float m_lifeTime;
 	private float m_detonatorActivateTime;
 
 	[SerializeField]
@@ -19,6 +18,8 @@ public class Rocket : MonoBehaviour {
 
 	private float m_maxSpeed = 0;
 	private float m_maxRotationSpeed = 0;
+
+	private Vector3 m_target;
 
 	public void Initiate() {
 		m_collisionDetector.Initiate();
@@ -39,12 +40,12 @@ public class Rocket : MonoBehaviour {
 		m_trail.Stop();
 	
 		transform.position = position;
-		m_lifeTime = 20;
-
 		transform.rotation = new Quaternion();;
 
 		m_maxSpeed = (float) MathHelper.Random.NextDouble() * 1.5f + 2.75f;
 		m_maxRotationSpeed = (float) MathHelper.Random.NextDouble() * 0.5f + 1.25f;
+
+		m_target = BattleContext.PlayerShip.Position;
 
 		StartCoroutine(LaunchProcess());
 	}
@@ -63,6 +64,8 @@ public class Rocket : MonoBehaviour {
 		GetComponent<Collider>().enabled = true;
 		m_rigidbody.drag = 0.0f;
 		m_inactive = false;
+
+		m_target = BattleContext.PlayerShip.Position;
 	}
 
 	private void OnTargetHit(GameObject other) {
@@ -75,14 +78,12 @@ public class Rocket : MonoBehaviour {
 			return;
 		}
 
-		Vector3 enemyPosition = BattleContext.PlayerShip.Position;
-
 		Vector3 angularVelocityError = m_rigidbody.angularVelocity * -1;         
         Vector3 angularVelocityCorrection = angularVelocityController.Update(angularVelocityError, Time.fixedDeltaTime);
  
         m_rigidbody.AddTorque(angularVelocityCorrection * 1.0f);
  
-        Vector3 desiredHeading = enemyPosition - transform.position; 
+        Vector3 desiredHeading = m_target - transform.position; 
         Vector3 currentHeading = transform.up;
  
         Vector3 headingError = Vector3.Cross(currentHeading, desiredHeading);
@@ -101,23 +102,10 @@ public class Rocket : MonoBehaviour {
 			m_rigidbody.velocity = m_rigidbody.velocity.normalized * m_maxSpeed;
 		}
 
-		Vector3 pos = transform.position;
-		if (pos.y > 0.1f) {
-			pos.y -= Time.fixedDeltaTime;
-		} else if (pos.y < -0.1f) {
-			pos.y += Time.fixedDeltaTime;
-		}
-		transform.position = pos;
-
-		m_lifeTime -= Time.fixedDeltaTime;
-		if (m_lifeTime <= 0) {
+		if (transform.position.y <= 0) {
 			IsAlive = false;
 			BattleContext.ExplosionsController.RocketExplosion(transform.position);
-		}
-
-		float distToPlayer = Vector3.Distance(BattleContext.PlayerShip.Position, transform.position);
-		if (distToPlayer > 25) {
-			IsAlive = false;
+			BattleContext.EffectsController.SpawnSlowingCloud(transform.position);
 		}
 	}
 

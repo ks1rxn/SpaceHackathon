@@ -130,7 +130,7 @@ public class DroneCarrier : IEnemyShip {
 	}
 
 	private void SpawnRocket() {
-//		BattleContext.BulletsController.S(m_launcher.position);
+		BattleContext.BulletsController.SpawnCarrierRocket(m_launcher.position);
 	}
 
 	public override bool IsAlive {
