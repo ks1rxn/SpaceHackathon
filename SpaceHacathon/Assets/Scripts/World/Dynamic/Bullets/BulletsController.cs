@@ -4,6 +4,9 @@ using Random = System.Random;
 
 public class BulletsController : MonoBehaviour {
 	[SerializeField]
+	private int m_missilesLimit;
+
+	[SerializeField]
 	private GameObject m_stunProjectilePrefab;
 	[SerializeField]
 	private GameObject m_laserPrefab;
@@ -23,7 +26,7 @@ public class BulletsController : MonoBehaviour {
 		m_missiles = new List<Missile>();
 		m_carrierRockets = new List<CarrierRocket>();
 
-		for (int i = 0; i != 10; i++) {
+		for (int i = 0; i != m_missilesLimit; i++) {
 			CreateMissile();
 		}
 		for (int i = 0; i != 5; i++) {
@@ -62,11 +65,16 @@ public class BulletsController : MonoBehaviour {
 
 	public Missile SpawnMissile(Vector3 position, float angle) {
 		Missile targetRocket = null;
+		int aliveMissiles = 0;
 		foreach (Missile rocket in m_missiles) {
 			if (!rocket.IsAlive) {
 				targetRocket = rocket;
-				break;
+			} else {
+				aliveMissiles++;
 			}
+		}
+		if (aliveMissiles >= m_missilesLimit) {
+			return null;
 		}
 		if (targetRocket == null) {
 			targetRocket = CreateMissile();

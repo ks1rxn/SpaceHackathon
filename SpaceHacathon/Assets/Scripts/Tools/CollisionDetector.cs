@@ -5,13 +5,19 @@ using UnityEngine;
 public class CollisionDetector : MonoBehaviour {
 	private Action<GameObject> m_defaultCallback;
 	private IDictionary<string, Action<GameObject>> m_callbacks;
+	private IDictionary<string, Action<GameObject>> m_stayCallbacks;
 
 	public void Initiate() {
 		m_callbacks = new Dictionary<string, Action<GameObject>>();
+		m_stayCallbacks = new Dictionary<string, Action<GameObject>>();
 	}
 
 	public void RegisterListener(string listenerTag, Action<GameObject> callback) {
 		m_callbacks.Add(new KeyValuePair<string, Action<GameObject>>(listenerTag, callback));
+	}
+
+	public void RegisterStayListener(string listenerTag, Action<GameObject> callback) {
+		m_stayCallbacks.Add(new KeyValuePair<string, Action<GameObject>>(listenerTag, callback));
 	}
 
 	public void RegisterDefaultListener(Action<GameObject> callback) {
@@ -40,6 +46,13 @@ public class CollisionDetector : MonoBehaviour {
 		}
 	}
 
+	private void OnTriggerStay(Collider other) {
+		Action<GameObject> callback;
+		if (m_stayCallbacks.TryGetValue(other.gameObject.tag, out callback)) {
+			callback(other.gameObject);
+		}
+	}
+
 }
 
 public class CollisionTags {
@@ -55,4 +68,5 @@ public class CollisionTags {
 	public static readonly string SpaceMine = "SpaceMine";
 	public static readonly string ChargeFuel = "ChargeFuel";
 	public static readonly string TimeBonus = "TimeBonus";
+	public static readonly string SlowingCloud = "SlowingCloud";
 }

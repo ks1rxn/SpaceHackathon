@@ -205,6 +205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7a21fe64df487b469aaae25eb9a3e5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_missilesLimit: 2
   m_stunProjectilePrefab: {fileID: 1000011874940608, guid: 41875d6747d992746932c0955bc64306,
     type: 2}
   m_laserPrefab: {fileID: 124736, guid: e3513e92010ddd745a2b3f28f04733f9, type: 2}
