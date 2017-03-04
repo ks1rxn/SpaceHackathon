@@ -30,6 +30,7 @@ public abstract class IAlly : MonoBehaviour {
 		}
 		set {
 			gameObject.SetActive(value);
+			OnDie();
 		}
 	}
 
@@ -40,4 +41,6 @@ public abstract class IAlly : MonoBehaviour {
 	}
 
 	protected abstract float DistanceFromPlayerToDie { get; }
+
+	protected abstract void OnDie();
 }
