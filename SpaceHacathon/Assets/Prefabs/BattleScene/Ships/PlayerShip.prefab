@@ -320,7 +320,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 186194}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -2.9706213, y: -3.1656854, z: 2.4990878}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: -63.942, z: 0}
   m_Children:
@@ -30414,7 +30414,7 @@ ParticleSystem:
   moveWithTransform: 1
   autoRandomSeed: 1
   scalingMode: 1
-  randomSeed: 255490255
+  randomSeed: -327120079
   InitialModule:
     serializedVersion: 2
     enabled: 1
@@ -30577,7 +30577,7 @@ ParticleSystem:
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.59607846, g: 0.59607846, b: 0.59607846, a: 0.67058825}
+      maxColor: {r: 0.41960785, g: 0.41960785, b: 0.41960785, a: 0.67058825}
       minMaxState: 0
     startSize:
       scalar: 5
@@ -42682,7 +42682,7 @@ ParticleSystem:
   moveWithTransform: 1
   autoRandomSeed: 1
   scalingMode: 1
-  randomSeed: -1438216316
+  randomSeed: 424157395
   InitialModule:
     serializedVersion: 2
     enabled: 1
@@ -42845,7 +42845,7 @@ ParticleSystem:
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.6117647, g: 0.6117647, b: 0.6117647, a: 1}
+      maxColor: {r: 0.45490196, g: 0.45490196, b: 0.45490196, a: 1}
       minMaxState: 0
     startSize:
       scalar: 5
