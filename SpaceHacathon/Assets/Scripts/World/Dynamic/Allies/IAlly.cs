@@ -16,12 +16,13 @@ public abstract class IAlly : MonoBehaviour {
 
 	public virtual void UpdateEntity() {
 		if (Vector3.Distance(BattleContext.PlayerShip.Position, Position) > DistanceFromPlayerToDie) {
-			IsAlive = false;
+			Kill();
 		}
 	}
 
 	public virtual void Kill() {
 		IsAlive = false;
+		OnDie();
 	}
 
 	public virtual bool IsAlive {
@@ -30,7 +31,6 @@ public abstract class IAlly : MonoBehaviour {
 		}
 		set {
 			gameObject.SetActive(value);
-			OnDie();
 		}
 	}
 
