@@ -9,7 +9,7 @@ public class Director : MonoBehaviour {
 	private GameObject m_playerShipPrefab;
 	private PlayerShip m_playerShip;
 	
-	private void Awake() {
+	private void Start() {
 //		Analytics.CustomEvent("gameStart", new Dictionary<string, object> {
 //			{ "device", SystemInfo.deviceModel },
 //			{ "platform", Application.platform },
