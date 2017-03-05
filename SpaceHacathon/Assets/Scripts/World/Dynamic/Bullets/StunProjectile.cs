@@ -12,7 +12,6 @@ public class StunProjectile : MonoBehaviour {
 	private TrailRenderer m_trail2;
 
 	public void Initiate() {
-		m_collisionDetector.Initiate();
 		m_collisionDetector.RegisterDefaultListener(OnTargetHit);
 
 		IsAlive = false;

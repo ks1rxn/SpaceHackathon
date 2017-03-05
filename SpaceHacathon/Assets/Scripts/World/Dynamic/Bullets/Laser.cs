@@ -11,7 +11,6 @@ public class Laser : MonoBehaviour {
 	private TrailRenderer m_trail;
 
 	public void Initiate() {
-		m_collisionDetector.Initiate();
 		m_collisionDetector.RegisterDefaultListener(OnTargetHit);
 
 		IsAlive = false;

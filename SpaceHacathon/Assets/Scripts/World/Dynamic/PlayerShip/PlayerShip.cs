@@ -38,7 +38,6 @@ public class PlayerShip : MonoBehaviour {
 		m_hull.Initiate();
         m_chargeSystem.Initiate();
 
-		m_collisionDetector.Initiate();
 		m_collisionDetector.RegisterListener(CollisionTags.StunProjectile, OnStunProjectileHit);
 		m_collisionDetector.RegisterListener(CollisionTags.Missile, OnRocketHit);
 		m_collisionDetector.RegisterListener(CollisionTags.Laser, OnLaserHit);

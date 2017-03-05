@@ -9,7 +9,6 @@ public class Missile : MonoBehaviour {
 	private float m_detonatorActivateTime;
 
 	public void Initiate() {
-		m_collisionDetector.Initiate();
 		m_collisionDetector.RegisterListener(CollisionTags.PlayerShip, OnTargetHit);
 		m_collisionDetector.RegisterListener(CollisionTags.RamShip, OnTargetHit);
 		m_collisionDetector.RegisterListener(CollisionTags.ChargeFuel, OnTargetHit);

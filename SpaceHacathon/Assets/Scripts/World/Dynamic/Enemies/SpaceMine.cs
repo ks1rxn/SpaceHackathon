@@ -26,7 +26,6 @@ public class SpaceMine : IEnemyShip {
 	public override void Initiate() {
 		base.Initiate();
 
-		m_collisionDetector.Initiate();
 		m_collisionDetector.RegisterListener(CollisionTags.PlayerShip, OnOtherShipHit);
 		m_collisionDetector.RegisterListener(CollisionTags.DroneCarrier, OnOtherShipHit);
 		m_collisionDetector.RegisterListener(CollisionTags.StunShip, OnOtherShipHit);

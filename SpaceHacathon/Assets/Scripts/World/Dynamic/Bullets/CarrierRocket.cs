@@ -22,7 +22,6 @@ public class CarrierRocket : MonoBehaviour {
 	private Vector3 m_target;
 
 	public void Initiate() {
-		m_collisionDetector.Initiate();
 		m_collisionDetector.RegisterListener(CollisionTags.PlayerShip, OnTargetHit);
 		m_collisionDetector.RegisterListener(CollisionTags.RamShip, OnTargetHit);
 		m_collisionDetector.RegisterListener(CollisionTags.ChargeFuel, OnTargetHit);

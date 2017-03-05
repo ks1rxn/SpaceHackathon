@@ -9,7 +9,6 @@ public class TimeBonus : MonoBehaviour {
 	private float m_giveSeconds;
 
 	public void Initiate() {
-		m_collisionDetector.Initiate();
 		m_collisionDetector.RegisterListener(CollisionTags.PlayerShip, OnTargetHit);
 
 		IsAlive = false;

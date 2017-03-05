@@ -52,6 +52,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000011818041510}
   - 212: {fileID: 212000011563974196}
+  - 135: {fileID: 135000013627146852}
+  - 114: {fileID: 114000010941340030}
   m_Layer: 0
   m_Name: DroneStationZone
   m_TagString: HealthDroneStation
@@ -215,7 +217,6 @@ GameObject:
   - 4: {fileID: 4000011039898662}
   - 114: {fileID: 114000011142523236}
   - 95: {fileID: 95000013150535364}
-  - 54: {fileID: 54000013742523856}
   - 65: {fileID: 65000014182678210}
   m_Layer: 0
   m_Name: HealthDroneStation
@@ -621,21 +622,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013621756098}
   m_Mesh: {fileID: 4300004, guid: 465aebb1eb1192c48986e43648a1a705, type: 3}
---- !u!54 &54000013742523856
-Rigidbody:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000014145179164}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
 --- !u!65 &65000014182678210
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -665,6 +651,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114000010941340030
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011085070854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8ae04473e279b7428c4e56ae7ffb351, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000011142523236
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -682,6 +679,19 @@ MonoBehaviour:
   - {fileID: 4000010776847500}
   - {fileID: 4000010665776558}
   - {fileID: 4000011861633286}
+  m_collisionDetector: {fileID: 114000010941340030}
+--- !u!135 &135000013627146852
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011085070854}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 8.24
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!212 &212000010555714876
 SpriteRenderer:
   m_ObjectHideFlags: 1

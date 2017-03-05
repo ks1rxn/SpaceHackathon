@@ -6,6 +6,8 @@ public class HealthDroneStation : IAlly {
 	private GameObject m_healthDronePrefab;
 	[SerializeField]
 	private Transform[] m_dronePoints;
+	[SerializeField]
+	private CollisionDetector m_collisionDetector;
 
 	private List<HealthDrone> m_drones; 
 
@@ -16,6 +18,17 @@ public class HealthDroneStation : IAlly {
 		CreateHealthDrone();
 		CreateHealthDrone();
 		CreateHealthDrone();
+
+		m_collisionDetector.RegisterListener(CollisionTags.PlayerShip, OnPlayerEnter);
+		m_collisionDetector.RegisterExitListener(CollisionTags.PlayerShip, OnPlayerExit);
+	}
+
+	private void OnPlayerEnter(GameObject other) {
+
+	}
+
+	private void OnPlayerExit(GameObject other) {
+
 	}
 
 	public override void Spawn(Vector3 position, float rotation) {
