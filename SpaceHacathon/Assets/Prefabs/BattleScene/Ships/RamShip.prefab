@@ -288,7 +288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa186489d97a56a43a33af7debe4928f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_collisionDetector: {fileID: 114000011952692078}
+  CollisionDetector: {fileID: 114000011952692078}
   m_hull: {fileID: 4000010579623850}
   m_rotationSensitivityRun: 0.2
   m_rotationSensitivityAim: 0.2

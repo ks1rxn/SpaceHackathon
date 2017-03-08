@@ -8,9 +8,6 @@ public class DroneCarrier : IEnemyShip {
 	private float m_blasterTimerRear;
 
 	[SerializeField]
-	private CollisionDetector m_collisionDetector;
-
-	[SerializeField]
 	private float m_globalCooldownValue;
 	[SerializeField, Range(1.0f, 5.0f)]
 	private float m_blasterCooldown;
@@ -22,37 +19,30 @@ public class DroneCarrier : IEnemyShip {
 	[SerializeField]
 	private GameObject m_rearGun;
 
-	public override void Initiate() {
-		base.Initiate();
-
-		m_collisionDetector.RegisterListener(CollisionTags.PlayerShip, OnOtherShipHit);
-		m_collisionDetector.RegisterListener(CollisionTags.DroneCarrier, OnOtherShipHit);
-		m_collisionDetector.RegisterListener(CollisionTags.StunShip, OnOtherShipHit);
-		m_collisionDetector.RegisterListener(CollisionTags.RamShip, OnOtherShipHit);
-		m_collisionDetector.RegisterListener(CollisionTags.SpaceMine, OnOtherShipHit);
+	protected override void OnPhysicBodyInitiate() {
+		CollisionDetector.RegisterListener(CollisionTags.PlayerShip, OnOtherShipHit);
+		CollisionDetector.RegisterListener(CollisionTags.DroneCarrier, OnOtherShipHit);
+		CollisionDetector.RegisterListener(CollisionTags.StunShip, OnOtherShipHit);
+		CollisionDetector.RegisterListener(CollisionTags.RamShip, OnOtherShipHit);
+		CollisionDetector.RegisterListener(CollisionTags.SpaceMine, OnOtherShipHit);
 	}
 
-	public override void Spawn(Vector3 position, float angle) {
-		base.Spawn(position, angle);
-
+	protected override void OnPhysicBodySpawn(Vector3 position, float angle) {
 		const float speed = 0.3f;
-		m_rigidbody.velocity = new Vector3(Mathf.Cos(angle * Mathf.PI / 180) * speed, 0, -Mathf.Sin(angle * Mathf.PI / 180) * speed);
+		Rigidbody.velocity = new Vector3(Mathf.Cos(angle * Mathf.PI / 180) * speed, 0, -Mathf.Sin(angle * Mathf.PI / 180) * speed);
 
 		m_cooldown = MathHelper.Random.Next((int)m_globalCooldownValue);
 	}
 
-	public override void Kill() {
-		base.Kill();
+	protected override void OnDespawn() {
 		BattleContext.ExplosionsController.PlayerShipExplosion(Position);
 	}
 
 	private void OnOtherShipHit(GameObject other) {
-		Kill();
+		Despawn();
 	}
 
-	public override void UpdateShip() {
-		base.UpdateShip();
-		
+	protected override void OnFixedUpdateEntity() {
 		UpdateGun(m_frontGun);
 		UpdateGun(m_rearGun);
 		UpdateLauncher();
@@ -132,16 +122,7 @@ public class DroneCarrier : IEnemyShip {
 		BattleContext.BulletsController.SpawnCarrierRocket(m_launcher.position);
 	}
 
-	public override bool IsAlive {
-		get {
-			return gameObject.activeInHierarchy;
-		}
-		set {
-			gameObject.SetActive(value);
-		}
-	}
-
-	protected override float DistanceFromPlayerToDie {
+	protected override float DistanceToDespawn {
 		get {
 			return 40;
 		}

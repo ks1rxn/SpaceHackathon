@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class StunShip : IEnemyShip {
 	[SerializeField]
-	private CollisionDetector m_collisionDetector;
-	[SerializeField]
 	private GameObject m_gun;
 
 	[SerializeField]
@@ -27,27 +25,28 @@ public class StunShip : IEnemyShip {
 	private ParticleSystem[] m_engines;
 	private bool[] m_engineState;
 
-	public override void Initiate() {
-		base.Initiate();
-
-		m_collisionDetector.RegisterListener(CollisionTags.PlayerShip, OnOtherShipHit);
-		m_collisionDetector.RegisterListener(CollisionTags.DroneCarrier, OnOtherShipHit);
-		m_collisionDetector.RegisterListener(CollisionTags.StunShip, OnOtherShipHit);
-		m_collisionDetector.RegisterListener(CollisionTags.RamShip, OnOtherShipHit);
-		m_collisionDetector.RegisterListener(CollisionTags.SpaceMine, OnOtherShipHit);
+	protected override void OnPhysicBodyInitiate() {
+		CollisionDetector.RegisterListener(CollisionTags.PlayerShip, OnOtherShipHit);
+		CollisionDetector.RegisterListener(CollisionTags.DroneCarrier, OnOtherShipHit);
+		CollisionDetector.RegisterListener(CollisionTags.StunShip, OnOtherShipHit);
+		CollisionDetector.RegisterListener(CollisionTags.RamShip, OnOtherShipHit);
+		CollisionDetector.RegisterListener(CollisionTags.SpaceMine, OnOtherShipHit);
 
 		m_material = GetComponent<MeshRenderer>().material;
 		m_engineState = new bool[m_engines.Length];
 	}
 
-	public override void Spawn(Vector3 position, float angle) {
-		base.Spawn(position, angle);
-
+	protected override void OnPhysicBodySpawn(Vector3 position, float angle) {
 		m_blasterTimer = m_blasterCooldown;
 		m_state = BlasterShipState.Moving;
 		m_movingTimer = m_flyCooldown;
 
 		StartCoroutine(SpawnEffect());
+	}
+
+	protected override void OnDespawn() {
+		BattleContext.ExplosionsController.PlayerShipExplosion(Position);
+		BattleContext.EnemiesController.OnStunShipDie();
 	}
 
 	private IEnumerator SpawnEffect() {
@@ -61,19 +60,11 @@ public class StunShip : IEnemyShip {
 		m_material.SetFloat("_SliceAmount", 0.0f);
 	}
 
-	public override void Kill() {
-		base.Kill();
-		BattleContext.ExplosionsController.PlayerShipExplosion(Position);
-		BattleContext.EnemiesController.OnStunShipDie();
-	}
-
 	private void OnOtherShipHit(GameObject other) {
-		Kill();
+		Despawn();
 	}
 
-	public override void UpdateShip() {
-		base.UpdateShip();
-
+	protected override void OnFixedUpdateEntity() {
 		switch (m_state) {
 			case BlasterShipState.Moving:
 				if (m_movingTimer > 0) {
@@ -81,9 +72,9 @@ public class StunShip : IEnemyShip {
 					Vector3 forcesSumm = new Vector3();
 					float distance = (enemyPosition - transform.position).magnitude;
 					if (distance > 6) {
-						forcesSumm += -(transform.position - enemyPosition).normalized * m_rigidbody.mass * 10;
+						forcesSumm += -(transform.position - enemyPosition).normalized * Rigidbody.mass * 10;
 					} else {
-						forcesSumm += (transform.position - enemyPosition).normalized * m_rigidbody.mass * 20;
+						forcesSumm += (transform.position - enemyPosition).normalized * Rigidbody.mass * 20;
 					}
 					foreach (IEnemyShip ship in BattleContext.EnemiesController.Ships) {
 						if (ReferenceEquals(this, ship)) {
@@ -92,17 +83,17 @@ public class StunShip : IEnemyShip {
 						if (Vector3.Distance(ship.Position, Position) > 8) {
 							continue;
 						}
-						forcesSumm += (Position - ship.Position).normalized * m_rigidbody.mass * 75 / Vector3.Distance(ship.Position, Position);
+						forcesSumm += (Position - ship.Position).normalized * Rigidbody.mass * 75 / Vector3.Distance(ship.Position, Position);
 					}
 					foreach (ChargeFuel chargeFuel in BattleContext.BonusesController.ChargeFuels) {
 						if (Vector3.Distance(chargeFuel.transform.position, Position) > 5) {
 							continue;
 						}
-						forcesSumm += (Position - chargeFuel.transform.position).normalized * m_rigidbody.mass * 75 / Vector3.Distance(chargeFuel.transform.position, Position);
+						forcesSumm += (Position - chargeFuel.transform.position).normalized * Rigidbody.mass * 75 / Vector3.Distance(chargeFuel.transform.position, Position);
 					}
-					m_rigidbody.AddForce(forcesSumm);
-					if (m_rigidbody.velocity.magnitude > 7.5) {
-						m_rigidbody.velocity = m_rigidbody.velocity.normalized * 7.5f;
+					Rigidbody.AddForce(forcesSumm);
+					if (Rigidbody.velocity.magnitude > 7.5) {
+						Rigidbody.velocity = Rigidbody.velocity.normalized * 7.5f;
 					}
 					if (forcesSumm.magnitude > 0.5f) {
 						if (forcesSumm.x > 0) {
@@ -146,10 +137,10 @@ public class StunShip : IEnemyShip {
 				break;
 			case BlasterShipState.Refuel:
 				if (m_movingTimer > 0) {
-					if (m_rigidbody.velocity.magnitude > 0.5f) {
-						m_rigidbody.velocity = m_rigidbody.velocity * 0.5f;
+					if (Rigidbody.velocity.magnitude > 0.5f) {
+						Rigidbody.velocity = Rigidbody.velocity * 0.5f;
 					} else {
-						m_rigidbody.velocity = new Vector3();
+						Rigidbody.velocity = new Vector3();
 					}
 				} else {
 					m_state = BlasterShipState.Moving;
@@ -212,16 +203,7 @@ public class StunShip : IEnemyShip {
 		}
 	}
 
-	public override bool IsAlive {
-		get {
-			return gameObject.activeInHierarchy;
-		}
-		set {
-			gameObject.SetActive(value);
-		}
-	}
-
-	protected override float DistanceFromPlayerToDie {
+	protected override float DistanceToDespawn {
 		get {
 			return 50;
 		}

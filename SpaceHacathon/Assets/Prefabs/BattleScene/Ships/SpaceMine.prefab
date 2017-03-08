@@ -443,7 +443,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fd4cc43d533a3a43b9546cba4c38ca3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_collisionDetector: {fileID: 114000011637196192}
+  CollisionDetector: {fileID: 114000011637196192}
   m_waitingIndicator: {fileID: 1000012556513428}
   m_armedIndicator: {fileID: 1000013755744098}
   m_hullRenderer: {fileID: 23000010364521074}
