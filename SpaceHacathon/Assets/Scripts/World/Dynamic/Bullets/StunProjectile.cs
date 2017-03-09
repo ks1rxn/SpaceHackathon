@@ -22,18 +22,13 @@ public class StunProjectile : IBullet {
 		m_trail2.Clear();
 	}
 
-	protected override void OnDespawn() {
+	protected override void OnDespawn(DespawnReason reasonS) {
 		BattleContext.ExplosionsController.BlasterExplosion(transform.position);
 	}
 
 	protected override void OnFixedUpdateEntity() {
 		Vector3 moveVector = new Vector3(Mathf.Cos(-m_angle * Mathf.PI / 180), 0, Mathf.Sin(-m_angle * Mathf.PI / 180));
 		transform.position += moveVector * 10 * Time.fixedDeltaTime;
-
-		float distToPlayer = Vector3.Distance(BattleContext.PlayerShip.Position, transform.position);
-		if (distToPlayer > 20) {
-			Despawn();
-		}
 
 		if (m_detonatorActivateTime <= 0) {
 			GetComponent<Collider>().enabled = true;
@@ -43,7 +38,7 @@ public class StunProjectile : IBullet {
 	}
 	
 	private void OnTargetHit(GameObject other) {
-		Despawn();
+		Despawn(DespawnReason.Kill);
 	}
 
 	protected override float DistanceToDespawn {

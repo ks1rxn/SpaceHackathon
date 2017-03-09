@@ -34,9 +34,9 @@ public class HealthDroneStation : IAlly {
 	}
 
 
-	protected override void OnDespawn() {
+	protected override void OnDespawn(DespawnReason reason) {
 		foreach (HealthDrone drone in m_drones) {
-			drone.Despawn();
+			drone.Despawn(DespawnReason.ParentDespawn);
 		}
 	}
 

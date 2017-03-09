@@ -36,7 +36,7 @@ public class CarrierRocket : IBullet {
 		StartCoroutine(LaunchProcess());
 	}
 
-	protected override void OnDespawn() {
+	protected override void OnDespawn(DespawnReason reason) {
 		BattleContext.ExplosionsController.RocketExplosion(transform.position);
 		BattleContext.EffectsController.SpawnSlowingCloud(transform.position);
 	}
@@ -60,7 +60,7 @@ public class CarrierRocket : IBullet {
 	}
 
 	private void OnTargetHit(GameObject other) {
-		Despawn();
+		Despawn(DespawnReason.Kill);
 	}
 
 	protected override void OnFixedUpdateEntity() {
@@ -93,7 +93,7 @@ public class CarrierRocket : IBullet {
 		}
 
 		if (transform.position.y <= 0) {
-			Despawn();
+			Despawn(DespawnReason.TargetReached);
 		}
 	}
 

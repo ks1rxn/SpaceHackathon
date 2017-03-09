@@ -22,7 +22,7 @@ public class Explosion : IExplosion {
 		m_timeToDie = m_lifeTime;
 	}
 
-	protected override void OnDespawn() {
+	protected override void OnDespawn(DespawnReason reason) {
 
 	}
 
@@ -32,7 +32,7 @@ public class Explosion : IExplosion {
 			foreach(ParticleSystem system in m_particles) {
 				system.Stop();
 			}
-			Despawn();
+			Despawn(DespawnReason.TimeOff);
 		}
 	}
 

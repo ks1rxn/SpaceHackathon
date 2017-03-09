@@ -24,10 +24,10 @@ public abstract class ISpawnable : IEntity {
 		OnSpawn(position, angle);
 	}
 
-	public void Despawn() {
+	public void Despawn(DespawnReason reason) {
 		gameObject.SetActive(false);
 
-		OnDespawn();
+		OnDespawn(reason);
 	}
 
 	public bool IsSpawned() {
@@ -36,7 +36,7 @@ public abstract class ISpawnable : IEntity {
 
 	public override void FixedUpdateEntity() {
 		if (Vector3.Distance(BattleContext.Director.PlayerPosition, Position) > DistanceToDespawn) {
-			Despawn();
+			Despawn(DespawnReason.OutOfRange);
 		}
 		OnFixedUpdateEntity();
 	}
@@ -45,7 +45,7 @@ public abstract class ISpawnable : IEntity {
 
 	protected abstract void OnSpawn(Vector3 position, Vector3 angle);
 
-	protected abstract void OnDespawn();
+	protected abstract void OnDespawn(DespawnReason reason);
 
 	protected abstract void OnFixedUpdateEntity();
 
@@ -57,4 +57,12 @@ public abstract class ISpawnable : IEntity {
 		}
 	}
 
+}
+
+public enum DespawnReason {
+	OutOfRange,
+	TimeOff,
+	ParentDespawn,
+	TargetReached,
+	Kill
 }

@@ -21,14 +21,14 @@ public class Laser : IBullet {
 		GetComponent<Collider>().enabled = false;
 	}
 
-	protected override void OnDespawn() {
+	protected override void OnDespawn(DespawnReason reason) {
 		BattleContext.ExplosionsController.BlasterExplosion(transform.position);
 	}
 
 	protected override void OnFixedUpdateEntity() {
 		m_lifetime -= Time.fixedDeltaTime;
 		if (m_lifetime < 0) {
-			Despawn();
+			Despawn(DespawnReason.TimeOff);
 		}
 
 		Vector3 moveVector = new Vector3(Mathf.Cos(-m_angle * Mathf.PI / 180), 0, Mathf.Sin(-m_angle * Mathf.PI / 180));
@@ -42,7 +42,7 @@ public class Laser : IBullet {
 	}
 
 	private void OnTargetHit(GameObject other) {
-		Despawn();
+		Despawn(DespawnReason.Kill);
 	}
 
 	protected override float DistanceToDespawn {

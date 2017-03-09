@@ -10,13 +10,13 @@ public class SlowingCloud : IEffect{
 		m_lifeTime = 5;
 	}
 
-	protected override void OnDespawn() {
+	protected override void OnDespawn(DespawnReason reason) {
 	}
 
 	protected override void OnFixedUpdateEntity() {
 		m_lifeTime -= Time.fixedDeltaTime;
 		if (m_lifeTime <= 0) {
-			Despawn();
+			Despawn(DespawnReason.TimeOff);
 		}
 	}
 

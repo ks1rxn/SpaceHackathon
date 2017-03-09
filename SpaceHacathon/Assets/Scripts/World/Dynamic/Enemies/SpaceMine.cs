@@ -43,12 +43,12 @@ public class SpaceMine : IEnemyShip {
 		m_waitingPosition.y = -3 + MathHelper.Random.Next(1);
 	}
 
-	protected override void OnDespawn() {
+	protected override void OnDespawn(DespawnReason reason) {
 		BattleContext.ExplosionsController.MineExplosion(Position);
 	}
 
 	private void OnOtherShipHit(GameObject other) {
-		Despawn();
+		Despawn(DespawnReason.Kill);
 	}
 
 	protected override void OnFixedUpdateEntity() {

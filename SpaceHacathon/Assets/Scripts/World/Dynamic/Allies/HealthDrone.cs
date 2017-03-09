@@ -13,7 +13,7 @@ public class HealthDrone : ISpawnable {
 		ToSleepState();
 	}
 
-	protected override void OnDespawn() {
+	protected override void OnDespawn(DespawnReason reason) {
 	}
 
 	protected override void OnFixedUpdateEntity() {

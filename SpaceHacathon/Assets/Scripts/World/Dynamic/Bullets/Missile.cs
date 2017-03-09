@@ -21,12 +21,12 @@ public class Missile : IBullet {
 		Rigidbody.AddForce(lookVector * 50);
 	}
 
-	protected override void OnDespawn() {
+	protected override void OnDespawn(DespawnReason reason) {
 		BattleContext.ExplosionsController.RocketExplosion(transform.position);
 	}
 
 	private void OnTargetHit(GameObject other) {
-		Despawn();
+		Despawn(DespawnReason.Kill);
 	}
 
 	protected override void OnFixedUpdateEntity() {
@@ -46,13 +46,8 @@ public class Missile : IBullet {
 
 		m_lifeTime -= 0.02f;
 		if (m_lifeTime <= 0) {
-			Despawn();
+			Despawn(DespawnReason.TimeOff);
 			BattleContext.ExplosionsController.RocketExplosion(transform.position);
-		}
-
-		float distToPlayer = Vector3.Distance(BattleContext.PlayerShip.transform.position, transform.position);
-		if (distToPlayer > 25) {
-			Despawn();
 		}
 
 		if (m_detonatorActivateTime <= 0) {

@@ -44,7 +44,7 @@ public class StunShip : IEnemyShip {
 		StartCoroutine(SpawnEffect());
 	}
 
-	protected override void OnDespawn() {
+	protected override void OnDespawn(DespawnReason reason) {
 		BattleContext.ExplosionsController.PlayerShipExplosion(Position);
 		BattleContext.EnemiesController.OnStunShipDie();
 	}
@@ -61,7 +61,7 @@ public class StunShip : IEnemyShip {
 	}
 
 	private void OnOtherShipHit(GameObject other) {
-		Despawn();
+		Despawn(DespawnReason.Kill);
 	}
 
 	protected override void OnFixedUpdateEntity() {

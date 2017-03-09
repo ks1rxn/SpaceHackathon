@@ -51,13 +51,13 @@ public class RamShip : IEnemyShip {
 		m_state = RamShipState.Aiming;
 	}
 
-	protected override void OnDespawn() {
+	protected override void OnDespawn(DespawnReason reason) {
 		BattleContext.ExplosionsController.PlayerShipExplosion(Position);
 		BattleContext.EnemiesController.OnRamShipDie();
 	}
 
 	private void OnOtherShipHit(GameObject other) {
-		Despawn();
+		Despawn(DespawnReason.Kill);
 	}
 
 	protected override void OnFixedUpdateEntity() {
