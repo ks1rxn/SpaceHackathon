@@ -40,6 +40,7 @@ GameObject:
   - 199: {fileID: 199000011128818238}
   - 114: {fileID: 114000012511739514}
   - 82: {fileID: 82000011234914656}
+  - 114: {fileID: 114000012763474070}
   m_Layer: 0
   m_Name: MineExplosion
   m_TagString: Untagged
@@ -159,10 +160,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 453cc4f0e08e4644f8f1c4cba58da3f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CollisionDetector: {fileID: 114000012763474070}
+  m_explosionType: 3
   m_lifeTime: 2
   m_particles:
   - {fileID: 198000012149685380}
   - {fileID: 198000013324811436}
+--- !u!114 &114000012763474070
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013676409296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8ae04473e279b7428c4e56ae7ffb351, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!198 &198000012149685380
 ParticleSystem:
   m_ObjectHideFlags: 1

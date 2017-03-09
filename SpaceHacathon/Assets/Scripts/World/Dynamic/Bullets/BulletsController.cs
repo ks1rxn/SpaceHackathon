@@ -2,7 +2,7 @@
 using UnityEngine;
 using Random = System.Random;
 
-public class BulletsController : MonoBehaviour {
+public class BulletsController : IController {
 	[SerializeField]
 	private int m_missilesLimit;
 
@@ -20,7 +20,7 @@ public class BulletsController : MonoBehaviour {
 	private List<Missile> m_missiles; 
 	private List<CarrierRocket> m_carrierRockets; 
 
-	public void Initiate() {
+	public override void Initiate() {
 		m_stunProjectiles = new List<StunProjectile>();
 		m_lasers = new List<Laser>();
 		m_missiles = new List<Missile>();
@@ -40,25 +40,25 @@ public class BulletsController : MonoBehaviour {
 		}
 	}
 
-	public void UpdateEntity() {
+	public override void FixedUpdateEntity() {
 		for (int i = 0; i != m_missiles.Count; i++) {
-			if (m_missiles[i].IsAlive) {
-				m_missiles[i].UpdateBullet();
+			if (m_missiles[i].IsSpawned()) {
+				m_missiles[i].FixedUpdateEntity();
 			}
 		}
 		for (int i = 0; i != m_stunProjectiles.Count; i++) {
-			if (m_stunProjectiles[i].IsAlive) {
-				m_stunProjectiles[i].UpdateBullet();
+			if (m_stunProjectiles[i].IsSpawned()) {
+				m_stunProjectiles[i].FixedUpdateEntity();
 			}
 		}
 		for (int i = 0; i != m_lasers.Count; i++) {
-			if (m_lasers[i].IsAlive) {
-				m_lasers[i].UpdateBullet();
+			if (m_lasers[i].IsSpawned()) {
+				m_lasers[i].FixedUpdateEntity();
 			}
 		}
 		for (int i = 0; i != m_carrierRockets.Count; i++) {
-			if (m_carrierRockets[i].IsAlive) {
-				m_carrierRockets[i].UpdateBullet();
+			if (m_carrierRockets[i].IsSpawned()) {
+				m_carrierRockets[i].FixedUpdateEntity();
 			}
 		}
 	}
@@ -67,7 +67,7 @@ public class BulletsController : MonoBehaviour {
 		Missile targetRocket = null;
 		int aliveMissiles = 0;
 		foreach (Missile rocket in m_missiles) {
-			if (!rocket.IsAlive) {
+			if (!rocket.IsSpawned()) {
 				targetRocket = rocket;
 			} else {
 				aliveMissiles++;
@@ -86,7 +86,7 @@ public class BulletsController : MonoBehaviour {
 	public CarrierRocket SpawnCarrierRocket(Vector3 position) {
 		CarrierRocket targetRocket = null;
 		foreach (CarrierRocket rocket in m_carrierRockets) {
-			if (!rocket.IsAlive) {
+			if (!rocket.IsSpawned()) {
 				targetRocket = rocket;
 				break;
 			}
@@ -94,14 +94,14 @@ public class BulletsController : MonoBehaviour {
 		if (targetRocket == null) {
 			targetRocket = CreateCarrierRocket();
 		}
-		targetRocket.Spawn(position);
+		targetRocket.Spawn(position, 0);
 		return targetRocket;
 	}
 
 	public StunProjectile SpawnStunProjectile(Vector3 position, float angle) {
 		StunProjectile targetStunProjectile = null;
 		foreach (StunProjectile blaster in m_stunProjectiles) {
-			if (!blaster.IsAlive) {
+			if (!blaster.IsSpawned()) {
 				targetStunProjectile = blaster;
 				break;
 			}
@@ -116,7 +116,7 @@ public class BulletsController : MonoBehaviour {
 	public Laser SpawnLaser(Vector3 position, float angle) {
 		Laser targetLaser = null;
 		foreach (Laser laser in m_lasers) {
-			if (!laser.IsAlive) {
+			if (!laser.IsSpawned()) {
 				targetLaser = laser;
 				break;
 			}

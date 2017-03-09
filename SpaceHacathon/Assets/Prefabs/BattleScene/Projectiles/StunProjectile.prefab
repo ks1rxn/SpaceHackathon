@@ -334,7 +334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54588cd2f5d3c0b4eb5295dd9fc06d4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_collisionDetector: {fileID: 114000014194889508}
+  CollisionDetector: {fileID: 114000014194889508}
   m_trail1: {fileID: 96000012489833414}
   m_trail2: {fileID: 96000014222563222}
 --- !u!198 &198000010433716660

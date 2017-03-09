@@ -1,29 +1,20 @@
 ﻿using UnityEngine;
 
-public class StunProjectile : MonoBehaviour {
+public class StunProjectile : IBullet {
 	private float m_angle;
 	private float m_detonatorActivateTime;
 
-	[SerializeField]
-	private CollisionDetector m_collisionDetector;
 	[SerializeField]
 	private TrailRenderer m_trail1;
 	[SerializeField]
 	private TrailRenderer m_trail2;
 
-	public void Initiate() {
-		m_collisionDetector.RegisterDefaultListener(OnTargetHit);
-
-		IsAlive = false;
+	protected override void OnPhysicBodyInitiate() {
+		CollisionDetector.RegisterDefaultListener(OnTargetHit);
 	}
 
-	public void Spawn(Vector3 position, float angle) {
-		IsAlive = true;
-
-		m_angle = angle;
-		transform.position = position;
-		transform.rotation = new Quaternion();
-		transform.Rotate(new Vector3(0, 1, 0), m_angle);
+	protected override void OnPhysicBodySpawn(Vector3 position, Vector3 angle) {
+		m_angle = angle.y;
 
 		m_detonatorActivateTime = 0.05f;
 		GetComponent<Collider>().enabled = false;
@@ -31,13 +22,17 @@ public class StunProjectile : MonoBehaviour {
 		m_trail2.Clear();
 	}
 
-	public void UpdateBullet() {
+	protected override void OnDespawn() {
+		BattleContext.ExplosionsController.BlasterExplosion(transform.position);
+	}
+
+	protected override void OnFixedUpdateEntity() {
 		Vector3 moveVector = new Vector3(Mathf.Cos(-m_angle * Mathf.PI / 180), 0, Mathf.Sin(-m_angle * Mathf.PI / 180));
 		transform.position += moveVector * 10 * Time.fixedDeltaTime;
 
 		float distToPlayer = Vector3.Distance(BattleContext.PlayerShip.Position, transform.position);
 		if (distToPlayer > 20) {
-			IsAlive = false;
+			Despawn();
 		}
 
 		if (m_detonatorActivateTime <= 0) {
@@ -48,17 +43,13 @@ public class StunProjectile : MonoBehaviour {
 	}
 	
 	private void OnTargetHit(GameObject other) {
-		BattleContext.ExplosionsController.BlasterExplosion(transform.position);
-		IsAlive = false;
+		Despawn();
 	}
 
-	public bool IsAlive {
+	protected override float DistanceToDespawn {
 		get {
-			return gameObject.activeInHierarchy;
-		}
-		set {
-			gameObject.SetActive(value);
+			return 40;
 		}
 	}
-
+	
 }

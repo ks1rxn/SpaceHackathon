@@ -1,33 +1,27 @@
 ﻿using UnityEngine;
 
-public class ChargeFuel : MonoBehaviour {
-	[SerializeField]
-	private CollisionDetector m_collisionDetector;
+public class ChargeFuel : IBonus {
 
-	public void Initiate() {
-		m_collisionDetector.RegisterListener(CollisionTags.PlayerShip, OnTargetHit);
-
-		IsAlive = false;
+	protected override void OnInitiate() {
+		CollisionDetector.RegisterListener(CollisionTags.PlayerShip, OnTargetHit);
 	}
 
-	public void Spawn(Vector3 position) {
-		IsAlive = true;
-		transform.position = position;
+	protected override void OnSpawn(Vector3 position, Vector3 angle) {
 	}
 
-	public void UpdateState() {
+	protected override void OnDespawn() {
+	}
+
+	protected override void OnFixedUpdateEntity() {
 	}
 
 	private void OnTargetHit(GameObject other) {
-		IsAlive = false;
+		Despawn();
 	}
 
-	public bool IsAlive {
+	protected override float DistanceToDespawn {
 		get {
-			return gameObject.activeInHierarchy;
-		}
-		set {
-			gameObject.SetActive(value);
+			return 50;
 		}
 	}
 

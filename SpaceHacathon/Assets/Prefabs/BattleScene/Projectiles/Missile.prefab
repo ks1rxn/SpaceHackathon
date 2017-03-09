@@ -179,7 +179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6634ebace6aa35043a547b15de17ed03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_collisionDetector: {fileID: 114000011008544692}
+  CollisionDetector: {fileID: 114000011008544692}
 --- !u!114 &114000011008544692
 MonoBehaviour:
   m_ObjectHideFlags: 1

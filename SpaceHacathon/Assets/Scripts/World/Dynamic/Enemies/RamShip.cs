@@ -44,7 +44,7 @@ public class RamShip : IEnemyShip {
 		CollisionDetector.RegisterListener(CollisionTags.Missile, OnOtherShipHit);
 	}
 
-	protected override void OnPhysicBodySpawn(Vector3 position, float angle) {
+	protected override void OnPhysicBodySpawn(Vector3 position, Vector3 angle) {
 		m_rotationSpeed = 0;
 		m_needRotationSpeed = 0;
 

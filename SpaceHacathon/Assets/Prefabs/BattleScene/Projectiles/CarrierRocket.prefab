@@ -210,7 +210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a074c46a14da9045810ab0bbedff6ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_collisionDetector: {fileID: 114000012534000722}
+  CollisionDetector: {fileID: 114000012534000722}
   m_trail: {fileID: 198000013707387348}
 --- !u!198 &198000010834205004
 ParticleSystem:

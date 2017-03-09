@@ -29,7 +29,7 @@ public class SpaceMine : IEnemyShip {
 		CollisionDetector.RegisterListener(CollisionTags.SpaceMine, OnOtherShipHit);
 	}
 
-	protected override void OnPhysicBodySpawn(Vector3 position, float angle) {
+	protected override void OnPhysicBodySpawn(Vector3 position, Vector3 angle) {
 		m_waitingIndicator.SetActive(true);
 		m_armedIndicator.SetActive(false);
 

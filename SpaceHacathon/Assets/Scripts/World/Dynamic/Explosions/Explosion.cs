@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
-public class Explosion : MonoBehaviour {
+public class Explosion : IExplosion {
+	[SerializeField]
 	private ExplosionType m_explosionType;
 
 	[SerializeField]
@@ -10,14 +11,10 @@ public class Explosion : MonoBehaviour {
 
     private float m_timeToDie;
 
-	public void Initiate(ExplosionType type) {
-		gameObject.SetActive(false);
-		m_explosionType = type;
+	protected override void OnInitiate() {
 	}
 
-	public void Spawn(Vector3 position) {
-		gameObject.SetActive(true);
-		transform.position = position;
+	protected override void OnSpawn(Vector3 position, Vector3 angle) {
 		foreach(ParticleSystem system in m_particles) {
             system.Play();
         }
@@ -25,13 +22,17 @@ public class Explosion : MonoBehaviour {
 		m_timeToDie = m_lifeTime;
 	}
 
-	private void Update() {
+	protected override void OnDespawn() {
+
+	}
+
+	protected override void OnFixedUpdateEntity() {
 		m_timeToDie -= Time.deltaTime;
 		if (m_timeToDie <= 0) {
 			foreach(ParticleSystem system in m_particles) {
 				system.Stop();
 			}
-			gameObject.SetActive(false);
+			Despawn();
 		}
 	}
 
@@ -40,6 +41,13 @@ public class Explosion : MonoBehaviour {
 			return m_explosionType;
 		}
 	}
+
+	protected override float DistanceToDespawn {
+		get {
+			return 30;
+		}
+	}
+
 }
 
 public enum ExplosionType {

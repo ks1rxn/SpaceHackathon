@@ -1,30 +1,22 @@
 ﻿using UnityEngine;
 
-public class HealthDrone : MonoBehaviour {
+public class HealthDrone : ISpawnable {
 	[SerializeField]
 	private GameObject m_beam;
 
 	private HealthDroneState m_state;
 
-	public void Initiate() {
-		gameObject.SetActive(false);
+	protected override void OnInitiate() {
 	}
 
-	public void Spawn(Vector3 position, float angle) {
-		gameObject.SetActive(true);
-
-		gameObject.transform.position = position;
-		gameObject.transform.rotation = new Quaternion();
-		gameObject.transform.Rotate(0, angle, 0);
-
+	protected override void OnSpawn(Vector3 position, Vector3 angle) {
 		ToSleepState();
 	}
 
-	public void Hide() {
-		gameObject.SetActive(false);
+	protected override void OnDespawn() {
 	}
 
-	public void UpdateEntity() {
+	protected override void OnFixedUpdateEntity() {
 		switch (m_state) {
 			case HealthDroneState.Sleep:
 				break;
@@ -34,6 +26,12 @@ public class HealthDrone : MonoBehaviour {
 	private void ToSleepState() {
 		m_state = HealthDroneState.Sleep;
 		m_beam.SetActive(false);
+	}
+
+	protected override float DistanceToDespawn {
+		get {
+			return 100;
+		}
 	}
 
 }

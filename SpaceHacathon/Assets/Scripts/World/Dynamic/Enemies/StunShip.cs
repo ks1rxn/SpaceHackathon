@@ -36,7 +36,7 @@ public class StunShip : IEnemyShip {
 		m_engineState = new bool[m_engines.Length];
 	}
 
-	protected override void OnPhysicBodySpawn(Vector3 position, float angle) {
+	protected override void OnPhysicBodySpawn(Vector3 position, Vector3 angle) {
 		m_blasterTimer = m_blasterCooldown;
 		m_state = BlasterShipState.Moving;
 		m_movingTimer = m_flyCooldown;

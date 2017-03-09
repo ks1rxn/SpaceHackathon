@@ -23,6 +23,7 @@ GameObject:
   - 199: {fileID: 199000013536281156}
   - 198: {fileID: 198000012598867434}
   - 135: {fileID: 135000010165174132}
+  - 114: {fileID: 114000013098317000}
   m_Layer: 0
   m_Name: SlowingCloud
   m_TagString: SlowingCloud
@@ -83,6 +84,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 32ff2a8fb6269914b97794ba0baebb6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionDetector: {fileID: 114000013098317000}
+--- !u!114 &114000013098317000
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011394538494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8ae04473e279b7428c4e56ae7ffb351, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!135 &135000010165174132

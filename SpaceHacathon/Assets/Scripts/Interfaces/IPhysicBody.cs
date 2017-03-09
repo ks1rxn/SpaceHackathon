@@ -9,7 +9,7 @@ public abstract class IPhysicBody : ISpawnable {
 		OnPhysicBodyInitiate();
 	}
 
-	protected override void OnSpawn(Vector3 position, float angle) {
+	protected override void OnSpawn(Vector3 position, Vector3 angle) {
 		Rigidbody.velocity = Vector3.zero;
 		Rigidbody.angularVelocity = Vector3.zero;
 
@@ -18,6 +18,6 @@ public abstract class IPhysicBody : ISpawnable {
 
 	protected abstract void OnPhysicBodyInitiate();
 
-	protected abstract void OnPhysicBodySpawn(Vector3 position, float angle);
+	protected abstract void OnPhysicBodySpawn(Vector3 position, Vector3 angle);
 
 }

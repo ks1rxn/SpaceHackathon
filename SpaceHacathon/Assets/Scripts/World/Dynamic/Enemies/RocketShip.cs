@@ -24,7 +24,7 @@ public class RocketShip : IEnemyShip {
 		CollisionDetector.RegisterListener(CollisionTags.SpaceMine, OnOtherShipHit);
 	}
 
-	protected override void OnPhysicBodySpawn(Vector3 position, float angle) {
+	protected override void OnPhysicBodySpawn(Vector3 position, Vector3 angle) {
 		m_gun1Cooldown = 0;
 		m_gun2Cooldown = 0;
 		m_globalCooldown = m_globalCooldownValue;

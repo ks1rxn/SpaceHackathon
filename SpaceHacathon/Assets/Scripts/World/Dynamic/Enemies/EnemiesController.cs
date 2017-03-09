@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemiesController : MonoBehaviour {
+public class EnemiesController : IController {
 	[SerializeField]
 	private GameObject m_blasterShipPrefab;
 	[SerializeField]
@@ -40,7 +40,7 @@ public class EnemiesController : MonoBehaviour {
 	[SerializeField]
 	private int m_STUNCooldownValue, m_STUNCooldownDispertion, m_STUNSpawnMinDistance, m_STUNSpanwMaxDistance;
 
-	public void Initiate() {
+	public override void Initiate() {
 		m_ships = new List<IEnemyShip>();
 		m_ramShips = new List<RamShip>();
 		m_stunShips = new List<StunShip>();
@@ -70,7 +70,7 @@ public class EnemiesController : MonoBehaviour {
 		m_stunShipAlive = false;
 	}
 
-	public void UpdateEntity() {
+	public override void FixedUpdateEntity() {
 		if (m_enableRAM && !m_ramShipAlive) {
 			if (m_ramShipCooldown > 0) {
 				m_ramShipCooldown -= Time.fixedDeltaTime;

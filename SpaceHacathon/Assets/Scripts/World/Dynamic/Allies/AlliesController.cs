@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class AlliesController : MonoBehaviour {
+public class AlliesController : IController {
 	[SerializeField]
 	private GameObject m_healthDroneStationPrefab;
 
 	private List<IAlly> m_allies;
 
-	public void Initiate() {
+	public override void Initiate() {
 		m_allies = new List<IAlly>();
 
 		for (int i = 0; i != 1; i++) {
@@ -15,10 +15,10 @@ public class AlliesController : MonoBehaviour {
 		}
 	}
 
-	public void UpdateEntity() {
+	public override void FixedUpdateEntity() {
 		for (int i = 0; i != m_allies.Count; i++) {
-			if (m_allies[i].IsAlive) {
-				m_allies[i].UpdateEntity();
+			if (m_allies[i].IsSpawned()) {
+				m_allies[i].FixedUpdateEntity();
 			} else {
 				if (m_allies[i] is HealthDroneStation) {
 					Vector3 stationPosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, 30, 50);
@@ -31,7 +31,7 @@ public class AlliesController : MonoBehaviour {
 	public HealthDroneStation SpawnHealthDroneStation(Vector3 position, float angle) {
 		HealthDroneStation targetEntity = null;
 		foreach (IAlly entity in m_allies) {
-			if (entity is HealthDroneStation && !entity.IsAlive) {
+			if (entity is HealthDroneStation && !entity.IsSpawned()) {
 				targetEntity = (HealthDroneStation) entity;
 				break;
 			}

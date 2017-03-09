@@ -6,21 +6,23 @@ public class HealthDroneStation : IAlly {
 	private GameObject m_healthDronePrefab;
 	[SerializeField]
 	private Transform[] m_dronePoints;
-	[SerializeField]
-	private CollisionDetector m_collisionDetector;
 
 	private List<HealthDrone> m_drones; 
 
-	public override void Initiate() {
-		base.Initiate();
-
+	protected override void OnPhysicBodyInitiate() {
 		m_drones = new List<HealthDrone>();
 		CreateHealthDrone();
 		CreateHealthDrone();
 		CreateHealthDrone();
 
-		m_collisionDetector.RegisterListener(CollisionTags.PlayerShip, OnPlayerEnter);
-		m_collisionDetector.RegisterExitListener(CollisionTags.PlayerShip, OnPlayerExit);
+		CollisionDetector.RegisterListener(CollisionTags.PlayerShip, OnPlayerEnter);
+		CollisionDetector.RegisterExitListener(CollisionTags.PlayerShip, OnPlayerExit);
+	}
+
+	protected override void OnPhysicBodySpawn(Vector3 position, Vector3 angle) {
+		m_drones[0].Spawn(m_dronePoints[0].position, 0);
+		m_drones[1].Spawn(m_dronePoints[1].position, 0);
+		m_drones[2].Spawn(m_dronePoints[2].position, 0);
 	}
 
 	private void OnPlayerEnter(GameObject other) {
@@ -31,27 +33,20 @@ public class HealthDroneStation : IAlly {
 
 	}
 
-	public override void Spawn(Vector3 position, float rotation) {
-		base.Spawn(position, rotation);
-		m_drones[0].Spawn(m_dronePoints[0].position, 0);
-		m_drones[1].Spawn(m_dronePoints[1].position, 0);
-		m_drones[2].Spawn(m_dronePoints[2].position, 0);
-	}
 
-	protected override void OnDie() {
+	protected override void OnDespawn() {
 		foreach (HealthDrone drone in m_drones) {
-			drone.Hide();
+			drone.Despawn();
 		}
 	}
 
-	public override void UpdateEntity() {
-		base.UpdateEntity();
+	protected override void OnFixedUpdateEntity() {
 		foreach (HealthDrone drone in m_drones) {
-			drone.UpdateEntity();
+			drone.FixedUpdateEntity();
 		}
 	}
 
-	protected override float DistanceFromPlayerToDie {
+	protected override float DistanceToDespawn {
 		get {
 			return 60;
 		}

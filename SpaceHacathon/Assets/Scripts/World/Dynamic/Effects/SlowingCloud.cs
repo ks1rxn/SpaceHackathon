@@ -1,32 +1,28 @@
 ﻿using UnityEngine;
 
-public class SlowingCloud : MonoBehaviour {
+public class SlowingCloud : IEffect{
 	private float m_lifeTime;
 
-	public void Initiate() {
-		IsAlive = false;
+	protected override void OnInitiate() {
 	}
 
-	public void Spawn(Vector3 position) {
-		IsAlive = true;
-		transform.position = position;
-
+	protected override void OnSpawn(Vector3 position, Vector3 angle) {
 		m_lifeTime = 5;
 	}
 
-	public void UpdateState() {
+	protected override void OnDespawn() {
+	}
+
+	protected override void OnFixedUpdateEntity() {
 		m_lifeTime -= Time.fixedDeltaTime;
 		if (m_lifeTime <= 0) {
-			IsAlive = false;
+			Despawn();
 		}
 	}
 
-	public bool IsAlive {
+	protected override float DistanceToDespawn {
 		get {
-			return gameObject.activeInHierarchy;
-		}
-		set {
-			gameObject.SetActive(value);
+			return 80;
 		}
 	}
 

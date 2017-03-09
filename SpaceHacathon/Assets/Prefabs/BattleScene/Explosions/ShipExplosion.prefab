@@ -27,6 +27,7 @@ GameObject:
   - 4: {fileID: 481538}
   - 114: {fileID: 11406878}
   - 82: {fileID: 82000010520434764}
+  - 114: {fileID: 114000013908067782}
   m_Layer: 0
   m_Name: ShipExplosion
   m_TagString: Untagged
@@ -77,6 +78,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 453cc4f0e08e4644f8f1c4cba58da3f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CollisionDetector: {fileID: 114000013908067782}
+  m_explosionType: 0
   m_lifeTime: 2
   m_particles:
   - {fileID: 19801252}
@@ -2180,6 +2183,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114000013908067782
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 188550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8ae04473e279b7428c4e56ae7ffb351, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!198 &198000010890459068
 ParticleSystem:
   m_ObjectHideFlags: 1

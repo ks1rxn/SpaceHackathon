@@ -27,9 +27,9 @@ public class DroneCarrier : IEnemyShip {
 		CollisionDetector.RegisterListener(CollisionTags.SpaceMine, OnOtherShipHit);
 	}
 
-	protected override void OnPhysicBodySpawn(Vector3 position, float angle) {
+	protected override void OnPhysicBodySpawn(Vector3 position, Vector3 angle) {
 		const float speed = 0.3f;
-		Rigidbody.velocity = new Vector3(Mathf.Cos(angle * Mathf.PI / 180) * speed, 0, -Mathf.Sin(angle * Mathf.PI / 180) * speed);
+		Rigidbody.velocity = new Vector3(Mathf.Cos(angle.y * Mathf.PI / 180) * speed, 0, -Mathf.Sin(angle.y * Mathf.PI / 180) * speed);
 
 		m_cooldown = MathHelper.Random.Next((int)m_globalCooldownValue);
 	}
