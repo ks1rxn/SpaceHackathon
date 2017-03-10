@@ -3853,7 +3853,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0afc4ca327672541bb5e98881caceef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_collisionDetector: {fileID: 114000013479154126}
+  CollisionDetector: {fileID: 114000013479154126}
   m_gunCooldownValue: 10
   m_globalCooldownValue: 2
   m_launcher1: {fileID: 431840}

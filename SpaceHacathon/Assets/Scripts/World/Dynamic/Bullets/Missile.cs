@@ -1,68 +1,53 @@
 ﻿using UnityEngine;
 
-public class Missile : MonoBehaviour {
-	[SerializeField]
-	private CollisionDetector m_collisionDetector;
-
-	private Rigidbody m_rigidbody;
+public class Missile : IBullet {
 	private float m_lifeTime;
 	private float m_detonatorActivateTime;
 
-	public void Initiate() {
-		m_collisionDetector.RegisterListener(CollisionTags.PlayerShip, OnTargetHit);
-		m_collisionDetector.RegisterListener(CollisionTags.RamShip, OnTargetHit);
-		m_collisionDetector.RegisterListener(CollisionTags.ChargeFuel, OnTargetHit);
-		m_collisionDetector.RegisterListener(CollisionTags.Missile, OnTargetHit);
-
-		m_rigidbody = GetComponent<Rigidbody>();
-		IsAlive = false;
+	protected override void OnPhysicBodyInitiate() {
+		CollisionDetector.RegisterListener(CollisionTags.PlayerShip, OnTargetHit);
+		CollisionDetector.RegisterListener(CollisionTags.RamShip, OnTargetHit);
+		CollisionDetector.RegisterListener(CollisionTags.ChargeFuel, OnTargetHit);
+		CollisionDetector.RegisterListener(CollisionTags.Missile, OnTargetHit);
 	}
 
-	public void Spawn(Vector3 position, float angle) {
-		IsAlive = true;
-
-		transform.position = position;
+	protected override void OnPhysicBodySpawn(Vector3 position, Vector3 angle) {
 		m_lifeTime = 10;
-
-		transform.rotation = new Quaternion();
-		transform.Rotate(new Vector3(0, 1, 0), angle);
 
 		m_detonatorActivateTime = 0.2f;
 		GetComponent<Collider>().enabled = false;
 
 		Vector3 lookVector = new Vector3(Mathf.Cos(-transform.rotation.eulerAngles.y * Mathf.PI / 180), 0, Mathf.Sin(-transform.rotation.eulerAngles.y * Mathf.PI / 180));
-		m_rigidbody.AddForce(lookVector * 50);
+		Rigidbody.AddForce(lookVector * 50);
+	}
+
+	protected override void OnDespawn(DespawnReason reason) {
+		BattleContext.ExplosionsController.RocketExplosion(transform.position);
 	}
 
 	private void OnTargetHit(GameObject other) {
-		BattleContext.ExplosionsController.RocketExplosion(transform.position);
-		IsAlive = false;
+		Despawn(DespawnReason.Kill);
 	}
 
-	public void UpdateBullet() {
+	protected override void OnFixedUpdateEntity() {
 		Vector3 enemyPosition = BattleContext.PlayerShip.transform.position;
 		Vector3 lookVector = new Vector3(Mathf.Cos(-transform.rotation.eulerAngles.y * Mathf.PI / 180), 0, Mathf.Sin(-transform.rotation.eulerAngles.y * Mathf.PI / 180));
 
 		float angle = MathHelper.AngleBetweenVectors(lookVector, enemyPosition - transform.position);
-		m_rigidbody.AddTorque(new Vector3(0, (angle - m_rigidbody.angularVelocity.y * 50) * 0.1f, 0));
-		if (m_rigidbody.angularVelocity.magnitude > 5) {
-			m_rigidbody.angularVelocity = m_rigidbody.angularVelocity.normalized * 5;
+		Rigidbody.AddTorque(new Vector3(0, (angle - Rigidbody.angularVelocity.y * 50) * 0.1f, 0));
+		if (Rigidbody.angularVelocity.magnitude > 5) {
+			Rigidbody.angularVelocity = Rigidbody.angularVelocity.normalized * 5;
 		}
 
-		m_rigidbody.AddForce(lookVector.normalized * 80);
-		if (m_rigidbody.velocity.magnitude > 6) {
-			m_rigidbody.velocity = m_rigidbody.velocity.normalized * 6;
+		Rigidbody.AddForce(lookVector.normalized * 80);
+		if (Rigidbody.velocity.magnitude > 6) {
+			Rigidbody.velocity = Rigidbody.velocity.normalized * 6;
 		}
 
 		m_lifeTime -= 0.02f;
 		if (m_lifeTime <= 0) {
-			IsAlive = false;
+			Despawn(DespawnReason.TimeOff);
 			BattleContext.ExplosionsController.RocketExplosion(transform.position);
-		}
-
-		float distToPlayer = Vector3.Distance(BattleContext.PlayerShip.transform.position, transform.position);
-		if (distToPlayer > 25) {
-			IsAlive = false;
 		}
 
 		if (m_detonatorActivateTime <= 0) {
@@ -72,12 +57,9 @@ public class Missile : MonoBehaviour {
 		}
 	}
 
-	public bool IsAlive {
+	protected override float DistanceToDespawn {
 		get {
-			return gameObject.activeInHierarchy;
-		}
-		set {
-			gameObject.SetActive(value);
+			return 60;
 		}
 	}
 

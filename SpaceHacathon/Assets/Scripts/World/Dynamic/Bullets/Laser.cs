@@ -1,29 +1,19 @@
 ﻿using UnityEngine;
 
-public class Laser : MonoBehaviour {
+public class Laser : IBullet {
 	private float m_angle;
 	private float m_detonatorActivateTime;
 	private float m_lifetime;
 
 	[SerializeField]
-	private CollisionDetector m_collisionDetector;
-	[SerializeField]
 	private TrailRenderer m_trail;
 
-	public void Initiate() {
-		m_collisionDetector.RegisterDefaultListener(OnTargetHit);
-
-		IsAlive = false;
+	protected override void OnPhysicBodyInitiate() {
+		CollisionDetector.RegisterDefaultListener(OnTargetHit);
 	}
 
-	public void Spawn(Vector3 position, float angle) {
-		IsAlive = true;
-
-		m_angle = angle;
-		transform.position = position;
-		transform.rotation = new Quaternion();
-		transform.Rotate(new Vector3(0, 1, 0), m_angle);
-
+	protected override void OnPhysicBodySpawn(Vector3 position, Vector3 angle) {
+		m_angle = angle.y;
 		m_trail.Clear();
 
 		m_lifetime = 0.5f + (float)MathHelper.Random.NextDouble() * 0.2f;
@@ -31,10 +21,14 @@ public class Laser : MonoBehaviour {
 		GetComponent<Collider>().enabled = false;
 	}
 
-	public void UpdateBullet() {
+	protected override void OnDespawn(DespawnReason reason) {
+		BattleContext.ExplosionsController.BlasterExplosion(transform.position);
+	}
+
+	protected override void OnFixedUpdateEntity() {
 		m_lifetime -= Time.fixedDeltaTime;
 		if (m_lifetime < 0) {
-			IsAlive = false;
+			Despawn(DespawnReason.TimeOff);
 		}
 
 		Vector3 moveVector = new Vector3(Mathf.Cos(-m_angle * Mathf.PI / 180), 0, Mathf.Sin(-m_angle * Mathf.PI / 180));
@@ -48,17 +42,13 @@ public class Laser : MonoBehaviour {
 	}
 
 	private void OnTargetHit(GameObject other) {
-		BattleContext.ExplosionsController.BlasterExplosion(transform.position);
-		IsAlive = false;
+		Despawn(DespawnReason.Kill);
 	}
 
-	public bool IsAlive {
+	protected override float DistanceToDespawn {
 		get {
-			return gameObject.activeInHierarchy;
-		}
-		set {
-			gameObject.SetActive(value);
+			return 40;
 		}
 	}
-
+	
 }

@@ -27,6 +27,7 @@ GameObject:
   - 4: {fileID: 445746}
   - 114: {fileID: 11446264}
   - 82: {fileID: 82000013342069474}
+  - 114: {fileID: 114000011094842802}
   m_Layer: 0
   m_Name: StunExplosion
   m_TagString: Untagged
@@ -72,6 +73,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 453cc4f0e08e4644f8f1c4cba58da3f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CollisionDetector: {fileID: 114000011094842802}
+  m_explosionType: 2
   m_lifeTime: 1
   m_particles:
   - {fileID: 19804700}
@@ -1968,3 +1971,14 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114000011094842802
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 134612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8ae04473e279b7428c4e56ae7ffb351, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

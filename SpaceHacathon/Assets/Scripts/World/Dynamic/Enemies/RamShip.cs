@@ -2,8 +2,6 @@
 
 public class RamShip : IEnemyShip {
 	[SerializeField]
-	private CollisionDetector m_collisionDetector;
-	[SerializeField]
 	private Transform m_hull;
 
 	private RamShipState m_state;
@@ -35,41 +33,34 @@ public class RamShip : IEnemyShip {
 	[SerializeField]
 	private float m_distanceToDie;
 
-	public override void Initiate() {
-		base.Initiate();
-
+	protected override void OnPhysicBodyInitiate() {
 		m_headingController = new VectorPid(m_headingParams);
 
-		m_collisionDetector.RegisterListener(CollisionTags.PlayerShip, OnOtherShipHit);
-		m_collisionDetector.RegisterListener(CollisionTags.DroneCarrier, OnOtherShipHit);
-		m_collisionDetector.RegisterListener(CollisionTags.StunShip, OnOtherShipHit);
-		m_collisionDetector.RegisterListener(CollisionTags.RamShip, OnOtherShipHit);
-		m_collisionDetector.RegisterListener(CollisionTags.SpaceMine, OnOtherShipHit);
-		m_collisionDetector.RegisterListener(CollisionTags.Missile, OnOtherShipHit);
+		CollisionDetector.RegisterListener(CollisionTags.PlayerShip, OnOtherShipHit);
+		CollisionDetector.RegisterListener(CollisionTags.DroneCarrier, OnOtherShipHit);
+		CollisionDetector.RegisterListener(CollisionTags.StunShip, OnOtherShipHit);
+		CollisionDetector.RegisterListener(CollisionTags.RamShip, OnOtherShipHit);
+		CollisionDetector.RegisterListener(CollisionTags.SpaceMine, OnOtherShipHit);
+		CollisionDetector.RegisterListener(CollisionTags.Missile, OnOtherShipHit);
 	}
 
-	public override void Spawn(Vector3 position, float angle) {
-		base.Spawn(position, angle);
-
+	protected override void OnPhysicBodySpawn(Vector3 position, Vector3 angle) {
 		m_rotationSpeed = 0;
 		m_needRotationSpeed = 0;
 
 		m_state = RamShipState.Aiming;
 	}
 
-	public override void Kill() {
-		base.Kill();
+	protected override void OnDespawn(DespawnReason reason) {
 		BattleContext.ExplosionsController.PlayerShipExplosion(Position);
 		BattleContext.EnemiesController.OnRamShipDie();
 	}
 
 	private void OnOtherShipHit(GameObject other) {
-		Kill();
+		Despawn(DespawnReason.Kill);
 	}
 
-	public override void UpdateShip() {
-		base.UpdateShip();
-
+	protected override void OnFixedUpdateEntity() {
 		switch (m_state) {
 			case RamShipState.Aiming:
 				Aiming();
@@ -95,13 +86,13 @@ public class RamShip : IEnemyShip {
 
 	private void Aiming() {
 		m_needRotationSpeed = 90;
-		if (m_rigidbody.velocity.magnitude > 0.1f) {
-			m_rigidbody.velocity *= 0.5f;
+		if (Rigidbody.velocity.magnitude > 0.1f) {
+			Rigidbody.velocity *= 0.5f;
 		}
 		Vector3 headingCorrection = m_headingController.Update(Vector3.Cross(transform.right, BattleContext.PlayerShip.Position - Position), Time.fixedDeltaTime);
-		m_rigidbody.AddTorque(headingCorrection * m_rotationSensitivityAim);
+		Rigidbody.AddTorque(headingCorrection * m_rotationSensitivityAim);
 		if (Mathf.Abs(MathHelper.AngleBetweenVectors(transform.right, BattleContext.PlayerShip.Position - Position)) < m_finishAimAngle &&
-			m_rigidbody.angularVelocity.magnitude < m_finishAimAngVelocity) {
+			Rigidbody.angularVelocity.magnitude < m_finishAimAngVelocity) {
 
 			if (!IsLauncherOnMyWay()) {
 				m_state = RamShipState.Running;
@@ -111,8 +102,8 @@ public class RamShip : IEnemyShip {
 
 	private void Stabilizing() {
 		m_needRotationSpeed = 50;
-		if (m_rigidbody.angularVelocity.magnitude > 0.1f) {
-			m_rigidbody.angularVelocity *= 0.5f;
+		if (Rigidbody.angularVelocity.magnitude > 0.1f) {
+			Rigidbody.angularVelocity *= 0.5f;
 		} else {
 			m_state = RamShipState.Running;
 		}
@@ -126,16 +117,16 @@ public class RamShip : IEnemyShip {
 		m_needRotationSpeed = 360;
 		Vector3 headingCorrection = m_headingController.Update(Vector3.Cross(transform.right, BattleContext.PlayerShip.Position - Position), Time.fixedDeltaTime);
 		headingCorrection.y = Mathf.Clamp(headingCorrection.y, -m_headingMaxOnRun, m_headingMaxOnRun);
-		m_rigidbody.AddTorque(headingCorrection * m_rotationSensitivityRun);
+		Rigidbody.AddTorque(headingCorrection * m_rotationSensitivityRun);
 
-		if (m_rigidbody.velocity.magnitude < 0.75f * m_maxRunSpeed) {
-			m_rigidbody.AddRelativeForce(Vector3.right * m_acceleration[0], ForceMode.Force);
+		if (Rigidbody.velocity.magnitude < 0.75f * m_maxRunSpeed) {
+			Rigidbody.AddRelativeForce(Vector3.right * m_acceleration[0], ForceMode.Force);
 		} else {
-			m_rigidbody.AddRelativeForce(Vector3.right * m_acceleration[1], ForceMode.Force);
+			Rigidbody.AddRelativeForce(Vector3.right * m_acceleration[1], ForceMode.Force);
 		} 
 		
-		if (m_rigidbody.velocity.magnitude > m_maxRunSpeed) {
-			m_rigidbody.velocity = m_rigidbody.velocity.normalized * m_maxRunSpeed;
+		if (Rigidbody.velocity.magnitude > m_maxRunSpeed) {
+			Rigidbody.velocity = Rigidbody.velocity.normalized * m_maxRunSpeed;
 		}
 		if (Mathf.Abs(MathHelper.AngleBetweenVectors(transform.right, BattleContext.PlayerShip.Position - Position)) > m_angleToStartStop) {
 			m_state = RamShipState.Stopping;
@@ -144,8 +135,8 @@ public class RamShip : IEnemyShip {
 
 	private void Stopping() {
 		m_needRotationSpeed = 120;
-		if (m_rigidbody.velocity.magnitude > 0.5f) {
-			m_rigidbody.velocity *= m_stopAcceleration;
+		if (Rigidbody.velocity.magnitude > 0.5f) {
+			Rigidbody.velocity *= m_stopAcceleration;
 		} else {
 			m_state = RamShipState.Aiming;
 		}
@@ -168,22 +159,13 @@ public class RamShip : IEnemyShip {
 		return false;
 	}
 
-	public override bool IsAlive {
-		get {
-			return gameObject.activeInHierarchy;
-		}
-		set {
-			gameObject.SetActive(value);
-		}
-	}
-
 	public RamShipState State {
 		get {
 			return m_state;
 		}
 	}
 
-	protected override float DistanceFromPlayerToDie {
+	protected override float DistanceToDespawn {
 		get {
 			return m_distanceToDie;
 		}

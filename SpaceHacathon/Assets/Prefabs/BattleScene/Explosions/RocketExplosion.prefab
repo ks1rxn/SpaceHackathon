@@ -10,6 +10,7 @@ GameObject:
   - 4: {fileID: 415760}
   - 114: {fileID: 11418178}
   - 82: {fileID: 82000012845534884}
+  - 114: {fileID: 114000014257581778}
   m_Layer: 0
   m_Name: RocketExplosion
   m_TagString: Untagged
@@ -135,6 +136,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 453cc4f0e08e4644f8f1c4cba58da3f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CollisionDetector: {fileID: 114000014257581778}
+  m_explosionType: 1
   m_lifeTime: 1
   m_particles:
   - {fileID: 19859506}
@@ -5591,6 +5594,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114000014257581778
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 147702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8ae04473e279b7428c4e56ae7ffb351, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!198 &198000012042341690
 ParticleSystem:
   m_ObjectHideFlags: 1

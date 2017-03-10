@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemiesController : MonoBehaviour {
+public class EnemiesController : IController {
 	[SerializeField]
 	private GameObject m_blasterShipPrefab;
 	[SerializeField]
@@ -40,7 +40,7 @@ public class EnemiesController : MonoBehaviour {
 	[SerializeField]
 	private int m_STUNCooldownValue, m_STUNCooldownDispertion, m_STUNSpawnMinDistance, m_STUNSpanwMaxDistance;
 
-	public void Initiate() {
+	public override void Initiate() {
 		m_ships = new List<IEnemyShip>();
 		m_ramShips = new List<RamShip>();
 		m_stunShips = new List<StunShip>();
@@ -70,7 +70,7 @@ public class EnemiesController : MonoBehaviour {
 		m_stunShipAlive = false;
 	}
 
-	public void UpdateEntity() {
+	public override void FixedUpdateEntity() {
 		if (m_enableRAM && !m_ramShipAlive) {
 			if (m_ramShipCooldown > 0) {
 				m_ramShipCooldown -= Time.fixedDeltaTime;
@@ -90,8 +90,8 @@ public class EnemiesController : MonoBehaviour {
 		}
 
 		for (int i = 0; i != m_ships.Count; i++) {
-			if (m_ships[i].IsAlive) {
-				m_ships[i].UpdateShip();
+			if (m_ships[i].IsSpawned()) {
+				m_ships[i].FixedUpdateEntity();
 			} else {
 				if (m_ships[i] is DroneCarrier) {
 					Vector3 dcPosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, BattleContext.PlayerShip.SpeedVector, m_DCSpawnAngle, m_DCSpawnMinDistance, m_DCSpawnMaxDistance);
@@ -124,7 +124,7 @@ public class EnemiesController : MonoBehaviour {
 	public StunShip SpawnStunShip(Vector3 position, float rotation) {
 		StunShip targetShip = null;
 		foreach (StunShip ship in m_stunShips) {
-			if (!ship.IsAlive) {
+			if (!ship.IsSpawned()) {
 				targetShip = ship;
 				break;
 			}
@@ -139,7 +139,7 @@ public class EnemiesController : MonoBehaviour {
 	public DroneCarrier SpawnDroneCarrier(Vector3 position, float rotation) {
 		DroneCarrier targetShip = null;
 		foreach (DroneCarrier ship in m_droneCarriers) {
-			if (!ship.IsAlive) {
+			if (!ship.IsSpawned()) {
 				targetShip = ship;
 				break;
 			}
@@ -154,7 +154,7 @@ public class EnemiesController : MonoBehaviour {
 	public RocketShip SpawnRocketShip(Vector3 position, float rotation) {
 		RocketShip targetShip = null;
 		foreach (RocketShip ship in m_rocketShips) {
-			if (!ship.IsAlive) {
+			if (!ship.IsSpawned()) {
 				targetShip = ship;
 				break;
 			}
@@ -169,7 +169,7 @@ public class EnemiesController : MonoBehaviour {
 	public RamShip SpawnRamShip(Vector3 position, float rotation) {
 		RamShip targetShip = null;
 		foreach (RamShip ship in m_ramShips) {
-			if (!ship.IsAlive) {
+			if (!ship.IsSpawned()) {
 				targetShip = ship;
 				break;
 			}
@@ -184,7 +184,7 @@ public class EnemiesController : MonoBehaviour {
 	public SpaceMine SpawnSpaceMine(Vector3 position) {
 		SpaceMine targetShip = null;
 		foreach (SpaceMine ship in m_spaceMines) {
-			if (!ship.IsAlive) {
+			if (!ship.IsSpawned()) {
 				targetShip = ship;
 				break;
 			}

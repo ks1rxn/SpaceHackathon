@@ -71,11 +71,11 @@ public class Director : MonoBehaviour {
 	private void FixedUpdate() {
 		BattleContext.PlayerShip.UpdateEntity();
 		BattleContext.BattleCamera.UpdateEntity();
-		BattleContext.BulletsController.UpdateEntity();
-		BattleContext.BonusesController.UpdateEntity();
-		BattleContext.EnemiesController.UpdateEntity();
-		BattleContext.AlliesController.UpdateEntity();
-		BattleContext.EffectsController.UpdateEntity();
+		BattleContext.BulletsController.FixedUpdateEntity();
+		BattleContext.BonusesController.FixedUpdateEntity();
+		BattleContext.EnemiesController.FixedUpdateEntity();
+		BattleContext.AlliesController.FixedUpdateEntity();
+		BattleContext.EffectsController.FixedUpdateEntity();
 	}
 
 	private void SpawnPlayerShip(Vector3 position, float angle) {
@@ -88,6 +88,12 @@ public class Director : MonoBehaviour {
 	public PlayerShip PlayerShip {
 		get {
 			return m_playerShip;
+		}
+	}
+
+	public Vector3 PlayerPosition {
+		get {
+			return PlayerShip.Position;
 		}
 	}
 

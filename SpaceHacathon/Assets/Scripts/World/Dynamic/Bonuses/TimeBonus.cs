@@ -1,38 +1,32 @@
 ﻿using UnityEngine;
 
-public class TimeBonus : MonoBehaviour {
+public class TimeBonus : IBonus {
 	[SerializeField]
 	private int m_giveSecondsValue, m_giveSecondsDispertion;
-	[SerializeField]
-	private CollisionDetector m_collisionDetector;
 
 	private float m_giveSeconds;
 
-	public void Initiate() {
-		m_collisionDetector.RegisterListener(CollisionTags.PlayerShip, OnTargetHit);
-
-		IsAlive = false;
+	protected override void OnInitiate() {
+		CollisionDetector.RegisterListener(CollisionTags.PlayerShip, OnTargetHit);
 	}
 
-	public void Spawn(Vector3 position) {
-		IsAlive = true;
-		transform.position = position;
+	protected override void OnSpawn(Vector3 position, Vector3 angle) {
 		m_giveSeconds = MathHelper.Random.Next(m_giveSecondsDispertion * 2) - m_giveSecondsDispertion + m_giveSecondsValue;
 	}
 
-	public void UpdateState() {
+	protected override void OnDespawn(DespawnReason reason) {
+	}
+
+	protected override void OnFixedUpdateEntity() {
 	}
 
 	private void OnTargetHit(GameObject other) {
-		IsAlive = false;
+		Despawn(DespawnReason.Kill);
 	}
 
-	public bool IsAlive {
+	protected override float DistanceToDespawn {
 		get {
-			return gameObject.activeInHierarchy;
-		}
-		set {
-			gameObject.SetActive(value);
+			return 50;
 		}
 	}
 

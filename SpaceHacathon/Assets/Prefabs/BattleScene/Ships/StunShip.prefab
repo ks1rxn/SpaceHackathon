@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e79290063e01af0479e6bdc946b07b39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_collisionDetector: {fileID: 114000011101677016}
+  CollisionDetector: {fileID: 114000011101677016}
   m_gun: {fileID: 139178}
   m_spawnEffect: {fileID: 198000013584847510}
   m_flyCooldown: 10

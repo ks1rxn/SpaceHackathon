@@ -57,6 +57,7 @@ GameObject:
   - 33: {fileID: 33000011785798418}
   - 23: {fileID: 23000013454931648}
   - 95: {fileID: 95000011391839198}
+  - 114: {fileID: 114000011850818398}
   m_Layer: 0
   m_Name: HealthDrone
   m_TagString: Untagged
@@ -225,6 +226,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114000011850818398
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012456259512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8ae04473e279b7428c4e56ae7ffb351, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000013813061790
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -236,6 +248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9959cfc041a0154eb5d27bb55ea8175, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CollisionDetector: {fileID: 114000011850818398}
   m_beam: {fileID: 1000011635925454}
 --- !u!198 &198000011344534992
 ParticleSystem:

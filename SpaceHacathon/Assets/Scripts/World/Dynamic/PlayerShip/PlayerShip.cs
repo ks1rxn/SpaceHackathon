@@ -88,7 +88,7 @@ public class PlayerShip : MonoBehaviour {
 
 		bool isOnMineTarget = false;
 		foreach (SpaceMine mine in BattleContext.EnemiesController.SpaceMines) {
-			if (mine.IsAlive && mine.State == SpaceMineState.Chasing) {
+			if (mine.IsSpawned() && mine.State == SpaceMineState.Chasing) {
 				isOnMineTarget = true;
 				break;
 			}
@@ -105,7 +105,7 @@ public class PlayerShip : MonoBehaviour {
 			return;
 		}
 		RamShip ramShip = BattleContext.EnemiesController.RamShips[0];
-		if (ramShip.IsAlive && ramShip.State == RamShipState.Running && Vector3.Distance(Position, ramShip.Position) < 60) {
+		if (ramShip.IsSpawned() && ramShip.State == RamShipState.Running && Vector3.Distance(Position, ramShip.Position) < 60) {
 			m_ramDirection.SetActive(true);
 			float angle = MathHelper.AngleBetweenVectors(LookVector, ramShip.Position - Position);
 			m_ramDirection.transform.localEulerAngles = new Vector3(0, angle, 0);

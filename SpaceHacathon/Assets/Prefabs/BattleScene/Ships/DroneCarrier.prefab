@@ -536,7 +536,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d591b12ebe540d94c8449565da5fa798, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_collisionDetector: {fileID: 114000010526979724}
+  CollisionDetector: {fileID: 114000010526979724}
   m_globalCooldownValue: 10
   m_blasterCooldown: 5
   m_launcher: {fileID: 4000014041465962}

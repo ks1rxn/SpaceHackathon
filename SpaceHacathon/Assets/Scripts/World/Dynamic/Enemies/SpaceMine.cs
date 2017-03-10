@@ -2,8 +2,6 @@
 
 public class SpaceMine : IEnemyShip {
 	[SerializeField]
-	private CollisionDetector m_collisionDetector;
-	[SerializeField]
 	private GameObject m_waitingIndicator;
 	[SerializeField]
 	private GameObject m_armedIndicator;
@@ -23,19 +21,15 @@ public class SpaceMine : IEnemyShip {
 	[SerializeField]
 	private LineRenderer m_lineRenderer;
 
-	public override void Initiate() {
-		base.Initiate();
-
-		m_collisionDetector.RegisterListener(CollisionTags.PlayerShip, OnOtherShipHit);
-		m_collisionDetector.RegisterListener(CollisionTags.DroneCarrier, OnOtherShipHit);
-		m_collisionDetector.RegisterListener(CollisionTags.StunShip, OnOtherShipHit);
-		m_collisionDetector.RegisterListener(CollisionTags.RamShip, OnOtherShipHit);
-		m_collisionDetector.RegisterListener(CollisionTags.SpaceMine, OnOtherShipHit);
+	protected override void OnPhysicBodyInitiate() {
+		CollisionDetector.RegisterListener(CollisionTags.PlayerShip, OnOtherShipHit);
+		CollisionDetector.RegisterListener(CollisionTags.DroneCarrier, OnOtherShipHit);
+		CollisionDetector.RegisterListener(CollisionTags.StunShip, OnOtherShipHit);
+		CollisionDetector.RegisterListener(CollisionTags.RamShip, OnOtherShipHit);
+		CollisionDetector.RegisterListener(CollisionTags.SpaceMine, OnOtherShipHit);
 	}
 
-	public override void Spawn(Vector3 position, float angle) {
-		base.Spawn(position, angle);
-
+	protected override void OnPhysicBodySpawn(Vector3 position, Vector3 angle) {
 		m_waitingIndicator.SetActive(true);
 		m_armedIndicator.SetActive(false);
 
@@ -49,18 +43,15 @@ public class SpaceMine : IEnemyShip {
 		m_waitingPosition.y = -3 + MathHelper.Random.Next(1);
 	}
 
-	public override void Kill() {
-		base.Kill();
+	protected override void OnDespawn(DespawnReason reason) {
 		BattleContext.ExplosionsController.MineExplosion(Position);
 	}
 
 	private void OnOtherShipHit(GameObject other) {
-		Kill();
+		Despawn(DespawnReason.Kill);
 	}
 
-	public override void UpdateShip() {
-		base.UpdateShip();
-
+	protected override void OnFixedUpdateEntity() {
 		switch (m_state) {
 			case SpaceMineState.Waiting:
 				Waiting();
@@ -69,7 +60,6 @@ public class SpaceMine : IEnemyShip {
 				Chasing();
 				break;
 		}
-
 	}
 
 	private void LateUpdate() {
@@ -101,7 +91,7 @@ public class SpaceMine : IEnemyShip {
 		}
 		transform.Rotate(0, Time.fixedDeltaTime * 35, 0);
 		Vector3 speedCorrection = m_speedController.Update(m_waitingPosition - Position, Time.fixedDeltaTime);
-		m_rigidbody.AddForce(speedCorrection * 0.5f);
+		Rigidbody.AddForce(speedCorrection * 0.5f);
 		if (Mathf.Abs(m_waitingPosition.y - Position.y) < 0.1f) {
 			m_waitingPosition.y = -5 - m_waitingPosition.y;
 		}
@@ -112,14 +102,14 @@ public class SpaceMine : IEnemyShip {
 		projectionToPlane.y = 0;
 
 		Vector3 speedCorrection = m_speedController.Update(BattleContext.PlayerShip.Position - Position, Time.fixedDeltaTime);
-		m_rigidbody.AddForce(speedCorrection * m_speedValue * 0.9f);
+		Rigidbody.AddForce(speedCorrection * m_speedValue * 0.9f);
 
 		float yCorrection = m_yStabilizer.Update(-Position.y, Time.fixedDeltaTime);
-		m_rigidbody.AddForce(0, yCorrection * 0.5f, 0);
+		Rigidbody.AddForce(0, yCorrection * 0.5f, 0);
 
 		float distCoef = Mathf.Clamp((BattleContext.PlayerShip.Position - Position).magnitude, 3, 8);
-		if (m_rigidbody.velocity.magnitude > distCoef) {
-			m_rigidbody.velocity = m_rigidbody.velocity.normalized * distCoef;
+		if (Rigidbody.velocity.magnitude > distCoef) {
+			Rigidbody.velocity = Rigidbody.velocity.normalized * distCoef;
 		}
 		if (m_speedValue < 0.5f) {
 			m_speedValue += Time.fixedDeltaTime;
@@ -142,16 +132,7 @@ public class SpaceMine : IEnemyShip {
 		}
 	}
 
-	public override bool IsAlive {
-		get {
-			return gameObject.activeInHierarchy;
-		}
-		set {
-			gameObject.SetActive(value);
-		}
-	}
-
-	protected override float DistanceFromPlayerToDie {
+	protected override float DistanceToDespawn {
 		get {
 			return 40;
 		}
