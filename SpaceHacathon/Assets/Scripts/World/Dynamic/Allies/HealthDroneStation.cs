@@ -21,16 +21,25 @@ public class HealthDroneStation : IAlly {
 
 	protected override void OnPhysicBodySpawn(Vector3 position, Vector3 angle) {
 		m_drones[0].Spawn(m_dronePoints[0].position, 0);
+		m_drones[0].SetBase(m_dronePoints[0]);
+
 		m_drones[1].Spawn(m_dronePoints[1].position, 0);
+		m_drones[1].SetBase(m_dronePoints[1]);
+
 		m_drones[2].Spawn(m_dronePoints[2].position, 0);
+		m_drones[2].SetBase(m_dronePoints[2]);
 	}
 
 	private void OnPlayerEnter(GameObject other) {
-
+		foreach (HealthDrone drone in m_drones) {
+			drone.ToMoveToPlayerState();
+		}
 	}
 
 	private void OnPlayerExit(GameObject other) {
-
+		foreach (HealthDrone drone in m_drones) {
+			drone.ToMoveToBaseState();
+		}
 	}
 
 
