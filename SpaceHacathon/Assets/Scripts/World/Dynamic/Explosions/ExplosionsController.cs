@@ -38,6 +38,11 @@ public class ExplosionsController : IController {
 	}
 
 	public override void FixedUpdateEntity() {
+		foreach (Explosion explosion in m_explosions) {
+			if (explosion.IsSpawned()) {
+				explosion.FixedUpdateEntity();
+			}
+		}
 	}
 
 	public void PlayerShipExplosion(Vector3 position) {
@@ -62,7 +67,7 @@ public class ExplosionsController : IController {
 		}
 		Explosion targetExplosion = null;
 		foreach (Explosion explosion in m_explosions) {
-			if (explosion.ExplosionType == type && !explosion.gameObject.activeInHierarchy) {
+			if (explosion.ExplosionType == type && !explosion.IsSpawned()) {
 				targetExplosion = explosion;
 				break;
 			}

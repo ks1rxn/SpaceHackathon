@@ -76,6 +76,7 @@ public class Director : MonoBehaviour {
 		BattleContext.EnemiesController.FixedUpdateEntity();
 		BattleContext.AlliesController.FixedUpdateEntity();
 		BattleContext.EffectsController.FixedUpdateEntity();
+		BattleContext.ExplosionsController.FixedUpdateEntity();
 	}
 
 	private void SpawnPlayerShip(Vector3 position, float angle) {
