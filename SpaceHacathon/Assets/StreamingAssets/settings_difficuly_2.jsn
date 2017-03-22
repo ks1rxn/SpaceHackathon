@@ -16,11 +16,11 @@
     "GiveSecondsDispertion": 0
   },
   "EnemiesController": {
-    "EnableDroneCarrier": false,
-    "EnableRocketShip": false,
-    "EnableSpaceMine": false,
-    "EnableRamShip": false,
-    "EnableStunShip": false,
+    "SpawnDroneCarrier": false,
+    "SpawnRocketShip": false,
+    "SpawnSpaceMine": false,
+    "SpawnRamShip": false,
+    "SpawnStunShip": false,
     "DroneCarrierCount": 0,
     "DroneCarrierSpawnAngle": 0,
     "DroneCarrierSpawnMinDistance": 0,
@@ -45,18 +45,18 @@
   "RamShip": {
     "RotationSensitivityRun": 0.0,
     "RotationSensitivityAim": 0.0,
-    "HeadingParamsX": 0.0,
-    "HeadingParamsY": 0.0,
-    "HeadingParamsZ": 0.0,
     "FinishAimAngle": 0.0,
-    "FinishAimAngVelocity": 0.0,
+    "FinishAimAngleVelocity": 0.0,
     "HeadingMaxOnRun": 0.0,
     "MaxRunSpeed": 0.0,
     "AccelerationStart": 0.0,
     "AccelerationEnd": 0.0,
     "AngleToStartStop": 0.0,
-    "StopAcceleration": 0.0,
-    "DistanceToDie": 0.0
+    "BrakingAcceleration": 0.0,
+    "DistanceFromPlayerToDespawn": 0.0,
+    "HeadingParamsX": 0.0,
+    "HeadingParamsY": 0.0,
+    "HeadingParamsZ": 0.0
   },
   "BulletsController": {
     "MissilesLimit": 0
