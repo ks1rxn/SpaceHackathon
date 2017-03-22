@@ -62,13 +62,16 @@ public class LevelSettingsEditor : EditorWindow {
 	    m_indexInList = EditorGUILayout.Popup(m_indexInList, propLabels);
 	    PropertyInfo currentInfo = props[m_indexInList];
 	    object currentObject = m_settings.GetType().GetProperty(currentInfo.Name).GetValue(m_settings, null);
-	    PropertyInfo[] actualParams = currentObject.GetType().GetProperties();
-	    foreach (PropertyInfo info in actualParams) {
-		    if (info.PropertyType == typeof(int)) {
-			    info.SetValue(currentObject, int.Parse(EditorGUILayout.TextField(info.Name, currentObject.GetType().GetProperty(info.Name).GetValue(currentObject, null).ToString())), null);
+	    FieldInfo[] actualParams = currentObject.GetType().GetFields();
+	    foreach (FieldInfo info in actualParams) {
+		    if (info.FieldType == typeof(int)) {
+			    info.SetValue(currentObject, int.Parse(EditorGUILayout.TextField(info.Name, currentObject.GetType().GetField(info.Name).GetValue(currentObject).ToString())));
 		    }
-		    if (info.PropertyType == typeof(bool)) {
-			    info.SetValue(currentObject, EditorGUILayout.Toggle(info.Name, (bool)currentObject.GetType().GetProperty(info.Name).GetValue(currentObject, null)), null);
+			if (info.FieldType == typeof(float)) {
+			    info.SetValue(currentObject, float.Parse(EditorGUILayout.TextField(info.Name, currentObject.GetType().GetField(info.Name).GetValue(currentObject).ToString())));
+		    }
+		    if (info.FieldType == typeof(bool)) {
+			    info.SetValue(currentObject, EditorGUILayout.Toggle(info.Name, (bool)currentObject.GetType().GetField(info.Name).GetValue(currentObject)));
 		    }
 	    }
 		if (GUILayout.Button("Save Settings")) {

@@ -1,11 +1,41 @@
 {
   "BonusesSettings": {
-    "EnableFuel": true,
+    "EnableFuel": false,
     "EnableTime": false,
-    "FuelCount": 3
+    "FuelCount": 0,
+    "FuelSpawnMinDist": 0.0,
+    "FuelSpawnMaxDist": 0.0,
+    "FuelSpawnAngle": 0.0,
+    "TimeCount": 0,
+    "TimeSpawnMinDist": 0.0,
+    "TimeSpawnMaxDist": 0.0,
+    "TimeSpawnAngle": 0.0
   },
   "EnemiesSettings": {
-    "EnemiesCount": 0,
-    "RocketsCount": 0
+    "EnableDroneCarrier": false,
+    "EnableRocketShip": false,
+    "EnableSpaceMine": false,
+    "EnableRamShip": false,
+    "EnableStunShip": false,
+    "DroneCarrierCount": 0,
+    "DroneCarrierSpawnAngle": 0,
+    "DroneCarrierSpawnMinDistance": 0,
+    "DroneCarrierSpawnMaxDistance": 0,
+    "RocketShipCount": 0,
+    "RocketShipSpawnAngle": 0,
+    "RocketShipSpawnMinDistance": 0,
+    "RocketShipSpawnMaxDistance": 0,
+    "SpaceMineCount": 0,
+    "SpaceMineSpawnAngle": 0,
+    "SpaceMineSpawnMinDistance": 0,
+    "SpaceMineSpawnMaxDistance": 0,
+    "RamShipCooldownValue": 0,
+    "RamShipCooldownDispertion": 0,
+    "RamShipSpawnMinDistance": 0,
+    "RamShipSpawnMaxDistance": 0,
+    "StunShipCooldownValue": 0,
+    "StunShipCooldownDispertion": 0,
+    "StunShipSpawnMinDistance": 0,
+    "StunShipSpanwMaxDistance": 0
   }
 }
