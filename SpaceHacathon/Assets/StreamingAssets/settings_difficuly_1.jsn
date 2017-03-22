@@ -1,0 +1,11 @@
+{
+  "BonusesSettings": {
+    "EnableFuel": true,
+    "EnableTime": false,
+    "FuelCount": 3
+  },
+  "EnemiesSettings": {
+    "EnemiesCount": 0,
+    "RocketsCount": 0
+  }
+}
