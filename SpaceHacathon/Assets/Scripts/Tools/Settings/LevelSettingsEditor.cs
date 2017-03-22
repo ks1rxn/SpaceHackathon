@@ -52,29 +52,38 @@ public class LevelSettingsEditor : EditorWindow {
 	    if (m_settings == null) {
 		    return;
 	    }
-        GUILayout.Label(m_settings.GetType().Name, EditorStyles.boldLabel);
+        GUILayout.Label("Difficulty Level " + m_settingsLevel, EditorStyles.boldLabel);
 
 		PropertyInfo[] props = m_settings.GetType().GetProperties();
 		string[] propLabels = new string[props.Length];
 	    for (int i = 0; i != props.Length; i++) {
 		    propLabels[i] = props[i].Name;
 	    }
-	    m_indexInList = EditorGUILayout.Popup(m_indexInList, propLabels);
+	    m_indexInList = EditorGUILayout.Popup(m_indexInList, propLabels, GUILayout.Width(220));
 	    PropertyInfo currentInfo = props[m_indexInList];
 	    object currentObject = m_settings.GetType().GetProperty(currentInfo.Name).GetValue(m_settings, null);
 	    FieldInfo[] actualParams = currentObject.GetType().GetFields();
 	    foreach (FieldInfo info in actualParams) {
 		    if (info.FieldType == typeof(int)) {
-			    info.SetValue(currentObject, int.Parse(EditorGUILayout.TextField(info.Name, currentObject.GetType().GetField(info.Name).GetValue(currentObject).ToString())));
+				 GUILayout.BeginHorizontal();
+				 GUILayout.Label(info.Name, GUILayout.Width(200));
+				 info.SetValue(currentObject, EditorGUILayout.IntField("", (int)currentObject.GetType().GetField(info.Name).GetValue(currentObject), GUILayout.Width(70)));
+				 GUILayout.EndHorizontal();
 		    }
 			if (info.FieldType == typeof(float)) {
-			    info.SetValue(currentObject, float.Parse(EditorGUILayout.TextField(info.Name, currentObject.GetType().GetField(info.Name).GetValue(currentObject).ToString())));
+				GUILayout.BeginHorizontal();
+				GUILayout.Label(info.Name, GUILayout.Width(200));
+			    info.SetValue(currentObject, EditorGUILayout.FloatField("", (float)currentObject.GetType().GetField(info.Name).GetValue(currentObject), GUILayout.Width(70)));
+				GUILayout.EndHorizontal();
 		    }
 		    if (info.FieldType == typeof(bool)) {
-			    info.SetValue(currentObject, EditorGUILayout.Toggle(info.Name, (bool)currentObject.GetType().GetField(info.Name).GetValue(currentObject)));
+				GUILayout.BeginHorizontal();
+				GUILayout.Label(info.Name, GUILayout.Width(200));
+			    info.SetValue(currentObject, EditorGUILayout.Toggle("", (bool)currentObject.GetType().GetField(info.Name).GetValue(currentObject)));
+				GUILayout.EndHorizontal();
 		    }
 	    }
-		if (GUILayout.Button("Save Settings")) {
+		if (GUILayout.Button("Save Settings", GUILayout.Width(220))) {
 			string filePath = Path.Combine(Application.streamingAssetsPath, "settings_difficuly_" + m_settingsLevel + ".jsn");
 			string json = JsonConvert.SerializeObject(m_settings, Formatting.Indented);
 			StreamWriter outStream = System.IO.File.CreateText(filePath);
