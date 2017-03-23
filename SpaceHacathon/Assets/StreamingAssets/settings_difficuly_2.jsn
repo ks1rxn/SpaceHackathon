@@ -5,6 +5,12 @@
   "PlayerShip": {
     "EnemyShipHitDamage": 0.05
   },
+  "HealingDroneStation": {
+    "HealingRadius": 10.0,
+    "DistanceFromPlayerToDespawn": 60.0,
+    "TotalHealthCapacity": 0.8,
+    "TimeToGiveTotalHealth": 10.0
+  },
   "BonusesController": {
     "EnableFuel": true,
     "EnableTime": true,
