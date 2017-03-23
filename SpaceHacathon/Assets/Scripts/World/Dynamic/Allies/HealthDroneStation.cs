@@ -71,6 +71,7 @@ public class HealthDroneStation : IAlly {
 
 		m_healthLeft = m_settings.TotalHealthCapacity;
 		m_activeZone.SetActive(false);
+		m_sleepZone.SetActive(true);
 	}
 
 	private void PerformSleepState() {
@@ -113,6 +114,7 @@ public class HealthDroneStation : IAlly {
 		}
 
 		m_activeZone.SetActive(false);
+		m_sleepZone.SetActive(false);
 	}
 
 	private void PerformWorkDoneState() {
