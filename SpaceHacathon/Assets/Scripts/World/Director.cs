@@ -1,8 +1,4 @@
-﻿using System;
-using System.IO;
-using Newtonsoft.Json;
-using UnityEngine;
-using Object = System.Object;
+﻿using UnityEngine;
 
 public class Director : MonoBehaviour {
 	[SerializeField]
@@ -20,7 +16,7 @@ public class Director : MonoBehaviour {
 
 	private static void LoadDiffucultySettings(int level) {
 		TextAsset settingsJson = Resources.Load<TextAsset>("settings/difficulty" + level);
-		BattleContext.Settings = JsonConvert.DeserializeObject<LevelSettings>(settingsJson.text);
+		BattleContext.Settings = JsonUtility.FromJson<LevelSettings>(settingsJson.text);
 	}
 
 	private void Start() {

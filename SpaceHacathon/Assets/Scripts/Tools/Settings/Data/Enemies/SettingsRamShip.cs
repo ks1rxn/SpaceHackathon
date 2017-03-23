@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-
+﻿
+[System.Serializable]
 public class SettingsRamShip {
 	public float RotationSensitivityRun;
 	public float RotationSensitivityAim;

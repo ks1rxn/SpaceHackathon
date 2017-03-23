@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using System.Reflection;
-using Newtonsoft.Json;
 using UnityEditor;
 using UnityEngine;
 
@@ -29,13 +28,13 @@ public class LevelSettingsEditor : EditorWindow {
 		string filePath = Application.dataPath + "/Resources/settings/difficulty" + level + ".txt";
 	    if (File.Exists(filePath)) {
 		    string dataAsJson = File.ReadAllText(filePath);
-		    LevelSettings settings = JsonConvert.DeserializeObject<LevelSettings>(dataAsJson);
+		    LevelSettings settings = JsonUtility.FromJson<LevelSettings>(dataAsJson);
 		    LevelSettingsEditor window = (LevelSettingsEditor) EditorWindow.GetWindow(typeof(LevelSettingsEditor));
 		    window.SetSettings(settings, level);
 	    } else {
 		    LevelSettings settings = new LevelSettings();
-			string json = JsonConvert.SerializeObject(settings, Formatting.Indented);
-			StreamWriter outStream = System.IO.File.CreateText(filePath);
+			string json = JsonUtility.ToJson(settings);
+			StreamWriter outStream = File.CreateText(filePath);
 			outStream.WriteLine(json);
 			outStream.Close();
 			LevelSettingsEditor window = (LevelSettingsEditor) EditorWindow.GetWindow(typeof(LevelSettingsEditor));
@@ -54,14 +53,14 @@ public class LevelSettingsEditor : EditorWindow {
 	    }
         GUILayout.Label("Difficulty Level " + m_settingsLevel, EditorStyles.boldLabel);
 
-		PropertyInfo[] props = m_settings.GetType().GetProperties();
+		FieldInfo[] props = m_settings.GetType().GetFields();
 		string[] propLabels = new string[props.Length];
 	    for (int i = 0; i != props.Length; i++) {
 		    propLabels[i] = props[i].Name;
 	    }
 	    m_indexInList = EditorGUILayout.Popup(m_indexInList, propLabels, GUILayout.Width(220));
-	    PropertyInfo currentInfo = props[m_indexInList];
-	    object currentObject = m_settings.GetType().GetProperty(currentInfo.Name).GetValue(m_settings, null);
+	    FieldInfo currentInfo = props[m_indexInList];
+	    object currentObject = m_settings.GetType().GetField(currentInfo.Name).GetValue(m_settings);
 	    FieldInfo[] actualParams = currentObject.GetType().GetFields();
 	    foreach (FieldInfo info in actualParams) {
 		    if (info.FieldType == typeof(int)) {
@@ -85,8 +84,8 @@ public class LevelSettingsEditor : EditorWindow {
 	    }
 		if (GUILayout.Button("Save Settings", GUILayout.Width(220))) {
 			string filePath = Application.dataPath + "/Resources/settings/difficulty" + m_settingsLevel + ".txt";
-			string json = JsonConvert.SerializeObject(m_settings, Formatting.Indented);
-			StreamWriter outStream = System.IO.File.CreateText(filePath);
+			string json = JsonUtility.ToJson(m_settings);
+			StreamWriter outStream = File.CreateText(filePath);
 			outStream.WriteLine(json);
 			outStream.Close();
         }

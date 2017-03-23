@@ -1,4 +1,5 @@
 ﻿
+[System.Serializable]
 public class SettingsEnemiesController {
 	public bool SpawnDroneCarrier, SpawnRocketShip, SpawnSpaceMine, SpawnRamShip, SpawnStunShip;
 	public int DroneCarrierCount, DroneCarrierSpawnAngle, DroneCarrierSpawnMinDistance, DroneCarrierSpawnMaxDistance;

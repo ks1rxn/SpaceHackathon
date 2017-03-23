@@ -1,4 +1,5 @@
 ﻿
+[System.Serializable]
 public class SettingsBonusesController {
 	public bool EnableFuel;
 	public bool EnableTime;
