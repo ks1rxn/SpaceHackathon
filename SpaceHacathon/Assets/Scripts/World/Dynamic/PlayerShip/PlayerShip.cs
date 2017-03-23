@@ -295,6 +295,10 @@ public class PlayerShip : MonoBehaviour {
 		m_chargeSystem.AddFuel();
 	}
 
+	public void OnHeal(float hp) {
+		m_hull.Heal(hp);
+	}
+
 	private void OnTimeBonusHit(GameObject other) {
 		BattleContext.TimeManager.AddGameTime(other.GetComponent<TimeBonus>().GiveSeconds);
 	}

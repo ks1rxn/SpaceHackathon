@@ -26,7 +26,7 @@ public class LevelSettingsEditor : EditorWindow {
     }
 
 	private static void ShowWindow(int level) {
-		string filePath = Path.Combine(Application.streamingAssetsPath, "settings_difficuly_" + level + ".jsn");
+		string filePath = Application.dataPath + "/Resources/settings/difficulty" + level + ".txt";
 	    if (File.Exists(filePath)) {
 		    string dataAsJson = File.ReadAllText(filePath);
 		    LevelSettings settings = JsonConvert.DeserializeObject<LevelSettings>(dataAsJson);
@@ -84,7 +84,7 @@ public class LevelSettingsEditor : EditorWindow {
 		    }
 	    }
 		if (GUILayout.Button("Save Settings", GUILayout.Width(220))) {
-			string filePath = Path.Combine(Application.streamingAssetsPath, "settings_difficuly_" + m_settingsLevel + ".jsn");
+			string filePath = Application.dataPath + "/Resources/settings/difficulty" + m_settingsLevel + ".txt";
 			string json = JsonConvert.SerializeObject(m_settings, Formatting.Indented);
 			StreamWriter outStream = System.IO.File.CreateText(filePath);
 			outStream.WriteLine(json);
