@@ -327,7 +327,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a252fc0f59215f4e9b80b175d920e87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_camera: {fileID: 443275750}
 --- !u!4 &322693473
 Transform:
   m_ObjectHideFlags: 0
@@ -484,13 +483,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 198000013481254176, guid: edb866b32e008244783d2ef51430b85f,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: SubModule.subEmitterBirth
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 198000012664507010, guid: edb866b32e008244783d2ef51430b85f,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: SubModule.subEmitterBirth
       value: 
       objectReference: {fileID: 0}
