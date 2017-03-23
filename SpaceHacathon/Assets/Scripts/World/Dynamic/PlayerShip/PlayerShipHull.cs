@@ -35,9 +35,9 @@ public class PlayerShipHull : MonoBehaviour {
         if (m_health <= 0) {
 			m_ship.Die();
 		}
-		if (m_health < 1) {
-			m_health += 0.1f / 50;
-		}
+//		if (m_health < 1) {
+//			m_health += 0.1f / 50;
+//		}
         BattleContext.GUIManager.PlayerGUIController.SetHealth(m_health);
     }
 

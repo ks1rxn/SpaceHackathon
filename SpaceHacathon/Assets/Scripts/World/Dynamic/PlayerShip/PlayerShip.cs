@@ -11,6 +11,7 @@ public class PlayerShip : MonoBehaviour {
 	private ShipState m_state;
 	private EffectsOnShip m_effects;
 	private ShipParams m_shipParams;
+	private SettingsPlayerShip m_settings;
 
     [SerializeField]
     private PlayerShipHull m_hull;
@@ -29,6 +30,8 @@ public class PlayerShip : MonoBehaviour {
 	private GameObject m_mineIndicator;
 
 	public void Initiate() {
+		m_settings = BattleContext.Settings.PlayerShip;
+
 		m_effects = new EffectsOnShip();
 		m_shipParams = new ShipParams();
 
@@ -39,6 +42,7 @@ public class PlayerShip : MonoBehaviour {
 		m_collisionDetector.RegisterListener(CollisionTags.Missile, OnRocketHit);
 		m_collisionDetector.RegisterListener(CollisionTags.Laser, OnLaserHit);
 		m_collisionDetector.RegisterListener(CollisionTags.DroneCarrier, OnEnemyShipHit);
+		m_collisionDetector.RegisterListener(CollisionTags.RocketShip, OnEnemyShipHit);
 		m_collisionDetector.RegisterListener(CollisionTags.SpaceMine, OnEnemyShipHit);
 		m_collisionDetector.RegisterListener(CollisionTags.StunShip, OnEnemyShipHit);
 		m_collisionDetector.RegisterListener(CollisionTags.RamShip, OnEnemyShipHit);
@@ -274,7 +278,7 @@ public class PlayerShip : MonoBehaviour {
 				} else if (other.CompareTag(CollisionTags.DroneCarrier)) {
 					BattleContext.StatisticsManager.PlayerShipStatistics.EnemyShipHit++;
 				}
-				m_hull.Hit(10.0f);
+				m_hull.Hit(m_settings.EnemyShipHitDamage);
 				break;
 			case ShipState.InCharge:
 				break;

@@ -20,11 +20,7 @@ public class DroneCarrier : IEnemyShip {
 	private GameObject m_rearGun;
 
 	protected override void OnPhysicBodyInitiate() {
-		CollisionDetector.RegisterListener(CollisionTags.PlayerShip, OnOtherShipHit);
-		CollisionDetector.RegisterListener(CollisionTags.DroneCarrier, OnOtherShipHit);
-		CollisionDetector.RegisterListener(CollisionTags.StunShip, OnOtherShipHit);
 		CollisionDetector.RegisterListener(CollisionTags.RamShip, OnOtherShipHit);
-		CollisionDetector.RegisterListener(CollisionTags.SpaceMine, OnOtherShipHit);
 	}
 
 	protected override void OnPhysicBodySpawn(Vector3 position, Vector3 angle) {

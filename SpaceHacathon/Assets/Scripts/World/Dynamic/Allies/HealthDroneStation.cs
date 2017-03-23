@@ -2,14 +2,19 @@
 using UnityEngine;
 
 public class HealthDroneStation : IAlly {
+	private SettingsHealingDroneStation m_settings;
+
 	[SerializeField]
 	private GameObject m_healthDronePrefab;
 	[SerializeField]
 	private Transform[] m_dronePoints;
 
+	private HealthDroneStationState m_state;
 	private List<HealthDrone> m_drones; 
 
 	protected override void OnPhysicBodyInitiate() {
+		m_settings = BattleContext.Settings.HealingDroneStation;
+
 		m_drones = new List<HealthDrone>();
 		CreateHealthDrone();
 		CreateHealthDrone();
@@ -50,6 +55,13 @@ public class HealthDroneStation : IAlly {
 	}
 
 	protected override void OnFixedUpdateEntity() {
+		Vector3 playerPosition = BattleContext.Director.PlayerPosition;
+		if (Vector3.Distance(playerPosition, Position) < m_settings.HealingRadius) {
+			
+		} else {
+			
+		}
+
 		foreach (HealthDrone drone in m_drones) {
 			drone.FixedUpdateEntity();
 		}
@@ -69,4 +81,8 @@ public class HealthDroneStation : IAlly {
 		return healthDrone;
 	}
 
+}
+
+public enum HealthDroneStationState {
+	
 }

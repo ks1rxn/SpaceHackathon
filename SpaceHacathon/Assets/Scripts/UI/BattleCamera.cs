@@ -1,16 +1,8 @@
 ﻿using UnityEngine;
 
 public class BattleCamera : MonoBehaviour {
-	[SerializeField]
-	private Transform m_camera;
-
 	private Vector3 m_speed;
-	private Vector3 m_actualSpeed;
-
 	private readonly VectorPid m_speedController = new VectorPid(50000f, 20000, 45000);
-
-	private float m_ySpeed;
-	private readonly FloatPid m_yController = new FloatPid(1.5f, 0, 9f);
 
 	public void UpdateEntity() {
 		Vector3 neededPosition = BattleContext.PlayerShip.Position + BattleContext.PlayerShip.SpeedVector * 0.2f;
@@ -25,20 +17,6 @@ public class BattleCamera : MonoBehaviour {
 		transform.position = pos;
 
 		transform.eulerAngles = new Vector3(50, 0, 0);
-
-//		float yCorrection = m_yController.Update(BattleContext.PlayerShip.SpeedValue + m_camera.transform.localPosition.z, Time.fixedDeltaTime);
-//		m_ySpeed += yCorrection * Time.fixedDeltaTime;
-//		Vector3 pos = m_camera.localPosition;
-//		pos.z -= 0.1f * m_ySpeed * Time.fixedDeltaTime;
-//		m_camera.localPosition = pos;
 	}
-
-//	private void Update() {
-//		Vector3 position = BattleContext.PlayerShip.transform.position;
-//		position.y = 7.5f;
-//		position.z -= 9;
-//		transform.position = position;
-//		transform.eulerAngles = new Vector3(50, 0, 0);
-//	}
 
 }

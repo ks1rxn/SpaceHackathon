@@ -2,6 +2,9 @@
   "Global": {
     "InitialGameTime": 120
   },
+  "PlayerShip": {
+    "EnemyShipHitDamage": 0.05
+  },
   "BonusesController": {
     "EnableFuel": true,
     "EnableTime": true,
