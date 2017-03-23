@@ -3,9 +3,6 @@ using UnityEngine;
 
 public class PlayerShip : MonoBehaviour {
 	[SerializeField]
-	private bool m_immortal;
-
-	[SerializeField]
 	private Rigidbody m_rigidbody;
 
 	private float m_neededAngle;
@@ -59,7 +56,7 @@ public class PlayerShip : MonoBehaviour {
 	}
 
     public void Die() {
-	    if (m_immortal) {
+	    if (BattleContext.Director.GodMode) {
 		    return;
 	    }
 	    if (m_state == ShipState.Dead) {

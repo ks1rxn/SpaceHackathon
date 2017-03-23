@@ -1,9 +1,6 @@
 ﻿using UnityEngine;
 
 public class TimeManager : MonoBehaviour {
-	[SerializeField]
-	private float m_gameTime;
-
 	private TimeScaleMode m_timeScaleMode;
     private bool m_onPause;
 
@@ -12,7 +9,7 @@ public class TimeManager : MonoBehaviour {
 
 	public void Initiate() {
 		GameTime = 0;
-		TimeLeft = m_gameTime;
+		TimeLeft = BattleContext.Settings.Global.InitialGameTime;
 
 		Time.timeScale = 1.0f;
 		Time.fixedDeltaTime = 0.02F * Time.timeScale;

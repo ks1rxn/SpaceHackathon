@@ -1,20 +1,19 @@
 ﻿using System.IO;
 using Newtonsoft.Json;
-using UnityEditor;
 using UnityEngine;
 
 public class Director : MonoBehaviour {
 	[SerializeField]
-	private Vector3 m_playerShipPosition;
-	[SerializeField]
-	private float m_playerShipAngle;
-	[SerializeField]
 	private GameObject m_playerShipPrefab;
+	[SerializeField]
+	private DifficultyLevel m_difficultyLevel;
+	public bool GodMode;
+
 	private PlayerShip m_playerShip;
 
 	private void Awake() {
 		//todo: this must be done on LevelLoad scene
-		LoadDiffucultySettings(2);
+		LoadDiffucultySettings((int)m_difficultyLevel);
 	}
 
 	private static void LoadDiffucultySettings(int level) {
@@ -53,7 +52,7 @@ public class Director : MonoBehaviour {
 
 		BattleContext.TimeManager.SetTimeScaleMode(TimeScaleMode.Normal);
 
-		SpawnPlayerShip(m_playerShipPosition, m_playerShipAngle);
+		SpawnPlayerShip(Vector3.zero, 0);
 	}
 
 	public void OnPauseGame() {
@@ -118,4 +117,10 @@ public class Director : MonoBehaviour {
 		}
 	}
 
+}
+
+public enum DifficultyLevel {
+	Easy = 1,
+	Medium = 2,
+	Hard = 3
 }

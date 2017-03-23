@@ -1,5 +1,6 @@
 ﻿
 public class LevelSettings {
+	public SettingsGlobal Global { get; set; }
 	public SettingsBonusesController BonusesController { get; set; }
 	public SettingsTimeBonus TimeBonus { get; set; }
 	public SettingsEnemiesController EnemiesController { get; set; }
@@ -7,6 +8,7 @@ public class LevelSettings {
 	public SettingsBulletsController BulletsController { get; set; }
 
 	public LevelSettings() {
+		Global = new SettingsGlobal();
 		BonusesController = new SettingsBonusesController();
 		TimeBonus = new SettingsTimeBonus();
 		EnemiesController = new SettingsEnemiesController();

@@ -1,4 +1,7 @@
 {
+  "Global": {
+    "InitialGameTime": 120
+  },
   "BonusesController": {
     "EnableFuel": true,
     "EnableTime": true,

@@ -140,7 +140,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b4ea9781e649f744bd5b1c64ac4ed2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_gameTime: 120
 --- !u!114 &24547033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,9 +151,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f404f645fbbd6fd4dbe42efa5e590541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_playerShipPosition: {x: 0, y: 0, z: 0}
-  m_playerShipAngle: 90
   m_playerShipPrefab: {fileID: 186194, guid: f8dc884bc1256e44296c0e4ca639cb33, type: 2}
+  m_difficultyLevel: 2
+  GodMode: 1
 --- !u!114 &24547034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,7 +206,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7a21fe64df487b469aaae25eb9a3e5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_missilesLimit: 2
   m_stunProjectilePrefab: {fileID: 1000011874940608, guid: 41875d6747d992746932c0955bc64306,
     type: 2}
   m_laserPrefab: {fileID: 124736, guid: e3513e92010ddd745a2b3f28f04733f9, type: 2}
@@ -873,31 +871,6 @@ MonoBehaviour:
   m_spaceMinePrefab: {fileID: 1000012769182004, guid: ed3a0ebb084e48547883e0a9de1b879f,
     type: 2}
   m_rocketShipPrefab: {fileID: 198206, guid: 7fe0248d775a9034fa7712061d0696a4, type: 2}
-  m_enableDC: 1
-  m_enableRS: 1
-  m_enableSM: 1
-  m_enableRAM: 1
-  m_enableSTUN: 1
-  m_DCCount: 2
-  m_DCSpawnAngle: 90
-  m_DCSpawnMinDistance: 22
-  m_DCSpawnMaxDistance: 39
-  m_RSCount: 3
-  m_RSSpawnAngle: 90
-  m_RSSpawnMinDistance: 19
-  m_RSSpawnMaxDistance: 37
-  m_SMCount: 3
-  m_SMSpawnAngle: 90
-  m_SMSpawnMinDistance: 18
-  m_SMSpawnMaxDistance: 35
-  m_RAMCooldownValue: 23
-  m_RAMCooldownDispertion: 1
-  m_RAMSpawnMinDistance: 35
-  m_RAMSpawnMaxDistance: 45
-  m_STUNCooldownValue: 17
-  m_STUNCooldownDispertion: 3
-  m_STUNSpawnMinDistance: 20
-  m_STUNSpanwMaxDistance: 38
 --- !u!4 &1201949552
 Transform:
   m_ObjectHideFlags: 0
@@ -1006,16 +979,6 @@ MonoBehaviour:
     type: 2}
   m_timeBonusPrefab: {fileID: 1000013359168042, guid: 2309965fc8a9f3f478537b07976e9173,
     type: 2}
-  m_enableFuel: 1
-  m_enableTime: 1
-  m_fuelCount: 10
-  m_fuelSpawnMinDist: 20
-  m_fuelSpawnMaxDist: 55
-  m_fuelSpawnAngle: 180
-  m_timeCount: 8
-  m_timeSpawnMinDist: 25
-  m_timeSpawnMaxDist: 55
-  m_timeSpawnAngle: 180
 --- !u!1 &1432513524
 GameObject:
   m_ObjectHideFlags: 0
