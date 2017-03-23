@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 
 public class RamShip : IEnemyShip {
+	private SettingsRamShip m_settings;
+
 	[SerializeField]
 	private Transform m_hull;
 
@@ -10,31 +12,10 @@ public class RamShip : IEnemyShip {
 	private float m_rotationSpeed;
 	private float m_needRotationSpeed;
 
-	[SerializeField, Range(0f, 1.0f)]
-	private float m_rotationSensitivityRun;
-	[SerializeField, Range(0f, 1.0f)]
-	private float m_rotationSensitivityAim;
-	[SerializeField]
-	private Vector3 m_headingParams;
-	[SerializeField, Range(0f, 30.0f)]
-	private float m_finishAimAngle;
-	[SerializeField, Range(0f, 1.0f)]
-	private float m_finishAimAngVelocity;
-	[SerializeField]
-	private float m_headingMaxOnRun;
-	[SerializeField, Range(0f, 50.0f)]
-	private float m_maxRunSpeed;
-	[SerializeField]
-	private Vector2 m_acceleration;
-	[SerializeField, Range(0f, 180.0f)]
-	private float m_angleToStartStop;
-	[SerializeField, Range(0f, 1.0f)]
-	private float m_stopAcceleration;
-	[SerializeField]
-	private float m_distanceToDie;
-
 	protected override void OnPhysicBodyInitiate() {
-		m_headingController = new VectorPid(m_headingParams);
+		m_settings = BattleContext.Settings.RamShip;
+
+		m_headingController = new VectorPid(m_settings.HeadingParamsX, m_settings.HeadingParamsY, m_settings.HeadingParamsZ);
 
 		CollisionDetector.RegisterListener(CollisionTags.PlayerShip, OnOtherShipHit);
 		CollisionDetector.RegisterListener(CollisionTags.DroneCarrier, OnOtherShipHit);
@@ -90,9 +71,9 @@ public class RamShip : IEnemyShip {
 			Rigidbody.velocity *= 0.5f;
 		}
 		Vector3 headingCorrection = m_headingController.Update(Vector3.Cross(transform.right, BattleContext.PlayerShip.Position - Position), Time.fixedDeltaTime);
-		Rigidbody.AddTorque(headingCorrection * m_rotationSensitivityAim);
-		if (Mathf.Abs(MathHelper.AngleBetweenVectors(transform.right, BattleContext.PlayerShip.Position - Position)) < m_finishAimAngle &&
-			Rigidbody.angularVelocity.magnitude < m_finishAimAngVelocity) {
+		Rigidbody.AddTorque(headingCorrection * m_settings.RotationSensitivityAim);
+		if (Mathf.Abs(MathHelper.AngleBetweenVectors(transform.right, BattleContext.PlayerShip.Position - Position)) < m_settings.FinishAimAngle &&
+			Rigidbody.angularVelocity.magnitude < m_settings.FinishAimAngleVelocity) {
 
 			if (!IsLauncherOnMyWay()) {
 				m_state = RamShipState.Running;
@@ -116,19 +97,19 @@ public class RamShip : IEnemyShip {
 		}
 		m_needRotationSpeed = 360;
 		Vector3 headingCorrection = m_headingController.Update(Vector3.Cross(transform.right, BattleContext.PlayerShip.Position - Position), Time.fixedDeltaTime);
-		headingCorrection.y = Mathf.Clamp(headingCorrection.y, -m_headingMaxOnRun, m_headingMaxOnRun);
-		Rigidbody.AddTorque(headingCorrection * m_rotationSensitivityRun);
+		headingCorrection.y = Mathf.Clamp(headingCorrection.y, -m_settings.HeadingMaxOnRun, m_settings.HeadingMaxOnRun);
+		Rigidbody.AddTorque(headingCorrection * m_settings.RotationSensitivityRun);
 
-		if (Rigidbody.velocity.magnitude < 0.75f * m_maxRunSpeed) {
-			Rigidbody.AddRelativeForce(Vector3.right * m_acceleration[0], ForceMode.Force);
+		if (Rigidbody.velocity.magnitude < 0.75f * m_settings.MaxRunSpeed) {
+			Rigidbody.AddRelativeForce(Vector3.right * m_settings.AccelerationStart, ForceMode.Force);
 		} else {
-			Rigidbody.AddRelativeForce(Vector3.right * m_acceleration[1], ForceMode.Force);
+			Rigidbody.AddRelativeForce(Vector3.right * m_settings.AccelerationEnd, ForceMode.Force);
 		} 
 		
-		if (Rigidbody.velocity.magnitude > m_maxRunSpeed) {
-			Rigidbody.velocity = Rigidbody.velocity.normalized * m_maxRunSpeed;
+		if (Rigidbody.velocity.magnitude > m_settings.MaxRunSpeed) {
+			Rigidbody.velocity = Rigidbody.velocity.normalized * m_settings.MaxRunSpeed;
 		}
-		if (Mathf.Abs(MathHelper.AngleBetweenVectors(transform.right, BattleContext.PlayerShip.Position - Position)) > m_angleToStartStop) {
+		if (Mathf.Abs(MathHelper.AngleBetweenVectors(transform.right, BattleContext.PlayerShip.Position - Position)) > m_settings.AngleToStartStop) {
 			m_state = RamShipState.Stopping;
 		}
 	}
@@ -136,7 +117,7 @@ public class RamShip : IEnemyShip {
 	private void Stopping() {
 		m_needRotationSpeed = 120;
 		if (Rigidbody.velocity.magnitude > 0.5f) {
-			Rigidbody.velocity *= m_stopAcceleration;
+			Rigidbody.velocity *= m_settings.BrakingAcceleration;
 		} else {
 			m_state = RamShipState.Aiming;
 		}
@@ -167,7 +148,7 @@ public class RamShip : IEnemyShip {
 
 	protected override float DistanceToDespawn {
 		get {
-			return m_distanceToDie;
+			return m_settings.DistanceFromPlayerToDespawn;
 		}
 	}
 

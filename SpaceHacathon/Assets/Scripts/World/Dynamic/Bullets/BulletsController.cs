@@ -3,8 +3,7 @@ using UnityEngine;
 using Random = System.Random;
 
 public class BulletsController : IController {
-	[SerializeField]
-	private int m_missilesLimit;
+	private SettingsBulletsController m_settings;
 
 	[SerializeField]
 	private GameObject m_stunProjectilePrefab;
@@ -21,12 +20,14 @@ public class BulletsController : IController {
 	private List<CarrierRocket> m_carrierRockets; 
 
 	public override void Initiate() {
+		m_settings = BattleContext.Settings.BulletsController;
+
 		m_stunProjectiles = new List<StunProjectile>();
 		m_lasers = new List<Laser>();
 		m_missiles = new List<Missile>();
 		m_carrierRockets = new List<CarrierRocket>();
 
-		for (int i = 0; i != m_missilesLimit; i++) {
+		for (int i = 0; i != m_settings.MissilesLimit; i++) {
 			CreateMissile();
 		}
 		for (int i = 0; i != 5; i++) {
@@ -73,7 +74,7 @@ public class BulletsController : IController {
 				aliveMissiles++;
 			}
 		}
-		if (aliveMissiles >= m_missilesLimit) {
+		if (aliveMissiles >= m_settings.MissilesLimit) {
 			return null;
 		}
 		if (targetRocket == null) {

@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System.IO;
+using Newtonsoft.Json;
+using UnityEditor;
+using UnityEngine;
 
 public class Director : MonoBehaviour {
 	[SerializeField]
@@ -8,7 +11,24 @@ public class Director : MonoBehaviour {
 	[SerializeField]
 	private GameObject m_playerShipPrefab;
 	private PlayerShip m_playerShip;
-	
+
+	private void Awake() {
+		//todo: this must be done on LevelLoad scene
+		LoadDiffucultySettings(2);
+	}
+
+	private static void LoadDiffucultySettings(int level) {
+		string filePath = Path.Combine(Application.streamingAssetsPath, "settings_difficuly_" + level + ".jsn");
+		if (File.Exists(filePath)) {
+			string dataAsJson = File.ReadAllText(filePath);
+			LevelSettings settings = JsonConvert.DeserializeObject<LevelSettings>(dataAsJson);
+			BattleContext.Settings = settings;
+		} else {
+			BattleContext.Settings = new LevelSettings();
+			Debug.LogError("DAFAQ?? No settings found");
+		}
+	}
+
 	private void Start() {
 //		Analytics.CustomEvent("gameStart", new Dictionary<string, object> {
 //			{ "device", SystemInfo.deviceModel },

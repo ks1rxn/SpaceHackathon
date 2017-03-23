@@ -13,6 +13,8 @@ public class BattleContext {
 	private static EffectsController m_effectsController;
 	private static StatisticsManager m_statisticsManager;
 
+	private static LevelSettings m_settings;
+
 	public static void Initiate() {
 		m_timeManager = GameObject.Find(EntitiesNames.TimeManager).GetComponent<TimeManager>();
 		m_battleCamera = GameObject.Find(EntitiesNames.BattleCamera).GetComponent<BattleCamera>();
@@ -96,6 +98,15 @@ public class BattleContext {
 	public static StatisticsManager StatisticsManager {
 		get {
 			return m_statisticsManager;
+		}
+	}
+
+	public static LevelSettings Settings {
+		get {
+			return m_settings;
+		}
+		set {
+			m_settings = value;
 		}
 	}
 

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemiesController : IController {
+	private SettingsEnemiesController m_settings;
+
 	[SerializeField]
 	private GameObject m_blasterShipPrefab;
 	[SerializeField]
@@ -27,64 +29,53 @@ public class EnemiesController : IController {
 	private float m_stunShipCooldown;
 	private bool m_stunShipAlive;
 
-	[SerializeField]
-	private bool m_enableDC, m_enableRS, m_enableSM, m_enableRAM, m_enableSTUN;
-	[SerializeField]
-	private int m_DCCount, m_DCSpawnAngle, m_DCSpawnMinDistance, m_DCSpawnMaxDistance;
-	[SerializeField]
-	private int m_RSCount, m_RSSpawnAngle, m_RSSpawnMinDistance, m_RSSpawnMaxDistance;
-	[SerializeField]
-	private int m_SMCount, m_SMSpawnAngle, m_SMSpawnMinDistance, m_SMSpawnMaxDistance;
-	[SerializeField]
-	private int m_RAMCooldownValue, m_RAMCooldownDispertion, m_RAMSpawnMinDistance, m_RAMSpawnMaxDistance;
-	[SerializeField]
-	private int m_STUNCooldownValue, m_STUNCooldownDispertion, m_STUNSpawnMinDistance, m_STUNSpanwMaxDistance;
-
 	public override void Initiate() {
+		m_settings = BattleContext.Settings.EnemiesController;
+
 		m_ships = new List<IEnemyShip>();
 		m_ramShips = new List<RamShip>();
 		m_stunShips = new List<StunShip>();
 		m_spaceMines = new List<SpaceMine>();
 		m_droneCarriers = new List<DroneCarrier>();
 		m_rocketShips = new List<RocketShip>();
-		if (m_enableDC) {
-			for (int i = 0; i != m_DCCount; i++) {
+		if (m_settings.SpawnDroneCarrier) {
+			for (int i = 0; i != m_settings.DroneCarrierCount; i++) {
 				CreateDroneCarrier();
 			}
 		}
-		if (m_enableRS) {
-			for (int i = 0; i != m_RSCount; i++) {
+		if (m_settings.SpawnRocketShip) {
+			for (int i = 0; i != m_settings.RocketShipCount; i++) {
 				CreateRocketShip();
 			}
 		}
-		if (m_enableSM) {
-			for (int i = 0; i != m_SMCount; i++) {
+		if (m_settings.SpawnSpaceMine) {
+			for (int i = 0; i != m_settings.SpaceMineCount; i++) {
 				CreateSpaceMine();
 			}
 		}
 		
-		m_ramShipCooldown = MathHelper.Random.Next(m_RAMCooldownDispertion * 2) - m_RAMCooldownDispertion + m_RAMCooldownValue;
+		m_ramShipCooldown = MathHelper.Random.Next(m_settings.RamShipCooldownDispertion * 2) - m_settings.RamShipCooldownDispertion + m_settings.RamShipCooldownValue;
 		m_ramShipAlive = false;
 
-		m_stunShipCooldown = MathHelper.Random.Next(m_STUNCooldownDispertion * 2) - m_STUNCooldownDispertion + m_STUNCooldownValue;
+		m_stunShipCooldown = MathHelper.Random.Next(m_settings.StunShipCooldownDispertion * 2) - m_settings.StunShipCooldownDispertion + m_settings.StunShipCooldownValue;
 		m_stunShipAlive = false;
 	}
 
 	public override void FixedUpdateEntity() {
-		if (m_enableRAM && !m_ramShipAlive) {
+		if (m_settings.SpawnRamShip && !m_ramShipAlive) {
 			if (m_ramShipCooldown > 0) {
 				m_ramShipCooldown -= Time.fixedDeltaTime;
 			} else {
-				SpawnRamShip(MathHelper.GetPointAround(BattleContext.PlayerShip.Position, m_RAMSpawnMinDistance, m_RAMSpawnMaxDistance), 0);
+				SpawnRamShip(MathHelper.GetPointAround(BattleContext.PlayerShip.Position, m_settings.RamShipSpawnMinDistance, m_settings.RamShipSpawnMaxDistance), 0);
 				m_ramShipAlive = true;
 			}
 		}
 
-		if (m_enableSTUN && !m_stunShipAlive) {
+		if (m_settings.SpawnStunShip && !m_stunShipAlive) {
 			if (m_stunShipCooldown > 0) {
 				m_stunShipCooldown -= Time.fixedDeltaTime;
 			} else {
-				SpawnStunShip(MathHelper.GetPointAround(BattleContext.PlayerShip.Position, m_STUNSpawnMinDistance, m_STUNSpanwMaxDistance), 0);
+				SpawnStunShip(MathHelper.GetPointAround(BattleContext.PlayerShip.Position, m_settings.StunShipSpawnMinDistance, m_settings.StunShipSpanwMaxDistance), 0);
 				m_stunShipAlive = true;
 			}
 		}
@@ -94,16 +85,16 @@ public class EnemiesController : IController {
 				m_ships[i].FixedUpdateEntity();
 			} else {
 				if (m_ships[i] is DroneCarrier) {
-					Vector3 dcPosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, BattleContext.PlayerShip.SpeedVector, m_DCSpawnAngle, m_DCSpawnMinDistance, m_DCSpawnMaxDistance);
+					Vector3 dcPosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, BattleContext.PlayerShip.SpeedVector, m_settings.DroneCarrierSpawnAngle, m_settings.DroneCarrierSpawnMinDistance, m_settings.DroneCarrierSpawnMaxDistance);
 					dcPosition.y = -0.75f;
 					SpawnDroneCarrier(dcPosition, MathHelper.Random.Next(360));
 				}
 				if (m_ships[i] is RocketShip) {
-					Vector3 rsPosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, BattleContext.PlayerShip.SpeedVector, m_RSSpawnAngle, m_RSSpawnMinDistance, m_RSSpawnMaxDistance);
+					Vector3 rsPosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, BattleContext.PlayerShip.SpeedVector, m_settings.RocketShipSpawnAngle, m_settings.RocketShipSpawnMinDistance, m_settings.RocketShipSpawnMaxDistance);
 					SpawnRocketShip(rsPosition, MathHelper.Random.Next(360));
 				}
 				if (m_ships[i] is SpaceMine) {
-					Vector3 spaceMinePosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, BattleContext.PlayerShip.SpeedVector, m_SMSpawnAngle, m_SMSpawnMinDistance, m_SMSpawnMaxDistance);
+					Vector3 spaceMinePosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, BattleContext.PlayerShip.SpeedVector, m_settings.SpaceMineSpawnAngle, m_settings.SpaceMineSpawnMinDistance, m_settings.SpaceMineSpawnMaxDistance);
 					spaceMinePosition.y = -2.5f;
 					SpawnSpaceMine(spaceMinePosition);
 				}
@@ -112,12 +103,12 @@ public class EnemiesController : IController {
 	}
 
 	public void OnRamShipDie() {
-		m_ramShipCooldown = MathHelper.Random.Next(m_RAMCooldownDispertion * 2) - m_RAMCooldownDispertion + m_RAMCooldownValue;
+		m_ramShipCooldown = MathHelper.Random.Next(m_settings.RamShipCooldownDispertion * 2) - m_settings.RamShipCooldownDispertion + m_settings.RamShipCooldownValue;
 		m_ramShipAlive = false;
 	}
 
 	public void OnStunShipDie() {
-		m_stunShipCooldown = MathHelper.Random.Next(m_STUNCooldownDispertion * 2) - m_STUNCooldownDispertion + m_STUNCooldownValue;
+		m_stunShipCooldown = MathHelper.Random.Next(m_settings.StunShipCooldownDispertion * 2) - m_settings.StunShipCooldownDispertion + m_settings.StunShipCooldownValue;
 		m_stunShipAlive = false;
 	}
 
