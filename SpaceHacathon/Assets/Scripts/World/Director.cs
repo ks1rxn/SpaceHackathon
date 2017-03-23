@@ -1,6 +1,8 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Newtonsoft.Json;
 using UnityEngine;
+using Object = System.Object;
 
 public class Director : MonoBehaviour {
 	[SerializeField]
@@ -17,15 +19,8 @@ public class Director : MonoBehaviour {
 	}
 
 	private static void LoadDiffucultySettings(int level) {
-		string filePath = Path.Combine(Application.streamingAssetsPath, "settings_difficuly_" + level + ".jsn");
-		if (File.Exists(filePath)) {
-			string dataAsJson = File.ReadAllText(filePath);
-			LevelSettings settings = JsonConvert.DeserializeObject<LevelSettings>(dataAsJson);
-			BattleContext.Settings = settings;
-		} else {
-			BattleContext.Settings = new LevelSettings();
-			Debug.LogError("DAFAQ?? No settings found");
-		}
+		TextAsset settingsJson = Resources.Load<TextAsset>("settings/difficulty" + level);
+		BattleContext.Settings = JsonConvert.DeserializeObject<LevelSettings>(settingsJson.text);
 	}
 
 	private void Start() {
