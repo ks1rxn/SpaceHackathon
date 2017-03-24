@@ -812,7 +812,7 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.68
-  m_Height: 2
+  m_Height: 2.5
   m_Direction: 0
   m_Center: {x: -0.48, y: 2, z: -0.8}
 --- !u!136 &136196029444068292
@@ -825,7 +825,7 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.68
-  m_Height: 2
+  m_Height: 2.5
   m_Direction: 0
   m_Center: {x: -0.48, y: 2, z: -0.82}
 --- !u!198 &198000010826238030
@@ -883,7 +883,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1938084451
+  randomSeed: 257871152
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3496,7 +3496,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1612382492
+  randomSeed: -1974230555
   InitialModule:
     serializedVersion: 3
     enabled: 1
