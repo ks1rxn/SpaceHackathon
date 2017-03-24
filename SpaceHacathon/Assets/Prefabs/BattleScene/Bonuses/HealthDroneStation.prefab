@@ -218,6 +218,7 @@ GameObject:
   - component: {fileID: 95000013150535364}
   - component: {fileID: 65000014182678210}
   - component: {fileID: 54000012928339404}
+  - component: {fileID: 114888016767350936}
   m_Layer: 0
   m_Name: HealthDroneStation
   m_TagString: HealthDroneStation
@@ -700,7 +701,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 020cceb09a0bd4344ab1ba79f146b4a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CollisionDetector: {fileID: 0}
+  CollisionDetector: {fileID: 114888016767350936}
   m_healthDronePrefab: {fileID: 1000012456259512, guid: 1d51910c4a4db734f9d1803d24f38cea,
     type: 2}
   m_dronePoints:
@@ -709,6 +710,17 @@ MonoBehaviour:
   - {fileID: 4000011861633286}
   m_sleepZone: {fileID: 1000011085070854}
   m_activeZone: {fileID: 1000011486744748}
+--- !u!114 &114888016767350936
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014145179164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8ae04473e279b7428c4e56ae7ffb351, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212000010555714876
 SpriteRenderer:
   m_ObjectHideFlags: 1

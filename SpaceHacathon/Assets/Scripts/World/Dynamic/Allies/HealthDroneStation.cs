@@ -20,6 +20,8 @@ public class HealthDroneStation : IAlly {
 	protected override void OnPhysicBodyInitiate() {
 		m_settings = BattleContext.Settings.HealingDroneStation;
 
+		CollisionDetector.RegisterListener(CollisionTags.PlayerShip, OnPlayerShipHit);
+
 		m_drones = new List<HealthDrone>();
 		CreateHealthDrone();
 		CreateHealthDrone();
@@ -27,6 +29,13 @@ public class HealthDroneStation : IAlly {
 
 		m_sleepZone.transform.localScale = new Vector3(m_settings.HealingRadius / 2, m_settings.HealingRadius / 2, m_settings.HealingRadius / 2);
 		m_activeZone.transform.localScale = new Vector3(m_settings.HealingRadius / 2, m_settings.HealingRadius / 2, m_settings.HealingRadius / 2);
+	}
+
+	private void OnPlayerShipHit(GameObject other) {
+		PlayerShip player = other.GetComponent<PlayerShip>();
+		if (player != null && player.State == ShipState.InCharge) {
+			Despawn(DespawnReason.Kill);
+		}
 	}
 
 	protected override void OnPhysicBodySpawn(Vector3 position, Vector3 angle) {
