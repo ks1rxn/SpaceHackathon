@@ -321,6 +321,12 @@ public class PlayerShip : MonoBehaviour {
 		}
 	}
 
+	public ShipState State {
+		get {
+			return m_state;
+		}
+	}
+
 	private float AngleToNeedAngle  {
 		get {
 			Vector3 vectorToTarget = new Vector3(Mathf.Cos(m_neededAngle * Mathf.PI / 180), 0, Mathf.Sin(m_neededAngle * Mathf.PI / 180));
