@@ -20,7 +20,8 @@ public class DroneCarrier : IEnemyShip {
 	private GameObject m_rearGun;
 
 	protected override void OnPhysicBodyInitiate() {
-		CollisionDetector.RegisterListener(CollisionTags.RamShip, OnOtherShipHit);
+		CollisionDetector.RegisterListener(CollisionTags.RamShip, OnRamShipHit);
+		CollisionDetector.RegisterListener(CollisionTags.PlayerShip, OnPlayerShipHit);
 	}
 
 	protected override void OnPhysicBodySpawn(Vector3 position, Vector3 angle) {
@@ -31,11 +32,23 @@ public class DroneCarrier : IEnemyShip {
 	}
 
 	protected override void OnDespawn(DespawnReason reason) {
-		BattleContext.ExplosionsController.PlayerShipExplosion(Position);
+		if (reason == DespawnReason.Kill) {
+			BattleContext.ExplosionsController.PlayerShipExplosion(Position);
+		}
 	}
 
-	private void OnOtherShipHit(GameObject other) {
-		Despawn(DespawnReason.Kill);
+	private void OnPlayerShipHit(GameObject other) {
+		PlayerShip player = other.GetComponent<PlayerShip>();
+		if (player.State == ShipState.InCharge) {
+			Despawn(DespawnReason.Kill);
+		}
+	}
+
+	private void OnRamShipHit(GameObject other) {
+		RamShip ram = other.GetComponent<RamShip>();
+		if (ram.State == RamShipState.Running) {
+			Despawn(DespawnReason.Kill);
+		}
 	}
 
 	protected override void OnFixedUpdateEntity() {

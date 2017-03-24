@@ -512,7 +512,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1070a727a78dfde4998bbe65bfaf1458, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_immortal: 1
   m_rigidbody: {fileID: 5431050}
   m_hull: {fileID: 11496306}
   m_chargeSystem: {fileID: 114000012093317442}
@@ -24687,7 +24686,6 @@ GameObject:
   - component: {fileID: 198000013722058378}
   - component: {fileID: 199000012722013702}
   - component: {fileID: 96000014092499868}
-  - component: {fileID: 65000011758327098}
   m_Layer: 0
   m_Name: Charge_main_effect
   m_TagString: Player
@@ -25840,18 +25838,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010718043120}
   m_Mesh: {fileID: 4300002, guid: 0c2394fc1a8dbfc4ca8081a371dcc2c4, type: 3}
---- !u!65 &65000011758327098
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010856190268}
-  m_Material: {fileID: 13400000, guid: d9dfaccb55afe6e4d895acc655cb08bd, type: 2}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.9, y: 1.62, z: 1.89}
-  m_Center: {x: 0, y: 0, z: 0.55}
 --- !u!95 &95000013100762644
 Animator:
   serializedVersion: 3
@@ -36734,7 +36720,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1010954917
+  randomSeed: -310100075
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -47234,7 +47220,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1566100658
+  randomSeed: -301669081
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -76211,7 +76197,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1474591941
+  randomSeed: 283182962
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -78848,7 +78834,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1568588663
+  randomSeed: -297325480
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -86747,7 +86733,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 2083216081
+  randomSeed: -851022926
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -97346,7 +97332,7 @@ ParticleSystemRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedEditorRenderState: 3
+  m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -97396,7 +97382,7 @@ ParticleSystemRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedEditorRenderState: 3
+  m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -98096,7 +98082,7 @@ ParticleSystemRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedEditorRenderState: 3
+  m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -98196,7 +98182,7 @@ ParticleSystemRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedEditorRenderState: 3
+  m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -98296,7 +98282,7 @@ ParticleSystemRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedEditorRenderState: 3
+  m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -98346,7 +98332,7 @@ ParticleSystemRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedEditorRenderState: 3
+  m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89

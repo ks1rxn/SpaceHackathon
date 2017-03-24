@@ -9,7 +9,7 @@ public class Laser : IBullet {
 	private TrailRenderer m_trail;
 
 	protected override void OnPhysicBodyInitiate() {
-		CollisionDetector.RegisterDefaultListener(OnTargetHit);
+		CollisionDetector.RegisterListener(CollisionTags.PlayerShip, OnTargetHit);
 	}
 
 	protected override void OnPhysicBodySpawn(Vector3 position, Vector3 angle) {
