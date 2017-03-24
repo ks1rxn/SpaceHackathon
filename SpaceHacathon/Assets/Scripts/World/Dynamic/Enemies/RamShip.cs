@@ -5,6 +5,8 @@ public class RamShip : IEnemyShip {
 
 	[SerializeField]
 	private Transform m_hull;
+	[SerializeField]
+	private GameObject m_shield;
 
 	private RamShipState m_state;
 	private VectorPid m_headingController;
@@ -21,39 +23,39 @@ public class RamShip : IEnemyShip {
 		CollisionDetector.RegisterListener(CollisionTags.DroneCarrier, OnOtherShipHit);
 		CollisionDetector.RegisterListener(CollisionTags.StunShip, OnOtherShipHit);
 		CollisionDetector.RegisterListener(CollisionTags.RamShip, OnOtherShipHit);
-		CollisionDetector.RegisterListener(CollisionTags.SpaceMine, OnOtherShipHit);
-		CollisionDetector.RegisterListener(CollisionTags.Missile, OnOtherShipHit);
+		CollisionDetector.RegisterListener(CollisionTags.RocketShip, OnOtherShipHit);
 	}
 
 	protected override void OnPhysicBodySpawn(Vector3 position, Vector3 angle) {
 		m_rotationSpeed = 0;
 		m_needRotationSpeed = 0;
 
-		m_state = RamShipState.Aiming;
+		ToAimingState();
 	}
 
 	protected override void OnDespawn(DespawnReason reason) {
-		BattleContext.ExplosionsController.PlayerShipExplosion(Position);
+		if (reason == DespawnReason.Kill) {
+			BattleContext.ExplosionsController.PlayerShipExplosion(Position);
+		}
 		BattleContext.EnemiesController.OnRamShipDie();
 	}
 
 	private void OnOtherShipHit(GameObject other) {
-		Despawn(DespawnReason.Kill);
+		if (m_state == RamShipState.Running) {
+			Despawn(DespawnReason.Kill);
+		}
 	}
 
 	protected override void OnFixedUpdateEntity() {
 		switch (m_state) {
 			case RamShipState.Aiming:
-				Aiming();
-				break;
-			case RamShipState.Stabilizing:
-				Stabilizing();
+				PerformAimingState();
 				break;
 			case RamShipState.Running:
-				Running();
+				PerformRunningState();
 				break;
 			case RamShipState.Stopping:
-				Stopping();
+				PerformStoppingState();
 				break;
 		}
 
@@ -65,61 +67,71 @@ public class RamShip : IEnemyShip {
 		m_hull.Rotate(m_rotationSpeed * Time.fixedDeltaTime, 0, 0);
 	}
 
-	private void Aiming() {
+	private void ToAimingState() {
+		m_state = RamShipState.Aiming;
+
+		m_shield.SetActive(false);
+	}
+
+	private void PerformAimingState() {
 		m_needRotationSpeed = 90;
 		if (Rigidbody.velocity.magnitude > 0.1f) {
 			Rigidbody.velocity *= 0.5f;
 		}
 		Vector3 headingCorrection = m_headingController.Update(Vector3.Cross(transform.right, BattleContext.PlayerShip.Position - Position), Time.fixedDeltaTime);
-		Rigidbody.AddTorque(headingCorrection * m_settings.RotationSensitivityAim);
+		Rigidbody.AddTorque(headingCorrection * m_settings.RotationSensitivityAim * Rigidbody.mass);
 		if (Mathf.Abs(MathHelper.AngleBetweenVectors(transform.right, BattleContext.PlayerShip.Position - Position)) < m_settings.FinishAimAngle &&
 			Rigidbody.angularVelocity.magnitude < m_settings.FinishAimAngleVelocity) {
 
 			if (!IsLauncherOnMyWay()) {
-				m_state = RamShipState.Running;
+				ToRunningState();
 			}
 		}
 	}
 
-	private void Stabilizing() {
-		m_needRotationSpeed = 50;
-		if (Rigidbody.angularVelocity.magnitude > 0.1f) {
-			Rigidbody.angularVelocity *= 0.5f;
-		} else {
-			m_state = RamShipState.Running;
-		}
+	private void ToRunningState() {
+		m_state = RamShipState.Running;
+
+		m_shield.SetActive(true);
 	}
 
-	private void Running() {
+	private void PerformRunningState() {
 		if (IsLauncherOnMyWay()) {
-			m_state = RamShipState.Stopping;
+			ToStoppingState();
 			return;
 		}
 		m_needRotationSpeed = 360;
 		Vector3 headingCorrection = m_headingController.Update(Vector3.Cross(transform.right, BattleContext.PlayerShip.Position - Position), Time.fixedDeltaTime);
 		headingCorrection.y = Mathf.Clamp(headingCorrection.y, -m_settings.HeadingMaxOnRun, m_settings.HeadingMaxOnRun);
-		Rigidbody.AddTorque(headingCorrection * m_settings.RotationSensitivityRun);
+		Rigidbody.AddTorque(headingCorrection * m_settings.RotationSensitivityRun * Rigidbody.mass);
 
 		if (Rigidbody.velocity.magnitude < 0.75f * m_settings.MaxRunSpeed) {
-			Rigidbody.AddRelativeForce(Vector3.right * m_settings.AccelerationStart, ForceMode.Force);
+			Rigidbody.AddRelativeForce(Vector3.right * m_settings.AccelerationStart * Rigidbody.mass, ForceMode.Force);
 		} else {
-			Rigidbody.AddRelativeForce(Vector3.right * m_settings.AccelerationEnd, ForceMode.Force);
+			Rigidbody.AddRelativeForce(Vector3.right * m_settings.AccelerationEnd * Rigidbody.mass, ForceMode.Force);
 		} 
 		
 		if (Rigidbody.velocity.magnitude > m_settings.MaxRunSpeed) {
 			Rigidbody.velocity = Rigidbody.velocity.normalized * m_settings.MaxRunSpeed;
 		}
 		if (Mathf.Abs(MathHelper.AngleBetweenVectors(transform.right, BattleContext.PlayerShip.Position - Position)) > m_settings.AngleToStartStop) {
-			m_state = RamShipState.Stopping;
+			ToStoppingState();
 		}
 	}
 
-	private void Stopping() {
+	private void ToStoppingState() {
+		m_state = RamShipState.Stopping;
+
+		Rigidbody.angularVelocity = Vector3.zero;
+		m_shield.SetActive(false);
+	}
+
+	private void PerformStoppingState() {
 		m_needRotationSpeed = 120;
 		if (Rigidbody.velocity.magnitude > 0.5f) {
 			Rigidbody.velocity *= m_settings.BrakingAcceleration;
 		} else {
-			m_state = RamShipState.Aiming;
+			ToAimingState();
 		}
 	}
 
@@ -131,7 +143,6 @@ public class RamShip : IEnemyShip {
 				if (Physics.Raycast(ray, out hit)) {
 					Transform objectHit = hit.transform;
 					if (objectHit.GetComponent<DroneCarrier>() != null) {
-						m_state = RamShipState.Stopping;
 						return true;
 					}
 				}
@@ -156,7 +167,6 @@ public class RamShip : IEnemyShip {
 
 public enum RamShipState {
 	Aiming,
-	Stabilizing,
 	Running,
 	Stopping
 }
