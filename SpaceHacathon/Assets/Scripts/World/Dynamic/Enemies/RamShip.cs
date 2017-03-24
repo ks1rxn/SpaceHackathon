@@ -19,7 +19,7 @@ public class RamShip : IEnemyShip {
 
 		m_headingController = new VectorPid(m_settings.HeadingParamsX, m_settings.HeadingParamsY, m_settings.HeadingParamsZ);
 
-		CollisionDetector.RegisterListener(CollisionTags.PlayerShip, OnOtherShipHit);
+		CollisionDetector.RegisterListener(CollisionTags.PlayerShip, OnPlayerShipHit);
 		CollisionDetector.RegisterListener(CollisionTags.DroneCarrier, OnOtherShipHit);
 		CollisionDetector.RegisterListener(CollisionTags.StunShip, OnOtherShipHit);
 		CollisionDetector.RegisterListener(CollisionTags.RamShip, OnOtherShipHit);
@@ -38,6 +38,16 @@ public class RamShip : IEnemyShip {
 			BattleContext.ExplosionsController.PlayerShipExplosion(Position);
 		}
 		BattleContext.EnemiesController.OnRamShipDie();
+	}
+
+	private void OnPlayerShipHit(GameObject other) {
+		if (m_state == RamShipState.Running) {
+			Despawn(DespawnReason.Kill);
+		}
+		PlayerShip player = other.GetComponent<PlayerShip>();
+		if (player != null && player.State == ShipState.InCharge) {
+			Despawn(DespawnReason.Kill);
+		}
 	}
 
 	private void OnOtherShipHit(GameObject other) {

@@ -39,7 +39,7 @@ public class DroneCarrier : IEnemyShip {
 
 	private void OnPlayerShipHit(GameObject other) {
 		PlayerShip player = other.GetComponent<PlayerShip>();
-		if (player.State == ShipState.InCharge) {
+		if (player != null && player.State == ShipState.InCharge) {
 			Despawn(DespawnReason.Kill);
 		}
 	}

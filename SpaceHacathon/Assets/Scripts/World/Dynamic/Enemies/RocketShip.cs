@@ -17,7 +17,8 @@ public class RocketShip : IEnemyShip {
 	private Transform m_launcher2;
 
 	protected override void OnPhysicBodyInitiate() {
-		CollisionDetector.RegisterListener(CollisionTags.RamShip, OnOtherShipHit);
+		CollisionDetector.RegisterListener(CollisionTags.PlayerShip, OnPlayerShipHit);
+		CollisionDetector.RegisterListener(CollisionTags.RamShip, OnRamShipHit);
 	}
 
 	protected override void OnPhysicBodySpawn(Vector3 position, Vector3 angle) {
@@ -30,8 +31,18 @@ public class RocketShip : IEnemyShip {
 		BattleContext.ExplosionsController.PlayerShipExplosion(Position);
 	}
 
-	private void OnOtherShipHit(GameObject other) {
-		Despawn(DespawnReason.Kill);
+	private void OnPlayerShipHit(GameObject other) {
+		PlayerShip player = other.GetComponent<PlayerShip>();
+		if (player != null && player.State == ShipState.InCharge) {
+			Despawn(DespawnReason.Kill);
+		}
+	}
+
+	private void OnRamShipHit(GameObject other) {
+		RamShip ram = other.GetComponent<RamShip>();
+		if (ram.State == RamShipState.Running) {
+			Despawn(DespawnReason.Kill);
+		}
 	}
 
 	protected override void OnFixedUpdateEntity() {
