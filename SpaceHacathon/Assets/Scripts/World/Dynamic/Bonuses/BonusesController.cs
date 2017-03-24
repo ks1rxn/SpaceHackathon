@@ -31,23 +31,18 @@ public class BonusesController : IController {
 	}
 
 	public override void FixedUpdateEntity() {
-		Vector3 playerPosition = BattleContext.PlayerShip.Position;
 		for (int i = 0; i != m_chargeFuels.Count; i++) {
 			if (!m_chargeFuels[i].IsSpawned()) {
 				Respawn(m_chargeFuels[i]);
 			} else {
-				if (Vector3.Distance(m_chargeFuels[i].transform.position, playerPosition) < 50) {
-					m_chargeFuels[i].FixedUpdateEntity();
-				} 
+				m_chargeFuels[i].FixedUpdateEntity();
 			}
 		}
 		for (int i = 0; i != m_timeBonuses.Count; i++) {
 			if (!m_timeBonuses[i].IsSpawned()) {
 				Respawn(m_timeBonuses[i]);
 			} else {
-				if (Vector3.Distance(m_timeBonuses[i].transform.position, playerPosition) < 50) {
-					m_timeBonuses[i].FixedUpdateEntity();
-				} 
+				m_timeBonuses[i].FixedUpdateEntity();
 			}
 		}
 	}
