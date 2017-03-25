@@ -1,19 +1,23 @@
 ﻿using UnityEngine;
 
 public class Missile : IBullet {
+	private SettingsMissile m_settings;
+
 	private float m_lifeTime;
 	private float m_detonatorActivateTime;
 
 	protected override void OnPhysicBodyInitiate() {
+		m_settings = BattleContext.Settings.Missile;
+
 		CollisionDetector.RegisterListener(CollisionTags.PlayerShip, OnTargetHit);
 		CollisionDetector.RegisterListener(CollisionTags.RamShip, OnTargetHit);
 		CollisionDetector.RegisterListener(CollisionTags.Missile, OnTargetHit);
 	}
 
 	protected override void OnPhysicBodySpawn(Vector3 position, Vector3 angle) {
-		m_lifeTime = 10;
+		m_lifeTime = m_settings.LifeTime;
 
-		m_detonatorActivateTime = 0.2f;
+		m_detonatorActivateTime = 0.1f;
 		GetComponent<Collider>().enabled = false;
 
 		Vector3 lookVector = new Vector3(Mathf.Cos(-transform.rotation.eulerAngles.y * Mathf.PI / 180), 0, Mathf.Sin(-transform.rotation.eulerAngles.y * Mathf.PI / 180));
@@ -33,17 +37,17 @@ public class Missile : IBullet {
 		Vector3 lookVector = new Vector3(Mathf.Cos(-transform.rotation.eulerAngles.y * Mathf.PI / 180), 0, Mathf.Sin(-transform.rotation.eulerAngles.y * Mathf.PI / 180));
 
 		float angle = MathHelper.AngleBetweenVectors(lookVector, enemyPosition - transform.position);
-		Rigidbody.AddTorque(new Vector3(0, (angle - Rigidbody.angularVelocity.y * 50) * 0.1f, 0));
-		if (Rigidbody.angularVelocity.magnitude > 5) {
-			Rigidbody.angularVelocity = Rigidbody.angularVelocity.normalized * 5;
+		Rigidbody.AddTorque(new Vector3(0, (angle - Rigidbody.angularVelocity.y * 50) * m_settings.RotationAcceleration * Time.fixedDeltaTime, 0));
+		if (Rigidbody.angularVelocity.magnitude > m_settings.MaxRotationSpeed) {
+			Rigidbody.angularVelocity = Rigidbody.angularVelocity.normalized * m_settings.MaxRotationSpeed;
 		}
 
-		Rigidbody.AddForce(lookVector.normalized * 80);
-		if (Rigidbody.velocity.magnitude > 6) {
-			Rigidbody.velocity = Rigidbody.velocity.normalized * 6;
+		Rigidbody.AddForce(lookVector.normalized * m_settings.Acceleration);
+		if (Rigidbody.velocity.magnitude > m_settings.MaxSpeed) {
+			Rigidbody.velocity = Rigidbody.velocity.normalized * m_settings.MaxSpeed;
 		}
 
-		m_lifeTime -= 0.02f;
+		m_lifeTime -= Time.fixedDeltaTime;
 		if (m_lifeTime <= 0) {
 			Despawn(DespawnReason.TimeOff);
 			BattleContext.ExplosionsController.RocketExplosion(transform.position);
@@ -52,13 +56,13 @@ public class Missile : IBullet {
 		if (m_detonatorActivateTime <= 0) {
 			GetComponent<Collider>().enabled = true;
 		} else {
-			m_detonatorActivateTime -= 0.02f;
+			m_detonatorActivateTime -= Time.fixedDeltaTime;
 		}
 	}
 
 	protected override float DistanceToDespawn {
 		get {
-			return 60;
+			return m_settings.DistanceFromPlayerToDespawn;
 		}
 	}
 

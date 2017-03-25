@@ -2,6 +2,8 @@
 using UnityEngine;
 
 public class CarrierRocket : IBullet {
+	private SettingsCarrierRocket m_settings;
+
 	private float m_detonatorActivateTime;
 
 	[SerializeField]
@@ -13,20 +15,22 @@ public class CarrierRocket : IBullet {
 	private readonly VectorPid angularVelocityController = new VectorPid(33.7766f, 0, 0.2553191f);
     private readonly VectorPid headingController = new VectorPid(9.244681f, 0, 0.06382979f);
 
-	private float m_maxSpeed = 0;
-	private float m_maxRotationSpeed = 0;
+	private float m_maxSpeed;
+	private float m_maxRotationSpeed;
 
 	private Vector3 m_target;
 
 	protected override void OnPhysicBodyInitiate() {
+		m_settings = BattleContext.Settings.CarrierRocket;
+
 		CollisionDetector.RegisterListener(CollisionTags.PlayerShip, OnTargetHit);
 	}
 
 	protected override void OnPhysicBodySpawn(Vector3 position, Vector3 angle) {
 		m_trail.Stop();
 
-		m_maxSpeed = (float) MathHelper.Random.NextDouble() * 1.5f + 2.75f;
-		m_maxRotationSpeed = (float) MathHelper.Random.NextDouble() * 0.5f + 1.25f;
+		m_maxSpeed = m_settings.MaxSpeed;
+		m_maxRotationSpeed = m_settings.MaxRotationSpeed;
 
 		m_target = BattleContext.PlayerShip.Position;
 
@@ -78,7 +82,7 @@ public class CarrierRocket : IBullet {
         Vector3 headingError = Vector3.Cross(currentHeading, desiredHeading);
         Vector3 headingCorrection = headingController.Update(headingError, Time.fixedDeltaTime);
  
-        Rigidbody.AddTorque(headingCorrection * 1.2f);
+        Rigidbody.AddTorque(headingCorrection * m_settings.RotationCoefficient);
 		if (Rigidbody.angularVelocity.magnitude > m_maxRotationSpeed) {
 			Rigidbody.angularVelocity = Rigidbody.angularVelocity.normalized * m_maxRotationSpeed;
 		}
@@ -98,7 +102,7 @@ public class CarrierRocket : IBullet {
 
 	protected override float DistanceToDespawn {
 		get {
-			return 40;
+			return m_settings.DistanceFromPlayerToDespawn;
 		}
 	}
 

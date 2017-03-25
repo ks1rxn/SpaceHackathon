@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 
 public class StunProjectile : IBullet {
+	private SettingsStunProjectile m_settings;
+
 	private float m_angle;
 	private float m_detonatorActivateTime;
 
@@ -10,6 +12,8 @@ public class StunProjectile : IBullet {
 	private TrailRenderer m_trail2;
 
 	protected override void OnPhysicBodyInitiate() {
+		m_settings = BattleContext.Settings.StunProjectile;
+
 		CollisionDetector.RegisterListener(CollisionTags.PlayerShip, OnTargetHit);
 		CollisionDetector.RegisterListener(CollisionTags.DroneCarrier, OnTargetHit);
 		CollisionDetector.RegisterListener(CollisionTags.StunShip, OnTargetHit);
@@ -32,7 +36,7 @@ public class StunProjectile : IBullet {
 
 	protected override void OnFixedUpdateEntity() {
 		Vector3 moveVector = new Vector3(Mathf.Cos(-m_angle * Mathf.PI / 180), 0, Mathf.Sin(-m_angle * Mathf.PI / 180));
-		transform.position += moveVector * 10 * Time.fixedDeltaTime;
+		transform.position += moveVector * m_settings.Speed * Time.fixedDeltaTime;
 
 		if (m_detonatorActivateTime <= 0) {
 			GetComponent<Collider>().enabled = true;
@@ -47,7 +51,7 @@ public class StunProjectile : IBullet {
 
 	protected override float DistanceToDespawn {
 		get {
-			return 40;
+			return m_settings.DistanceFromPlayerToDespawn;
 		}
 	}
 	

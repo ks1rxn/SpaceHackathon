@@ -12,6 +12,8 @@ public class HealthDroneStation : IAlly {
 	private GameObject m_sleepZone;
 	[SerializeField]
 	private GameObject m_activeZone;
+	[SerializeField]
+	private Animator m_animator;
 
 	private HealthDroneStationState m_state;
 	private List<HealthDrone> m_drones;
@@ -126,6 +128,8 @@ public class HealthDroneStation : IAlly {
 		BattleContext.PlayerShip.OnHealEnd();
 		m_activeZone.SetActive(false);
 		m_sleepZone.SetActive(false);
+
+		m_animator.SetBool("Off", true);
 	}
 
 	private void PerformWorkDoneState() {

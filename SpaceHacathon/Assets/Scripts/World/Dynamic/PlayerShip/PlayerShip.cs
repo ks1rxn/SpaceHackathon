@@ -42,6 +42,7 @@ public class PlayerShip : MonoBehaviour {
 
 		m_collisionDetector.RegisterListener(CollisionTags.StunProjectile, OnStunProjectileHit);
 		m_collisionDetector.RegisterListener(CollisionTags.Missile, OnMissileHit);
+		m_collisionDetector.RegisterListener(CollisionTags.CarrierRocket, OnMissileHit);
 		m_collisionDetector.RegisterListener(CollisionTags.Laser, OnLaserHit);
 		m_collisionDetector.RegisterListener(CollisionTags.DroneCarrier, OnEnemyShipHit);
 		m_collisionDetector.RegisterListener(CollisionTags.RocketShip, OnEnemyShipHit);
@@ -266,6 +267,17 @@ public class PlayerShip : MonoBehaviour {
 		position.y = 0;
 		m_rigidbody.AddExplosionForce(m_rigidbody.mass * 50, Position + (position - Position).normalized * 3, 5);
 		m_hull.Hit(m_settings.MissileDamage);
+		BattleContext.StatisticsManager.PlayerShipStatistics.RocketHit++;
+		StopCoroutine("BashProcedure");
+		StartCoroutine(BashProcedure());
+	}
+
+	private void OnCarrierRocketHit(GameObject other) {
+		if (m_state != ShipState.OnMove) {
+			return;
+		}
+		BattleContext.BattleCamera.Shake();
+		m_hull.Hit(m_settings.CarrierRocketDamage);
 		BattleContext.StatisticsManager.PlayerShipStatistics.RocketHit++;
 		StopCoroutine("BashProcedure");
 		StartCoroutine(BashProcedure());

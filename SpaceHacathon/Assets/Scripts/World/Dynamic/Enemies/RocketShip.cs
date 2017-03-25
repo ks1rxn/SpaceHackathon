@@ -1,30 +1,22 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class RocketShip : IEnemyShip {
-	private float m_gun1Cooldown;
-	private float m_gun2Cooldown;
+	private SettingsRocketShip m_settings;
+
 	private float m_globalCooldown;
 
 	[SerializeField]
-	private float m_gunCooldownValue;
-	[SerializeField]
-	private float m_globalCooldownValue;
-
-	[SerializeField]
 	private Transform m_launcher1;
-	[SerializeField]
-	private Transform m_launcher2;
 
 	protected override void OnPhysicBodyInitiate() {
+		m_settings = BattleContext.Settings.RocketShip;
+
 		CollisionDetector.RegisterListener(CollisionTags.PlayerShip, OnPlayerShipHit);
 		CollisionDetector.RegisterListener(CollisionTags.RamShip, OnRamShipHit);
 	}
 
 	protected override void OnPhysicBodySpawn(Vector3 position, Vector3 angle) {
-		m_gun1Cooldown = 0;
-		m_gun2Cooldown = 0;
-		m_globalCooldown = m_globalCooldownValue;
+		m_globalCooldown = m_settings.LaunchCooldown;
 	}
 
 	protected override void OnDespawn(DespawnReason reason) {
@@ -53,34 +45,28 @@ public class RocketShip : IEnemyShip {
 			Rigidbody.AddForce(-Rigidbody.velocity * 2);
 		}
 
-		float angle = MathHelper.AngleBetweenVectors(lookVector, enemyPosition - transform.position);
+		float angle = MathHelper.AngleBetweenVectors(lookVector, enemyPosition - Position);
 		if (Mathf.Abs(angle) > 10) {
 			float angleSign = 0;
 			if (!angle.Equals(0)) {
 				angleSign = angle / Mathf.Abs(angle);
 			}
 			angleSign *= 10;
-			Rigidbody.AddTorque(new Vector3(0, (angleSign - Rigidbody.angularVelocity.y * 50) * 0.1f, 0));
-			if (Rigidbody.angularVelocity.magnitude > 1f) {
-				Rigidbody.angularVelocity = Rigidbody.angularVelocity.normalized * 1f;
+			Rigidbody.AddTorque(new Vector3(0, (angleSign - Rigidbody.angularVelocity.y * 50) * m_settings.RotationAcceleration * Time.fixedDeltaTime, 0));
+			if (Rigidbody.angularVelocity.magnitude > m_settings.MaxRotationSpeed) {
+				Rigidbody.angularVelocity = Rigidbody.angularVelocity.normalized * m_settings.MaxRotationSpeed;
 			}
 		}
 
-		if ((Mathf.Abs(angle) < 45) && Vector3.Distance(BattleContext.PlayerShip.transform.position, transform.position) < 20) {
-			if ((m_gun1Cooldown <= 0) && (m_globalCooldown <= 0)) {
+		if ((Mathf.Abs(angle) < m_settings.MaxLaunchAngle) && Vector3.Distance(BattleContext.PlayerShip.transform.position, transform.position) < m_settings.MaxLaunchDistance) {
+			if (m_globalCooldown <= 0) {
+				//todo: create random launch points
 				SpawnRocket1();
-				m_gun1Cooldown = m_gunCooldownValue;
-				m_globalCooldown = m_globalCooldownValue;
-			} else if ((m_gun2Cooldown <= 0) && (m_globalCooldown <= 0)) {
-				SpawnRocket2();
-				m_gun2Cooldown = m_gunCooldownValue;
-				m_globalCooldown = m_globalCooldownValue;
+				m_globalCooldown = m_settings.LaunchCooldown;
 			}
 		}
 
-		m_gun1Cooldown -= 0.02f;
-		m_gun2Cooldown -= 0.02f;
-		m_globalCooldown -= 0.02f;
+		m_globalCooldown -= Time.fixedDeltaTime;
 	}
 
 	private void SpawnRocket1() {
@@ -89,14 +75,6 @@ public class RocketShip : IEnemyShip {
 		Rigidbody.AddExplosionForce(120, m_launcher1.position, 3);
 		m_launcher1.GetComponent<ParticleSystem>().Play();
 		Rigidbody.AddTorque(0, 30, 0);
-	}
-
-	private void SpawnRocket2() {
-		BattleContext.BulletsController.SpawnMissile(m_launcher2.position, transform.rotation.eulerAngles.y);
-
-		Rigidbody.AddExplosionForce(120, m_launcher2.position, 3);
-		m_launcher2.GetComponent<ParticleSystem>().Play();
-		Rigidbody.AddTorque(0, -30, 0);
 	}
 
 	protected override float DistanceToDespawn {

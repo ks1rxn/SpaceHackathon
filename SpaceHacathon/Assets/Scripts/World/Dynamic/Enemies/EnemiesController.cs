@@ -53,11 +53,11 @@ public class EnemiesController : IController {
 				CreateSpaceMine();
 			}
 		}
-		
-		m_ramShipCooldown = MathHelper.Random.Next(m_settings.RamShipCooldownDispertion * 2) - m_settings.RamShipCooldownDispertion + m_settings.RamShipCooldownValue;
+
+		m_ramShipCooldown = MathHelper.ValueWithDispertion(m_settings.RamShipCooldownValue, m_settings.RamShipCooldownDispertion);
 		m_ramShipAlive = false;
 
-		m_stunShipCooldown = MathHelper.Random.Next(m_settings.StunShipCooldownDispertion * 2) - m_settings.StunShipCooldownDispertion + m_settings.StunShipCooldownValue;
+		m_stunShipCooldown = MathHelper.ValueWithDispertion(m_settings.StunShipCooldownValue, m_settings.StunShipCooldownDispertion);
 		m_stunShipAlive = false;
 	}
 
@@ -103,12 +103,12 @@ public class EnemiesController : IController {
 	}
 
 	public void OnRamShipDie() {
-		m_ramShipCooldown = MathHelper.Random.Next(m_settings.RamShipCooldownDispertion * 2) - m_settings.RamShipCooldownDispertion + m_settings.RamShipCooldownValue;
+		m_ramShipCooldown = MathHelper.ValueWithDispertion(m_settings.RamShipCooldownValue, m_settings.RamShipCooldownDispertion);
 		m_ramShipAlive = false;
 	}
 
 	public void OnStunShipDie() {
-		m_stunShipCooldown = MathHelper.Random.Next(m_settings.StunShipCooldownDispertion * 2) - m_settings.StunShipCooldownDispertion + m_settings.StunShipCooldownValue;
+		m_stunShipCooldown = MathHelper.ValueWithDispertion(m_settings.StunShipCooldownValue, m_settings.StunShipCooldownDispertion);
 		m_stunShipAlive = false;
 	}
 

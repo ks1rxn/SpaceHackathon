@@ -7,6 +7,7 @@ public class SettingsPlayerShip {
 	public float ChargeTime;
 	public float SpeedOnChargeExit;
 	public float SlowingCloudMaxSlow;
+	public float CarrierRocketDamage;
 	public float MissileDamage;
 	public float MissileBashTime;
 	public float LaserDamage;

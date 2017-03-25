@@ -45,6 +45,10 @@ class MathHelper {
 		return new Vector3(angle.x > 180 ? angle.x - 360 : angle.x, angle.y > 180 ? angle.y - 360 : angle.y, angle.z > 180 ? angle.z - 360 : angle.z);
 	}
 
+	public static float ValueWithDispertion(float value, float dispertion) {
+		return (float)Random.NextDouble() * dispertion * 2 - dispertion + value;
+	}
+
 	public static Random Random {
 		get {
 			return m_random;

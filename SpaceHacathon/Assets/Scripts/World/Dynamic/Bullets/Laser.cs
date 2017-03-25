@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 
 public class Laser : IBullet {
+	private SettingsLaser m_settings;
+
 	private float m_angle;
 	private float m_detonatorActivateTime;
 	private float m_lifetime;
@@ -9,6 +11,8 @@ public class Laser : IBullet {
 	private TrailRenderer m_trail;
 
 	protected override void OnPhysicBodyInitiate() {
+		m_settings = BattleContext.Settings.Laser;
+
 		CollisionDetector.RegisterListener(CollisionTags.PlayerShip, OnTargetHit);
 	}
 
@@ -16,7 +20,7 @@ public class Laser : IBullet {
 		m_angle = angle.y;
 		m_trail.Clear();
 
-		m_lifetime = 0.5f + (float)MathHelper.Random.NextDouble() * 0.2f;
+		m_lifetime = MathHelper.ValueWithDispertion(m_settings.LifeTimeValue, m_settings.LifeTimeDispertion);
 		m_detonatorActivateTime = 0.05f;
 		GetComponent<Collider>().enabled = false;
 	}
@@ -32,7 +36,7 @@ public class Laser : IBullet {
 		}
 
 		Vector3 moveVector = new Vector3(Mathf.Cos(-m_angle * Mathf.PI / 180), 0, Mathf.Sin(-m_angle * Mathf.PI / 180));
-		transform.position += moveVector * 20 * Time.fixedDeltaTime;
+		transform.position += moveVector * m_settings.Speed * Time.fixedDeltaTime;
 
 		if (m_detonatorActivateTime <= 0) {
 			GetComponent<Collider>().enabled = true;
@@ -47,7 +51,7 @@ public class Laser : IBullet {
 
 	protected override float DistanceToDespawn {
 		get {
-			return 40;
+			return m_settings.DistanceFromPlayerToDespawn;
 		}
 	}
 	
