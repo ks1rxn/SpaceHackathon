@@ -14,7 +14,7 @@ public class AlliesController : IController {
 
 		m_allies = new List<IAlly>();
 
-		for (int i = 0; i != 1; i++) {
+		if (m_settings.EnableHealStation) {
 			CreateHealthDroneStation();
 		}
 	}

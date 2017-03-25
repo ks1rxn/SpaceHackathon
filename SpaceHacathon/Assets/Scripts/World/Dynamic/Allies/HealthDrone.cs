@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 
-public class HealthDrone : ISpawnable {
-	private Rigidbody m_rigidbody;
+public class HealthDrone : IPhysicBody {
 	[SerializeField]
 	private GameObject m_beam;
 
@@ -16,15 +15,15 @@ public class HealthDrone : ISpawnable {
 	private Vector3 m_positionOnPlayer;
 	private float m_timeToSwitch;
 
-	protected override void OnInitiate() {
-		m_rigidbody = GetComponent<Rigidbody>();
+	protected override void OnPhysicBodyInitiate() {
+
 	}
 
 	public void SetBase(Transform station) {
 		m_base = station;
 	}
 
-	protected override void OnSpawn(Vector3 position, Vector3 angle) {
+	protected override void OnPhysicBodySpawn(Vector3 position, Vector3 angle) {
 		ToSleepState();
 	}
 
@@ -72,14 +71,14 @@ public class HealthDrone : ISpawnable {
         Vector3 desiredHeading = playerPosition - Position; 
         Vector3 currentHeading = transform.forward;
     
-        Vector3 angularVelocityCorrection = angularVelocityController.Update(-m_rigidbody.angularVelocity, Time.fixedDeltaTime);
-		m_rigidbody.AddTorque(angularVelocityCorrection);
+        Vector3 angularVelocityCorrection = angularVelocityController.Update(-Rigidbody.angularVelocity, Time.fixedDeltaTime);
+		Rigidbody.AddTorque(angularVelocityCorrection);
 
         Vector3 headingError = Vector3.Cross(currentHeading, desiredHeading);
         Vector3 headingCorrection = headingController.Update(headingError, Time.fixedDeltaTime);
-		m_rigidbody.AddTorque(headingCorrection * 12.0f);
+		Rigidbody.AddTorque(headingCorrection * 12.0f);
 
-		m_beam.SetActive((playerPosition - Position).magnitude < 3 && m_rigidbody.angularVelocity.magnitude < 2f);
+		m_beam.SetActive((playerPosition - Position).magnitude < 3 && Rigidbody.angularVelocity.magnitude < 2f);
 
 		m_timeToSwitch -= Time.fixedDeltaTime;
 		if (m_timeToSwitch < 0) {
@@ -89,7 +88,7 @@ public class HealthDrone : ISpawnable {
 	}
 
 	private void PerformMoveToBaseState() {
-		m_rigidbody.angularVelocity = Vector3.zero;
+		Rigidbody.angularVelocity = Vector3.zero;
 		Vector3 positionCorrection = positionController.Update(m_base.position - Position, Time.fixedDeltaTime);
 	    m_speed += positionCorrection * Time.fixedDeltaTime;
 		if (m_speed.magnitude > 8) {

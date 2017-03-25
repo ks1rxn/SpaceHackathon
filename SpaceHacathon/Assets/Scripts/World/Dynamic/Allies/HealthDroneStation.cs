@@ -36,6 +36,7 @@ public class HealthDroneStation : IAlly {
 	private void OnPlayerShipHit(GameObject other) {
 		PlayerShip player = other.GetComponent<PlayerShip>();
 		if (player != null && player.State == ShipState.InCharge) {
+			ToWorkDoneState();
 			Despawn(DespawnReason.Kill);
 		}
 	}
