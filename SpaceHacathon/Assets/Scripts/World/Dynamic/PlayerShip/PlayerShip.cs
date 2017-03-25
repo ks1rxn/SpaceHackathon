@@ -42,7 +42,7 @@ public class PlayerShip : MonoBehaviour {
 
 		m_collisionDetector.RegisterListener(CollisionTags.StunProjectile, OnStunProjectileHit);
 		m_collisionDetector.RegisterListener(CollisionTags.Missile, OnMissileHit);
-		m_collisionDetector.RegisterListener(CollisionTags.CarrierRocket, OnMissileHit);
+		m_collisionDetector.RegisterListener(CollisionTags.CarrierRocket, OnCarrierRocketHit);
 		m_collisionDetector.RegisterListener(CollisionTags.Laser, OnLaserHit);
 		m_collisionDetector.RegisterListener(CollisionTags.DroneCarrier, OnEnemyShipHit);
 		m_collisionDetector.RegisterListener(CollisionTags.RocketShip, OnEnemyShipHit);
@@ -288,6 +288,7 @@ public class PlayerShip : MonoBehaviour {
 			case ShipState.OnMove:
 				//todo: remove this shit
 				if (other.CompareTag(CollisionTags.SpaceMine)) {
+					BattleContext.BattleCamera.Shake();
 					m_hull.Hit(m_settings.MineDamage);
 					BattleContext.StatisticsManager.PlayerShipStatistics.MineHit++;
 				} else if (other.CompareTag(CollisionTags.StunShip)) {
