@@ -7,7 +7,6 @@ public class Missile : IBullet {
 	protected override void OnPhysicBodyInitiate() {
 		CollisionDetector.RegisterListener(CollisionTags.PlayerShip, OnTargetHit);
 		CollisionDetector.RegisterListener(CollisionTags.RamShip, OnTargetHit);
-		CollisionDetector.RegisterListener(CollisionTags.ChargeFuel, OnTargetHit);
 		CollisionDetector.RegisterListener(CollisionTags.Missile, OnTargetHit);
 	}
 

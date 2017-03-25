@@ -20,9 +20,6 @@ public class CarrierRocket : IBullet {
 
 	protected override void OnPhysicBodyInitiate() {
 		CollisionDetector.RegisterListener(CollisionTags.PlayerShip, OnTargetHit);
-		CollisionDetector.RegisterListener(CollisionTags.RamShip, OnTargetHit);
-		CollisionDetector.RegisterListener(CollisionTags.ChargeFuel, OnTargetHit);
-		CollisionDetector.RegisterListener(CollisionTags.Missile, OnTargetHit);
 	}
 
 	protected override void OnPhysicBodySpawn(Vector3 position, Vector3 angle) {
@@ -37,8 +34,10 @@ public class CarrierRocket : IBullet {
 	}
 
 	protected override void OnDespawn(DespawnReason reason) {
-		BattleContext.ExplosionsController.RocketExplosion(transform.position);
-		BattleContext.EffectsController.SpawnSlowingCloud(transform.position);
+		Vector3 cloudPosition = Position;
+		cloudPosition.y = 0;
+		BattleContext.ExplosionsController.RocketExplosion(Position);
+		BattleContext.EffectsController.SpawnSlowingCloud(cloudPosition);
 	}
 
 	private IEnumerator LaunchProcess() {

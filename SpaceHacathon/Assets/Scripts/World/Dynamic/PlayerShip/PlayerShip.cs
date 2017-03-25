@@ -255,6 +255,7 @@ public class PlayerShip : MonoBehaviour {
 		if (m_state != ShipState.OnMove) {
 			return;
 		}
+		BattleContext.BattleCamera.Shake();
 		//hack
 		Vector3 position = other.transform.position;
 		position.y = 0;

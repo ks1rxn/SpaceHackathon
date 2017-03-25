@@ -10,7 +10,11 @@ public class StunProjectile : IBullet {
 	private TrailRenderer m_trail2;
 
 	protected override void OnPhysicBodyInitiate() {
-		CollisionDetector.RegisterDefaultListener(OnTargetHit);
+		CollisionDetector.RegisterListener(CollisionTags.PlayerShip, OnTargetHit);
+		CollisionDetector.RegisterListener(CollisionTags.DroneCarrier, OnTargetHit);
+		CollisionDetector.RegisterListener(CollisionTags.StunShip, OnTargetHit);
+		CollisionDetector.RegisterListener(CollisionTags.RocketShip, OnTargetHit);
+		CollisionDetector.RegisterListener(CollisionTags.RamShip, OnTargetHit);
 	}
 
 	protected override void OnPhysicBodySpawn(Vector3 position, Vector3 angle) {

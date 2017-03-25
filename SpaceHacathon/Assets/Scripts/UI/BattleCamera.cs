@@ -1,8 +1,11 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class BattleCamera : MonoBehaviour {
 	private Vector3 m_speed;
 	private readonly VectorPid m_speedController = new VectorPid(50000f, 20000, 45000);
+	[SerializeField]
+	private Animator m_animator;
 
 	public void UpdateEntity() {
 		Vector3 neededPosition = BattleContext.PlayerShip.Position + BattleContext.PlayerShip.SpeedVector * 0.2f;
@@ -17,6 +20,16 @@ public class BattleCamera : MonoBehaviour {
 		transform.position = pos;
 
 		transform.eulerAngles = new Vector3(50, 0, 0);
+	}
+
+	public void Shake() {
+		m_animator.SetBool("shaking", true);
+		StartCoroutine(DelayedShakeDropParam());
+	}
+
+	private IEnumerator DelayedShakeDropParam() {
+		yield return new WaitForEndOfFrame();
+		m_animator.SetBool("shaking", false);
 	}
 
 }
