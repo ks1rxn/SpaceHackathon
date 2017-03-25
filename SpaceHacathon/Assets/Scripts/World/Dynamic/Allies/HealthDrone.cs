@@ -61,7 +61,7 @@ public class HealthDrone : ISpawnable {
 	}
 
 	private void PerformMoveToPlayerState() {
-		Vector3 playerPosition = BattleContext.Director.PlayerPosition;
+		Vector3 playerPosition = BattleContext.PlayerShip.Position;
 		Vector3 positionCorrection = positionController.Update(playerPosition + m_positionOnPlayer - Position, Time.fixedDeltaTime);
 	    m_speed += positionCorrection * Time.fixedDeltaTime;
 		if (m_speed.magnitude > 8) {

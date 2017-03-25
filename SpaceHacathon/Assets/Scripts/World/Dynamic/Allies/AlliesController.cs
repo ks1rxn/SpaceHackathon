@@ -2,12 +2,16 @@
 using UnityEngine;
 
 public class AlliesController : IController {
+	private SettingsAlliesController m_settings;
+
 	[SerializeField]
 	private GameObject m_healthDroneStationPrefab;
 
 	private List<IAlly> m_allies;
 
 	public override void Initiate() {
+		m_settings = BattleContext.Settings.AlliesController;
+
 		m_allies = new List<IAlly>();
 
 		for (int i = 0; i != 1; i++) {
@@ -21,7 +25,7 @@ public class AlliesController : IController {
 				m_allies[i].FixedUpdateEntity();
 			} else {
 				if (m_allies[i] is HealthDroneStation) {
-					Vector3 stationPosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, 30, 50);
+					Vector3 stationPosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, BattleContext.PlayerShip.SpeedVector, m_settings.HealStationSpawnAngle, m_settings.HealStationSpawnMinDist, m_settings.HealStationSpawnMaxDist);
 					SpawnHealthDroneStation(stationPosition, 0);
 				}
 			}

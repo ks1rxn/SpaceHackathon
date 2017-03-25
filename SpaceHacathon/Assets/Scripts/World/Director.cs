@@ -102,12 +102,6 @@ public class Director : MonoBehaviour {
 		}
 	}
 
-	public Vector3 PlayerPosition {
-		get {
-			return PlayerShip.Position;
-		}
-	}
-
 }
 
 public enum DifficultyLevel {

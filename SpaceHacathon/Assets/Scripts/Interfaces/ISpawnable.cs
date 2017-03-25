@@ -35,7 +35,7 @@ public abstract class ISpawnable : IEntity {
 	}
 
 	public override void FixedUpdateEntity() {
-		if (Vector3.Distance(BattleContext.Director.PlayerPosition, Position) > DistanceToDespawn) {
+		if (Vector3.Distance(BattleContext.PlayerShip.Position, Position) > DistanceToDespawn) {
 			Despawn(DespawnReason.OutOfRange);
 		}
 		OnFixedUpdateEntity();
