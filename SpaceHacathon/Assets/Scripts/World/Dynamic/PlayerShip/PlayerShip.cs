@@ -313,7 +313,6 @@ public class PlayerShip : MonoBehaviour {
 				}
 				break;
 			case ShipState.InCharge:
-				BattleContext.BattleCamera.Shake();
 				break;
 		}
 	}
