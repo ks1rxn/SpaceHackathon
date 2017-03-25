@@ -13,6 +13,9 @@ public class LevelSettings {
 	public SettingsStunProjectile StunProjectile;
 	public SettingsRamShip RamShip;
 	public SettingsRocketShip RocketShip;
+	public SettingsDroneCarrier DroneCarrier;
+	public SettingsStunShip StunShip;
+	public SettingsSpaceMine SpaceMine;
 	public SettingsBulletsController BulletsController;
 
 	public LevelSettings() {
@@ -29,6 +32,9 @@ public class LevelSettings {
 		Missile = new SettingsMissile();
 		RamShip = new SettingsRamShip();
 		RocketShip = new SettingsRocketShip();
+		DroneCarrier = new SettingsDroneCarrier();
+		StunShip = new SettingsStunShip();
+		SpaceMine = new SettingsSpaceMine();
 		BulletsController = new SettingsBulletsController();
 	}
 

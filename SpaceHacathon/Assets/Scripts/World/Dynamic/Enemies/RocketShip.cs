@@ -79,7 +79,7 @@ public class RocketShip : IEnemyShip {
 
 	protected override float DistanceToDespawn {
 		get {
-			return 40;
+			return m_settings.DistanceFromPlayerToDespawn;
 		}
 	}
 

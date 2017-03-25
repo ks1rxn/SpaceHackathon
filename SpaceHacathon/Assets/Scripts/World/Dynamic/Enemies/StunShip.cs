@@ -2,6 +2,8 @@
 using UnityEngine;
 
 public class StunShip : IEnemyShip {
+	private SettingsStunShip m_settings;
+
 	[SerializeField]
 	private GameObject m_gun;
 
@@ -15,17 +17,12 @@ public class StunShip : IEnemyShip {
 	private float m_blasterTimer;
 
 	[SerializeField]
-	private float m_flyCooldown;
-	[SerializeField]
-	private float m_refuelCooldown;
-	[SerializeField]
-	private float m_blasterCooldown;
-
-	[SerializeField]
 	private ParticleSystem[] m_engines;
 	private bool[] m_engineState;
 
 	protected override void OnPhysicBodyInitiate() {
+		m_settings = BattleContext.Settings.StunShip;
+
 		CollisionDetector.RegisterListener(CollisionTags.PlayerShip, OnOtherShipHit);
 		CollisionDetector.RegisterListener(CollisionTags.DroneCarrier, OnOtherShipHit);
 		CollisionDetector.RegisterListener(CollisionTags.StunShip, OnOtherShipHit);
@@ -37,9 +34,9 @@ public class StunShip : IEnemyShip {
 	}
 
 	protected override void OnPhysicBodySpawn(Vector3 position, Vector3 angle) {
-		m_blasterTimer = m_blasterCooldown;
+		m_blasterTimer = m_settings.BlasterCooldown;
 		m_state = BlasterShipState.Moving;
-		m_movingTimer = m_flyCooldown;
+		m_movingTimer = m_settings.FlyingTime;
 
 		StartCoroutine(SpawnEffect());
 	}
@@ -132,7 +129,7 @@ public class StunShip : IEnemyShip {
 					for (int i = 0; i != 4; i++) {
 						SetEngineState(i, false);
 					}
-					m_movingTimer = m_refuelCooldown;
+					m_movingTimer = m_settings.RechargeTime;
 				}
 				break;
 			case BlasterShipState.Refuel:
@@ -144,7 +141,7 @@ public class StunShip : IEnemyShip {
 					}
 				} else {
 					m_state = BlasterShipState.Moving;
-					m_movingTimer = m_flyCooldown;
+					m_movingTimer = m_settings.FlyingTime;
 				}
 				break;
 		}
@@ -167,7 +164,7 @@ public class StunShip : IEnemyShip {
 		m_blasterTimer -= Time.deltaTime;
 		if ((m_blasterTimer <= 0) && (Mathf.Abs(angleToTarget) < 10) && Vector3.Distance(BattleContext.PlayerShip.Position, transform.position) < 15 && !HittingAlly(gunDirection)) {
 			BattleContext.BulletsController.SpawnStunProjectile(m_gun.transform.position, m_gun.transform.eulerAngles.y);
-			m_blasterTimer = m_blasterCooldown;
+			m_blasterTimer = m_settings.BlasterCooldown;
 		}
 	}
 
@@ -205,7 +202,7 @@ public class StunShip : IEnemyShip {
 
 	protected override float DistanceToDespawn {
 		get {
-			return 50;
+			return m_settings.DistanceFromPlayerToDespawn;
 		}
 	}
 

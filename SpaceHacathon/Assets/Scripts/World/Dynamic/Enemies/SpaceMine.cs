@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 
 public class SpaceMine : IEnemyShip {
+	private SettingsSpaceMine m_settings;
+
 	[SerializeField]
 	private GameObject m_waitingIndicator;
 	[SerializeField]
@@ -24,6 +26,8 @@ public class SpaceMine : IEnemyShip {
 	private LineRenderer m_lineRenderer;
 
 	protected override void OnPhysicBodyInitiate() {
+		m_settings = BattleContext.Settings.SpaceMine;
+
 		CollisionDetector.RegisterListener(CollisionTags.PlayerShip, OnOtherShipHit);
 		CollisionDetector.RegisterListener(CollisionTags.DroneCarrier, OnOtherShipHit);
 		CollisionDetector.RegisterListener(CollisionTags.StunShip, OnOtherShipHit);
@@ -142,7 +146,7 @@ public class SpaceMine : IEnemyShip {
 
 	protected override float DistanceToDespawn {
 		get {
-			return 40;
+			return m_settings.DistanceFromPlayerToDespawn;
 		}
 	}
 

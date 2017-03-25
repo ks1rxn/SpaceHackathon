@@ -3,14 +3,11 @@ using System.Collections;
 using UnityEngine;
 
 public class DroneCarrier : IEnemyShip {
+	private SettingsDroneCarrier m_settings;
+
 	private float m_cooldown;
 	private float m_blasterTimerFront;
 	private float m_blasterTimerRear;
-
-	[SerializeField]
-	private float m_globalCooldownValue;
-	[SerializeField, Range(1.0f, 5.0f)]
-	private float m_blasterCooldown;
 
 	[SerializeField]
 	private Transform m_launcher;
@@ -20,6 +17,8 @@ public class DroneCarrier : IEnemyShip {
 	private GameObject m_rearGun;
 
 	protected override void OnPhysicBodyInitiate() {
+		m_settings = BattleContext.Settings.DroneCarrier;
+
 		CollisionDetector.RegisterListener(CollisionTags.RamShip, OnRamShipHit);
 		CollisionDetector.RegisterListener(CollisionTags.PlayerShip, OnPlayerShipHit);
 	}
@@ -28,7 +27,7 @@ public class DroneCarrier : IEnemyShip {
 		const float speed = 0.3f;
 		Rigidbody.velocity = new Vector3(Mathf.Cos(angle.y * Mathf.PI / 180) * speed, 0, -Mathf.Sin(angle.y * Mathf.PI / 180) * speed);
 
-		m_cooldown = MathHelper.Random.Next((int)m_globalCooldownValue);
+		m_cooldown = m_settings.CarrierRocketCooldown;
 	}
 
 	protected override void OnDespawn(DespawnReason reason) {
@@ -96,13 +95,13 @@ public class DroneCarrier : IEnemyShip {
 			m_blasterTimerFront -= Time.deltaTime;
 			if ((m_blasterTimerFront <= 0) && (Mathf.Abs(angleToTarget) < 10) && Vector3.Distance(playerPosition, Position) < 15) {
 				StartCoroutine(GunFire(gun));
-				m_blasterTimerFront = m_blasterCooldown;
+				m_blasterTimerFront = m_settings.BlasterCooldown;
 			}
 		} else {
 			m_blasterTimerRear -= Time.deltaTime;
 			if ((m_blasterTimerRear <= 0) && (Mathf.Abs(angleToTarget) < 10) && Vector3.Distance(playerPosition, Position) < 15) {
 				StartCoroutine(GunFire(gun));
-				m_blasterTimerRear = m_blasterCooldown;
+				m_blasterTimerRear = m_settings.BlasterCooldown;
 			}
 		}
 
@@ -120,7 +119,7 @@ public class DroneCarrier : IEnemyShip {
 		if (Vector3.Distance(BattleContext.PlayerShip.Position, Position) < 20) {
 			if (m_cooldown <= 0) {
 				SpawnRocket();
-				m_cooldown = m_globalCooldownValue;
+				m_cooldown = m_settings.CarrierRocketCooldown;
 			}
 		}
 
@@ -133,7 +132,7 @@ public class DroneCarrier : IEnemyShip {
 
 	protected override float DistanceToDespawn {
 		get {
-			return 40;
+			return m_settings.DistanceFromPlayerToDespawn;
 		}
 	}
 
