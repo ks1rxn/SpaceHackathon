@@ -6,10 +6,10 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: HealthDroneLights
-  m_Shader: {fileID: 200, guid: 0000000000000000f000000000000000, type: 0}
+  m_Name: HealthDroneStationOff
+  m_Shader: {fileID: 4800000, guid: 8a3186f54b8e5984ba3ef93d2f1effcc, type: 3}
   m_ShaderKeywords: 
-  m_LightmapFlags: 1
+  m_LightmapFlags: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
   m_SavedProperties:
@@ -40,15 +40,39 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
+        name: _Emission
+      second:
+        m_Texture: {fileID: 2800000, guid: d17ceccb6ce337f45bc4e4fb03b10fc4, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
         name: _EmissionMap
       second:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
+        name: _EmissionTexture
+      second:
+        m_Texture: {fileID: 2800000, guid: f890db963f0d01e48b6aef209602bfd5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _Illum
+      second:
+        m_Texture: {fileID: 2800000, guid: d17ceccb6ce337f45bc4e4fb03b10fc4, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
         name: _MainTex
       second:
-        m_Texture: {fileID: 2800000, guid: 5b12a3c09c869734896a001a52034d12, type: 3}
+        m_Texture: {fileID: 2800000, guid: c8cc4807fdfb8df42a3317f9ce153428, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _MainTexture
+      second:
+        m_Texture: {fileID: 2800000, guid: c8cc4807fdfb8df42a3317f9ce153428, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
@@ -60,7 +84,7 @@ Material:
     - first:
         name: _OcclusionMap
       second:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 55283586ebdf1024d9cf642bc2cdbce8, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
@@ -70,9 +94,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
-        name: _Texture
+        name: _node_2163
       second:
-        m_Texture: {fileID: 2800000, guid: 5b12a3c09c869734896a001a52034d12, type: 3}
+        m_Texture: {fileID: 2800000, guid: f890db963f0d01e48b6aef209602bfd5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _node_7334
+      second:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
@@ -89,14 +119,14 @@ Material:
         name: _DstBlend
       second: 0
     - first:
+        name: _Emission
+      second: 1
+    - first:
         name: _Glossiness
       second: 0.5
     - first:
-        name: _InvFade
-      second: 1
-    - first:
         name: _Metallic
-      second: 0
+      second: 1
     - first:
         name: _Mode
       second: 0
@@ -107,6 +137,9 @@ Material:
         name: _Parallax
       second: 0.02
     - first:
+        name: _Shininess
+      second: 0.36
+    - first:
         name: _SrcBlend
       second: 1
     - first:
@@ -115,19 +148,16 @@ Material:
     - first:
         name: _ZWrite
       second: 1
+    - first:
+        name: _node_5356
+      second: 0
     m_Colors:
     - first:
         name: _Color
       second: {r: 1, g: 1, b: 1, a: 1}
     - first:
-        name: _EmisColor
-      second: {r: 0.8602941, g: 0.7297667, b: 0, a: 0}
-    - first:
         name: _EmissionColor
       second: {r: 0, g: 0, b: 0, a: 1}
     - first:
-        name: _TintColor
-      second: {r: 0.39705884, g: 0.39705884, b: 0.39705884, a: 0.503}
-    - first:
-        name: _node_4141
-      second: {r: 1, g: 1, b: 1, a: 1}
+        name: _SpecColor
+      second: {r: 0.63056874, g: 0.73782444, b: 0.8014706, a: 1}
