@@ -33,7 +33,7 @@ GameObject:
   - component: {fileID: 135000012868924072}
   m_Layer: 0
   m_Name: RocketShip
-  m_TagString: RocketLauncherShip
+  m_TagString: RocketShip
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2855,7 +2855,7 @@ GameObject:
   - component: {fileID: 198000013115840828}
   m_Layer: 0
   m_Name: ExhaustSmoke
-  m_TagString: RocketLauncherShip
+  m_TagString: RocketShip
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2872,7 +2872,7 @@ GameObject:
   - component: {fileID: 198000012705758138}
   m_Layer: 0
   m_Name: ExhaustSmoke (1)
-  m_TagString: RocketLauncherShip
+  m_TagString: RocketShip
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2889,7 +2889,7 @@ GameObject:
   - component: {fileID: 198000011621234450}
   m_Layer: 0
   m_Name: Exhaust (1)
-  m_TagString: RocketLauncherShip
+  m_TagString: RocketShip
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2923,7 +2923,7 @@ GameObject:
   - component: {fileID: 199000010641736200}
   m_Layer: 0
   m_Name: spawn_particles
-  m_TagString: RocketLauncherShip
+  m_TagString: RocketShip
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3038,10 +3038,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CollisionDetector: {fileID: 114000013479154126}
-  m_gunCooldownValue: 10
-  m_globalCooldownValue: 2
   m_launcher1: {fileID: 4000013839319846}
-  m_launcher2: {fileID: 4000012766305414}
 --- !u!114 &114000013479154126
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -18711,7 +18708,7 @@ ParticleSystemRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedEditorRenderState: 3
+  m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -18811,7 +18808,7 @@ ParticleSystemRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedEditorRenderState: 3
+  m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89

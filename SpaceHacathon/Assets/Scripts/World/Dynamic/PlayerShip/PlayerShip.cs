@@ -307,9 +307,13 @@ public class PlayerShip : MonoBehaviour {
 				} else if (other.CompareTag(CollisionTags.DroneCarrier)) {
 					m_hull.Hit(m_settings.EnemyShipHitDamage);
 					BattleContext.StatisticsManager.PlayerShipStatistics.EnemyShipHit++;
+				} else if (other.CompareTag(CollisionTags.RocketShip)) {
+					m_hull.Hit(m_settings.EnemyShipHitDamage);
+					BattleContext.StatisticsManager.PlayerShipStatistics.EnemyShipHit++;
 				}
 				break;
 			case ShipState.InCharge:
+				BattleContext.BattleCamera.Shake();
 				break;
 		}
 	}
