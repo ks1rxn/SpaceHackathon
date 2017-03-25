@@ -21,6 +21,8 @@ public class PlayerShip : MonoBehaviour {
 	private ParticleSystem m_stunFx;
 	[SerializeField]
 	private CollisionDetector m_collisionDetector;
+	[SerializeField]
+	private GameObject m_healEffect;
 
 	[SerializeField]
 	private GameObject m_ramDirection;
@@ -57,6 +59,8 @@ public class PlayerShip : MonoBehaviour {
 		transform.position = position;
 		transform.Rotate(0, -angle, 0);
 		SetAngle(angle);
+
+		m_healEffect.SetActive(false);
 	}
 
     public void Die() {
@@ -305,8 +309,16 @@ public class PlayerShip : MonoBehaviour {
 		m_chargeSystem.AddFuel();
 	}
 
+	public void OnHealBegin() {
+		m_healEffect.SetActive(true);
+	}
+
 	public void OnHeal(float hp) {
 		m_hull.Heal(hp);
+	}
+
+	public void OnHealEnd() {
+		m_healEffect.SetActive(false);
 	}
 
 	private void OnTimeBonusHit(GameObject other) {

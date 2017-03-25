@@ -97,6 +97,7 @@ public class HealthDroneStation : IAlly {
 			drone.ToMoveToPlayerState();
 		}
 
+		BattleContext.PlayerShip.OnHealBegin();
 		m_activeZone.SetActive(true);
 	}
 
@@ -122,6 +123,7 @@ public class HealthDroneStation : IAlly {
 			drone.ToMoveToBaseState();
 		}
 
+		BattleContext.PlayerShip.OnHealEnd();
 		m_activeZone.SetActive(false);
 		m_sleepZone.SetActive(false);
 	}
