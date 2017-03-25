@@ -4,6 +4,8 @@ public class SpaceMine : IEnemyShip {
 	[SerializeField]
 	private GameObject m_waitingIndicator;
 	[SerializeField]
+	private GameObject m_waitingCircle;
+	[SerializeField]
 	private GameObject m_armedIndicator;
 
 	private SpaceMineState m_state;
@@ -36,11 +38,12 @@ public class SpaceMine : IEnemyShip {
 		m_state = SpaceMineState.Waiting;
 		m_hullRenderer.material = m_materials[0];
 
-		position.y = -2.5f + (float) MathHelper.Random.NextDouble() - 0.5f;
+//		position.y = -2.5f + (float) MathHelper.Random.NextDouble() - 0.5f;
+		position.y = -0.6f;
 		transform.position = position;
 
 		m_waitingPosition = position;
-		m_waitingPosition.y = -3 + MathHelper.Random.Next(1);
+//		m_waitingPosition.y = -3 + MathHelper.Random.Next(1);
 	}
 
 	protected override void OnDespawn(DespawnReason reason) {
@@ -92,9 +95,14 @@ public class SpaceMine : IEnemyShip {
 		transform.Rotate(0, Time.fixedDeltaTime * 35, 0);
 		Vector3 speedCorrection = m_speedController.Update(m_waitingPosition - Position, Time.fixedDeltaTime);
 		Rigidbody.AddForce(speedCorrection * 0.5f);
-		if (Mathf.Abs(m_waitingPosition.y - Position.y) < 0.1f) {
-			m_waitingPosition.y = -5 - m_waitingPosition.y;
-		}
+//		if (Mathf.Abs(m_waitingPosition.y - Position.y) < 0.1f) {
+//			m_waitingPosition.y = -5 - m_waitingPosition.y;
+//		}
+		
+		float diff = -0.6f - Position.y;
+		Vector3 circlePos = m_waitingCircle.transform.localPosition;
+		circlePos.y = 0.6f + diff;
+		m_waitingCircle.transform.localPosition = circlePos;
 	}
 
 	private void Chasing() {
