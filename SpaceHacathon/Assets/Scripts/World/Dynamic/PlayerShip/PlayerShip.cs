@@ -292,11 +292,13 @@ public class PlayerShip : MonoBehaviour {
 					m_hull.Hit(m_settings.MineDamage);
 					BattleContext.StatisticsManager.PlayerShipStatistics.MineHit++;
 				} else if (other.CompareTag(CollisionTags.StunShip)) {
+					BattleContext.BattleCamera.Shake();
 					m_hull.Hit(m_settings.EnemyShipHitDamage);
 					BattleContext.StatisticsManager.PlayerShipStatistics.EnemyShipHit++;
 				} else if (other.CompareTag(CollisionTags.RamShip)) {
 					RamShip ram = other.GetComponent<RamShip>();
 					if (ram != null && ram.State == RamShipState.Running) {
+						BattleContext.BattleCamera.Shake();
 						m_hull.Hit(100);
 					} else {
 						m_hull.Hit(m_settings.EnemyShipHitDamage);
