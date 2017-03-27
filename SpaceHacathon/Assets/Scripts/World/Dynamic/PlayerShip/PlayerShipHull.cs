@@ -24,10 +24,16 @@ public class PlayerShipHull : MonoBehaviour {
 
 	public void Hit(float strength) {
         m_health -= strength;
+		if (m_health < 0) {
+			m_health = 0;
+		}
     }
 
 	public void Heal(float hp) {
 		m_health += hp;
+		if (m_health > 1) {
+			m_health = 1;
+		}
 	}
 
     public void UpdateHull() {
