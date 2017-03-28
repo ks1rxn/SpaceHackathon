@@ -14,4 +14,5 @@ public class SettingsPlayerShip {
 	public float StunProjectileDamage;
 	public float StunTime;
 	public float MineDamage;
+	public float RamShipDamage;
 }

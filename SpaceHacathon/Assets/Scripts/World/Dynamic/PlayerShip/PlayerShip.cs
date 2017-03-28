@@ -299,7 +299,7 @@ public class PlayerShip : MonoBehaviour {
 					RamShip ram = other.GetComponent<RamShip>();
 					if (ram != null && ram.State == RamShipState.Running) {
 						BattleContext.BattleCamera.Shake();
-						m_hull.Hit(100);
+						m_hull.Hit(m_settings.RamShipDamage);
 					} else {
 						m_hull.Hit(m_settings.EnemyShipHitDamage);
 					}
