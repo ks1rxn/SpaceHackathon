@@ -30,8 +30,6 @@ public class PlayerShip : MonoBehaviour {
 	private Animation m_ramDirectionIndicator;
 	[SerializeField]
 	private GameObject m_mineIndicator;
-	[SerializeField]
-	private GameObject m_timeBonusDirection;
 
 	public void Initiate() {
 		m_settings = BattleContext.Settings.PlayerShip;
@@ -93,7 +91,6 @@ public class PlayerShip : MonoBehaviour {
 		}
 		UpdateMovement();
 		DrawRamIndicator();
-		DrawTimeBonuesIndicator();
 
 		bool isOnMineTarget = false;
 		foreach (SpaceMine mine in BattleContext.EnemiesController.SpaceMines) {
@@ -123,17 +120,6 @@ public class PlayerShip : MonoBehaviour {
 		} else {
 			m_ramDirection.SetActive(false);
 		}
-	}
-
-	private void DrawTimeBonuesIndicator() {
-		TimeBonus bonus = BattleContext.BonusesController.TimeBonus;
-		if (Vector3.Distance(bonus.Position, Position) < 5) {
-			m_timeBonusDirection.SetActive(false);
-			return;
-		}
-		m_timeBonusDirection.SetActive(true);
-		float angle = MathHelper.AngleBetweenVectors(LookVector, bonus.Position - Position);
-		m_timeBonusDirection.transform.localEulerAngles = new Vector3(0, angle, 0);
 	}
 
 	private void UpdateMovement() {
