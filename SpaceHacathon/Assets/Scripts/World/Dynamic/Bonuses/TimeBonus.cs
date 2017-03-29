@@ -22,12 +22,12 @@ public class TimeBonus : IBonus {
 	}
 
 	private void OnTargetHit(GameObject other) {
-		Despawn(DespawnReason.Kill);
+		BattleContext.BonusesController.RespawnTimeBonus(this);
 	}
 
 	protected override float DistanceToDespawn {
 		get {
-			return 50;
+			return 1000;
 		}
 	}
 
