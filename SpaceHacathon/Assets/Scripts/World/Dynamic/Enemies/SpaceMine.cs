@@ -19,14 +19,19 @@ public class SpaceMine : IEnemyShip {
 	private float m_speedValue;
 
 	[SerializeField]
+	private GameObject m_hull;
 	private MeshRenderer m_hullRenderer;
 	[SerializeField]
 	private Material[] m_materials;
 	[SerializeField]
 	private LineRenderer m_lineRenderer;
 
+	private float m_param;
+
 	protected override void OnPhysicBodyInitiate() {
 		m_settings = BattleContext.Settings.SpaceMine;
+
+		m_hullRenderer = m_hull.GetComponent<MeshRenderer>();
 
 		CollisionDetector.RegisterListener(CollisionTags.PlayerShip, OnOtherShipHit);
 		CollisionDetector.RegisterListener(CollisionTags.DroneCarrier, OnOtherShipHit);
@@ -36,18 +41,10 @@ public class SpaceMine : IEnemyShip {
 	}
 
 	protected override void OnPhysicBodySpawn(Vector3 position, Vector3 angle) {
-		m_waitingIndicator.SetActive(true);
-		m_armedIndicator.SetActive(false);
-
-		m_state = SpaceMineState.Waiting;
-		m_hullRenderer.material = m_materials[0];
-
-//		position.y = -2.5f + (float) MathHelper.Random.NextDouble() - 0.5f;
 		position.y = -0.6f;
 		transform.position = position;
 
-		m_waitingPosition = position;
-//		m_waitingPosition.y = -3 + MathHelper.Random.Next(1);
+		ToWaitingState();
 	}
 
 	protected override void OnDespawn(DespawnReason reason) {
@@ -61,40 +58,31 @@ public class SpaceMine : IEnemyShip {
 	protected override void OnFixedUpdateEntity() {
 		switch (m_state) {
 			case SpaceMineState.Waiting:
-				Waiting();
+				PerformWaitingState();
 				break;
 			case SpaceMineState.Chasing:
-				Chasing();
+				PerformChasingState();
 				break;
 		}
 	}
 
-	private void LateUpdate() {
-		switch (m_state) {
-			case SpaceMineState.Waiting:
-				m_lineRenderer.SetPosition(0, Position);
-				m_lineRenderer.SetPosition(1, Position);
-				break;
-			case SpaceMineState.Chasing:
-				Vector3 pos = Position;
-				pos.y = 0;
-				m_lineRenderer.SetPosition(0, Position);
-				Vector3 toTarget = (BattleContext.PlayerShip.Position - pos).normalized * 1.31f;
-				m_lineRenderer.SetPosition(1, BattleContext.PlayerShip.Position - toTarget);
-				break;
-		}
+	private void ToWaitingState() {
+		m_state = SpaceMineState.Waiting;
+
+		m_waitingIndicator.SetActive(true);
+		m_armedIndicator.SetActive(false);
+
+		m_hullRenderer.material = m_materials[0];
+
+		m_waitingPosition = Position;
+		m_waitingPosition.y = -0.6f;
 	}
 
-	private void Waiting() {
+	private void PerformWaitingState() {
 		Vector3 projectionToPlane = Position;
 		projectionToPlane.y = 0;
 		if (Vector3.Distance(BattleContext.PlayerShip.Position, projectionToPlane) < 7) {
-			m_waitingIndicator.SetActive(false);
-			m_armedIndicator.SetActive(true);
-
-			m_hullRenderer.material = m_materials[1];
-			m_state = SpaceMineState.Chasing;
-			m_speedValue = 0.0f;
+			ToChasingState();
 		}
 		transform.Rotate(0, Time.fixedDeltaTime * 35, 0);
 		Vector3 speedCorrection = m_speedController.Update(m_waitingPosition - Position, Time.fixedDeltaTime);
@@ -109,7 +97,19 @@ public class SpaceMine : IEnemyShip {
 		m_waitingCircle.transform.localPosition = circlePos;
 	}
 
-	private void Chasing() {
+	private void ToChasingState() {
+		m_state = SpaceMineState.Chasing;
+	
+		m_waitingIndicator.SetActive(false);
+		m_armedIndicator.SetActive(true);
+
+		m_hullRenderer.material = m_materials[1];
+		m_speedValue = 0.0f;
+		
+		m_param = 0;	
+	}
+
+	private void PerformChasingState() {
 		Vector3 projectionToPlane = Position;
 		projectionToPlane.y = 0;
 
@@ -127,14 +127,35 @@ public class SpaceMine : IEnemyShip {
 			m_speedValue += Time.fixedDeltaTime;
 		}
 		if (Vector3.Distance(BattleContext.PlayerShip.Position, projectionToPlane) > 9) {
-			m_waitingIndicator.SetActive(true);
-			m_armedIndicator.SetActive(false);
+			ToWaitingState();
+		}
+		float dist = Vector3.Distance(BattleContext.PlayerShip.Position, projectionToPlane);
+		float coef = Mathf.Clamp((7 - dist) * (7 - dist), 0, 49) / 49f * 1.5f;
+		float speed = Mathf.Clamp(8 - dist, 1, 6) / 1f;
+		m_param += Time.fixedDeltaTime * speed;
+		float size = Mathf.Sin(m_param) * Mathf.Sin(m_param) * coef;
+		Vector3 scale = new Vector3(size + 1, size + 1, size + 1);
+		m_hull.transform.localScale = scale;
+		m_armedIndicator.transform.localScale = scale;
+	}
 
-			m_hullRenderer.material = m_materials[0];
-			m_state = SpaceMineState.Waiting;
-
-			m_waitingPosition = Position;
-			m_waitingPosition.y = -3 + MathHelper.Random.Next(1);
+	///<summary>
+	/// Draw line from mine to PlayerShip.
+	/// LateUpdate is used because in FixedUpdate line end point (on PlayerShip) was not correct.
+	///</summary>
+	private void LateUpdate() {
+		switch (m_state) {
+			case SpaceMineState.Waiting:
+				m_lineRenderer.SetPosition(0, Position);
+				m_lineRenderer.SetPosition(1, Position);
+				break;
+			case SpaceMineState.Chasing:
+				Vector3 pos = Position;
+				pos.y = 0;
+				m_lineRenderer.SetPosition(0, Position);
+				Vector3 toTarget = (BattleContext.PlayerShip.Position - pos).normalized * 1.31f;
+				m_lineRenderer.SetPosition(1, BattleContext.PlayerShip.Position - toTarget);
+				break;
 		}
 	}
 

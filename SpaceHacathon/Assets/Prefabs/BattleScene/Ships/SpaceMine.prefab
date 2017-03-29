@@ -75,7 +75,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1000012769182004
 GameObject:
   m_ObjectHideFlags: 0
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 114000011929401752}
   - component: {fileID: 114000011637196192}
   - component: {fileID: 54000012564512972}
-  - component: {fileID: 65000012467931824}
+  - component: {fileID: 135919485693838510}
   m_Layer: 0
   m_Name: SpaceMine
   m_TagString: SpaceMine
@@ -160,7 +160,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4000010030177362
 Transform:
   m_ObjectHideFlags: 1
@@ -168,7 +168,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012769182004}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.6, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4000011014389390}
@@ -415,18 +415,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &65000012467931824
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012769182004}
-  m_Material: {fileID: 13400000, guid: d9dfaccb55afe6e4d895acc655cb08bd, type: 2}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.3, y: 0.3, z: 0.3}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114000011637196192
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -453,7 +441,7 @@ MonoBehaviour:
   m_waitingIndicator: {fileID: 1000012556513428}
   m_waitingCircle: {fileID: 1000013176956146}
   m_armedIndicator: {fileID: 1000013755744098}
-  m_hullRenderer: {fileID: 23000010364521074}
+  m_hull: {fileID: 1000011600874638}
   m_materials:
   - {fileID: 2100000, guid: 97131ab544db76e41ba6ea52c85cd949, type: 2}
   - {fileID: 2100000, guid: 400e81759f4398b48a37094af38ba9d7, type: 2}
@@ -562,6 +550,18 @@ LineRenderer:
     alignment: 0
     textureMode: 0
   m_UseWorldSpace: 1
+--- !u!135 &135919485693838510
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012769182004}
+  m_Material: {fileID: 13400000, guid: d9dfaccb55afe6e4d895acc655cb08bd, type: 2}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.01
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!198 &198000010441962736
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -617,7 +617,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1269166603
+  randomSeed: -1948355565
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -5912,7 +5912,7 @@ ParticleSystemRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedEditorRenderState: 3
+  m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89

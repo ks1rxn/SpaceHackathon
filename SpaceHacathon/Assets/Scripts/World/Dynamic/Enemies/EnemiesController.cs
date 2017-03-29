@@ -95,7 +95,6 @@ public class EnemiesController : IController {
 				}
 				if (m_ships[i] is SpaceMine) {
 					Vector3 spaceMinePosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, BattleContext.PlayerShip.SpeedVector, m_settings.SpaceMineSpawnAngle, m_settings.SpaceMineSpawnMinDistance, m_settings.SpaceMineSpawnMaxDistance);
-					spaceMinePosition.y = -2.5f;
 					SpawnSpaceMine(spaceMinePosition);
 				}
 			}
