@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_playerShipPrefab: {fileID: 186194, guid: f8dc884bc1256e44296c0e4ca639cb33, type: 2}
-  m_difficultyLevel: 1
+  m_difficultyLevel: 3
   GodMode: 0
 --- !u!114 &24547034
 MonoBehaviour:
