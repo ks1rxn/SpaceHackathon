@@ -39,7 +39,7 @@ public class PlayerShip : MonoBehaviour {
 		m_effects = new EffectsOnShip();
 		m_shipParams = new ShipParams();
 
-		m_hull.Initiate();
+		m_hull.Initiate(m_settings.EnergyMaximumInitial, m_settings.EnergyDropPerSecond);
         m_chargeSystem.Initiate();
 
 		m_collisionDetector.RegisterListener(CollisionTags.StunProjectile, OnStunProjectileHit);
@@ -52,7 +52,6 @@ public class PlayerShip : MonoBehaviour {
 		m_collisionDetector.RegisterListener(CollisionTags.StunShip, OnEnemyShipHit);
 		m_collisionDetector.RegisterListener(CollisionTags.RamShip, OnEnemyShipHit);
 		m_collisionDetector.RegisterListener(CollisionTags.ChargeFuel, OnChargeFuelHit);
-		m_collisionDetector.RegisterListener(CollisionTags.TimeBonus, OnTimeBonusHit);
 		m_collisionDetector.RegisterStayListener(CollisionTags.SlowingCloud, OnSlowingCloudStay);
 
 		m_state = ShipState.OnMove;
@@ -93,7 +92,7 @@ public class PlayerShip : MonoBehaviour {
 		}
 		UpdateMovement();
 		DrawRamIndicator();
-		DrawTimeBonuesIndicator();
+		DrawEnergyStationIndicator();
 
 		bool isOnMineTarget = false;
 		foreach (SpaceMine mine in BattleContext.EnemiesController.SpaceMines) {
@@ -125,8 +124,8 @@ public class PlayerShip : MonoBehaviour {
 		}
 	}
 
-	private void DrawTimeBonuesIndicator() {
-		TimeBonus bonus = BattleContext.BonusesController.TimeBonus;
+	private void DrawEnergyStationIndicator() {
+		HealthDroneStation bonus = BattleContext.AlliesController.ActiveStation;
 		if (Vector3.Distance(bonus.Position, Position) < 5) {
 			m_timeBonusDirection.SetActive(false);
 			return;
@@ -351,10 +350,6 @@ public class PlayerShip : MonoBehaviour {
 
 	public void OnHealEnd() {
 		m_healEffect.SetActive(false);
-	}
-
-	private void OnTimeBonusHit(GameObject other) {
-		BattleContext.TimeManager.AddGameTime(other.GetComponent<TimeBonus>().GiveSeconds);
 	}
 
 	public Vector3 LookVector {

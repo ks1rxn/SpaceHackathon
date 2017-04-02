@@ -5,19 +5,13 @@ public class TimeManager : MonoBehaviour {
     private bool m_onPause;
 
 	public float GameTime { get; set; }
-	public float TimeLeft { get; set; }
 
 	public void Initiate() {
 		GameTime = 0;
-		TimeLeft = BattleContext.Settings.Global.InitialGameTime;
 
 		Time.timeScale = 1.0f;
 		Time.fixedDeltaTime = 0.02F * Time.timeScale;
 		m_timeScaleMode = TimeScaleMode.Normal;
-	}
-
-	public void AddGameTime(float time) {
-		TimeLeft += time;
 	}
 
 	public void SetTimeScaleMode(TimeScaleMode mode) {
@@ -47,12 +41,6 @@ public class TimeManager : MonoBehaviour {
         UpdateTimeSpeed();
 
         GameTime += Time.deltaTime;
-	    TimeLeft -= Time.deltaTime;
-        BattleContext.GUIManager.PlayerGUIController.SetPoints(TimeLeft);
-
-	    if (TimeLeft <= 0) {
-		    BattleContext.Director.OnTimeExprire();
-	    }
     }
 
     private void UpdateTimeSpeed() {

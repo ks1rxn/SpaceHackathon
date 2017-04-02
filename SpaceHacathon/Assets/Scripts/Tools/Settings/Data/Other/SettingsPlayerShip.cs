@@ -15,4 +15,6 @@ public class SettingsPlayerShip {
 	public float StunTime;
 	public float MineDamage;
 	public float RamShipDamage;
+	public float EnergyMaximumInitial;
+	public float EnergyDropPerSecond;
 }

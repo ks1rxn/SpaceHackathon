@@ -7,6 +7,9 @@ public class AlliesController : IController {
 	[SerializeField]
 	private GameObject m_healthDroneStationPrefab;
 
+	private HealthDroneStation m_activeStation;
+	private HealthDroneStation m_disabledStation;
+
 	private List<IAlly> m_allies;
 
 	public override void Initiate() {
@@ -14,44 +17,39 @@ public class AlliesController : IController {
 
 		m_allies = new List<IAlly>();
 
-		if (m_settings.EnableHealStation) {
-			CreateHealthDroneStation();
-		}
+		m_activeStation = CreateHealthDroneStation();
+		m_disabledStation = CreateHealthDroneStation();
 	}
 
 	public override void FixedUpdateEntity() {
-		for (int i = 0; i != m_allies.Count; i++) {
-			if (m_allies[i].IsSpawned()) {
-				m_allies[i].FixedUpdateEntity();
-			} else {
-				if (m_allies[i] is HealthDroneStation) {
-					Vector3 stationPosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, BattleContext.PlayerShip.SpeedVector, m_settings.HealStationSpawnAngle, m_settings.HealStationSpawnMinDist, m_settings.HealStationSpawnMaxDist);
-					SpawnHealthDroneStation(stationPosition, 0);
-				}
+		if (!m_activeStation.IsSpawned()) {
+			Vector3 stationPosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, BattleContext.PlayerShip.SpeedVector, m_settings.HealStationSpawnAngle, m_settings.HealStationSpawnMinDist, m_settings.HealStationSpawnMaxDist);
+			m_activeStation.Spawn(stationPosition, 0);
+		} else {
+			m_activeStation.FixedUpdateEntity();
+			if (m_activeStation.State == HealthDroneStationState.WorkDone) {
+				Vector3 stationPosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, BattleContext.PlayerShip.SpeedVector, m_settings.HealStationSpawnAngle, m_settings.HealStationSpawnMinDist, m_settings.HealStationSpawnMaxDist);
+				m_disabledStation.Spawn(stationPosition, 0);
+				HealthDroneStation temp = m_disabledStation;
+				m_disabledStation = m_activeStation;
+				m_activeStation = temp;
 			}
+		}
+		if (m_disabledStation.IsSpawned()) {
+			m_disabledStation.FixedUpdateEntity();
 		}
 	}
 
-	public HealthDroneStation SpawnHealthDroneStation(Vector3 position, float angle) {
-		HealthDroneStation targetEntity = null;
-		foreach (IAlly entity in m_allies) {
-			if (entity is HealthDroneStation && !entity.IsSpawned()) {
-				targetEntity = (HealthDroneStation) entity;
-				break;
-			}
+	public HealthDroneStation ActiveStation {
+		get {
+			return m_activeStation;
 		}
-		if (targetEntity == null) {
-			targetEntity = CreateHealthDroneStation();
-		}
-		targetEntity.Spawn(position, angle);
-		return targetEntity;
 	}
 
 	private HealthDroneStation CreateHealthDroneStation() {
 		HealthDroneStation station = Instantiate(m_healthDroneStationPrefab).GetComponent<HealthDroneStation>();
 		station.transform.parent = transform;
 		station.Initiate();
-		m_allies.Add(station);
 		return station;
 	}
 

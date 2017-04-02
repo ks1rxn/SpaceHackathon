@@ -66,13 +66,6 @@ public class Director : MonoBehaviour {
 		BattleContext.StatisticsManager.SendPlayerShipStatistics();
 	}
 
-	public void OnTimeExprire() {
-		BattleContext.GUIManager.PlayerGUIController.Hide();
-		BattleContext.GUIManager.DeathMenu.Show();
-		BattleContext.TimeManager.Pause();
-		BattleContext.StatisticsManager.SendPlayerShipStatistics();
-	}
-
 	private void Update() {
 		BattleContext.StatisticsManager.UpdateEntity();
 		BattleContext.TimeManager.UpdateEntity();

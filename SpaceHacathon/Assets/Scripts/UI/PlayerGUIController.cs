@@ -96,7 +96,7 @@ public class PlayerGUIController : MonoBehaviour {
 
 	// Health + Charge fuel //
 
-	public void SetHealth(float value) {
+	public void SetEnergy(float value) {
 		m_health.fillAmount = value;
 	}
 

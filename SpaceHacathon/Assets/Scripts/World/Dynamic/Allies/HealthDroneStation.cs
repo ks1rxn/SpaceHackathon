@@ -137,9 +137,15 @@ public class HealthDroneStation : IAlly {
 		
 	}
 
+	public HealthDroneStationState State {
+		get {
+			return m_state;
+		}
+	}
+
 	protected override float DistanceToDespawn {
 		get {
-			return m_settings.DistanceFromPlayerToDespawn;
+			return 0;
 		}
 	}
 
