@@ -33,7 +33,7 @@ public class Missile : IBullet {
 	}
 
 	protected override void OnFixedUpdateEntity() {
-		Vector3 enemyPosition = BattleContext.BattleManager.Director.transform.position;
+		Vector3 enemyPosition = BattleContext.BattleManager.Director.PlayerShip.Position;
 		Vector3 lookVector = new Vector3(Mathf.Cos(-transform.rotation.eulerAngles.y * Mathf.PI / 180), 0, Mathf.Sin(-transform.rotation.eulerAngles.y * Mathf.PI / 180));
 
 		float angle = MathHelper.AngleBetweenVectors(lookVector, enemyPosition - transform.position);

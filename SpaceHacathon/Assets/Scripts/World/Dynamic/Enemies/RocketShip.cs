@@ -38,7 +38,7 @@ public class RocketShip : IEnemyShip {
 	}
 
 	protected override void OnFixedUpdateEntity() {
-		Vector3 enemyPosition = BattleContext.BattleManager.Director.transform.position;
+		Vector3 enemyPosition = BattleContext.BattleManager.Director.PlayerShip.Position;
 		Vector3 lookVector = new Vector3(Mathf.Cos(-transform.rotation.eulerAngles.y * Mathf.PI / 180), 0, Mathf.Sin(-transform.rotation.eulerAngles.y * Mathf.PI / 180));
 
 		if (Rigidbody.velocity.magnitude > 0) {
@@ -58,7 +58,7 @@ public class RocketShip : IEnemyShip {
 			}
 		}
 
-		if ((Mathf.Abs(angle) < m_settings.MaxLaunchAngle) && Vector3.Distance(BattleContext.BattleManager.Director.transform.position, transform.position) < m_settings.MaxLaunchDistance) {
+		if ((Mathf.Abs(angle) < m_settings.MaxLaunchAngle) && Vector3.Distance(BattleContext.BattleManager.Director.PlayerShip.Position, transform.position) < m_settings.MaxLaunchDistance) {
 			if (m_globalCooldown <= 0) {
 				//todo: create random launch points
 				SpawnRocket1();
