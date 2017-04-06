@@ -124,5 +124,5 @@ class EntitiesNames {
 	public const string BonusesController = "BonusesController";
 	public const string AlliesController = "AlliesController";
 	public const string EffectsController = "EffectsController";
-	public const string StatisticsManager = "Dynamic";
+	public const string StatisticsManager = "BattleManager";
 }

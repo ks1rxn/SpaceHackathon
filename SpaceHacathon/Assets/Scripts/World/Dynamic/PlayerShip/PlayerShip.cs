@@ -39,7 +39,7 @@ public class PlayerShip : MonoBehaviour {
 		m_effects = new EffectsOnShip();
 		m_shipParams = new ShipParams();
 
-		m_hull.Initiate(m_settings.EnergyMaximumInitial, m_settings.EnergyDropPerSecond);
+		m_hull.Initiate();
         m_chargeSystem.Initiate();
 
 		m_collisionDetector.RegisterListener(CollisionTags.StunProjectile, OnStunProjectileHit);
