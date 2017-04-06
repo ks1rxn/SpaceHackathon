@@ -48,7 +48,7 @@ public class PlayerShipHull : MonoBehaviour {
 
     private void UpdateEnergy() {
 		Hit(m_settings.EnergyDropPerSecond * Time.fixedDeltaTime);
-        BattleContext.GUIManager.PlayerGUIController.SetEnergy(m_energy / m_settings.EnergyMaximumInitial);
+        BattleContext.BattleManager.GUIManager.PlayerGUIController.SetEnergy(m_energy / m_settings.EnergyMaximumInitial);
     }
 
 	public void SetRollAngle(float angle) {

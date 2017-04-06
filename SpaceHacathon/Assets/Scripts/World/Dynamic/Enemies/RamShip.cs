@@ -35,9 +35,9 @@ public class RamShip : IEnemyShip {
 
 	protected override void OnDespawn(DespawnReason reason) {
 		if (reason == DespawnReason.Kill) {
-			BattleContext.ExplosionsController.PlayerShipExplosion(Position);
+			BattleContext.BattleManager.ExplosionsController.PlayerShipExplosion(Position);
 		}
-		BattleContext.EnemiesController.OnRamShipDie();
+		BattleContext.BattleManager.EnemiesController.OnRamShipDie();
 	}
 
 	private void OnPlayerShipHit(GameObject other) {
@@ -88,9 +88,9 @@ public class RamShip : IEnemyShip {
 		if (Rigidbody.velocity.magnitude > 0.1f) {
 			Rigidbody.velocity *= 0.5f;
 		}
-		Vector3 headingCorrection = m_headingController.Update(Vector3.Cross(transform.right, BattleContext.PlayerShip.Position - Position), Time.fixedDeltaTime);
+		Vector3 headingCorrection = m_headingController.Update(Vector3.Cross(transform.right, BattleContext.BattleManager.Director.PlayerShip.Position - Position), Time.fixedDeltaTime);
 		Rigidbody.AddTorque(headingCorrection * m_settings.RotationSensitivityAim * Rigidbody.mass);
-		if (Mathf.Abs(MathHelper.AngleBetweenVectors(transform.right, BattleContext.PlayerShip.Position - Position)) < m_settings.FinishAimAngle &&
+		if (Mathf.Abs(MathHelper.AngleBetweenVectors(transform.right, BattleContext.BattleManager.Director.PlayerShip.Position - Position)) < m_settings.FinishAimAngle &&
 			Rigidbody.angularVelocity.magnitude < m_settings.FinishAimAngleVelocity) {
 
 			if (!IsLauncherOnMyWay()) {
@@ -111,7 +111,7 @@ public class RamShip : IEnemyShip {
 			return;
 		}
 		m_needRotationSpeed = 360;
-		Vector3 headingCorrection = m_headingController.Update(Vector3.Cross(transform.right, BattleContext.PlayerShip.Position - Position), Time.fixedDeltaTime);
+		Vector3 headingCorrection = m_headingController.Update(Vector3.Cross(transform.right, BattleContext.BattleManager.Director.PlayerShip.Position - Position), Time.fixedDeltaTime);
 		headingCorrection.y = Mathf.Clamp(headingCorrection.y, -m_settings.HeadingMaxOnRun, m_settings.HeadingMaxOnRun);
 		Rigidbody.AddTorque(headingCorrection * m_settings.RotationSensitivityRun * Rigidbody.mass);
 
@@ -124,7 +124,7 @@ public class RamShip : IEnemyShip {
 		if (Rigidbody.velocity.magnitude > m_settings.MaxRunSpeed) {
 			Rigidbody.velocity = Rigidbody.velocity.normalized * m_settings.MaxRunSpeed;
 		}
-		if (Mathf.Abs(MathHelper.AngleBetweenVectors(transform.right, BattleContext.PlayerShip.Position - Position)) > m_settings.AngleToStartStop) {
+		if (Mathf.Abs(MathHelper.AngleBetweenVectors(transform.right, BattleContext.BattleManager.Director.PlayerShip.Position - Position)) > m_settings.AngleToStartStop) {
 			ToStoppingState();
 		}
 	}
@@ -146,8 +146,8 @@ public class RamShip : IEnemyShip {
 	}
 
 	private bool IsLauncherOnMyWay() {
-		foreach (DroneCarrier ship in BattleContext.EnemiesController.DroneCarriers) {
-			if (Vector3.Distance(ship.Position, Position) < Vector3.Distance(Position, BattleContext.PlayerShip.Position)) { 
+		foreach (DroneCarrier ship in BattleContext.BattleManager.EnemiesController.DroneCarriers) {
+			if (Vector3.Distance(ship.Position, Position) < Vector3.Distance(Position, BattleContext.BattleManager.Director.PlayerShip.Position)) { 
 				RaycastHit hit;
 				Ray ray = new Ray(Position, transform.right);
 				if (Physics.Raycast(ray, out hit)) {

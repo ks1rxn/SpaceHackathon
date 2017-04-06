@@ -32,7 +32,7 @@ public class DroneCarrier : IEnemyShip {
 
 	protected override void OnDespawn(DespawnReason reason) {
 		if (reason == DespawnReason.Kill) {
-			BattleContext.ExplosionsController.PlayerShipExplosion(Position);
+			BattleContext.BattleManager.ExplosionsController.PlayerShipExplosion(Position);
 		}
 	}
 
@@ -57,7 +57,7 @@ public class DroneCarrier : IEnemyShip {
 	}
 
 	private void UpdateGun(GameObject gun) {
-		Vector3 playerPosition = BattleContext.PlayerShip.Position;
+		Vector3 playerPosition = BattleContext.BattleManager.Director.PlayerShip.Position;
 		if (Vector3.Distance(playerPosition, Position) > 20) {
 			return;
 		}
@@ -109,14 +109,14 @@ public class DroneCarrier : IEnemyShip {
 
 	private IEnumerator GunFire(GameObject gun) {
 		for (int i = 0; i != 6; i++) {
-			BattleContext.BulletsController.SpawnLaser(gun.transform.position, gun.transform.eulerAngles.y);
+			BattleContext.BattleManager.BulletsController.SpawnLaser(gun.transform.position, gun.transform.eulerAngles.y);
 			float delay = (float)MathHelper.Random.NextDouble() * 0.10f;
 			yield return new WaitForSeconds(0.05f + delay);
 		}
 	}
 
 	private void UpdateLauncher() {
-		if (Vector3.Distance(BattleContext.PlayerShip.Position, Position) < 20) {
+		if (Vector3.Distance(BattleContext.BattleManager.Director.PlayerShip.Position, Position) < 20) {
 			if (m_cooldown <= 0) {
 				SpawnRocket();
 				m_cooldown = m_settings.CarrierRocketCooldown;
@@ -127,7 +127,7 @@ public class DroneCarrier : IEnemyShip {
 	}
 
 	private void SpawnRocket() {
-		BattleContext.BulletsController.SpawnCarrierRocket(m_launcher.position);
+		BattleContext.BattleManager.BulletsController.SpawnCarrierRocket(m_launcher.position);
 	}
 
 	protected override float DistanceToDespawn {

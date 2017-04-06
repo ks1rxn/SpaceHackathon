@@ -42,8 +42,8 @@ public class StunShip : IEnemyShip {
 	}
 
 	protected override void OnDespawn(DespawnReason reason) {
-		BattleContext.ExplosionsController.PlayerShipExplosion(Position);
-		BattleContext.EnemiesController.OnStunShipDie();
+		BattleContext.BattleManager.ExplosionsController.PlayerShipExplosion(Position);
+		BattleContext.BattleManager.EnemiesController.OnStunShipDie();
 	}
 
 	private IEnumerator SpawnEffect() {
@@ -65,7 +65,7 @@ public class StunShip : IEnemyShip {
 		switch (m_state) {
 			case BlasterShipState.Moving:
 				if (m_movingTimer > 0) {
-					Vector3 enemyPosition = BattleContext.PlayerShip.Position;
+					Vector3 enemyPosition = BattleContext.BattleManager.Director.PlayerShip.Position;
 					Vector3 forcesSumm = new Vector3();
 					float distance = (enemyPosition - transform.position).magnitude;
 					if (distance > 6) {
@@ -73,7 +73,7 @@ public class StunShip : IEnemyShip {
 					} else {
 						forcesSumm += (transform.position - enemyPosition).normalized * Rigidbody.mass * 20;
 					}
-					foreach (IEnemyShip ship in BattleContext.EnemiesController.Ships) {
+					foreach (IEnemyShip ship in BattleContext.BattleManager.EnemiesController.Ships) {
 						if (ReferenceEquals(this, ship)) {
 							continue;
 						}
@@ -82,7 +82,7 @@ public class StunShip : IEnemyShip {
 						}
 						forcesSumm += (Position - ship.Position).normalized * Rigidbody.mass * 75 / Vector3.Distance(ship.Position, Position);
 					}
-					foreach (ChargeFuel chargeFuel in BattleContext.BonusesController.ChargeFuels) {
+					foreach (ChargeFuel chargeFuel in BattleContext.BattleManager.BonusesController.ChargeFuels) {
 						if (Vector3.Distance(chargeFuel.transform.position, Position) > 5) {
 							continue;
 						}
@@ -151,7 +151,7 @@ public class StunShip : IEnemyShip {
 	}
 
 	private void UpdateGun() {
-		Vector3 enemyPosition = BattleContext.PlayerShip.Position;
+		Vector3 enemyPosition = BattleContext.BattleManager.Director.PlayerShip.Position;
 		Vector3 gunDirection = new Vector3(Mathf.Cos(-m_gun.transform.eulerAngles.y * Mathf.PI / 180), 0, Mathf.Sin(-m_gun.transform.eulerAngles.y * Mathf.PI / 180));
 		float angleToTarget = MathHelper.AngleBetweenVectors(gunDirection, enemyPosition - transform.position);
 
@@ -162,15 +162,15 @@ public class StunShip : IEnemyShip {
 		}
 
 		m_blasterTimer -= Time.deltaTime;
-		if ((m_blasterTimer <= 0) && (Mathf.Abs(angleToTarget) < 10) && Vector3.Distance(BattleContext.PlayerShip.Position, transform.position) < 15 && !HittingAlly(gunDirection)) {
-			BattleContext.BulletsController.SpawnStunProjectile(m_gun.transform.position, m_gun.transform.eulerAngles.y);
+		if ((m_blasterTimer <= 0) && (Mathf.Abs(angleToTarget) < 10) && Vector3.Distance(BattleContext.BattleManager.Director.PlayerShip.Position, transform.position) < 15 && !HittingAlly(gunDirection)) {
+			BattleContext.BattleManager.BulletsController.SpawnStunProjectile(m_gun.transform.position, m_gun.transform.eulerAngles.y);
 			m_blasterTimer = m_settings.BlasterCooldown;
 		}
 	}
 
 	private bool HittingAlly(Vector3 gunDirection) {
-		float disntaceToPlayer = Vector3.Distance(Position, BattleContext.PlayerShip.Position);
-		foreach (IEnemyShip ship in BattleContext.EnemiesController.Ships) {
+		float disntaceToPlayer = Vector3.Distance(Position, BattleContext.BattleManager.Director.PlayerShip.Position);
+		foreach (IEnemyShip ship in BattleContext.BattleManager.EnemiesController.Ships) {
 			if (ReferenceEquals(ship, this)) {
 				continue;
 			}

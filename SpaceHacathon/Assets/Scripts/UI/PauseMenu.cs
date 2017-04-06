@@ -13,12 +13,12 @@ public class PauseMenu : MonoBehaviour {
 
 	protected void Update() {
 		if (Input.GetKeyDown(KeyCode.Escape)) {
-			BattleContext.Director.OnUnpauseGame();
+			BattleContext.BattleManager.Director.OnUnpauseGame();
 		}
 	}
 
 	public void OnResumeClick() {
-		BattleContext.Director.OnUnpauseGame();
+		BattleContext.BattleManager.Director.OnUnpauseGame();
 	}
 
 	public void OnRestartClick() {

@@ -87,7 +87,7 @@ public class HealthDroneStation : IAlly {
 	}
 
 	private void PerformSleepState() {
-		Vector3 playerPosition = BattleContext.PlayerShip.Position;
+		Vector3 playerPosition = BattleContext.BattleManager.Director.PlayerShip.Position;
 		if (Vector3.Distance(playerPosition, Position) < m_settings.HealingRadius - 0.05f) {
 			ToHealPlayerState();
 		}
@@ -100,12 +100,12 @@ public class HealthDroneStation : IAlly {
 			drone.ToMoveToPlayerState();
 		}
 
-		BattleContext.PlayerShip.OnHealBegin();
+		BattleContext.BattleManager.Director.PlayerShip.OnHealBegin();
 		m_activeZone.SetActive(true);
 	}
 
 	private void PerformHealPlayerState() {
-		Vector3 playerPosition = BattleContext.PlayerShip.Position;
+		Vector3 playerPosition = BattleContext.BattleManager.Director.PlayerShip.Position;
 		if (Vector3.Distance(playerPosition, Position) > m_settings.HealingRadius + 0.05f) {
 			ToWorkDoneState();
 		}
@@ -116,7 +116,7 @@ public class HealthDroneStation : IAlly {
 
 		float hp = Time.fixedDeltaTime * m_settings.TotalHealthCapacity / m_settings.TimeToGiveTotalHealth;
 		m_healthLeft -= hp;
-		BattleContext.PlayerShip.OnHeal(hp);
+		BattleContext.BattleManager.Director.PlayerShip.OnHeal(hp);
 	}
 
 	private void ToWorkDoneState() {
@@ -126,7 +126,7 @@ public class HealthDroneStation : IAlly {
 			drone.ToMoveToBaseState();
 		}
 
-		BattleContext.PlayerShip.OnHealEnd();
+		BattleContext.BattleManager.Director.PlayerShip.OnHealEnd();
 		m_activeZone.SetActive(false);
 		m_sleepZone.SetActive(false);
 
@@ -151,7 +151,7 @@ public class HealthDroneStation : IAlly {
 
 	private HealthDrone CreateHealthDrone() {
 		HealthDrone healthDrone = (Instantiate(m_healthDronePrefab)).GetComponent<HealthDrone>();
-		healthDrone.transform.parent = BattleContext.AlliesController.gameObject.transform;
+		healthDrone.transform.parent = BattleContext.BattleManager.AlliesController.gameObject.transform;
 		healthDrone.Initiate();
 		m_drones.Add(healthDrone);
 		return healthDrone;

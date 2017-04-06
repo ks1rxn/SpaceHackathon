@@ -60,7 +60,7 @@ public class HealthDrone : IPhysicBody {
 	}
 
 	private void PerformMoveToPlayerState() {
-		Vector3 playerPosition = BattleContext.PlayerShip.Position;
+		Vector3 playerPosition = BattleContext.BattleManager.Director.PlayerShip.Position;
 		Vector3 positionCorrection = positionController.Update(playerPosition + m_positionOnPlayer - Position, Time.fixedDeltaTime);
 	    m_speed += positionCorrection * Time.fixedDeltaTime;
 		if (m_speed.magnitude > 8) {

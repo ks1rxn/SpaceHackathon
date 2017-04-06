@@ -39,7 +39,7 @@ public class AsteroidFieldBlock : MonoBehaviour {
 	}
 
 	public void UpdateGroups() {
-		Vector3 playerPosiion = BattleContext.PlayerShip.Position;
+		Vector3 playerPosiion = BattleContext.BattleManager.Director.PlayerShip.Position;
 		for (int i = 0; i != m_groups.Count; i++) {
 			Vector3 position = m_groups[i].transform.position;
 			if (position.z > playerPosiion.z - 10 && position.z < playerPosiion.z + 50 && position.x > playerPosiion.x - 50 && position.x < playerPosiion.x + 50) {
@@ -53,7 +53,7 @@ public class AsteroidFieldBlock : MonoBehaviour {
 	}
 
 	public ShipPositionOnBlock GetShipPositionOnBlock() {
-		Vector3 shipPosition = BattleContext.PlayerShip.Position;
+		Vector3 shipPosition = BattleContext.BattleManager.Director.PlayerShip.Position;
 		if (shipPosition.x > transform.position.x + 50) {
 			return ShipPositionOnBlock.NotOnBlock;
 		}
