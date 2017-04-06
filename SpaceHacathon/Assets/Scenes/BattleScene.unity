@@ -222,6 +222,21 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 199000012515539476, guid: f8dc884bc1256e44296c0e4ca639cb33,
+        type: 2}
+      propertyPath: m_SelectedEditorRenderState
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 199000011833749180, guid: f8dc884bc1256e44296c0e4ca639cb33,
+        type: 2}
+      propertyPath: m_SelectedEditorRenderState
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000010497816738, guid: f8dc884bc1256e44296c0e4ca639cb33,
+        type: 2}
+      propertyPath: randomSeed
+      value: 222576935
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f8dc884bc1256e44296c0e4ca639cb33, type: 2}
   m_IsPrefabParent: 0
