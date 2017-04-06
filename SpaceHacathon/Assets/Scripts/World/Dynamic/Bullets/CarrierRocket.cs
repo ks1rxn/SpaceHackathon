@@ -32,7 +32,7 @@ public class CarrierRocket : IBullet {
 		m_maxSpeed = m_settings.MaxSpeed;
 		m_maxRotationSpeed = m_settings.MaxRotationSpeed;
 
-		m_target = BattleContext.PlayerShip.Position;
+		m_target = BattleContext.BattleManager.Director.PlayerShip.Position;
 
 		StartCoroutine(LaunchProcess());
 	}
@@ -40,8 +40,8 @@ public class CarrierRocket : IBullet {
 	protected override void OnDespawn(DespawnReason reason) {
 		Vector3 cloudPosition = Position;
 		cloudPosition.y = 0;
-		BattleContext.ExplosionsController.RocketExplosion(Position);
-		BattleContext.EffectsController.SpawnSlowingCloud(cloudPosition);
+		BattleContext.BattleManager.ExplosionsController.RocketExplosion(Position);
+		BattleContext.BattleManager.EffectsController.SpawnSlowingCloud(cloudPosition);
 	}
 
 	private IEnumerator LaunchProcess() {
@@ -59,7 +59,7 @@ public class CarrierRocket : IBullet {
 		Rigidbody.drag = 0.0f;
 		m_inactive = false;
 
-		m_target = BattleContext.PlayerShip.Position;
+		m_target = BattleContext.BattleManager.Director.PlayerShip.Position;
 	}
 
 	private void OnTargetHit(GameObject other) {

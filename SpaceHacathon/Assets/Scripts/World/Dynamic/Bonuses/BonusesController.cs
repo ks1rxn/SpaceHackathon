@@ -54,17 +54,17 @@ public class BonusesController : IController {
 	}
 
 	private void Respawn(ChargeFuel fuel) {
-		Vector3 playerPos = BattleContext.PlayerShip.Position;
-		fuel.Spawn(MathHelper.GetPointAround(playerPos, BattleContext.PlayerShip.SpeedVector, m_settings.FuelSpawnAngle, m_settings.FuelSpawnMinDist, m_settings.FuelSpawnMaxDist), 0);
+		Vector3 playerPos = BattleContext.BattleManager.Director.PlayerShip.Position;
+		fuel.Spawn(MathHelper.GetPointAround(playerPos, BattleContext.BattleManager.Director.PlayerShip.SpeedVector, m_settings.FuelSpawnAngle, m_settings.FuelSpawnMinDist, m_settings.FuelSpawnMaxDist), 0);
 	}
 
 //	private void Respawn(TimeBonus fuel) {
-//		Vector3 playerPos = BattleContext.PlayerShip.Position;
-//		fuel.Spawn(MathHelper.GetPointAround(playerPos, BattleContext.PlayerShip.SpeedVector, m_settings.TimeSpawnAngle, m_settings.TimeSpawnMinDist, m_settings.TimeSpawnMaxDist), 0);
+//		Vector3 playerPos = BattleContext.BattleManager.Director.Position;
+//		fuel.Spawn(MathHelper.GetPointAround(playerPos, BattleContext.BattleManager.Director.SpeedVector, m_settings.TimeSpawnAngle, m_settings.TimeSpawnMinDist, m_settings.TimeSpawnMaxDist), 0);
 //	}
 
 	public void RespawnTimeBonus(TimeBonus bonus) {
-		Vector3 playerPos = BattleContext.PlayerShip.Position;
+		Vector3 playerPos = BattleContext.BattleManager.Director.PlayerShip.Position;
 		bonus.Spawn(MathHelper.GetPointAround(playerPos, m_settings.TimeSpawnMinDist, m_settings.TimeSpawnMaxDist), 0);
 	}
 

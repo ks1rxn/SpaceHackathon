@@ -25,7 +25,7 @@ public class Missile : IBullet {
 	}
 
 	protected override void OnDespawn(DespawnReason reason) {
-		BattleContext.ExplosionsController.RocketExplosion(transform.position);
+		BattleContext.BattleManager.ExplosionsController.RocketExplosion(transform.position);
 	}
 
 	private void OnTargetHit(GameObject other) {
@@ -33,7 +33,7 @@ public class Missile : IBullet {
 	}
 
 	protected override void OnFixedUpdateEntity() {
-		Vector3 enemyPosition = BattleContext.PlayerShip.transform.position;
+		Vector3 enemyPosition = BattleContext.BattleManager.Director.transform.position;
 		Vector3 lookVector = new Vector3(Mathf.Cos(-transform.rotation.eulerAngles.y * Mathf.PI / 180), 0, Mathf.Sin(-transform.rotation.eulerAngles.y * Mathf.PI / 180));
 
 		float angle = MathHelper.AngleBetweenVectors(lookVector, enemyPosition - transform.position);
@@ -50,7 +50,7 @@ public class Missile : IBullet {
 		m_lifeTime -= Time.fixedDeltaTime;
 		if (m_lifeTime <= 0) {
 			Despawn(DespawnReason.TimeOff);
-			BattleContext.ExplosionsController.RocketExplosion(transform.position);
+			BattleContext.BattleManager.ExplosionsController.RocketExplosion(transform.position);
 		}
 
 		if (m_detonatorActivateTime <= 0) {

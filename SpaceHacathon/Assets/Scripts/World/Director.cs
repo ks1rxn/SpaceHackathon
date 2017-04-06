@@ -28,58 +28,58 @@ public class Director : MonoBehaviour {
 //		});
 		BattleContext.Initiate();
 
-		BattleContext.StatisticsManager.Initiate();
-		BattleContext.TimeManager.Initiate();
-		BattleContext.GUIManager.CreateGUI();
+		BattleContext.BattleManager.StatisticsManager.Initiate();
+		BattleContext.BattleManager.TimeManager.Initiate();
+		BattleContext.BattleManager.GUIManager.CreateGUI();
 
-		BattleContext.GUIManager.PlayerGUIController.Show();
+		BattleContext.BattleManager.GUIManager.PlayerGUIController.Show();
 
-		BattleContext.BonusesController.Initiate();
-		BattleContext.AlliesController.Initiate();
-		BattleContext.EffectsController.Initiate();
-		BattleContext.BulletsController.Initiate();
-		BattleContext.EnemiesController.Initiate();
-		BattleContext.ExplosionsController.Initiate();
+		BattleContext.BattleManager.BonusesController.Initiate();
+		BattleContext.BattleManager.AlliesController.Initiate();
+		BattleContext.BattleManager.EffectsController.Initiate();
+		BattleContext.BattleManager.BulletsController.Initiate();
+		BattleContext.BattleManager.EnemiesController.Initiate();
+		BattleContext.BattleManager.ExplosionsController.Initiate();
 
-		BattleContext.TimeManager.SetTimeScaleMode(TimeScaleMode.Normal);
+		BattleContext.BattleManager.TimeManager.SetTimeScaleMode(TimeScaleMode.Normal);
 
 		SpawnPlayerShip(Vector3.zero, 0);
 	}
 
 	public void OnPauseGame() {
-		BattleContext.GUIManager.PlayerGUIController.Hide();
-		BattleContext.GUIManager.PauseMenu.Show();
-		BattleContext.TimeManager.Pause();
+		BattleContext.BattleManager.GUIManager.PlayerGUIController.Hide();
+		BattleContext.BattleManager.GUIManager.PauseMenu.Show();
+		BattleContext.BattleManager.TimeManager.Pause();
 		//todo: unscaled time is used in charge process
 	}
 
 	public void OnUnpauseGame() {
-		BattleContext.GUIManager.PlayerGUIController.Show();
-		BattleContext.GUIManager.PauseMenu.Hide();
-		BattleContext.TimeManager.Unpause();
+		BattleContext.BattleManager.GUIManager.PlayerGUIController.Show();
+		BattleContext.BattleManager.GUIManager.PauseMenu.Hide();
+		BattleContext.BattleManager.TimeManager.Unpause();
 	}
 
 	public void OnPlayerDie() {
-		BattleContext.GUIManager.PlayerGUIController.Hide();
-		BattleContext.GUIManager.DeathMenu.Show();
-		BattleContext.TimeManager.Pause();
-		BattleContext.StatisticsManager.SendPlayerShipStatistics();
+		BattleContext.BattleManager.GUIManager.PlayerGUIController.Hide();
+		BattleContext.BattleManager.GUIManager.DeathMenu.Show();
+		BattleContext.BattleManager.TimeManager.Pause();
+		BattleContext.BattleManager.StatisticsManager.SendPlayerShipStatistics();
 	}
 
 	private void Update() {
-		BattleContext.StatisticsManager.UpdateEntity();
-		BattleContext.TimeManager.UpdateEntity();
+		BattleContext.BattleManager.StatisticsManager.UpdateEntity();
+		BattleContext.BattleManager.TimeManager.UpdateEntity();
 	}
 
 	private void FixedUpdate() {
-		BattleContext.PlayerShip.UpdateEntity();
-		BattleContext.BattleCamera.UpdateEntity();
-		BattleContext.BulletsController.FixedUpdateEntity();
-		BattleContext.BonusesController.FixedUpdateEntity();
-		BattleContext.EnemiesController.FixedUpdateEntity();
-		BattleContext.AlliesController.FixedUpdateEntity();
-		BattleContext.EffectsController.FixedUpdateEntity();
-		BattleContext.ExplosionsController.FixedUpdateEntity();
+		BattleContext.BattleManager.Director.PlayerShip.UpdateEntity();
+		BattleContext.BattleManager.BattleCamera.UpdateEntity();
+		BattleContext.BattleManager.BulletsController.FixedUpdateEntity();
+		BattleContext.BattleManager.BonusesController.FixedUpdateEntity();
+		BattleContext.BattleManager.EnemiesController.FixedUpdateEntity();
+		BattleContext.BattleManager.AlliesController.FixedUpdateEntity();
+		BattleContext.BattleManager.EffectsController.FixedUpdateEntity();
+		BattleContext.BattleManager.ExplosionsController.FixedUpdateEntity();
 	}
 
 	private void SpawnPlayerShip(Vector3 position, float angle) {

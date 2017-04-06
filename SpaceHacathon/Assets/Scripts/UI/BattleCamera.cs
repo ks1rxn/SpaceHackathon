@@ -8,7 +8,7 @@ public class BattleCamera : MonoBehaviour {
 	private Animator m_animator;
 
 	public void UpdateEntity() {
-		Vector3 neededPosition = BattleContext.PlayerShip.Position + BattleContext.PlayerShip.SpeedVector * 0.2f;
+		Vector3 neededPosition = BattleContext.BattleManager.Director.PlayerShip.Position + BattleContext.BattleManager.Director.PlayerShip.SpeedVector * 0.2f;
 		neededPosition.y = 7.5f;
 		neededPosition.z -= 9;
 

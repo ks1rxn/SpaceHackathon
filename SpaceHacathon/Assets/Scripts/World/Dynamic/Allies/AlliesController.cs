@@ -10,12 +10,8 @@ public class AlliesController : IController {
 	private HealthDroneStation m_activeStation;
 	private HealthDroneStation m_disabledStation;
 
-	private List<IAlly> m_allies;
-
 	public override void Initiate() {
 		m_settings = BattleContext.Settings.AlliesController;
-
-		m_allies = new List<IAlly>();
 
 		m_activeStation = CreateHealthDroneStation();
 		m_disabledStation = CreateHealthDroneStation();
@@ -23,12 +19,12 @@ public class AlliesController : IController {
 
 	public override void FixedUpdateEntity() {
 		if (!m_activeStation.IsSpawned()) {
-			Vector3 stationPosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, BattleContext.PlayerShip.SpeedVector, m_settings.HealStationSpawnAngle, m_settings.HealStationSpawnMinDist, m_settings.HealStationSpawnMaxDist);
+			Vector3 stationPosition = MathHelper.GetPointAround(BattleContext.BattleManager.Director.PlayerShip.Position, BattleContext.BattleManager.Director.PlayerShip.SpeedVector, m_settings.HealStationSpawnAngle, m_settings.HealStationSpawnMinDist, m_settings.HealStationSpawnMaxDist);
 			m_activeStation.Spawn(stationPosition, 0);
 		} else {
 			m_activeStation.FixedUpdateEntity();
 			if (m_activeStation.State == HealthDroneStationState.WorkDone) {
-				Vector3 stationPosition = MathHelper.GetPointAround(BattleContext.PlayerShip.Position, BattleContext.PlayerShip.SpeedVector, m_settings.HealStationSpawnAngle, m_settings.HealStationSpawnMinDist, m_settings.HealStationSpawnMaxDist);
+				Vector3 stationPosition = MathHelper.GetPointAround(BattleContext.BattleManager.Director.PlayerShip.Position, BattleContext.BattleManager.Director.PlayerShip.SpeedVector, m_settings.HealStationSpawnAngle, m_settings.HealStationSpawnMinDist, m_settings.HealStationSpawnMaxDist);
 				m_disabledStation.Spawn(stationPosition, 0);
 				HealthDroneStation temp = m_disabledStation;
 				m_disabledStation = m_activeStation;

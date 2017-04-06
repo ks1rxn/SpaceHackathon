@@ -48,7 +48,7 @@ public class SpaceMine : IEnemyShip {
 	}
 
 	protected override void OnDespawn(DespawnReason reason) {
-		BattleContext.ExplosionsController.MineExplosion(Position);
+		BattleContext.BattleManager.ExplosionsController.MineExplosion(Position);
 	}
 
 	private void OnOtherShipHit(GameObject other) {
@@ -81,7 +81,7 @@ public class SpaceMine : IEnemyShip {
 	private void PerformWaitingState() {
 		Vector3 projectionToPlane = Position;
 		projectionToPlane.y = 0;
-		if (Vector3.Distance(BattleContext.PlayerShip.Position, projectionToPlane) < 7) {
+		if (Vector3.Distance(BattleContext.BattleManager.Director.PlayerShip.Position, projectionToPlane) < 7) {
 			ToChasingState();
 		}
 		transform.Rotate(0, Time.fixedDeltaTime * 35, 0);
@@ -113,23 +113,23 @@ public class SpaceMine : IEnemyShip {
 		Vector3 projectionToPlane = Position;
 		projectionToPlane.y = 0;
 
-		Vector3 speedCorrection = m_speedController.Update(BattleContext.PlayerShip.Position - Position, Time.fixedDeltaTime);
+		Vector3 speedCorrection = m_speedController.Update(BattleContext.BattleManager.Director.PlayerShip.Position - Position, Time.fixedDeltaTime);
 		Rigidbody.AddForce(speedCorrection * m_speedValue * 0.9f);
 
 		float yCorrection = m_yStabilizer.Update(-Position.y, Time.fixedDeltaTime);
 		Rigidbody.AddForce(0, yCorrection * 0.5f, 0);
 
-		float distCoef = Mathf.Clamp((BattleContext.PlayerShip.Position - Position).magnitude, 3, 8);
+		float distCoef = Mathf.Clamp((BattleContext.BattleManager.Director.PlayerShip.Position - Position).magnitude, 3, 8);
 		if (Rigidbody.velocity.magnitude > distCoef) {
 			Rigidbody.velocity = Rigidbody.velocity.normalized * distCoef;
 		}
 		if (m_speedValue < 0.5f) {
 			m_speedValue += Time.fixedDeltaTime;
 		}
-		if (Vector3.Distance(BattleContext.PlayerShip.Position, projectionToPlane) > 9) {
+		if (Vector3.Distance(BattleContext.BattleManager.Director.PlayerShip.Position, projectionToPlane) > 9) {
 			ToWaitingState();
 		}
-		float dist = Vector3.Distance(BattleContext.PlayerShip.Position, projectionToPlane);
+		float dist = Vector3.Distance(BattleContext.BattleManager.Director.PlayerShip.Position, projectionToPlane);
 		float coef = Mathf.Clamp((7 - dist) * (7 - dist), 0, 49) / 49f * 1.5f;
 		float speed = Mathf.Clamp(8 - dist, 1, 6) / 1f;
 		m_param += Time.fixedDeltaTime * speed;
@@ -153,8 +153,8 @@ public class SpaceMine : IEnemyShip {
 				Vector3 pos = Position;
 				pos.y = 0;
 				m_lineRenderer.SetPosition(0, Position);
-				Vector3 toTarget = (BattleContext.PlayerShip.Position - pos).normalized * 1.31f;
-				m_lineRenderer.SetPosition(1, BattleContext.PlayerShip.Position - toTarget);
+				Vector3 toTarget = (BattleContext.BattleManager.Director.PlayerShip.Position - pos).normalized * 1.31f;
+				m_lineRenderer.SetPosition(1, BattleContext.BattleManager.Director.PlayerShip.Position - toTarget);
 				break;
 		}
 	}

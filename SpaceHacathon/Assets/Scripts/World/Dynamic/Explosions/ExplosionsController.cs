@@ -62,7 +62,7 @@ public class ExplosionsController : IController {
 	}
 
 	private void SpawnExplosion(ExplosionType type, Vector3 position) {
-		if (Vector3.Distance(BattleContext.PlayerShip.Position, position) > 30) {
+		if (Vector3.Distance(BattleContext.BattleManager.Director.PlayerShip.Position, position) > 30) {
 			return;
 		}
 		Explosion targetExplosion = null;
