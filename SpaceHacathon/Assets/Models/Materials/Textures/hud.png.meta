@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: d9e1b4ccc5fb2b94eb7abb06ecdf2afe
-timeCreated: 1491519369
+timeCreated: 1491600118
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -122,10 +122,10 @@ TextureImporter:
       name: hud_7
       rect:
         serializedVersion: 2
-        x: 572
-        y: 595
-        width: 187
-        height: 242
+        x: 566
+        y: 592
+        width: 193
+        height: 245
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
