@@ -34,13 +34,9 @@ public class Director : MonoBehaviour {
 
 		BattleContext.BattleManager.GUIManager.PlayerGUIController.Show();
 
-		BattleContext.BattleManager.BonusesController.Initiate();
-		BattleContext.BattleManager.AlliesController.Initiate();
-		BattleContext.BattleManager.EffectsController.Initiate();
-		BattleContext.BattleManager.BulletsController.Initiate();
-		BattleContext.BattleManager.EnemiesController.Initiate();
-		BattleContext.BattleManager.ExplosionsController.Initiate();
-
+		foreach (IController controller in BattleContext.BattleManager.Controllers) {
+			controller.Initiate();
+		}
 		BattleContext.BattleManager.TimeManager.SetTimeScaleMode(TimeScaleMode.Normal);
 
 		SpawnPlayerShip(Vector3.zero, 0);
@@ -74,12 +70,9 @@ public class Director : MonoBehaviour {
 	private void FixedUpdate() {
 		BattleContext.BattleManager.Director.PlayerShip.UpdateEntity();
 		BattleContext.BattleManager.BattleCamera.UpdateEntity();
-		BattleContext.BattleManager.BulletsController.FixedUpdateEntity();
-		BattleContext.BattleManager.BonusesController.FixedUpdateEntity();
-		BattleContext.BattleManager.EnemiesController.FixedUpdateEntity();
-		BattleContext.BattleManager.AlliesController.FixedUpdateEntity();
-		BattleContext.BattleManager.EffectsController.FixedUpdateEntity();
-		BattleContext.BattleManager.ExplosionsController.FixedUpdateEntity();
+		foreach (IController controller in BattleContext.BattleManager.Controllers) {
+			controller.FixedUpdateEntity();
+		}
 	}
 
 	private void SpawnPlayerShip(Vector3 position, float angle) {
