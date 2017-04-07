@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class BattleManager : MonoBehaviour {
 	[SerializeField]
@@ -24,6 +25,23 @@ public class BattleManager : MonoBehaviour {
 	private BattleCamera m_battleCamera;
 	[SerializeField]
 	private GUIManager m_guiManager;
+
+	private List<IController> m_controllers;
+
+	public List<IController> Controllers {
+		get {
+			if (m_controllers == null) {
+				m_controllers = new List<IController>();
+				m_controllers.Add(m_explosionsController);
+				m_controllers.Add(m_enemiesController);
+				m_controllers.Add(m_bulletsController);
+				m_controllers.Add(m_bonusesController);
+				m_controllers.Add(m_alliesController);
+				m_controllers.Add(m_effectsController);
+			}
+			return m_controllers;
+		}
+	}
 
 	public ExplosionsController ExplosionsController {
 		get {
