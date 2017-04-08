@@ -18,6 +18,8 @@ public class BattleManager : MonoBehaviour {
 	[SerializeField]
 	private StatisticsManager m_statisticsManager;
 	[SerializeField]
+	private PrefabsManager m_prefabsManager;
+	[SerializeField]
 	private Director m_director;
 	[SerializeField]
 	private TimeManager m_timeManager;
@@ -76,6 +78,12 @@ public class BattleManager : MonoBehaviour {
 	public EffectsController EffectsController {
 		get {
 			return m_effectsController;
+		}
+	}
+
+	public PrefabsManager PrefabsManager {
+		get {
+			return m_prefabsManager;
 		}
 	}
 

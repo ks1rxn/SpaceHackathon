@@ -4,17 +4,14 @@ using UnityEngine;
 public class AlliesController : IController {
 	private SettingsAlliesController m_settings;
 
-	[SerializeField]
-	private GameObject m_healthDroneStationPrefab;
-
 	private HealthDroneStation m_activeStation;
 	private HealthDroneStation m_disabledStation;
 
 	public override void Initiate() {
 		m_settings = BattleContext.Settings.AlliesController;
-
-		m_activeStation = CreateHealthDroneStation();
-		m_disabledStation = CreateHealthDroneStation();
+	
+		m_activeStation = (HealthDroneStation) EntitiesHelper.CreateEntity(AvailablePrefabs.HealDroneStation, gameObject);
+		m_disabledStation = (HealthDroneStation) EntitiesHelper.CreateEntity(AvailablePrefabs.HealDroneStation, gameObject);
 	}
 
 	public override void FixedUpdateEntity() {
@@ -40,13 +37,6 @@ public class AlliesController : IController {
 		get {
 			return m_activeStation;
 		}
-	}
-
-	private HealthDroneStation CreateHealthDroneStation() {
-		HealthDroneStation station = Instantiate(m_healthDroneStationPrefab).GetComponent<HealthDroneStation>();
-		station.transform.parent = transform;
-		station.Initiate();
-		return station;
 	}
 
 }

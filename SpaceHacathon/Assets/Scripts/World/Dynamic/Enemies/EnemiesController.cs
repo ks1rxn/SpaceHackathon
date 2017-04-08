@@ -5,17 +5,6 @@ using UnityEngine;
 public class EnemiesController : IController {
 	private SettingsEnemiesController m_settings;
 
-	[SerializeField]
-	private GameObject m_blasterShipPrefab;
-	[SerializeField]
-	private GameObject m_droneCarrierPrefab;
-	[SerializeField]
-	private GameObject m_ramShipPrefab;
-	[SerializeField]
-	private GameObject m_spaceMinePrefab;
-	[SerializeField]
-	private GameObject m_rocketShipPrefab;
-
 	private List<IEnemyShip> m_ships;
 	private List<RamShip> m_ramShips; 
 	private List<StunShip> m_stunShips; 
@@ -40,17 +29,17 @@ public class EnemiesController : IController {
 		m_rocketShips = new List<RocketShip>();
 		if (m_settings.SpawnDroneCarrier) {
 			for (int i = 0; i != m_settings.DroneCarrierCount; i++) {
-				CreateDroneCarrier();
+				EntitiesHelper.CreateEntity(AvailablePrefabs.DroneCarrier, gameObject, m_ships, m_droneCarriers);
 			}
 		}
 		if (m_settings.SpawnRocketShip) {
 			for (int i = 0; i != m_settings.RocketShipCount; i++) {
-				CreateRocketShip();
+				EntitiesHelper.CreateEntity(AvailablePrefabs.RocketShip, gameObject, m_ships, m_rocketShips);
 			}
 		}
 		if (m_settings.SpawnSpaceMine) {
 			for (int i = 0; i != m_settings.SpaceMineCount; i++) {
-				CreateSpaceMine();
+				EntitiesHelper.CreateEntity(AvailablePrefabs.SpaceMine, gameObject, m_ships, m_spaceMines);
 			}
 		}
 
@@ -66,7 +55,8 @@ public class EnemiesController : IController {
 			if (m_ramShipCooldown > 0) {
 				m_ramShipCooldown -= Time.fixedDeltaTime;
 			} else {
-				SpawnRamShip(MathHelper.GetPointAround(BattleContext.BattleManager.Director.PlayerShip.Position, m_settings.RamShipSpawnMinDistance, m_settings.RamShipSpawnMaxDistance), 0);
+				Vector3 ramPosition = MathHelper.GetPointAround(BattleContext.BattleManager.Director.PlayerShip.Position, m_settings.RamShipSpawnMinDistance, m_settings.RamShipSpawnMaxDistance);
+				EntitiesHelper.SpawnEntity(AvailablePrefabs.RamShip, gameObject, m_ramShips, m_ships, ramPosition, 0);
 				m_ramShipAlive = true;
 			}
 		}
@@ -75,7 +65,8 @@ public class EnemiesController : IController {
 			if (m_stunShipCooldown > 0) {
 				m_stunShipCooldown -= Time.fixedDeltaTime;
 			} else {
-				SpawnStunShip(MathHelper.GetPointAround(BattleContext.BattleManager.Director.PlayerShip.Position, m_settings.StunShipSpawnMinDistance, m_settings.StunShipSpanwMaxDistance), 0);
+				Vector3 stunPosition = MathHelper.GetPointAround(BattleContext.BattleManager.Director.PlayerShip.Position, m_settings.StunShipSpawnMinDistance, m_settings.StunShipSpanwMaxDistance);
+				EntitiesHelper.SpawnEntity(AvailablePrefabs.StunShip, gameObject, m_stunShips, m_ships, stunPosition, 0);
 				m_stunShipAlive = true;
 			}
 		}
@@ -87,15 +78,15 @@ public class EnemiesController : IController {
 				if (m_ships[i] is DroneCarrier) {
 					Vector3 dcPosition = MathHelper.GetPointAround(BattleContext.BattleManager.Director.PlayerShip.Position, BattleContext.BattleManager.Director.PlayerShip.SpeedVector, m_settings.DroneCarrierSpawnAngle, m_settings.DroneCarrierSpawnMinDistance, m_settings.DroneCarrierSpawnMaxDistance);
 					dcPosition.y = -0.75f;
-					SpawnDroneCarrier(dcPosition, MathHelper.Random.Next(360));
+					EntitiesHelper.SpawnEntity(AvailablePrefabs.DroneCarrier, gameObject, m_droneCarriers, m_ships, dcPosition, MathHelper.Random.Next(360));
 				}
 				if (m_ships[i] is RocketShip) {
 					Vector3 rsPosition = MathHelper.GetPointAround(BattleContext.BattleManager.Director.PlayerShip.Position, BattleContext.BattleManager.Director.PlayerShip.SpeedVector, m_settings.RocketShipSpawnAngle, m_settings.RocketShipSpawnMinDistance, m_settings.RocketShipSpawnMaxDistance);
-					SpawnRocketShip(rsPosition, MathHelper.Random.Next(360));
+					EntitiesHelper.SpawnEntity(AvailablePrefabs.RocketShip, gameObject, m_rocketShips, m_ships, rsPosition, MathHelper.Random.Next(360));
 				}
 				if (m_ships[i] is SpaceMine) {
 					Vector3 spaceMinePosition = MathHelper.GetPointAround(BattleContext.BattleManager.Director.PlayerShip.Position, BattleContext.BattleManager.Director.PlayerShip.SpeedVector, m_settings.SpaceMineSpawnAngle, m_settings.SpaceMineSpawnMinDistance, m_settings.SpaceMineSpawnMaxDistance);
-					SpawnSpaceMine(spaceMinePosition);
+					EntitiesHelper.SpawnEntity(AvailablePrefabs.SpaceMine, gameObject, m_spaceMines, m_ships, spaceMinePosition, 0);
 				}
 			}
 		}
@@ -109,126 +100,6 @@ public class EnemiesController : IController {
 	public void OnStunShipDie() {
 		m_stunShipCooldown = MathHelper.ValueWithDispertion(m_settings.StunShipCooldownValue, m_settings.StunShipCooldownDispertion);
 		m_stunShipAlive = false;
-	}
-
-	public StunShip SpawnStunShip(Vector3 position, float rotation) {
-		StunShip targetShip = null;
-		foreach (StunShip ship in m_stunShips) {
-			if (!ship.IsSpawned()) {
-				targetShip = ship;
-				break;
-			}
-		}
-		if (targetShip == null) {
-			targetShip = CreateStunShip();
-		}
-		targetShip.Spawn(position, rotation);
-		return targetShip;
-	}
-
-	public DroneCarrier SpawnDroneCarrier(Vector3 position, float rotation) {
-		DroneCarrier targetShip = null;
-		foreach (DroneCarrier ship in m_droneCarriers) {
-			if (!ship.IsSpawned()) {
-				targetShip = ship;
-				break;
-			}
-		}
-		if (targetShip == null) {
-			targetShip = CreateDroneCarrier();
-		}
-		targetShip.Spawn(position, rotation);
-		return targetShip;
-	}
-
-	public RocketShip SpawnRocketShip(Vector3 position, float rotation) {
-		RocketShip targetShip = null;
-		foreach (RocketShip ship in m_rocketShips) {
-			if (!ship.IsSpawned()) {
-				targetShip = ship;
-				break;
-			}
-		}
-		if (targetShip == null) {
-			targetShip = CreateRocketShip();
-		}
-		targetShip.Spawn(position, rotation);
-		return targetShip;
-	}
-
-	public RamShip SpawnRamShip(Vector3 position, float rotation) {
-		RamShip targetShip = null;
-		foreach (RamShip ship in m_ramShips) {
-			if (!ship.IsSpawned()) {
-				targetShip = ship;
-				break;
-			}
-		}
-		if (targetShip == null) {
-			targetShip = CreateRamShip();
-		}
-		targetShip.Spawn(position, rotation);
-		return targetShip;
-	}
-
-	public SpaceMine SpawnSpaceMine(Vector3 position) {
-		SpaceMine targetShip = null;
-		foreach (SpaceMine ship in m_spaceMines) {
-			if (!ship.IsSpawned()) {
-				targetShip = ship;
-				break;
-			}
-		}
-		if (targetShip == null) {
-			targetShip = CreateSpaceMine();
-		}
-		targetShip.Spawn(position, 0);
-		return targetShip;
-	}
-
-	private StunShip CreateStunShip() {
-		StunShip stunShip = (Instantiate(m_blasterShipPrefab)).GetComponent<StunShip>();
-		stunShip.transform.parent = transform;
-		stunShip.Initiate();
-		m_ships.Add(stunShip);
-		m_stunShips.Add(stunShip);
-		return stunShip;
-	}
-
-	private DroneCarrier CreateDroneCarrier() {
-		DroneCarrier droneCarrier = (Instantiate(m_droneCarrierPrefab)).GetComponent<DroneCarrier>();
-		droneCarrier.transform.parent = transform;
-		droneCarrier.Initiate();
-		m_ships.Add(droneCarrier);
-		m_droneCarriers.Add(droneCarrier);
-		return droneCarrier;
-	}
-
-	private RocketShip CreateRocketShip() {
-		RocketShip rocketShip = (Instantiate(m_rocketShipPrefab)).GetComponent<RocketShip>();
-		rocketShip.transform.parent = transform;
-		rocketShip.Initiate();
-		m_ships.Add(rocketShip);
-		m_rocketShips.Add(rocketShip);
-		return rocketShip;
-	}
-
-	private RamShip CreateRamShip() {
-		RamShip ramShip = (Instantiate(m_ramShipPrefab)).GetComponent<RamShip>();
-		ramShip.transform.parent = transform;
-		ramShip.Initiate();
-		m_ships.Add(ramShip);
-		m_ramShips.Add(ramShip);
-		return ramShip;
-	}
-
-	private SpaceMine CreateSpaceMine() {
-		SpaceMine spaceMine = (Instantiate(m_spaceMinePrefab)).GetComponent<SpaceMine>();
-		spaceMine.transform.parent = transform;
-		spaceMine.Initiate();
-		m_ships.Add(spaceMine);
-		m_spaceMines.Add(spaceMine);
-		return spaceMine;
 	}
 
 	public List<IEnemyShip> Ships {

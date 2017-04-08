@@ -618,6 +618,7 @@ MonoBehaviour:
   m_alliesController: {fileID: 1437064047}
   m_effectsController: {fileID: 1960593850}
   m_statisticsManager: {fileID: 700891681}
+  m_prefabsManager: {fileID: 972022051}
   m_director: {fileID: 24547033}
   m_timeManager: {fileID: 24547032}
   m_battleCamera: {fileID: 322693472}
@@ -743,6 +744,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0abf05977e188f6448b73a7ad6d83926, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_prefabs:
+  - name: 0
+    prefab: {fileID: 186194, guid: f8dc884bc1256e44296c0e4ca639cb33, type: 2}
+  - name: 1
+    prefab: {fileID: 1000010957625058, guid: 04c970db0e7f0c841b61b0f89415d76a, type: 2}
+  - name: 2
+    prefab: {fileID: 158262, guid: df9128597e65378458be3fe2497ff62f, type: 2}
+  - name: 3
+    prefab: {fileID: 198206, guid: 7fe0248d775a9034fa7712061d0696a4, type: 2}
+  - name: 4
+    prefab: {fileID: 1000011009646898, guid: d64038ff0efaf2c499e747048726b005, type: 2}
+  - name: 5
+    prefab: {fileID: 1000012769182004, guid: ed3a0ebb084e48547883e0a9de1b879f, type: 2}
+  - name: 6
+    prefab: {fileID: 1000014139105718, guid: 69ee776467efd7940a50383540058500, type: 2}
+  - name: 7
+    prefab: {fileID: 1000011874940608, guid: 41875d6747d992746932c0955bc64306, type: 2}
+  - name: 8
+    prefab: {fileID: 1000013842758166, guid: b2ddcd660df55cb41b231f259631b15e, type: 2}
+  - name: 9
+    prefab: {fileID: 124736, guid: e3513e92010ddd745a2b3f28f04733f9, type: 2}
+  - name: 10
+    prefab: {fileID: 188550, guid: edb866b32e008244783d2ef51430b85f, type: 2}
+  - name: 11
+    prefab: {fileID: 147702, guid: ada876b9c016fcf42b17e4d74492273c, type: 2}
+  - name: 12
+    prefab: {fileID: 134612, guid: 769f77805913ba14292275bdfda9e4c9, type: 2}
+  - name: 13
+    prefab: {fileID: 1000013676409296, guid: 2493ccc69f96d0843b5423f69f600f79, type: 2}
+  - name: 14
+    prefab: {fileID: 1758903499212072, guid: d96ac50fab65eee43b6c548a42f75125, type: 2}
+  - name: 15
+    prefab: {fileID: 1000014145179164, guid: fc7609c75af0d154cb18e1593aa914f3, type: 2}
+  - name: 16
+    prefab: {fileID: 1000012456259512, guid: 1d51910c4a4db734f9d1803d24f38cea, type: 2}
+  - name: 17
+    prefab: {fileID: 1000010347929810, guid: ea964ccb3825aac428ed331710a204f2, type: 2}
+  - name: 18
+    prefab: {fileID: 1000013359168042, guid: 2309965fc8a9f3f478537b07976e9173, type: 2}
 --- !u!1 &1004447659
 GameObject:
   m_ObjectHideFlags: 0
@@ -880,14 +920,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93da9c9f7e63aee4cb43cd780bf83246, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_blasterShipPrefab: {fileID: 158262, guid: df9128597e65378458be3fe2497ff62f, type: 2}
-  m_droneCarrierPrefab: {fileID: 1000010957625058, guid: 04c970db0e7f0c841b61b0f89415d76a,
-    type: 2}
-  m_ramShipPrefab: {fileID: 1000011009646898, guid: d64038ff0efaf2c499e747048726b005,
-    type: 2}
-  m_spaceMinePrefab: {fileID: 1000012769182004, guid: ed3a0ebb084e48547883e0a9de1b879f,
-    type: 2}
-  m_rocketShipPrefab: {fileID: 198206, guid: 7fe0248d775a9034fa7712061d0696a4, type: 2}
 --- !u!4 &1201949552
 Transform:
   m_ObjectHideFlags: 0
@@ -1015,8 +1047,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b301c011fd729274fb5a8e9362bec276, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_healthDroneStationPrefab: {fileID: 1000014145179164, guid: fc7609c75af0d154cb18e1593aa914f3,
-    type: 2}
 --- !u!1 &1670880587
 GameObject:
   m_ObjectHideFlags: 0

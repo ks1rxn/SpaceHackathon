@@ -27,6 +27,7 @@ public class Director : MonoBehaviour {
 //			{ "version", Application.version }
 //		});
 		BattleContext.Initiate();
+		BattleContext.BattleManager.PrefabsManager.Initiate();
 
 		BattleContext.BattleManager.StatisticsManager.Initiate();
 		BattleContext.BattleManager.TimeManager.Initiate();
