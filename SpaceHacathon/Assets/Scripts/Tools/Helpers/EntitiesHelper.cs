@@ -26,6 +26,21 @@ class EntitiesHelper {
 		return entity;
 	}
 
+	public static ISpawnable SpawnEntity<T1>(AvailablePrefabs prefab, GameObject parent, List<T1> searchList, Vector3 position, float rotation) where T1 : ISpawnable {
+		ISpawnable target = null;
+		foreach (T1 spawnable in searchList) {
+			if (!spawnable.IsSpawned()) {
+				target = spawnable;
+				break;
+			}
+		}
+		if (target == null) {
+			target = (ISpawnable) CreateEntity(prefab, parent, searchList);
+		}
+		target.Spawn(position, rotation);
+		return target;
+	}
+
 	public static ISpawnable SpawnEntity<T1, T2>(AvailablePrefabs prefab, GameObject parent, List<T1> searchList, List<T2> helperList, Vector3 position, float rotation) where T1 : ISpawnable where T2 : ISpawnable {
 		ISpawnable target = null;
 		foreach (T1 spawnable in searchList) {

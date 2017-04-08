@@ -1,18 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using Random = System.Random;
 
 public class BulletsController : IController {
 	private SettingsBulletsController m_settings;
-
-	[SerializeField]
-	private GameObject m_stunProjectilePrefab;
-	[SerializeField]
-	private GameObject m_laserPrefab;
-	[SerializeField]
-	private GameObject m_missilePrefab;
-	[SerializeField]
-	private GameObject m_droneCarrierRocket;
 
 	private List<StunProjectile> m_stunProjectiles;
 	private List<Laser> m_lasers;
@@ -28,16 +18,16 @@ public class BulletsController : IController {
 		m_carrierRockets = new List<CarrierRocket>();
 
 		for (int i = 0; i != m_settings.MissilesLimit; i++) {
-			CreateMissile();
+			EntitiesHelper.CreateEntity(AvailablePrefabs.Missile, gameObject, m_missiles);
 		}
 		for (int i = 0; i != 5; i++) {
-			CreateStunProjectile();
+			EntitiesHelper.CreateEntity(AvailablePrefabs.StunProjectile, gameObject, m_stunProjectiles);
 		}
 		for (int i = 0; i != 10; i++) {
-			CreateLaser();
+			EntitiesHelper.CreateEntity(AvailablePrefabs.Laser, gameObject, m_lasers);
 		}
 		for (int i = 0; i != 3; i++) {
-			CreateCarrierRocket();
+			EntitiesHelper.CreateEntity(AvailablePrefabs.CarrierRocket, gameObject, m_carrierRockets);
 		}
 	}
 
@@ -64,101 +54,20 @@ public class BulletsController : IController {
 		}
 	}
 
-	public Missile SpawnMissile(Vector3 position, float angle) {
-		Missile targetRocket = null;
-		int aliveMissiles = 0;
-		foreach (Missile rocket in m_missiles) {
-			if (!rocket.IsSpawned()) {
-				targetRocket = rocket;
-			} else {
-				aliveMissiles++;
-			}
-		}
-		if (aliveMissiles >= m_settings.MissilesLimit) {
-			return null;
-		}
-		if (targetRocket == null) {
-			targetRocket = CreateMissile();
-		}
-		targetRocket.Spawn(position, angle);
-		return targetRocket;
+	public void SpawnMissile(Vector3 position, float angle) {
+		EntitiesHelper.SpawnEntity(AvailablePrefabs.Missile, gameObject, m_missiles, position, angle);
 	}
 
-	public CarrierRocket SpawnCarrierRocket(Vector3 position) {
-		CarrierRocket targetRocket = null;
-		foreach (CarrierRocket rocket in m_carrierRockets) {
-			if (!rocket.IsSpawned()) {
-				targetRocket = rocket;
-				break;
-			}
-		}
-		if (targetRocket == null) {
-			targetRocket = CreateCarrierRocket();
-		}
-		targetRocket.Spawn(position, 0);
-		return targetRocket;
+	public void SpawnCarrierRocket(Vector3 position) {
+		EntitiesHelper.SpawnEntity(AvailablePrefabs.CarrierRocket, gameObject, m_carrierRockets, position, 0);
 	}
 
-	public StunProjectile SpawnStunProjectile(Vector3 position, float angle) {
-		StunProjectile targetStunProjectile = null;
-		foreach (StunProjectile blaster in m_stunProjectiles) {
-			if (!blaster.IsSpawned()) {
-				targetStunProjectile = blaster;
-				break;
-			}
-		}
-		if (targetStunProjectile == null) {
-			targetStunProjectile = CreateStunProjectile();
-		}
-		targetStunProjectile.Spawn(position, angle);
-		return targetStunProjectile;
+	public void SpawnStunProjectile(Vector3 position, float angle) {
+		EntitiesHelper.SpawnEntity(AvailablePrefabs.StunProjectile, gameObject, m_stunProjectiles, position, angle);
 	}
 
-	public Laser SpawnLaser(Vector3 position, float angle) {
-		Laser targetLaser = null;
-		foreach (Laser laser in m_lasers) {
-			if (!laser.IsSpawned()) {
-				targetLaser = laser;
-				break;
-			}
-		}
-		if (targetLaser == null) {
-			targetLaser = CreateLaser();
-		}
-		targetLaser.Spawn(position, angle);
-		return targetLaser;
-	}
-
-	private StunProjectile CreateStunProjectile() {
-		StunProjectile stunProjectile = (Instantiate(m_stunProjectilePrefab)).GetComponent<StunProjectile>();
-		stunProjectile.transform.parent = transform;
-		stunProjectile.Initiate();
-		m_stunProjectiles.Add(stunProjectile);
-		return stunProjectile;
-	}
-
-	private Laser CreateLaser() {
-		Laser laser = (Instantiate(m_laserPrefab)).GetComponent<Laser>();
-		laser.transform.parent = transform;
-		laser.Initiate();
-		m_lasers.Add(laser);
-		return laser;
-	}
-
-	private Missile CreateMissile() {
-		Missile missile = (Instantiate(m_missilePrefab)).GetComponent<Missile>();
-		missile.transform.parent = transform;
-		missile.Initiate();
-		m_missiles.Add(missile);
-		return missile;
-	}
-
-	private CarrierRocket CreateCarrierRocket() {
-		CarrierRocket missile = (Instantiate(m_droneCarrierRocket)).GetComponent<CarrierRocket>();
-		missile.transform.parent = transform;
-		missile.Initiate();
-		m_carrierRockets.Add(missile);
-		return missile;
+	public void SpawnLaser(Vector3 position, float angle) {
+		EntitiesHelper.SpawnEntity(AvailablePrefabs.Laser, gameObject, m_lasers, position, angle);
 	}
 
 }

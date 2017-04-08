@@ -32,7 +32,7 @@ public class DroneCarrier : IEnemyShip {
 
 	protected override void OnDespawn(DespawnReason reason) {
 		if (reason == DespawnReason.Kill) {
-			BattleContext.BattleManager.ExplosionsController.PlayerShipExplosion(Position);
+			BattleContext.BattleManager.ExplosionsController.ShipExplosion(Position);
 		}
 	}
 
