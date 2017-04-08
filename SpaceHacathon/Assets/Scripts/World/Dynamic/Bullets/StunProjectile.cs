@@ -31,7 +31,7 @@ public class StunProjectile : IBullet {
 	}
 
 	protected override void OnDespawn(DespawnReason reasonS) {
-		BattleContext.BattleManager.ExplosionsController.BlasterExplosion(transform.position);
+		BattleContext.BattleManager.ExplosionsController.LaserExplosion(transform.position);
 	}
 
 	protected override void OnFixedUpdateEntity() {

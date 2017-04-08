@@ -74,7 +74,7 @@ public class PlayerShip : MonoBehaviour {
 	    }
 
 	    m_state = ShipState.Dead;
-		BattleContext.BattleManager.ExplosionsController.PlayerShipExplosion(transform.position);
+		BattleContext.BattleManager.ExplosionsController.ShipExplosion(transform.position);
 		m_hull.gameObject.SetActive(false);
 
 		BattleContext.BattleManager.Director.OnPlayerDie();
