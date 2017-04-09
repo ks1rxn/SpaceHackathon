@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 849e331e26cf15b409bbff708ecb32fc
-timeCreated: 1491693328
+timeCreated: 1491767222
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -10,6 +10,11 @@ TextureImporter:
     21300006: HUD3_3
     21300008: HUD3_5
     21300010: HUD3_4
+    21300012: HUD3_6
+    21300014: HUD3_7
+    21300016: HUD3_8
+    21300018: HUD3_9
+    21300020: HUD3_10
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -65,6 +70,14 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
   - buildTarget: Standalone
+    maxTextureSize: 1024
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Android
     maxTextureSize: 1024
     textureFormat: -1
     textureCompression: 0
@@ -148,6 +161,71 @@ TextureImporter:
         y: 593
         width: 562
         height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: HUD3_6
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 55
+        width: 495
+        height: 186
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: HUD3_7
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 332
+        width: 495
+        height: 70
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: HUD3_8
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 409
+        width: 495
+        height: 70
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: HUD3_9
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 258
+        width: 495
+        height: 70
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: HUD3_10
+      rect:
+        serializedVersion: 2
+        x: 511
+        y: 55
+        width: 495
+        height: 186
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
