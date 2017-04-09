@@ -8,6 +8,9 @@ public class PlayerGUIController : MonoBehaviour {
 	private ScreenInput m_screenInput;
 
 	[SerializeField]
+	private EnergyIndicator m_energyIndicator;
+
+	[SerializeField]
 	private GameObject m_rotationJoystick;
 	[SerializeField]
 	private GameObject m_joystickHandle;
@@ -19,10 +22,6 @@ public class PlayerGUIController : MonoBehaviour {
 	private Image m_health;
 	[SerializeField]
 	private Image[] m_chargeIndicator;
-	[SerializeField]
-	private Sprite m_chargeBlue;
-	[SerializeField]
-	private Sprite m_chargeOrange;
 	[SerializeField]
 	private GameObject m_chargeButton;
 
@@ -126,6 +125,12 @@ public class PlayerGUIController : MonoBehaviour {
 	public Vector3 RotationJoystickCenter {
 		get {
 			return m_rotationJoystick.transform.position;
+		}
+	}
+
+	public EnergyIndicator EnergyIndicator {
+		get {
+			return m_energyIndicator;
 		}
 	}
 

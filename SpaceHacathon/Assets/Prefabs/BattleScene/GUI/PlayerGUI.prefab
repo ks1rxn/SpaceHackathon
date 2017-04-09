@@ -568,7 +568,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1145676713632084
 GameObject:
   m_ObjectHideFlags: 1
@@ -619,7 +619,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1432978642937298
 GameObject:
   m_ObjectHideFlags: 1
@@ -698,6 +698,7 @@ GameObject:
   - component: {fileID: 224267074135878566}
   - component: {fileID: 222805540638585316}
   - component: {fileID: 114559870901665186}
+  - component: {fileID: 114038040405362580}
   m_Layer: 5
   m_Name: EnergyIndicator
   m_TagString: Untagged
@@ -1331,6 +1332,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_screenInput: {fileID: 114000013085341800}
+  m_energyIndicator: {fileID: 114038040405362580}
   m_rotationJoystick: {fileID: 1000014197332608}
   m_joystickHandle: {fileID: 1000010904607488}
   m_rotationDirection: {fileID: 114000012940668808}
@@ -1341,8 +1343,6 @@ MonoBehaviour:
   - {fileID: 114000014142404026}
   - {fileID: 114000010516431418}
   - {fileID: 114000012439300364}
-  m_chargeBlue: {fileID: 21300022, guid: d9e1b4ccc5fb2b94eb7abb06ecdf2afe, type: 3}
-  m_chargeOrange: {fileID: 21300024, guid: d9e1b4ccc5fb2b94eb7abb06ecdf2afe, type: 3}
   m_chargeButton: {fileID: 1000010126201244}
   m_powerIndicator: {fileID: 114000013059527080}
   m_fpsCounter: {fileID: 114000011851697728}
@@ -1670,6 +1670,29 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114038040405362580
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1628057727402558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42c47865d16fe2d42a047f1c594e2c54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_mainColors:
+  - {fileID: 114000012408062256}
+  - {fileID: 114057967346169384}
+  - {fileID: 114521328379923440}
+  - {fileID: 114096866219505798}
+  - {fileID: 114759473780440236}
+  m_blinkColors:
+  - {fileID: 114194090583353128}
+  - {fileID: 114579002754061874}
+  - {fileID: 114674598534035542}
+  - {fileID: 114123182270072274}
+  - {fileID: 114958963166494236}
 --- !u!114 &114057967346169384
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2547,9 +2570,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -60}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 94.9, y: 1.3405685}
+  m_AnchoredPosition: {x: 1.9, y: -0.7}
   m_SizeDelta: {x: 128.90625, y: 128.90625}
-  m_Pivot: {x: -0.43, y: -0.63}
+  m_Pivot: {x: -0.75, y: -1.31}
 --- !u!224 &224000012339801156
 RectTransform:
   m_ObjectHideFlags: 1
