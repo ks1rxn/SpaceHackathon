@@ -19,10 +19,6 @@ public class PlayerGUIController : MonoBehaviour {
 
 	
 	[SerializeField]
-	private Image m_health;
-	[SerializeField]
-	private Image[] m_chargeIndicator;
-	[SerializeField]
 	private GameObject m_chargeButton;
 
 	[SerializeField]
@@ -31,7 +27,7 @@ public class PlayerGUIController : MonoBehaviour {
 	[SerializeField]
 	private Text m_fpsCounter;
     [SerializeField]
-    private Text m_pointsCounter;
+    private Text m_time;
 
 	private Queue<int> m_fps; 
 
@@ -66,13 +62,13 @@ public class PlayerGUIController : MonoBehaviour {
 		gameObject.SetActive(false);
 	}
 
-	// Points //
+	// Time //
 
-	public void SetPoints(float points) {
-	    int time = (int) points;
+	public void SetTime(float floatTime) {
+	    int time = (int) floatTime;
 	    int minutes = time / 60;
 	    int seconds = time % 60;
-	    m_pointsCounter.text = minutes.ToString("D2") + ":" + seconds.ToString("D2");
+	    m_time.text = minutes.ToString("D2") + ":" + seconds.ToString("D2");
     }
 
 	// Power //
@@ -93,17 +89,7 @@ public class PlayerGUIController : MonoBehaviour {
 		}
 	}
 
-	// Health + Charge fuel //
-
-	public void SetEnergy(float value) {
-		m_health.fillAmount = value;
-	}
-
-    public void SetCharge(int value) {
-	    for (int i = 0; i != 5; i++) {
-		    m_chargeIndicator[i].gameObject.SetActive(i < value);
-	    }
-    }
+	// Charge//
 
 	public void SetChargeButtonActive(bool active) {
 		m_chargeButton.SetActive(active);

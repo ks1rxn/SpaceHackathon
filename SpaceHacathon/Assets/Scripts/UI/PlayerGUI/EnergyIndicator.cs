@@ -12,7 +12,7 @@ public class EnergyIndicator : MonoBehaviour {
 		int div = energyInt / 20;
 		float ost = (int)((energyInt % 20) / 20.0f * 5) * 0.2f;
 		float ost2 = ((int)((energyInt % 20) / 20.0f * 5) + 1) * 0.2f;
-		Debug.Log(energyInt + " " + div + " " + ost);
+//		Debug.Log(energyInt + " " + div + " " + ost);
 		for (int i = 0; i < 5; i++) {
 			if (i > div) {
 				m_mainColors[4 - i].gameObject.SetActive(false);

@@ -1336,17 +1336,10 @@ MonoBehaviour:
   m_rotationJoystick: {fileID: 1000014197332608}
   m_joystickHandle: {fileID: 1000010904607488}
   m_rotationDirection: {fileID: 114000012940668808}
-  m_health: {fileID: 114000010791501744}
-  m_chargeIndicator:
-  - {fileID: 114000011623796104}
-  - {fileID: 114000010897265194}
-  - {fileID: 114000014142404026}
-  - {fileID: 114000010516431418}
-  - {fileID: 114000012439300364}
   m_chargeButton: {fileID: 1000010126201244}
   m_powerIndicator: {fileID: 114000013059527080}
   m_fpsCounter: {fileID: 114000011851697728}
-  m_pointsCounter: {fileID: 114000012604800292}
+  m_time: {fileID: 114000012604800292}
 --- !u!114 &114000012921739974
 MonoBehaviour:
   m_ObjectHideFlags: 1

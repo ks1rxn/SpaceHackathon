@@ -41,6 +41,7 @@ public class TimeManager : MonoBehaviour {
         UpdateTimeSpeed();
 
         GameTime += Time.deltaTime;
+		BattleContext.BattleManager.GUIManager.PlayerGUIController.SetTime(GameTime);
     }
 
     private void UpdateTimeSpeed() {

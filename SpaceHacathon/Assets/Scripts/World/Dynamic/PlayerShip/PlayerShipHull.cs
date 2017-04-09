@@ -27,15 +27,15 @@ public class PlayerShipHull : MonoBehaviour {
 		m_engineSystem.SetFlyingParameters(rotation, enginePower);
 	}
 
-	public void Hit(float strength) {
-        m_energy -= strength;
+	public void SpendEnergy(float energy) {
+        m_energy -= energy;
 		if (m_energy <= 0) {
 			m_ship.Die();
 		}
     }
 
-	public void Heal(float hp) {
-		m_energy += hp;
+	public void AddEnergy(float energy) {
+		m_energy += energy;
 		if (m_energy > m_settings.EnergyMaximumInitial) {
 			m_energy = m_settings.EnergyMaximumInitial;
 		}
@@ -47,8 +47,7 @@ public class PlayerShipHull : MonoBehaviour {
     }
 
     private void UpdateEnergy() {
-		Hit(m_settings.EnergyDropPerSecond * Time.fixedDeltaTime);
-        BattleContext.BattleManager.GUIManager.PlayerGUIController.SetEnergy(m_energy / m_settings.EnergyMaximumInitial);
+		SpendEnergy(m_settings.EnergyDropPerSecond * Time.fixedDeltaTime);
 		BattleContext.BattleManager.GUIManager.PlayerGUIController.EnergyIndicator.SetEnergy(m_energy / m_settings.EnergyMaximumInitial);
     }
 
