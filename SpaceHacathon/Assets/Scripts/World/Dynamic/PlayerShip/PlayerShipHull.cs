@@ -45,8 +45,8 @@ public class PlayerShipHull : MonoBehaviour {
 
 	public void AddCargo(int cargo) {
 		Cargo += cargo;
-		if (Cargo > 22) {
-			Cargo = 22;
+		if (Cargo > m_settings.CargoCapacity) {
+			Cargo = m_settings.CargoCapacity;
 		}
 		BattleContext.BattleManager.GUIManager.PlayerGUIController.CargoIndicator.SetCargoFill(Cargo);
 	}

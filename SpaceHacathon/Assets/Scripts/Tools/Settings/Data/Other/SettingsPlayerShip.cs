@@ -19,6 +19,7 @@ public class SettingsPlayerShip {
 	public float EnergyDropPerSecond;
 	public float EnergyForCharge;
 	public float EnergyInChargeFuel;
+	public int CargoCapacity;
 	public int CargoForRamShip;
 	public int CargoForStunShip;
 	public int CargoForRocketShip;
