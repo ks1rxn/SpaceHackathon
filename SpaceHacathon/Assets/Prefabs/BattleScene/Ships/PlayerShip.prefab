@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 2398562}
   - component: {fileID: 11496306}
   m_Layer: 0
-  m_Name: ship_hull
+  m_Name: Hull
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25154,7 +25154,7 @@ GameObject:
   - component: {fileID: 4000011210452772}
   - component: {fileID: 114000012093317442}
   m_Layer: 0
-  m_Name: charge_targeting
+  m_Name: ChargeSystem
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26178,6 +26178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d89bbdb01aa56348881989500deda7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ship: {fileID: 11411150}
   m_chargeIndicator: {fileID: 1000011830946280}
   m_chargeEngines:
   - {fileID: 198000012064332188}
@@ -97199,7 +97200,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1451965411
+  randomSeed: -2034336813
   InitialModule:
     serializedVersion: 3
     enabled: 1

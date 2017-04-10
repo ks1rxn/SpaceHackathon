@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerShipChargeSystem : MonoBehaviour {
+	[SerializeField]
+	private PlayerShip m_ship;
+
 	[SerializeField]
 	private GameObject m_chargeIndicator;
 	[SerializeField]
@@ -13,43 +15,28 @@ public class PlayerShipChargeSystem : MonoBehaviour {
 	[SerializeField]
 	private GameObject[] m_chargeIndicators;
 
-    private int m_chargeFuel;
-
     public void Initiate() {
-	    m_chargeFuel = 0;
 		UpdateChargeIndicators();
 		UpdateChargeEngines();
     }
 
-	public void AddFuel() {
-		if (m_chargeFuel < 5) {
-			m_chargeFuel++;
-			UpdateChargeIndicators();
-			UpdateChargeEngines();
-		}
-	}
-
-	public void Charge() {
-		if (!InChargeTargeting) {
-			return;
-		}
-		m_chargeFuel --;
+	public void UpdateChargeSystem() {
 		UpdateChargeIndicators();
 		UpdateChargeEngines();
 	}
 
 	private void UpdateChargeIndicators() {
-		BattleContext.BattleManager.GUIManager.PlayerGUIController.SetChargeButtonActive(m_chargeFuel > 0);
+		BattleContext.BattleManager.GUIManager.PlayerGUIController.SetChargeButtonActive(CanCharge);
 
-		m_chargeIndicators[0].SetActive(m_chargeFuel >= 1);
-		m_chargeIndicators[1].SetActive(m_chargeFuel >= 2);
-		m_chargeIndicators[2].SetActive(m_chargeFuel >= 3);
-		m_chargeIndicators[3].SetActive(m_chargeFuel >= 4);
-		m_chargeIndicators[4].SetActive(m_chargeFuel >= 5);
+		m_chargeIndicators[0].SetActive(m_ship.Hull.Energy >= 20);
+		m_chargeIndicators[1].SetActive(m_ship.Hull.Energy >= 40);
+		m_chargeIndicators[2].SetActive(m_ship.Hull.Energy >= 60);
+		m_chargeIndicators[3].SetActive(m_ship.Hull.Energy >= 80);
+		m_chargeIndicators[4].SetActive(m_ship.Hull.Energy >= 100);
 	}
 
 	private void UpdateChargeEngines() {
-		if (InChargeTargeting) {
+		if (CanCharge) {
 			m_chargeIndicator.SetActive(true);
 			foreach (ParticleSystem engine in m_chargeEngines) {
 				engine.Play();
@@ -69,9 +56,9 @@ public class PlayerShipChargeSystem : MonoBehaviour {
 		}
 	}
 
-	public bool InChargeTargeting {
+	public bool CanCharge {
 		get {
-			return m_chargeFuel > 0;
+			return m_ship.Hull.Energy >= 20;
 		}
 	}
 

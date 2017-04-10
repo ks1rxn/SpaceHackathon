@@ -60,10 +60,6 @@ public class ScreenInput : MonoBehaviour {
 			SetShipPower(ThrottleState.Off);
 		}
 
-		if (Input.GetKeyDown(KeyCode.R)) {
-			AddFuel();
-		}
-
 		// Ship charge //
 		if (Input.GetKeyDown(KeyCode.Space)) {
 			Charge();
@@ -80,10 +76,6 @@ public class ScreenInput : MonoBehaviour {
 
 	private void Charge() {
 		BattleContext.BattleManager.Director.PlayerShip.Charge();
-	}
-
-	private void AddFuel() {
-		BattleContext.BattleManager.Director.PlayerShip.OnChargeFuelHit(null);
 	}
 
 }

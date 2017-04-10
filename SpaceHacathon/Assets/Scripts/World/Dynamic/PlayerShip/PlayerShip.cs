@@ -104,6 +104,7 @@ public class PlayerShip : MonoBehaviour {
 		m_mineIndicator.SetActive(isOnMineTarget);
 
 		m_hull.UpdateHull();
+		m_chargeSystem.UpdateChargeSystem();
         m_hull.SetFlyingParameters(m_rigidbody.angularVelocity.y, m_shipParams.EnginePower < 450  || m_state == ShipState.InCharge ? ThrottleState.Off : m_power);
 	}
 
@@ -193,7 +194,7 @@ public class PlayerShip : MonoBehaviour {
 		if (m_effects.Stunned) {
 			return;
 		}
-		if (!m_chargeSystem.InChargeTargeting) {
+		if (!m_chargeSystem.CanCharge) {
 			return;
 		}
 		if (m_state == ShipState.InCharge) {
@@ -201,7 +202,7 @@ public class PlayerShip : MonoBehaviour {
 		}
 		m_state = ShipState.InCharge;
 		BattleContext.BattleManager.StatisticsManager.PlayerShipStatistics.ChargeUsed++;
-		m_chargeSystem.Charge();
+		m_hull.SpendEnergy(20);
 		StartCoroutine(ChargeProcess());
 	}
 
@@ -330,14 +331,14 @@ public class PlayerShip : MonoBehaviour {
 		}
 	}
 
+	private void OnChargeFuelHit(GameObject other) {
+		m_hull.AddEnergy(10);
+	}
+
 	private void OnSlowingCloudStay(GameObject other) {
 		if (m_effects.Slowing > m_settings.SlowingCloudMaxSlow) {
 			m_effects.Slowing -= 3 * Time.fixedDeltaTime;
 		}
-	}
-
-	public void OnChargeFuelHit(GameObject other) {
-		m_chargeSystem.AddFuel();
 	}
 
 	public void OnHealBegin() {
@@ -380,6 +381,12 @@ public class PlayerShip : MonoBehaviour {
 		get {
 			Vector3 vectorToTarget = new Vector3(Mathf.Cos(m_neededAngle * Mathf.PI / 180), 0, Mathf.Sin(m_neededAngle * Mathf.PI / 180));
 			return MathHelper.AngleBetweenVectors(LookVector, vectorToTarget);
+		}
+	}
+
+	public PlayerShipHull Hull {
+		get {
+			return m_hull;
 		}
 	}
 

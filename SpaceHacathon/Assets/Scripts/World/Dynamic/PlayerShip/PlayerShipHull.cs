@@ -8,7 +8,7 @@ public class PlayerShipHull : MonoBehaviour {
     [SerializeField]
     private PlayerShipEngineSystem m_engineSystem;
 
-	private float m_energy;
+	public float Energy;
 
 	private readonly VectorPid rotationController = new VectorPid(4.244681f, 0.1f, 1.25f);
 	private Vector3 m_needRotation;
@@ -20,7 +20,7 @@ public class PlayerShipHull : MonoBehaviour {
 		m_needRotation = Vector3.zero;
         m_engineSystem.Initiate();
 
-		m_energy = m_settings.EnergyMaximumInitial;  
+		Energy = m_settings.EnergyMaximumInitial;  
     }
 
 	public void SetFlyingParameters(float rotation, ThrottleState enginePower) {
@@ -28,16 +28,16 @@ public class PlayerShipHull : MonoBehaviour {
 	}
 
 	public void SpendEnergy(float energy) {
-        m_energy -= energy;
-		if (m_energy <= 0) {
+        Energy -= energy;
+		if (Energy <= 0) {
 			m_ship.Die();
 		}
     }
 
 	public void AddEnergy(float energy) {
-		m_energy += energy;
-		if (m_energy > m_settings.EnergyMaximumInitial) {
-			m_energy = m_settings.EnergyMaximumInitial;
+		Energy += energy;
+		if (Energy > m_settings.EnergyMaximumInitial) {
+			Energy = m_settings.EnergyMaximumInitial;
 		}
 	}
 
@@ -48,7 +48,7 @@ public class PlayerShipHull : MonoBehaviour {
 
     private void UpdateEnergy() {
 		SpendEnergy(m_settings.EnergyDropPerSecond * Time.fixedDeltaTime);
-		BattleContext.BattleManager.GUIManager.PlayerGUIController.EnergyIndicator.SetEnergy(m_energy / m_settings.EnergyMaximumInitial);
+		BattleContext.BattleManager.GUIManager.PlayerGUIController.EnergyIndicator.SetEnergy(Energy / m_settings.EnergyMaximumInitial);
     }
 
 	public void SetRollAngle(float angle) {
