@@ -87,7 +87,7 @@ public class HealthDroneStation : IAlly {
 
 	private void PerformSleepState() {
 		Vector3 playerPosition = BattleContext.BattleManager.Director.PlayerShip.Position;
-		if (Vector3.Distance(playerPosition, Position) < m_settings.HealingRadius - 0.05f) {
+		if (Vector3.Distance(playerPosition, Position) < m_settings.HealingRadius - 0.05f && BattleContext.BattleManager.Director.PlayerShip.Hull.Cargo > 0) {
 			ToHealPlayerState();
 		}
 	}
