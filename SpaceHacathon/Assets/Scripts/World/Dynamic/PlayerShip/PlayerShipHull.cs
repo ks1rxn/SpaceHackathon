@@ -51,6 +51,12 @@ public class PlayerShipHull : MonoBehaviour {
 		BattleContext.BattleManager.GUIManager.PlayerGUIController.CargoIndicator.SetCargoFill(Cargo);
 	}
 
+	public void SpendCargo() {
+		Cargo = 0;
+		BattleContext.BattleManager.GUIManager.PlayerGUIController.CargoIndicator.SetCargoFill(Cargo);
+	}
+
+
     public void UpdateHull() {
         UpdateEnergy();
 		UpdateRotation();

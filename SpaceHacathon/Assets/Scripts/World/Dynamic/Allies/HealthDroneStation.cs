@@ -81,7 +81,6 @@ public class HealthDroneStation : IAlly {
 		m_drones[2].Spawn(m_dronePoints[2].position, 0);
 		m_drones[2].SetBase(m_dronePoints[2]);
 
-		m_healthLeft = m_settings.TotalHealthCapacity;
 		m_activeZone.SetActive(false);
 		m_sleepZone.SetActive(true);
 	}
@@ -100,6 +99,7 @@ public class HealthDroneStation : IAlly {
 			drone.ToMoveToPlayerState();
 		}
 
+		m_healthLeft = BattleContext.BattleManager.Director.PlayerShip.Hull.Cargo * 4;
 		BattleContext.BattleManager.Director.PlayerShip.OnHealBegin();
 		m_activeZone.SetActive(true);
 	}

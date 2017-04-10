@@ -328,13 +328,13 @@ public class PlayerShip : MonoBehaviour {
 				break;
 			case ShipState.InCharge:
 				if (other.CompareTag(CollisionTags.StunShip)) {
-					m_hull.AddCargo(3);
+					m_hull.AddCargo(14);
 				} else if (other.CompareTag(CollisionTags.RamShip)) {
-					m_hull.AddCargo(3);
+					m_hull.AddCargo(14);
 				} else if (other.CompareTag(CollisionTags.DroneCarrier)) {
-					m_hull.AddCargo(2);
+					m_hull.AddCargo(12);
 				} else if (other.CompareTag(CollisionTags.RocketShip)) {
-					m_hull.AddCargo(1);
+					m_hull.AddCargo(8);
 				}
 				break;
 		}
@@ -352,6 +352,7 @@ public class PlayerShip : MonoBehaviour {
 
 	public void OnHealBegin() {
 		m_healEffect.SetActive(true);
+		m_hull.SpendCargo();
 	}
 
 	public void OnHeal(float hp) {
