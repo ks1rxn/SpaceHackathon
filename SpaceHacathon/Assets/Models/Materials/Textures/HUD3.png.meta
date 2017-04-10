@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 849e331e26cf15b409bbff708ecb32fc
-timeCreated: 1491767222
+timeCreated: 1491861781
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -51,7 +51,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 128
+  spritePixelsToUnits: 100
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -170,49 +170,23 @@ TextureImporter:
       name: HUD3_6
       rect:
         serializedVersion: 2
-        x: 16
+        x: 14
         y: 55
         width: 495
         height: 186
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: HUD3_7
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 332
-        width: 495
-        height: 70
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: HUD3_8
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 409
-        width: 495
-        height: 70
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 70, y: 0, z: 67, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
       name: HUD3_9
       rect:
         serializedVersion: 2
-        x: 16
-        y: 258
-        width: 495
-        height: 70
+        x: 58
+        y: 262
+        width: 58
+        height: 64
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -228,7 +202,7 @@ TextureImporter:
         height: 186
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 40, y: 0, z: 61, w: 0}
       outline: []
       tessellationDetail: 0
     outline: []
