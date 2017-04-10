@@ -664,6 +664,7 @@ GameObject:
   - component: {fileID: 224155510277547046}
   - component: {fileID: 222860812714878518}
   - component: {fileID: 114419529179042158}
+  - component: {fileID: 114079056310358110}
   m_Layer: 5
   m_Name: CargoIndicator
   m_TagString: Untagged
@@ -1418,6 +1419,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_screenInput: {fileID: 114000013085341800}
   m_energyIndicator: {fileID: 114038040405362580}
+  m_cargoIndicator: {fileID: 114079056310358110}
   m_rotationJoystick: {fileID: 1000014197332608}
   m_joystickHandle: {fileID: 1000010904607488}
   m_rotationDirection: {fileID: 114000012940668808}
@@ -1798,6 +1800,20 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114079056310358110
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1416053294688390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdcb89906f71ab04b9cb4fff012eb37a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_top: {fileID: 114806662915220984}
+  m_middle: {fileID: 114848382794815042}
+  m_bottom: {fileID: 114217009611545404}
 --- !u!114 &114096866219505798
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1899,7 +1915,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300018, guid: 849e331e26cf15b409bbff708ecb32fc, type: 3}
-  m_Type: 0
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
@@ -2142,7 +2158,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300014, guid: 849e331e26cf15b409bbff708ecb32fc, type: 3}
-  m_Type: 0
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0

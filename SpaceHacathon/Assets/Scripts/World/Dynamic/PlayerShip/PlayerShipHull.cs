@@ -9,6 +9,7 @@ public class PlayerShipHull : MonoBehaviour {
     private PlayerShipEngineSystem m_engineSystem;
 
 	public float Energy;
+	public int Cargo;
 
 	private readonly VectorPid rotationController = new VectorPid(4.244681f, 0.1f, 1.25f);
 	private Vector3 m_needRotation;
@@ -21,6 +22,7 @@ public class PlayerShipHull : MonoBehaviour {
         m_engineSystem.Initiate();
 
 		Energy = m_settings.EnergyMaximumInitial;  
+		BattleContext.BattleManager.GUIManager.PlayerGUIController.CargoIndicator.SetCargoFill(Cargo);
     }
 
 	public void SetFlyingParameters(float rotation, ThrottleState enginePower) {
@@ -39,6 +41,14 @@ public class PlayerShipHull : MonoBehaviour {
 		if (Energy > m_settings.EnergyMaximumInitial) {
 			Energy = m_settings.EnergyMaximumInitial;
 		}
+	}
+
+	public void AddCargo(int cargo) {
+		Cargo += cargo;
+		if (Cargo > 22) {
+			Cargo = 22;
+		}
+		BattleContext.BattleManager.GUIManager.PlayerGUIController.CargoIndicator.SetCargoFill(Cargo);
 	}
 
     public void UpdateHull() {

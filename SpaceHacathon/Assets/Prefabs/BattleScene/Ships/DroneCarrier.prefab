@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 54302599725605602}
   m_Layer: 0
   m_Name: SSShield_left
-  m_TagString: DroneCarrier
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 54969310623000054}
   m_Layer: 0
   m_Name: SSShield_right
-  m_TagString: DroneCarrier
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -784,8 +784,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CollisionDetector: {fileID: 114000010526979724}
-  m_globalCooldownValue: 10
-  m_blasterCooldown: 5
   m_launcher: {fileID: 4000014041465962}
   m_frontGun: {fileID: 1000012267946952}
   m_rearGun: {fileID: 1000012687323074}
@@ -883,7 +881,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 257871152
+  randomSeed: 2004567851
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3496,7 +3494,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1974230555
+  randomSeed: 1830345366
   InitialModule:
     serializedVersion: 3
     enabled: 1

@@ -9,6 +9,8 @@ public class PlayerGUIController : MonoBehaviour {
 
 	[SerializeField]
 	private EnergyIndicator m_energyIndicator;
+	[SerializeField]
+	private CargoIndicator m_cargoIndicator;
 
 	[SerializeField]
 	private GameObject m_rotationJoystick;
@@ -117,6 +119,12 @@ public class PlayerGUIController : MonoBehaviour {
 	public EnergyIndicator EnergyIndicator {
 		get {
 			return m_energyIndicator;
+		}
+	}
+
+	public CargoIndicator CargoIndicator {
+		get {
+			return m_cargoIndicator;
 		}
 	}
 

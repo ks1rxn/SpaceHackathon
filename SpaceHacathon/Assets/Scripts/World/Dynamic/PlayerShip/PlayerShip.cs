@@ -327,6 +327,15 @@ public class PlayerShip : MonoBehaviour {
 				}
 				break;
 			case ShipState.InCharge:
+				if (other.CompareTag(CollisionTags.StunShip)) {
+					m_hull.AddCargo(3);
+				} else if (other.CompareTag(CollisionTags.RamShip)) {
+					m_hull.AddCargo(3);
+				} else if (other.CompareTag(CollisionTags.DroneCarrier)) {
+					m_hull.AddCargo(2);
+				} else if (other.CompareTag(CollisionTags.RocketShip)) {
+					m_hull.AddCargo(1);
+				}
 				break;
 		}
 	}
