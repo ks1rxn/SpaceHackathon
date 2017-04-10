@@ -28,11 +28,12 @@ public class PlayerShipChargeSystem : MonoBehaviour {
 	private void UpdateChargeIndicators() {
 		BattleContext.BattleManager.GUIManager.PlayerGUIController.SetChargeButtonActive(CanCharge);
 
-		m_chargeIndicators[0].SetActive(m_ship.Hull.Energy >= 20);
-		m_chargeIndicators[1].SetActive(m_ship.Hull.Energy >= 40);
-		m_chargeIndicators[2].SetActive(m_ship.Hull.Energy >= 60);
-		m_chargeIndicators[3].SetActive(m_ship.Hull.Energy >= 80);
-		m_chargeIndicators[4].SetActive(m_ship.Hull.Energy >= 100);
+		float energyForCharge = BattleContext.Settings.PlayerShip.EnergyForCharge;
+		m_chargeIndicators[0].SetActive(m_ship.Hull.Energy >= energyForCharge);
+		m_chargeIndicators[1].SetActive(m_ship.Hull.Energy >= energyForCharge * 2);
+		m_chargeIndicators[2].SetActive(m_ship.Hull.Energy >= energyForCharge * 3);
+		m_chargeIndicators[3].SetActive(m_ship.Hull.Energy >= energyForCharge * 4);
+		m_chargeIndicators[4].SetActive(m_ship.Hull.Energy >= energyForCharge * 5);
 	}
 
 	private void UpdateChargeEngines() {
@@ -58,7 +59,7 @@ public class PlayerShipChargeSystem : MonoBehaviour {
 
 	public bool CanCharge {
 		get {
-			return m_ship.Hull.Energy >= 20;
+			return m_ship.Hull.Energy >= BattleContext.Settings.PlayerShip.EnergyForCharge;
 		}
 	}
 

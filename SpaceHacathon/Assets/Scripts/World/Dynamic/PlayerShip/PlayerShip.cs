@@ -202,7 +202,7 @@ public class PlayerShip : MonoBehaviour {
 		}
 		m_state = ShipState.InCharge;
 		BattleContext.BattleManager.StatisticsManager.PlayerShipStatistics.ChargeUsed++;
-		m_hull.SpendEnergy(20);
+		m_hull.SpendEnergy(m_settings.EnergyForCharge);
 		StartCoroutine(ChargeProcess());
 	}
 
@@ -328,20 +328,20 @@ public class PlayerShip : MonoBehaviour {
 				break;
 			case ShipState.InCharge:
 				if (other.CompareTag(CollisionTags.StunShip)) {
-					m_hull.AddCargo(14);
+					m_hull.AddCargo(m_settings.CargoForStunShip);
 				} else if (other.CompareTag(CollisionTags.RamShip)) {
-					m_hull.AddCargo(14);
+					m_hull.AddCargo(m_settings.CargoForRamShip);
 				} else if (other.CompareTag(CollisionTags.DroneCarrier)) {
-					m_hull.AddCargo(12);
+					m_hull.AddCargo(m_settings.CargoForDroneCarrier);
 				} else if (other.CompareTag(CollisionTags.RocketShip)) {
-					m_hull.AddCargo(8);
+					m_hull.AddCargo(m_settings.CargoForRocketShip);
 				}
 				break;
 		}
 	}
 
 	private void OnChargeFuelHit(GameObject other) {
-		m_hull.AddEnergy(10);
+		m_hull.AddEnergy(m_settings.EnergyInChargeFuel);
 	}
 
 	private void OnSlowingCloudStay(GameObject other) {

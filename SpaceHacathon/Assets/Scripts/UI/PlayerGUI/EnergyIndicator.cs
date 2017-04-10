@@ -8,10 +8,10 @@ public class EnergyIndicator : MonoBehaviour {
 	private Image[] m_blinkColors;
 
 	public void SetEnergy(float energy) {
-		int energyInt = Mathf.RoundToInt(energy * 100);
-		int div = energyInt / 20;
-		float ost = (int)((energyInt % 20) / 20.0f * 5) * 0.2f;
-		float ost2 = ((int)((energyInt % 20) / 20.0f * 5) + 1) * 0.2f;
+		int energyInt = Mathf.RoundToInt(energy * 25);
+		int div = energyInt / 5;
+		float ost = (int)((energyInt % 5) / 5.0f * 5) * 0.2f;
+		float ost2 = ((int)((energyInt % 5) / 5.0f * 5) + 1) * 0.2f;
 //		Debug.Log(energyInt + " " + div + " " + ost);
 		for (int i = 0; i < 5; i++) {
 			if (i > div) {

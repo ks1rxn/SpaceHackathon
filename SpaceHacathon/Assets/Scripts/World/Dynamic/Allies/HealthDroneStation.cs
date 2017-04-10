@@ -99,7 +99,7 @@ public class HealthDroneStation : IAlly {
 			drone.ToMoveToPlayerState();
 		}
 
-		m_healthLeft = BattleContext.BattleManager.Director.PlayerShip.Hull.Cargo * 4;
+		m_healthLeft = BattleContext.BattleManager.Director.PlayerShip.Hull.Cargo;
 		BattleContext.BattleManager.Director.PlayerShip.OnHealBegin();
 		m_activeZone.SetActive(true);
 	}
@@ -114,7 +114,7 @@ public class HealthDroneStation : IAlly {
 			ToWorkDoneState();
 		}
 
-		float hp = Time.fixedDeltaTime * m_settings.TotalHealthCapacity / m_settings.TimeToGiveTotalHealth;
+		float hp = Time.fixedDeltaTime * m_settings.EnergyPerSecond;
 		m_healthLeft -= hp;
 		BattleContext.BattleManager.Director.PlayerShip.OnHeal(hp);
 	}
