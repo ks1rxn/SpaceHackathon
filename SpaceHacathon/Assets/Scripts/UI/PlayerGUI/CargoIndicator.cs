@@ -10,9 +10,18 @@ public class CargoIndicator : MonoBehaviour {
 	public void SetCargoFill(int fill) {
 		int full = fill / 3;
 		int drob = fill % 3;
-		m_top.fillAmount = m_topW * (full + (drob > 0 ? 1 : 0));
-		m_middle.fillAmount = m_midW * (full + (drob > 1 ? 1 : 0));
-		m_bottom.fillAmount = m_botW * full;
+
+		Vector2 size = m_top.rectTransform.sizeDelta;
+		size.x = 58 * (full + (drob > 0 ? 1 : 0));
+		m_top.rectTransform.sizeDelta = size;
+
+		size = m_middle.rectTransform.sizeDelta;
+		size.x = 58 * (full + (drob > 1 ? 1 : 0));
+		m_middle.rectTransform.sizeDelta = size;
+
+		size = m_bottom.rectTransform.sizeDelta;
+		size.x = 58 * full;
+		m_bottom.rectTransform.sizeDelta = size;
 	}
 
 }
