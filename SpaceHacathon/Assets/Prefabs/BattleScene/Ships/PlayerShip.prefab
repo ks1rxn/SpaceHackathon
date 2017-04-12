@@ -320,7 +320,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 186194}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 551.9525, y: 643.8376, z: -767.179}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 493784}
@@ -558,6 +558,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ship: {fileID: 11411150}
   m_engineSystem: {fileID: 11483050}
+  Energy: 0
+  Cargo: 0
 --- !u!198 &19804668
 ParticleSystem:
   m_ObjectHideFlags: 1
