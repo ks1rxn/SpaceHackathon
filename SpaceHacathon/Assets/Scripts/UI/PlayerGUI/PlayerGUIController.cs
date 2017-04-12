@@ -53,7 +53,7 @@ public class PlayerGUIController : MonoBehaviour {
 			}
 		}
 		average /= m_fps.Count;
-		m_fpsCounter.text = "FPS: " + Mathf.RoundToInt(average) + " - " + min;
+		m_fpsCounter.text = "FPS: " + Mathf.RoundToInt(average) + " - " + min + " :: " + BattleContext.BattleManager.Director.PlayerShip.Hull.Energy.ToString("F2");
 	}
 
 	public void Show() {
