@@ -308,6 +308,7 @@ public class PlayerShip : MonoBehaviour {
 				} else if (other.CompareTag(CollisionTags.StunShip)) {
 					BattleContext.BattleManager.BattleCamera.Shake();
 					m_hull.SpendEnergy(m_settings.EnemyShipHitDamage);
+					m_hull.AddCargo(m_settings.CargoForStunShip);
 					BattleContext.BattleManager.StatisticsManager.PlayerShipStatistics.EnemyShipHit++;
 				} else if (other.CompareTag(CollisionTags.RamShip)) {
 					RamShip ram = other.GetComponent<RamShip>();

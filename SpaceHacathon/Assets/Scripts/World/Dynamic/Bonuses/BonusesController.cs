@@ -29,7 +29,11 @@ public class BonusesController : IController {
 
 	private void Respawn(ChargeFuel fuel) {
 		Vector3 playerPos = BattleContext.BattleManager.Director.PlayerShip.Position;
-		fuel.Spawn(MathHelper.GetPointAround(playerPos, BattleContext.BattleManager.Director.PlayerShip.SpeedVector, m_settings.FuelSpawnAngle, m_settings.FuelSpawnMinDist, m_settings.FuelSpawnMaxDist), 0);
+		Vector3 spawnPosition = MathHelper.GetPointAround(playerPos, BattleContext.BattleManager.Director.PlayerShip.SpeedVector, m_settings.FuelSpawnAngle, m_settings.FuelSpawnMinDist, m_settings.FuelSpawnMaxDist);
+		if (Vector3.Distance(BattleContext.BattleManager.AlliesController.ActiveStation.Position, spawnPosition) < BattleContext.Settings.HealingDroneStation.HealingRadius * 1.2f) {
+			spawnPosition += (spawnPosition - BattleContext.BattleManager.AlliesController.ActiveStation.Position).normalized * BattleContext.Settings.HealingDroneStation.HealingRadius * 1.2f;
+		}
+		fuel.Spawn(spawnPosition, 0);
 	}
 
 	public List<ChargeFuel> ChargeFuels {

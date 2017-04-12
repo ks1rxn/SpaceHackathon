@@ -49,6 +49,9 @@ public class HealthDroneStation : IAlly {
 		foreach (HealthDrone drone in m_drones) {
 			drone.Despawn(DespawnReason.ParentDespawn);
 		}
+		if (reason == DespawnReason.Kill) {
+			BattleContext.BattleManager.ExplosionsController.ShipExplosion(Position);
+		}
 	}
 
 	protected override void OnFixedUpdateEntity() {

@@ -77,15 +77,24 @@ public class EnemiesController : IController {
 			} else {
 				if (m_ships[i] is DroneCarrier) {
 					Vector3 dcPosition = MathHelper.GetPointAround(BattleContext.BattleManager.Director.PlayerShip.Position, BattleContext.BattleManager.Director.PlayerShip.SpeedVector, m_settings.DroneCarrierSpawnAngle, m_settings.DroneCarrierSpawnMinDistance, m_settings.DroneCarrierSpawnMaxDistance);
+					if (Vector3.Distance(BattleContext.BattleManager.AlliesController.ActiveStation.Position, dcPosition) < BattleContext.Settings.HealingDroneStation.HealingRadius * 1.2f) {
+						dcPosition += (dcPosition - BattleContext.BattleManager.AlliesController.ActiveStation.Position).normalized * BattleContext.Settings.HealingDroneStation.HealingRadius * 1.2f;
+					}
 					dcPosition.y = -0.75f;
 					EntitiesHelper.SpawnEntity(AvailablePrefabs.DroneCarrier, gameObject, m_droneCarriers, m_ships, dcPosition, MathHelper.Random.Next(360));
 				}
 				if (m_ships[i] is RocketShip) {
 					Vector3 rsPosition = MathHelper.GetPointAround(BattleContext.BattleManager.Director.PlayerShip.Position, BattleContext.BattleManager.Director.PlayerShip.SpeedVector, m_settings.RocketShipSpawnAngle, m_settings.RocketShipSpawnMinDistance, m_settings.RocketShipSpawnMaxDistance);
+					if (Vector3.Distance(BattleContext.BattleManager.AlliesController.ActiveStation.Position, rsPosition) < BattleContext.Settings.HealingDroneStation.HealingRadius * 1.2f) {
+						rsPosition += (rsPosition - BattleContext.BattleManager.AlliesController.ActiveStation.Position).normalized * BattleContext.Settings.HealingDroneStation.HealingRadius * 1.2f;
+					}
 					EntitiesHelper.SpawnEntity(AvailablePrefabs.RocketShip, gameObject, m_rocketShips, m_ships, rsPosition, MathHelper.Random.Next(360));
 				}
 				if (m_ships[i] is SpaceMine) {
 					Vector3 spaceMinePosition = MathHelper.GetPointAround(BattleContext.BattleManager.Director.PlayerShip.Position, BattleContext.BattleManager.Director.PlayerShip.SpeedVector, m_settings.SpaceMineSpawnAngle, m_settings.SpaceMineSpawnMinDistance, m_settings.SpaceMineSpawnMaxDistance);
+					if (Vector3.Distance(BattleContext.BattleManager.AlliesController.ActiveStation.Position, spaceMinePosition) < BattleContext.Settings.HealingDroneStation.HealingRadius * 1.2f) {
+						spaceMinePosition += (spaceMinePosition - BattleContext.BattleManager.AlliesController.ActiveStation.Position).normalized * BattleContext.Settings.HealingDroneStation.HealingRadius * 1.2f;
+					}
 					EntitiesHelper.SpawnEntity(AvailablePrefabs.SpaceMine, gameObject, m_spaceMines, m_ships, spaceMinePosition, 0);
 				}
 			}
