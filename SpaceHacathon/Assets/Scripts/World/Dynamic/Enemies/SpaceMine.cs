@@ -38,6 +38,7 @@ public class SpaceMine : IEnemyShip {
 		CollisionDetector.RegisterListener(CollisionTags.StunShip, OnOtherShipHit);
 		CollisionDetector.RegisterListener(CollisionTags.RamShip, OnOtherShipHit);
 		CollisionDetector.RegisterListener(CollisionTags.SpaceMine, OnOtherShipHit);
+		CollisionDetector.RegisterListener(CollisionTags.HealthDroneStation, OnOtherShipHit);
 	}
 
 	protected override void OnPhysicBodySpawn(Vector3 position, Vector3 angle) {

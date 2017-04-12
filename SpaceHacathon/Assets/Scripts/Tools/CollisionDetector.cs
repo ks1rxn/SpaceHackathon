@@ -95,4 +95,5 @@ public class CollisionTags {
 	public static readonly string ChargeFuel = "ChargeFuel";
 	public static readonly string TimeBonus = "TimeBonus";
 	public static readonly string SlowingCloud = "SlowingCloud";
+	public static readonly string HealthDroneStation = "HealthDroneStation";
 }
