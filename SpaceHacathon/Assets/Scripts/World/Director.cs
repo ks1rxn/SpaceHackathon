@@ -9,9 +9,13 @@ public class Director : MonoBehaviour {
 
 	private PlayerShip m_playerShip;
 
+	private bool m_started;
+
 	private void Awake() {
 		//todo: this must be done on LevelLoad scene
-		LoadDiffucultySettings((int)m_difficultyLevel);
+		if ((int) BattleContext.NextLevel > 0) {
+			LoadDiffucultySettings((int)BattleContext.NextLevel);
+		}
 	}
 
 	private static void LoadDiffucultySettings(int level) {
@@ -28,11 +32,18 @@ public class Director : MonoBehaviour {
 //		});
 		BattleContext.Initiate();
 		BattleContext.BattleManager.PrefabsManager.Initiate();
-
-		BattleContext.BattleManager.StatisticsManager.Initiate();
-		BattleContext.BattleManager.TimeManager.Initiate();
 		BattleContext.BattleManager.GUIManager.CreateGUI();
 
+		if (!BattleContext.IsFirstRun) {
+			BattleContext.BattleManager.GUIManager.DeathMenu.Show(-1);
+			BattleContext.IsFirstRun = true;
+			return;
+		}
+
+		m_started = true;
+		BattleContext.BattleManager.AsteroidField.Initiate();
+		BattleContext.BattleManager.StatisticsManager.Initiate();
+		BattleContext.BattleManager.TimeManager.Initiate();
 		BattleContext.BattleManager.GUIManager.PlayerGUIController.Show();
 
 		foreach (IController controller in BattleContext.BattleManager.Controllers) {
@@ -58,21 +69,26 @@ public class Director : MonoBehaviour {
 
 	public void OnPlayerDie() {
 		BattleContext.BattleManager.GUIManager.PlayerGUIController.Hide();
-		BattleContext.BattleManager.GUIManager.DeathMenu.Show();
+		BattleContext.BattleManager.GUIManager.DeathMenu.Show(BattleContext.BattleManager.TimeManager.GameTime);
 		BattleContext.BattleManager.TimeManager.Pause();
 		BattleContext.BattleManager.StatisticsManager.SendPlayerShipStatistics();
 	}
 
 	private void Update() {
-		BattleContext.BattleManager.StatisticsManager.UpdateEntity();
-		BattleContext.BattleManager.TimeManager.UpdateEntity();
+		if (m_started) {
+			BattleContext.BattleManager.StatisticsManager.UpdateEntity();
+			BattleContext.BattleManager.TimeManager.UpdateEntity();
+		}
 	}
 
 	private void FixedUpdate() {
-		BattleContext.BattleManager.Director.PlayerShip.UpdateEntity();
-		BattleContext.BattleManager.BattleCamera.UpdateEntity();
-		foreach (IController controller in BattleContext.BattleManager.Controllers) {
-			controller.FixedUpdateEntity();
+		if (m_started) {
+			BattleContext.BattleManager.AsteroidField.FixedUpdateEntity();
+			BattleContext.BattleManager.Director.PlayerShip.UpdateEntity();
+			BattleContext.BattleManager.BattleCamera.UpdateEntity();
+			foreach (IController controller in BattleContext.BattleManager.Controllers) {
+				controller.FixedUpdateEntity();
+			}
 		}
 	}
 

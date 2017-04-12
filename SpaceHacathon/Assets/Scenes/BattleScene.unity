@@ -540,6 +540,7 @@ MonoBehaviour:
   m_timeManager: {fileID: 24547032}
   m_battleCamera: {fileID: 322693472}
   m_guiManager: {fileID: 674053769}
+  m_asteroidField: {fileID: 220727858}
 --- !u!1001 &767961351
 Prefab:
   m_ObjectHideFlags: 0
