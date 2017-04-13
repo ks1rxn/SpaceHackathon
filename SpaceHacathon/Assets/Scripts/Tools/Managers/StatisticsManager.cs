@@ -4,6 +4,10 @@ public class StatisticsManager : MonoBehaviour {
 	private float m_fps;
 	private int m_frames;
 
+	private int m_fpsUnder30;
+	private int m_fps3050;
+	private int m_fpsAbove50;
+
 	[SerializeField]
 	private GoogleAnalyticsV4 m_analytics;
 
@@ -14,7 +18,15 @@ public class StatisticsManager : MonoBehaviour {
 	}
 
 	public void UpdateEntity() {
-		m_fps += Mathf.RoundToInt(1 / Time.deltaTime * Time.timeScale);
+		int fps = Mathf.RoundToInt(1 / Time.deltaTime * Time.timeScale);
+		m_fps += fps;
+		if (fps > 50) {
+			m_fpsAbove50++;
+		} else if (fps < 30) {
+			m_fpsUnder30++;
+		} else {
+			m_fps3050++;
+		}
 		m_frames++;
 	}
 
@@ -22,7 +34,15 @@ public class StatisticsManager : MonoBehaviour {
 		string category = "BattleScene-0.2.1:2-" + BattleContext.NextLevel;
 		string eventName = "EndBattle";
 
-		m_analytics.LogEvent(category, eventName, "FPS", Mathf.Clamp(Mathf.RoundToInt(m_fps / m_frames), 0, 100));
+		float perc30 = (float)m_fpsUnder30 / m_frames * 100;
+		float perc3050 = (float)m_fps3050 / m_frames * 100;
+		float perc50 = (float)m_fpsAbove50 / m_frames * 100;
+
+		m_analytics.LogEvent("fps", SystemInfo.deviceModel, "avg", Mathf.Clamp(Mathf.RoundToInt(m_fps / m_frames), 0, 100));
+		m_analytics.LogEvent("fps", SystemInfo.deviceModel, "under30", Mathf.RoundToInt(perc30));
+		m_analytics.LogEvent("fps", SystemInfo.deviceModel, "3050", Mathf.RoundToInt(perc3050));
+		m_analytics.LogEvent("fps", SystemInfo.deviceModel, "above50", Mathf.RoundToInt(perc50));
+
 		m_analytics.LogEvent(category, eventName, "TimeAlive", (int)BattleContext.BattleManager.TimeManager.GameTime);
 
 		m_analytics.LogEvent(category, eventName, "RamShipHit", m_playerShipStatistics.RamShipHit);
