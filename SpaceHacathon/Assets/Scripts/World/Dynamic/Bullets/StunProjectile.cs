@@ -30,8 +30,10 @@ public class StunProjectile : IBullet {
 		m_trail2.Clear();
 	}
 
-	protected override void OnDespawn(DespawnReason reasonS) {
-		BattleContext.BattleManager.ExplosionsController.LaserExplosion(transform.position);
+	protected override void OnDespawn(DespawnReason reason) {
+		if (reason == DespawnReason.Kill) {
+			BattleContext.BattleManager.ExplosionsController.LaserExplosion(Position);
+		}
 	}
 
 	protected override void OnFixedUpdateEntity() {

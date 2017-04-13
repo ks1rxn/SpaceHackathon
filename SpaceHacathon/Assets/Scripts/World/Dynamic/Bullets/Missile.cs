@@ -25,6 +25,9 @@ public class Missile : IBullet {
 	}
 
 	protected override void OnDespawn(DespawnReason reason) {
+		if (reason == DespawnReason.OutOfRange) {
+			return;
+		}
 		BattleContext.BattleManager.ExplosionsController.RocketExplosion(transform.position);
 	}
 
@@ -50,7 +53,6 @@ public class Missile : IBullet {
 		m_lifeTime -= Time.fixedDeltaTime;
 		if (m_lifeTime <= 0) {
 			Despawn(DespawnReason.TimeOff);
-			BattleContext.BattleManager.ExplosionsController.RocketExplosion(transform.position);
 		}
 
 		if (m_detonatorActivateTime <= 0) {
