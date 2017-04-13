@@ -706,7 +706,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1476984449711460
 GameObject:
   m_ObjectHideFlags: 1
@@ -1918,6 +1918,7 @@ MonoBehaviour:
   - {fileID: 114674598534035542}
   - {fileID: 114123182270072274}
   - {fileID: 114958963166494236}
+  m_rechargeIndicator: {fileID: 1432978642937298}
 --- !u!114 &114057967346169384
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1960,6 +1961,7 @@ MonoBehaviour:
   m_middle: {fileID: 114848382794815042}
   m_bottom: {fileID: 114217009611545404}
   m_noCargo: {fileID: 1522077824562240}
+  m_fullCargo: {fileID: 1556832083978522}
 --- !u!114 &114096866219505798
 MonoBehaviour:
   m_ObjectHideFlags: 1

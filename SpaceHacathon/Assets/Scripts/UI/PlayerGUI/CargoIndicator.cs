@@ -6,6 +6,8 @@ public class CargoIndicator : MonoBehaviour {
 	private Image m_top, m_middle, m_bottom;
 	[SerializeField]
 	private GameObject m_noCargo;
+	[SerializeField]
+	private GameObject m_fullCargo;
 
 	public void SetCargoFill(int fill) {
 		int full = fill / 3;
@@ -22,6 +24,8 @@ public class CargoIndicator : MonoBehaviour {
 		size = m_bottom.rectTransform.sizeDelta;
 		size.x = 58 * full;
 		m_bottom.rectTransform.sizeDelta = size;
+
+		m_fullCargo.SetActive(fill == BattleContext.Settings.PlayerShip.CargoCapacity);
 	}
 
 	public void ShowNoCargo() {

@@ -360,6 +360,7 @@ public class PlayerShip : MonoBehaviour {
 	public void OnHealBegin() {
 		m_healEffect.SetActive(true);
 		m_hull.SpendCargo();
+		BattleContext.BattleManager.GUIManager.PlayerGUIController.EnergyIndicator.ShowRecharge();
 	}
 
 	public void OnHeal(float hp) {
@@ -368,6 +369,7 @@ public class PlayerShip : MonoBehaviour {
 
 	public void OnHealEnd() {
 		m_healEffect.SetActive(false);
+		BattleContext.BattleManager.GUIManager.PlayerGUIController.EnergyIndicator.HideRecharge();
 	}
 
 	public Vector3 LookVector {

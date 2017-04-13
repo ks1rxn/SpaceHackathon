@@ -6,6 +6,8 @@ public class EnergyIndicator : MonoBehaviour {
 	private Image[] m_mainColors;
 	[SerializeField]
 	private Image[] m_blinkColors;
+	[SerializeField]
+	private GameObject m_rechargeIndicator;
 
 	public void SetEnergy(float energy) {
 		int energyInt = Mathf.RoundToInt(energy * 25);
@@ -30,8 +32,12 @@ public class EnergyIndicator : MonoBehaviour {
 		}
 	}
 
-	private void Update() {
-		
+	public void ShowRecharge() {
+		m_rechargeIndicator.SetActive(true);
+	}
+
+	public void HideRecharge() {
+		m_rechargeIndicator.SetActive(false);
 	}
 
 }
