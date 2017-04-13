@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 7cb250069be81164190a4a022db6b8ff
-timeCreated: 1491694039
+timeCreated: 1492099129
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -11,6 +11,7 @@ TextureImporter:
     21300008: Hud1New_16
     21300010: Hud1New_17
     21300012: Hud1New_18
+    21300014: Hud1New_1
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -73,6 +74,14 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+  - buildTarget: Android
+    maxTextureSize: 1024
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -124,7 +133,7 @@ TextureImporter:
         width: 165
         height: 165
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -137,7 +146,7 @@ TextureImporter:
         width: 491
         height: 491
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -150,7 +159,7 @@ TextureImporter:
         width: 8
         height: 58
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -163,8 +172,21 @@ TextureImporter:
         width: 495
         height: 495
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Hud1New_1
+      rect:
+        serializedVersion: 2
+        x: 782
+        y: 544
+        width: 186
+        height: 212
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 11, w: 0}
       outline: []
       tessellationDetail: 0
     outline: []
