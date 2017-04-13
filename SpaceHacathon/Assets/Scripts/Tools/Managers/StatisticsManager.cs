@@ -31,7 +31,7 @@ public class StatisticsManager : MonoBehaviour {
 	}
 
 	public void SendPlayerShipStatistics() {
-		string category = "BattleScene-0.2.1:2-" + BattleContext.NextLevel;
+		string category = "BattleScene-0.2.2:1-" + BattleContext.NextLevel;
 		string eventName = "EndBattle";
 
 		float perc30 = (float)m_fpsUnder30 / m_frames * 100;
