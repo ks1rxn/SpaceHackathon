@@ -84,6 +84,8 @@ public class HealthDroneStation : IAlly {
 		m_drones[2].Spawn(m_dronePoints[2].position, 0);
 		m_drones[2].SetBase(m_dronePoints[2]);
 
+		m_animator.SetBool("Off", false);
+
 		m_activeZone.SetActive(false);
 		m_sleepZone.SetActive(true);
 	}
