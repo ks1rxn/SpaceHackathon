@@ -99,7 +99,7 @@ public class HealthDrone : IPhysicBody {
 
 	protected override float DistanceToDespawn {
 		get {
-			return 100;
+			return 0;
 		}
 	}
 

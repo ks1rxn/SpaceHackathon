@@ -73,8 +73,8 @@ GameObject:
   - component: {fileID: 33000012716482804}
   - component: {fileID: 23000012128744700}
   - component: {fileID: 65000014198529724}
-  - component: {fileID: 54000013562863244}
   - component: {fileID: 114000014175933384}
+  - component: {fileID: 114651884075022314}
   m_Layer: 0
   m_Name: BarrelChargeFuel
   m_TagString: ChargeFuel
@@ -206,21 +206,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013695592742}
   m_Mesh: {fileID: 4300002, guid: 9c97a3957ddbfcb409d2d54bb0467502, type: 3}
---- !u!54 &54000013562863244
-Rigidbody:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013695592742}
-  serializedVersion: 2
-  m_Mass: 0.0001
-  m_Drag: 100
-  m_AngularDrag: 100
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
 --- !u!65 &65000014198529724
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -244,6 +229,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8ae04473e279b7428c4e56ae7ffb351, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114651884075022314
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013695592742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71860be152cdc414f92aa85405ac5ecf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionDetector: {fileID: 114000014175933384}
 --- !u!198 &198000010087083434
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -10800,7 +10797,7 @@ ParticleSystemRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedEditorRenderState: 3
+  m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -10850,7 +10847,7 @@ ParticleSystemRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedEditorRenderState: 3
+  m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -10900,7 +10897,7 @@ ParticleSystemRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedEditorRenderState: 3
+  m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -10950,7 +10947,7 @@ ParticleSystemRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedEditorRenderState: 3
+  m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
