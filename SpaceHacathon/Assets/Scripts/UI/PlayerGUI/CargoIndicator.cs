@@ -4,6 +4,8 @@ using UnityEngine.UI;
 public class CargoIndicator : MonoBehaviour {
 	[SerializeField]
 	private Image m_top, m_middle, m_bottom;
+	[SerializeField]
+	private GameObject m_noCargo;
 
 	public void SetCargoFill(int fill) {
 		int full = fill / 3;
@@ -20,6 +22,14 @@ public class CargoIndicator : MonoBehaviour {
 		size = m_bottom.rectTransform.sizeDelta;
 		size.x = 58 * full;
 		m_bottom.rectTransform.sizeDelta = size;
+	}
+
+	public void ShowNoCargo() {
+		m_noCargo.SetActive(true);		
+	}
+
+	public void HideNoCargo() {
+		m_noCargo.SetActive(false);
 	}
 
 }
