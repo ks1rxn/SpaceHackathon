@@ -90,8 +90,12 @@ public class HealthDroneStation : IAlly {
 
 	private void PerformSleepState() {
 		Vector3 playerPosition = BattleContext.BattleManager.Director.PlayerShip.Position;
-		if (Vector3.Distance(playerPosition, Position) < m_settings.HealingRadius - 0.05f && BattleContext.BattleManager.Director.PlayerShip.Hull.Cargo > 0) {
-			ToHealPlayerState();
+		if (Vector3.Distance(playerPosition, Position) < m_settings.HealingRadius - 0.05f) {
+			if (BattleContext.BattleManager.Director.PlayerShip.Hull.Cargo > 0) {
+				ToHealPlayerState();
+			} else {
+				BattleContext.BattleManager.StatisticsManager.PlayerShipStatistics.TimeInNoSalvation += Time.fixedDeltaTime;
+			}
 		}
 	}
 
@@ -105,6 +109,9 @@ public class HealthDroneStation : IAlly {
 		m_healthLeft = BattleContext.BattleManager.Director.PlayerShip.Hull.Cargo;
 		BattleContext.BattleManager.Director.PlayerShip.OnHealBegin();
 		m_activeZone.SetActive(true);
+
+		BattleContext.BattleManager.StatisticsManager.PlayerShipStatistics.HealStationUse++;
+		BattleContext.BattleManager.StatisticsManager.PlayerShipStatistics.TotalCargoBrought += Mathf.RoundToInt(m_healthLeft);
 	}
 
 	private void PerformHealPlayerState() {

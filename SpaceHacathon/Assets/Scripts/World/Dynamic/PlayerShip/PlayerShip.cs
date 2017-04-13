@@ -257,8 +257,8 @@ public class PlayerShip : MonoBehaviour {
 		if (m_state != ShipState.OnMove) {
 			return;
 		}
-		m_hull.SpendEnergy(m_settings.StunProjectileDamage);
 		BattleContext.BattleManager.StatisticsManager.PlayerShipStatistics.StunHit++;
+		m_hull.SpendEnergy(m_settings.StunProjectileDamage);
 		StopCoroutine("StunProcedure");
 		StartCoroutine(StunProcedure());
 	}
@@ -267,21 +267,21 @@ public class PlayerShip : MonoBehaviour {
 		if (m_state != ShipState.OnMove) {
 			return;
 		}
-		m_hull.SpendEnergy(m_settings.LaserDamage);
 		BattleContext.BattleManager.StatisticsManager.PlayerShipStatistics.LaserHit++;
+		m_hull.SpendEnergy(m_settings.LaserDamage);
 	}
 
 	private void OnMissileHit(GameObject other) {
 		if (m_state != ShipState.OnMove) {
 			return;
 		}
+		BattleContext.BattleManager.StatisticsManager.PlayerShipStatistics.MissileHit++;
 		BattleContext.BattleManager.BattleCamera.Shake();
 		//hack
 		Vector3 position = other.transform.position;
 		position.y = 0;
 		m_rigidbody.AddExplosionForce(m_rigidbody.mass * 50, Position + (position - Position).normalized * 3, 5);
 		m_hull.SpendEnergy(m_settings.MissileDamage);
-		BattleContext.BattleManager.StatisticsManager.PlayerShipStatistics.RocketHit++;
 		StopCoroutine("BashProcedure");
 		StartCoroutine(BashProcedure());
 	}
@@ -290,9 +290,9 @@ public class PlayerShip : MonoBehaviour {
 		if (m_state != ShipState.OnMove) {
 			return;
 		}
+		BattleContext.BattleManager.StatisticsManager.PlayerShipStatistics.CarrierRocketHit++;
 		BattleContext.BattleManager.BattleCamera.Shake();
 		m_hull.SpendEnergy(m_settings.CarrierRocketDamage);
-		BattleContext.BattleManager.StatisticsManager.PlayerShipStatistics.RocketHit++;
 		StopCoroutine("BashProcedure");
 		StartCoroutine(BashProcedure());
 	}
@@ -302,15 +302,16 @@ public class PlayerShip : MonoBehaviour {
 			case ShipState.OnMove:
 				//todo: remove this shit
 				if (other.CompareTag(CollisionTags.SpaceMine)) {
+					BattleContext.BattleManager.StatisticsManager.PlayerShipStatistics.MineHit++;
 					BattleContext.BattleManager.BattleCamera.Shake();
 					m_hull.SpendEnergy(m_settings.MineDamage);
-					BattleContext.BattleManager.StatisticsManager.PlayerShipStatistics.MineHit++;
 				} else if (other.CompareTag(CollisionTags.StunShip)) {
+					BattleContext.BattleManager.StatisticsManager.PlayerShipStatistics.EnemyShipHit++;
 					BattleContext.BattleManager.BattleCamera.Shake();
 					m_hull.SpendEnergy(m_settings.EnemyShipHitDamage);
 					m_hull.AddCargo(m_settings.CargoForStunShip);
-					BattleContext.BattleManager.StatisticsManager.PlayerShipStatistics.EnemyShipHit++;
 				} else if (other.CompareTag(CollisionTags.RamShip)) {
+					BattleContext.BattleManager.StatisticsManager.PlayerShipStatistics.RamShipHit++;
 					RamShip ram = other.GetComponent<RamShip>();
 					if (ram != null && ram.State == RamShipState.Running) {
 						BattleContext.BattleManager.BattleCamera.Shake();
@@ -318,23 +319,26 @@ public class PlayerShip : MonoBehaviour {
 					} else {
 						m_hull.SpendEnergy(m_settings.EnemyShipHitDamage);
 					}
-					BattleContext.BattleManager.StatisticsManager.PlayerShipStatistics.RamShipHit++;
 				} else if (other.CompareTag(CollisionTags.DroneCarrier)) {
-					m_hull.SpendEnergy(m_settings.EnemyShipHitDamage);
 					BattleContext.BattleManager.StatisticsManager.PlayerShipStatistics.EnemyShipHit++;
+					m_hull.SpendEnergy(m_settings.EnemyShipHitDamage);
 				} else if (other.CompareTag(CollisionTags.RocketShip)) {
-					m_hull.SpendEnergy(m_settings.EnemyShipHitDamage);
 					BattleContext.BattleManager.StatisticsManager.PlayerShipStatistics.EnemyShipHit++;
+					m_hull.SpendEnergy(m_settings.EnemyShipHitDamage);
 				}
 				break;
 			case ShipState.InCharge:
 				if (other.CompareTag(CollisionTags.StunShip)) {
+					BattleContext.BattleManager.StatisticsManager.PlayerShipStatistics.KillStunShip++;
 					m_hull.AddCargo(m_settings.CargoForStunShip);
 				} else if (other.CompareTag(CollisionTags.RamShip)) {
+					BattleContext.BattleManager.StatisticsManager.PlayerShipStatistics.KillRamShip++;
 					m_hull.AddCargo(m_settings.CargoForRamShip);
 				} else if (other.CompareTag(CollisionTags.DroneCarrier)) {
+					BattleContext.BattleManager.StatisticsManager.PlayerShipStatistics.KillDroneCarrier++;
 					m_hull.AddCargo(m_settings.CargoForDroneCarrier);
 				} else if (other.CompareTag(CollisionTags.RocketShip)) {
+					BattleContext.BattleManager.StatisticsManager.PlayerShipStatistics.KillRocketShip++;
 					m_hull.AddCargo(m_settings.CargoForRocketShip);
 				}
 				break;
@@ -342,6 +346,7 @@ public class PlayerShip : MonoBehaviour {
 	}
 
 	private void OnChargeFuelHit(GameObject other) {
+		BattleContext.BattleManager.StatisticsManager.PlayerShipStatistics.EnergyBarrelTake++;
 		m_hull.AddEnergy(m_settings.EnergyInChargeFuel);
 	}
 
@@ -349,6 +354,7 @@ public class PlayerShip : MonoBehaviour {
 		if (m_effects.Slowing > m_settings.SlowingCloudMaxSlow) {
 			m_effects.Slowing -= 3 * Time.fixedDeltaTime;
 		}
+		BattleContext.BattleManager.StatisticsManager.PlayerShipStatistics.TimeInSlowingCloud += Time.fixedDeltaTime;
 	}
 
 	public void OnHealBegin() {

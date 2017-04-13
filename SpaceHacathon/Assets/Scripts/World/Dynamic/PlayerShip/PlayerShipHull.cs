@@ -65,6 +65,18 @@ public class PlayerShipHull : MonoBehaviour {
     private void UpdateEnergy() {
 		SpendEnergy(m_settings.EnergyDropPerSecond * Time.fixedDeltaTime);
 		BattleContext.BattleManager.GUIManager.PlayerGUIController.EnergyIndicator.SetEnergy(Energy / m_settings.EnergyMaximumInitial);
+
+	    if (Energy < m_settings.EnergyMaximumInitial / 5) {
+		    BattleContext.BattleManager.StatisticsManager.PlayerShipStatistics.TimeOn1Battery += Time.fixedDeltaTime;
+	    } else if (Energy < m_settings.EnergyMaximumInitial / 5 * 2) {
+		    BattleContext.BattleManager.StatisticsManager.PlayerShipStatistics.TimeOn2Battery += Time.fixedDeltaTime;
+	    } else if (Energy < m_settings.EnergyMaximumInitial / 5 * 3) {
+		    BattleContext.BattleManager.StatisticsManager.PlayerShipStatistics.TimeOn3Battery += Time.fixedDeltaTime;
+	    } else if (Energy < m_settings.EnergyMaximumInitial / 5 * 4) {
+		    BattleContext.BattleManager.StatisticsManager.PlayerShipStatistics.TimeOn4Battery += Time.fixedDeltaTime;
+	    } else {
+		    BattleContext.BattleManager.StatisticsManager.PlayerShipStatistics.TimeOn5Battery += Time.fixedDeltaTime;
+	    }
     }
 
 	public void SetRollAngle(float angle) {

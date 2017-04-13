@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class AlliesController : IController {
 	private SettingsAlliesController m_settings;
