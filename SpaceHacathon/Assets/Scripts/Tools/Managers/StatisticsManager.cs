@@ -43,7 +43,7 @@ public class StatisticsManager : MonoBehaviour {
 		m_analytics.LogEvent(category, eventName, "EnergyBarrelTake", m_playerShipStatistics.EnergyBarrelTake);
 		m_analytics.LogEvent(category, eventName, "HealStationUse", m_playerShipStatistics.HealStationUse);
 		m_analytics.LogEvent(category, eventName, "TotalCargoBrought", m_playerShipStatistics.TotalCargoBrought);
-		m_analytics.LogEvent(category, eventName, "TimeInNoSalvation", Mathf.RoundToInt(m_playerShipStatistics.TimeInNoSalvation));
+		m_analytics.LogEvent(category, eventName, "NoSalvation", m_playerShipStatistics.NoSalvation);
 		m_analytics.LogEvent(category, eventName, "ChargeUsed", m_playerShipStatistics.ChargeUsed);
 
 		m_analytics.LogEvent(category, eventName, "TimeOn1Battery", Mathf.RoundToInt(m_playerShipStatistics.TimeOn1Battery));
@@ -83,7 +83,7 @@ public class PlayerShipStatistics {
 
 	public int HealStationUse { get; set; }
 	public int TotalCargoBrought { get; set; }
-	public float TimeInNoSalvation { get; set; }
+	public int NoSalvation { get; set; }
 
 	public float TimeOn1Battery { get; set; }
 	public float TimeOn2Battery { get; set; }

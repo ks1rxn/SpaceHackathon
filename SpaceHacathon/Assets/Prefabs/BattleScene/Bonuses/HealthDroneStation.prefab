@@ -742,6 +742,7 @@ MonoBehaviour:
   - {fileID: 4000011861633286}
   m_sleepZone: {fileID: 1568101454421730}
   m_activeZone: {fileID: 1000011486744748}
+  m_noSalvation: {fileID: 1000011085070854}
   m_animator: {fileID: 95000013150535364}
 --- !u!114 &114249644978101620
 MonoBehaviour:

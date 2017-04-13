@@ -13,6 +13,8 @@ public class HealthDroneStation : IAlly {
 	[SerializeField]
 	private GameObject m_activeZone;
 	[SerializeField]
+	private GameObject m_noSalvation;
+	[SerializeField]
 	private Animator m_animator;
 
 	private HealthDroneStationState m_state;
@@ -31,6 +33,7 @@ public class HealthDroneStation : IAlly {
 
 		m_sleepZone.transform.localScale = new Vector3(m_settings.HealingRadius / 2, m_settings.HealingRadius / 2, m_settings.HealingRadius / 2);
 		m_activeZone.transform.localScale = new Vector3(m_settings.HealingRadius / 2, m_settings.HealingRadius / 2, m_settings.HealingRadius / 2);
+		m_noSalvation.transform.localScale = new Vector3(m_settings.HealingRadius / 2, m_settings.HealingRadius / 2, m_settings.HealingRadius / 2);
 	}
 
 	private void OnPlayerShipHit(GameObject other) {
@@ -58,6 +61,9 @@ public class HealthDroneStation : IAlly {
 		switch (m_state) {
 			case HealthDroneStationState.Sleep:
 				PerformSleepState();
+				break;
+			case HealthDroneStationState.NoSalvation:
+				PerformNoSalvationState();
 				break;
 			case HealthDroneStationState.HealPlayer:
 				PerformHealPlayerState();
@@ -87,6 +93,7 @@ public class HealthDroneStation : IAlly {
 		m_animator.SetBool("Off", false);
 
 		m_activeZone.SetActive(false);
+		m_noSalvation.SetActive(false);
 		m_sleepZone.SetActive(true);
 	}
 
@@ -96,8 +103,26 @@ public class HealthDroneStation : IAlly {
 			if (BattleContext.BattleManager.Director.PlayerShip.Hull.Cargo > 0) {
 				ToHealPlayerState();
 			} else {
-				BattleContext.BattleManager.StatisticsManager.PlayerShipStatistics.TimeInNoSalvation += Time.fixedDeltaTime;
+				ToNoSalvationState();
 			}
+		}
+	}
+
+	private void ToNoSalvationState() {
+		m_state = HealthDroneStationState.NoSalvation;
+
+		BattleContext.BattleManager.StatisticsManager.PlayerShipStatistics.NoSalvation++;
+		m_noSalvation.SetActive(true);
+	}
+
+	private void PerformNoSalvationState() {
+		Vector3 playerPosition = BattleContext.BattleManager.Director.PlayerShip.Position;
+		if (Vector3.Distance(playerPosition, Position) < m_settings.HealingRadius - 0.05f) {
+			if (BattleContext.BattleManager.Director.PlayerShip.Hull.Cargo > 0) {
+				ToHealPlayerState();
+			}
+		} else {
+			ToSleepState();
 		}
 	}
 
@@ -111,6 +136,7 @@ public class HealthDroneStation : IAlly {
 		m_healthLeft = BattleContext.BattleManager.Director.PlayerShip.Hull.Cargo;
 		BattleContext.BattleManager.Director.PlayerShip.OnHealBegin();
 		m_activeZone.SetActive(true);
+		m_noSalvation.SetActive(false);
 
 		BattleContext.BattleManager.StatisticsManager.PlayerShipStatistics.HealStationUse++;
 		BattleContext.BattleManager.StatisticsManager.PlayerShipStatistics.TotalCargoBrought += Mathf.RoundToInt(m_healthLeft);
@@ -141,6 +167,7 @@ public class HealthDroneStation : IAlly {
 		BattleContext.BattleManager.Director.PlayerShip.OnHealEnd();
 		m_activeZone.SetActive(false);
 		m_sleepZone.SetActive(false);
+		m_noSalvation.SetActive(false);
 
 		m_animator.SetBool("Off", true);
 	}
@@ -173,6 +200,7 @@ public class HealthDroneStation : IAlly {
 
 public enum HealthDroneStationState {
 	Sleep,
+	NoSalvation,
 	HealPlayer,
 	WorkDone
 }
