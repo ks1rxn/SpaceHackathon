@@ -26,7 +26,7 @@ public class PauseMenu : MonoBehaviour {
 	}
 
 	public void OnExitClick() {
-		
+		BattleContext.BattleManager.Director.OnPlayerDie();
 	}
 
 }

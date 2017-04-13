@@ -19,6 +19,9 @@ public class StatisticsManager : MonoBehaviour {
 
 	public void UpdateEntity() {
 		int fps = Mathf.RoundToInt(1 / Time.deltaTime * Time.timeScale);
+		if (fps > 65 || fps < 10) {
+			return;
+		}
 		m_fps += fps;
 		if (fps > 50) {
 			m_fpsAbove50++;
@@ -31,17 +34,19 @@ public class StatisticsManager : MonoBehaviour {
 	}
 
 	public void SendPlayerShipStatistics() {
-		string category = "BattleScene-0.2.2:1-" + BattleContext.NextLevel;
+		string statisticsVersion = "BattleScene-0.2.31:1";
+		string fpsName = statisticsVersion + "-fps";
+		string category = statisticsVersion + "-" + BattleContext.NextLevel;
 		string eventName = "EndBattle";
 
 		float perc30 = (float)m_fpsUnder30 / m_frames * 100;
 		float perc3050 = (float)m_fps3050 / m_frames * 100;
 		float perc50 = (float)m_fpsAbove50 / m_frames * 100;
 
-		m_analytics.LogEvent("fps", SystemInfo.deviceModel, "avg", Mathf.Clamp(Mathf.RoundToInt(m_fps / m_frames), 0, 100));
-		m_analytics.LogEvent("fps", SystemInfo.deviceModel, "under30", Mathf.RoundToInt(perc30));
-		m_analytics.LogEvent("fps", SystemInfo.deviceModel, "3050", Mathf.RoundToInt(perc3050));
-		m_analytics.LogEvent("fps", SystemInfo.deviceModel, "above50", Mathf.RoundToInt(perc50));
+		m_analytics.LogEvent(fpsName, SystemInfo.deviceModel, "avg", Mathf.Clamp(Mathf.RoundToInt(m_fps / m_frames), 0, 100));
+		m_analytics.LogEvent(fpsName, SystemInfo.deviceModel, "under30", Mathf.RoundToInt(perc30));
+		m_analytics.LogEvent(fpsName, SystemInfo.deviceModel, "3050", Mathf.RoundToInt(perc3050));
+		m_analytics.LogEvent(fpsName, SystemInfo.deviceModel, "above50", Mathf.RoundToInt(perc50));
 
 		m_analytics.LogEvent(category, eventName, "TimeAlive", (int)BattleContext.BattleManager.TimeManager.GameTime);
 
