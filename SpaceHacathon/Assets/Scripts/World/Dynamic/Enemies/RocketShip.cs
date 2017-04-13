@@ -20,7 +20,9 @@ public class RocketShip : IEnemyShip {
 	}
 
 	protected override void OnDespawn(DespawnReason reason) {
-		BattleContext.BattleManager.ExplosionsController.ShipExplosion(Position);
+		if (reason == DespawnReason.Kill) {
+			BattleContext.BattleManager.ExplosionsController.ShipExplosion(Position);
+		}
 	}
 
 	private void OnPlayerShipHit(GameObject other) {

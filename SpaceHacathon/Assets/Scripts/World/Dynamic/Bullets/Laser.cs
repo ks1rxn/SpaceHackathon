@@ -26,7 +26,9 @@ public class Laser : IBullet {
 	}
 
 	protected override void OnDespawn(DespawnReason reason) {
-		BattleContext.BattleManager.ExplosionsController.LaserExplosion(transform.position);
+		if (reason == DespawnReason.Kill) {
+			BattleContext.BattleManager.ExplosionsController.LaserExplosion(Position);
+		}
 	}
 
 	protected override void OnFixedUpdateEntity() {

@@ -49,7 +49,9 @@ public class SpaceMine : IEnemyShip {
 	}
 
 	protected override void OnDespawn(DespawnReason reason) {
-		BattleContext.BattleManager.ExplosionsController.MineExplosion(Position);
+		if (reason == DespawnReason.Kill) {
+			BattleContext.BattleManager.ExplosionsController.MineExplosion(Position);
+		}
 	}
 
 	private void OnOtherShipHit(GameObject other) {

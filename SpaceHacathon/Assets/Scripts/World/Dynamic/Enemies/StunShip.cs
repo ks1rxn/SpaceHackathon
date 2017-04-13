@@ -42,7 +42,9 @@ public class StunShip : IEnemyShip {
 	}
 
 	protected override void OnDespawn(DespawnReason reason) {
-		BattleContext.BattleManager.ExplosionsController.ShipExplosion(Position);
+		if (reason == DespawnReason.Kill) {
+			BattleContext.BattleManager.ExplosionsController.ShipExplosion(Position);
+		}
 		BattleContext.BattleManager.EnemiesController.OnStunShipDie();
 	}
 

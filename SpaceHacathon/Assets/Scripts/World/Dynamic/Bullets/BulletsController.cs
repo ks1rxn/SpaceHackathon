@@ -55,6 +55,15 @@ public class BulletsController : IController {
 	}
 
 	public void SpawnMissile(Vector3 position, float angle) {
+		int aliveMissiles = 0;
+		foreach (Missile rocket in m_missiles) {
+			if (rocket.IsSpawned()) {
+				aliveMissiles++;
+			}
+		}
+		if (aliveMissiles >= m_settings.MissilesLimit) {
+			return;
+		}
 		EntitiesHelper.SpawnEntity(AvailablePrefabs.Missile, gameObject, m_missiles, position, angle);
 	}
 

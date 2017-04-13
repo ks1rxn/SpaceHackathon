@@ -21,7 +21,7 @@ public class ExplosionsController : IController {
 			EntitiesHelper.CreateEntity(AvailablePrefabs.ShipExplosion, gameObject, m_shipExplosions, m_explosions);
 		}
 
-		for (int i = 0; i != 4; i++) {
+		for (int i = 0; i != 8; i++) {
 			EntitiesHelper.CreateEntity(AvailablePrefabs.LaserExplosion, gameObject, m_laserExplosions, m_explosions);
 		}
 
