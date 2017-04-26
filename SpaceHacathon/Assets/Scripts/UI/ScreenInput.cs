@@ -38,13 +38,13 @@ public class ScreenInput : MonoBehaviour {
 	}
 
 	private void ListenPc() {
-		if (Input.GetKeyDown(KeyCode.Escape)) {
+		if (Input.GetAxis("Cancel") > 0) {
 			BattleContext.BattleManager.Director.OnPauseGame();
 			return;
 		}
 
 		// Ship angle //
-		if (Input.GetMouseButton(0)) {
+		if (Input.GetAxis("Fire1") > 0) {
 			float d = Vector3.Distance(Input.mousePosition, BattleContext.BattleManager.GUIManager.PlayerGUIController.RotationJoystickCenter);
 			if (d < Screen.width / 3f) {
 				SetShipAngle(MathHelper.AngleBetweenVectorsZ(new Vector3(1, 0, 0), Input.mousePosition - BattleContext.BattleManager.GUIManager.PlayerGUIController.RotationJoystickCenter));
@@ -52,9 +52,10 @@ public class ScreenInput : MonoBehaviour {
 		}
 
 		// Ship velocity //
-		if (Input.GetKey(KeyCode.W)) {
+		
+		if (Input.GetAxis("Vertical") > 0) {
 			SetShipPower(ThrottleState.Forward);
-		} else if (Input.GetKey(KeyCode.S)) {
+		} else if (Input.GetAxis("Vertical") < 0) {
 			SetShipPower(ThrottleState.Backward);
 		} else {
 			SetShipPower(ThrottleState.Off);
