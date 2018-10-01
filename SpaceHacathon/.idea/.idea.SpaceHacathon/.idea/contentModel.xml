@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="\app" t="IncludeRecursive" />
+    <e p="\be40f949" t="IncludeRecursive" />
+    <e p="C:\Users\ksirxn\.Rider2018.2\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\ksirxn\.Rider2018.2\system\resharper-host\Local\Transient\ReSharperHost\v182\SolutionCaches\_SpaceHacathon.-1660259977.00" t="ExcludeRecursive" />
+    <e p="D:\Projects\SpaceHacathon\spacehackathon\SpaceHacathon" t="IncludeRecursive">
+      <e p="Assembly-CSharp-Editor-firstpass.csproj" t="IncludeRecursive" />
+      <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
+      <e p="Assembly-CSharp-firstpass.csproj" t="IncludeRecursive" />
+      <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
+      <e p="Library" t="ExcludeRecursive" />
+      <e p="SpaceHacathon.sln" t="IncludeFlat" />
+      <e p="Temp" t="ExcludeRecursive" />
+    </e>
+  </component>
+</project>
