@@ -1,20 +1,23 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Reflection;
+using UnityEngine;
+using Zenject;
 
 public class StatisticsManager : MonoBehaviour {
-	private float m_fps;
-	private int m_frames;
+	private float _fps;
+	private int _frames;
 
-	private int m_fpsUnder30;
-	private int m_fps3050;
-	private int m_fpsAbove50;
+	private int _fpsUnder30;
+	private int _fps3050;
+	private int _fpsAbove50;
 
-	[SerializeField]
-	private GoogleAnalyticsV4 m_analytics;
+	private GoogleAnalyticsV4 _analytics;
+	private PlayerShipStatistics _playerShipStatistics;
 
-	private PlayerShipStatistics m_playerShipStatistics;
-
-	public void Initiate() {
-		m_playerShipStatistics = new PlayerShipStatistics();		
+	[Inject]
+	public void Construct(GoogleAnalyticsV4 analytics) {
+		_analytics = analytics;
+		_playerShipStatistics = new PlayerShipStatistics();
 	}
 
 	public void UpdateEntity() {
@@ -22,15 +25,15 @@ public class StatisticsManager : MonoBehaviour {
 		if (fps > 65 || fps < 10) {
 			return;
 		}
-		m_fps += fps;
+		_fps += fps;
 		if (fps > 50) {
-			m_fpsAbove50++;
+			_fpsAbove50++;
 		} else if (fps < 30) {
-			m_fpsUnder30++;
+			_fpsUnder30++;
 		} else {
-			m_fps3050++;
+			_fps3050++;
 		}
-		m_frames++;
+		_frames++;
 	}
 
 	public void SendPlayerShipStatistics() {
@@ -39,50 +42,28 @@ public class StatisticsManager : MonoBehaviour {
 		string category = statisticsVersion + "-" + BattleContext.NextLevel;
 		string eventName = "EndBattle";
 
-		float perc30 = (float)m_fpsUnder30 / m_frames * 100;
-		float perc3050 = (float)m_fps3050 / m_frames * 100;
-		float perc50 = (float)m_fpsAbove50 / m_frames * 100;
+		float perc30 = (float)_fpsUnder30 / _frames * 100;
+		float perc3050 = (float)_fps3050 / _frames * 100;
+		float perc50 = (float)_fpsAbove50 / _frames * 100;
 
-		m_analytics.LogEvent(fpsName, SystemInfo.deviceModel, "avg", Mathf.Clamp(Mathf.RoundToInt(m_fps / m_frames), 0, 100));
-		m_analytics.LogEvent(fpsName, SystemInfo.deviceModel, "under30", Mathf.RoundToInt(perc30));
-		m_analytics.LogEvent(fpsName, SystemInfo.deviceModel, "3050", Mathf.RoundToInt(perc3050));
-		m_analytics.LogEvent(fpsName, SystemInfo.deviceModel, "above50", Mathf.RoundToInt(perc50));
-
-		m_analytics.LogEvent(category, eventName, "TimeAlive", (int)BattleContext.BattleManager.TimeManager.GameTime);
-
-		m_analytics.LogEvent(category, eventName, "RamShipHit", m_playerShipStatistics.RamShipHit);
-		m_analytics.LogEvent(category, eventName, "MineHit", m_playerShipStatistics.MineHit);
-		m_analytics.LogEvent(category, eventName, "EnemyShipHit", m_playerShipStatistics.EnemyShipHit);
-
-		m_analytics.LogEvent(category, eventName, "KillDroneCarrier", m_playerShipStatistics.KillDroneCarrier);
-		m_analytics.LogEvent(category, eventName, "KillRamShip", m_playerShipStatistics.KillRamShip);
-		m_analytics.LogEvent(category, eventName, "KillRocketShip", m_playerShipStatistics.KillRocketShip);
-		m_analytics.LogEvent(category, eventName, "KillStunShip", m_playerShipStatistics.KillStunShip);
-
-		m_analytics.LogEvent(category, eventName, "CarrierRocketHit", m_playerShipStatistics.CarrierRocketHit);
-		m_analytics.LogEvent(category, eventName, "MissileHit", m_playerShipStatistics.MissileHit);
-		m_analytics.LogEvent(category, eventName, "StunHit", m_playerShipStatistics.StunHit);
-		m_analytics.LogEvent(category, eventName, "LaserHit", m_playerShipStatistics.LaserHit);
-		m_analytics.LogEvent(category, eventName, "TimeInSlowingCloud", Mathf.RoundToInt(m_playerShipStatistics.TimeInSlowingCloud));
-
-		m_analytics.LogEvent(category, eventName, "EnergyBarrelTake", m_playerShipStatistics.EnergyBarrelTake);
-		m_analytics.LogEvent(category, eventName, "HealStationUse", m_playerShipStatistics.HealStationUse);
-		m_analytics.LogEvent(category, eventName, "TotalCargoBrought", m_playerShipStatistics.TotalCargoBrought);
-		m_analytics.LogEvent(category, eventName, "NoSalvation", m_playerShipStatistics.NoSalvation);
-		m_analytics.LogEvent(category, eventName, "ChargeUsed", m_playerShipStatistics.ChargeUsed);
-
-		m_analytics.LogEvent(category, eventName, "TimeOn1Battery", Mathf.RoundToInt(m_playerShipStatistics.TimeOn1Battery));
-		m_analytics.LogEvent(category, eventName, "TimeOn2Battery", Mathf.RoundToInt(m_playerShipStatistics.TimeOn2Battery));
-		m_analytics.LogEvent(category, eventName, "TimeOn3Battery", Mathf.RoundToInt(m_playerShipStatistics.TimeOn3Battery));
-		m_analytics.LogEvent(category, eventName, "TimeOn4Battery", Mathf.RoundToInt(m_playerShipStatistics.TimeOn4Battery));
-		m_analytics.LogEvent(category, eventName, "TimeOn5Battery", Mathf.RoundToInt(m_playerShipStatistics.TimeOn5Battery));
+		_analytics.LogEvent(fpsName, SystemInfo.deviceModel, "avg", Mathf.Clamp(Mathf.RoundToInt(_fps / _frames), 0, 100));
+		_analytics.LogEvent(fpsName, SystemInfo.deviceModel, "under30", Mathf.RoundToInt(perc30));
+		_analytics.LogEvent(fpsName, SystemInfo.deviceModel, "3050", Mathf.RoundToInt(perc3050));
+		_analytics.LogEvent(fpsName, SystemInfo.deviceModel, "above50", Mathf.RoundToInt(perc50));
+		
+		_analytics.LogEvent(category, eventName, "TimeAlive", (int)BattleContext.BattleManager.TimeManager.GameTime);
+		
+		Type type = _playerShipStatistics.GetType();
+		PropertyInfo[] properties = type.GetProperties();
+		foreach (PropertyInfo property in properties) {
+			float value;
+			if (float.TryParse(property.GetValue(_playerShipStatistics).ToString(), out value)) {
+				_analytics.LogEvent(category, eventName, property.Name, Mathf.RoundToInt(value));
+			}
+		}
 }
 
-	public PlayerShipStatistics PlayerShipStatistics {
-		get {
-			return m_playerShipStatistics;
-		}
-	}
+	public PlayerShipStatistics PlayerShipStatistics => _playerShipStatistics;
 
 }
 

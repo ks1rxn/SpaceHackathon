@@ -2,7 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="49865107-42e3-46f6-89ba-083566265503" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/BattleScene.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/BattleScene/Installers.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/BattleScene/Installers/BattleSceneInstaller.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/BattleScene/Installers/BattleSceneInstaller.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.SpaceHacathon/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SpaceHacathon/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.SpaceHacathon/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SpaceHacathon/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.SpaceHacathon/riderModule.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SpaceHacathon/riderModule.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/GoogleAnalyticsV4/GAv4.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/GoogleAnalyticsV4/GAv4.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/BattleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/BattleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Tools/Managers/StatisticsManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Tools/Managers/StatisticsManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/World/Director.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/World/Director.cs" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,39 +24,258 @@
     <session id="-1156343019">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.open.time.6" value="1" />
-          <entry key="project.opened" value="1" />
+          <entry key="project.closed" value="2" />
+          <entry key="project.open.time.5" value="1" />
+          <entry key="project.open.time.6" value="2" />
+          <entry key="project.opened" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="cs" value="4" />
+          <entry key="cs" value="420" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="C#" value="4" />
+          <entry key="C#" value="420" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="cs" value="87" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="C#" value="87" />
         </counts>
       </usages-collector>
     </session>
   </component>
+  <component name="FavoritesManager">
+    <favorites_list name="SpaceHacathon" />
+  </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Assets/Scripts/UI/DeathMenu.cs">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Assets/Scripts/BattleScene/Installers/BattleSceneInstaller.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="25" column="36" selection-start-line="25" selection-start-column="36" selection-end-line="25" selection-end-column="36" />
+            <state relative-caret-position="187">
+              <caret line="11" column="1" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="1" />
               <folding>
-                <marker date="1538423932480" expanded="false" signature="6:75" ph="..." />
-                <marker date="1538423932480" expanded="true" signature="116:1006" ph="{...}" />
-                <marker date="1538423932480" expanded="true" signature="198:519" ph="{...}" />
-                <marker date="1538423932480" expanded="true" signature="252:300" ph="{...}" />
-                <marker date="1538423932480" expanded="true" signature="541:576" ph="{...}" />
-                <marker date="1538423932480" expanded="true" signature="610:705" ph="{...}" />
-                <marker date="1538423932480" expanded="true" signature="741:838" ph="{...}" />
-                <marker date="1538423932480" expanded="true" signature="872:967" ph="{...}" />
-                <marker date="1538423932480" expanded="true" signature="996:1003" ph="{...}" />
+                <marker date="1538512093065" expanded="true" signature="63:203" ph="{...}" />
+                <marker date="1538512093065" expanded="true" signature="120:200" ph="{...}" />
+                <marker date="1538512093065" expanded="true" signature="170:194" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Assets/Scripts/World/Director.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="731">
+              <caret line="43" column="61" selection-start-line="43" selection-start-column="61" selection-end-line="43" selection-end-column="61" />
+              <folding>
+                <marker date="1538513607968" expanded="true" signature="58:3361" ph="{...}" />
+                <marker date="1538513607968" expanded="true" signature="286:441" ph="{...}" />
+                <marker date="1538513607968" expanded="true" signature="376:438" ph="{...}" />
+                <marker date="1538513607968" expanded="true" signature="498:670" ph="{...}" />
+                <marker date="1538513607968" expanded="true" signature="694:1667" ph="{...}" />
+                <marker date="1538513607968" expanded="true" signature="696:946" ph="/* Analytics.CustomEvent(&quot;gameStart&quot;, new Dictionary&lt;string, object&gt; { ... */" />
+                <marker date="1538513607968" expanded="true" signature="1120:1234" ph="{...}" />
+                <marker date="1538513607968" expanded="true" signature="1514:1545" ph="{...}" />
+                <marker date="1538513607968" expanded="true" signature="1696:1929" ph="{...}" />
+                <marker date="1538513607968" expanded="true" signature="1960:2145" ph="{...}" />
+                <marker date="1538513607968" expanded="true" signature="2174:2481" ph="{...}" />
+                <marker date="1538513607968" expanded="true" signature="2506:2657" ph="{...}" />
+                <marker date="1538513607968" expanded="true" signature="2525:2654" ph="{...}" />
+                <marker date="1538513607968" expanded="true" signature="2687:3029" ph="{...}" />
+                <marker date="1538513607968" expanded="true" signature="2706:3026" ph="{...}" />
+                <marker date="1538513607968" expanded="true" signature="2980:3022" ph="{...}" />
+                <marker date="1538513607968" expanded="true" signature="3092:3286" ph="{...}" />
+                <marker date="1538513607968" expanded="true" signature="3318:3358" ph="{...}" />
+                <marker date="1538513607968" expanded="true" signature="3326:3355" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Assets/Scripts/Tools/Managers/StatisticsManager.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="251">
+              <caret line="60" column="57" lean-forward="true" selection-start-line="60" selection-start-column="57" selection-end-line="60" selection-end-column="57" />
+              <folding>
+                <marker date="1538518257346" expanded="true" signature="6:72" ph="..." />
+                <marker date="1538518257346" expanded="true" signature="121:2443" ph="{...}" />
+                <marker date="1538518257346" expanded="true" signature="398:482" ph="{...}" />
+                <marker date="1538518257346" expanded="true" signature="512:765" ph="{...}" />
+                <marker date="1538518257346" expanded="true" signature="609:625" ph="{...}" />
+                <marker date="1538518257346" expanded="true" signature="657:680" ph="{...}" />
+                <marker date="1538518257346" expanded="true" signature="700:723" ph="{...}" />
+                <marker date="1538518257346" expanded="true" signature="807:2363" ph="{...}" />
+                <marker date="1538518257346" expanded="true" signature="1835:2361" ph="{...}" />
+                <marker date="1538518257346" expanded="true" signature="1940:1992" ph="{...}" />
+                <marker date="1538518257346" expanded="true" signature="1994:2357" ph="/* Debug.Log(property.Name + &quot; = &quot; + Mathf.RoundToInt((float) property.GetValue(_playerShipStatistics, null))); ... */" />
+                <marker date="1538518257346" expanded="true" signature="2479:3373" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Assets/Scripts/World/Dynamic/PlayerShip/PlayerShipHull.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="302">
+              <caret line="69" column="79" selection-start-line="69" selection-start-column="79" selection-end-line="69" selection-end-column="79" />
+              <folding>
+                <marker date="1538423443847" expanded="true" signature="64:3277" ph="{...}" />
+                <marker date="1538423443847" expanded="true" signature="454:727" ph="{...}" />
+                <marker date="1538423443847" expanded="true" signature="805:870" ph="{...}" />
+                <marker date="1538423443847" expanded="true" signature="911:986" ph="{...}" />
+                <marker date="1538423443847" expanded="true" signature="958:980" ph="{...}" />
+                <marker date="1538423443847" expanded="true" signature="1025:1148" ph="{...}" />
+                <marker date="1538423443847" expanded="true" signature="1095:1145" ph="{...}" />
+                <marker date="1538423443847" expanded="true" signature="1183:1385" ph="{...}" />
+                <marker date="1538423443847" expanded="true" signature="1243:1285" ph="{...}" />
+                <marker date="1538423443847" expanded="true" signature="1413:1527" ph="{...}" />
+                <marker date="1538423443847" expanded="true" signature="1559:1610" ph="{...}" />
+                <marker date="1538423443847" expanded="true" signature="1644:2693" ph="{...}" />
+                <marker date="1538423443847" expanded="true" signature="1901:2021" ph="{...}" />
+                <marker date="1538423443847" expanded="true" signature="2081:2201" ph="{...}" />
+                <marker date="1538423443847" expanded="true" signature="2261:2381" ph="{...}" />
+                <marker date="1538423443847" expanded="true" signature="2441:2561" ph="{...}" />
+                <marker date="1538423443847" expanded="true" signature="2734:2862" ph="{...}" />
+                <marker date="1538423443847" expanded="true" signature="2913:2958" ph="{...}" />
+                <marker date="1538423443847" expanded="true" signature="2991:3274" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Assets/Scripts/World/TimeManager.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <folding>
+                <marker date="1538423443801" expanded="true" signature="61:1487" ph="{...}" />
+                <marker date="1538423443801" expanded="true" signature="194:330" ph="{...}" />
+                <marker date="1538423443801" expanded="true" signature="382:412" ph="{...}" />
+                <marker date="1538423443801" expanded="true" signature="435:529" ph="{...}" />
+                <marker date="1538423443801" expanded="true" signature="554:799" ph="{...}" />
+                <marker date="1538423443801" expanded="true" signature="604:748" ph="{...}" />
+                <marker date="1538423443801" expanded="true" signature="832:983" ph="{...}" />
+                <marker date="1538423443801" expanded="true" signature="1020:1484" ph="{...}" />
+                <marker date="1538423443801" expanded="true" signature="1042:1064" ph="{...}" />
+                <marker date="1538423443801" expanded="true" signature="1095:1433" ph="{...}" />
+                <marker date="1538423443801" expanded="true" signature="1155:1205" ph="{...}" />
+                <marker date="1538423443801" expanded="true" signature="1284:1334" ph="{...}" />
+                <marker date="1538423443801" expanded="true" signature="1362:1412" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Assets/Scripts/World/Dynamic/PlayerShip/PlayerShip.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="7803">
+              <caret line="460" column="48" selection-start-line="460" selection-start-column="48" selection-end-line="460" selection-end-column="48" />
+              <folding>
+                <marker date="1538423444052" expanded="false" signature="6:44" ph="..." />
+                <marker date="1538423444052" expanded="true" signature="86:15847" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="888:2013" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="2065:2189" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="2213:2568" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="2270:2292" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="2329:2351" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="2598:3424" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="2633:2841" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="2682:2723" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="2778:2826" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="3035:3150" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="3102:3146" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="3459:4187" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="3534:3586" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="3787:4137" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="4232:4643" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="4377:4435" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="4676:6322" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="4707:4762" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="5047:5181" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="5142:5177" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="5633:5663" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="5686:5717" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="5992:6080" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="6359:6529" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="6394:6410" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="6574:6736" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="6609:6625" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="6760:7160" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="6795:6811" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="6837:6853" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="6887:6903" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="6941:6957" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="7199:8766" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="7394:7616" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="7572:7589" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="7913:8169" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="8125:8142" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="8286:8537" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="8493:8510" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="8820:9080" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="8857:8873" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="9125:9308" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="9162:9178" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="9355:9845" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="9392:9408" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="9898:10218" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="9935:9951" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="10267:12614" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="10288:12611" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="10396:10589" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="10641:10898" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="10949:11339" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="11146:11262" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="11395:11546" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="11600:11751" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="11841:11987" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="12038:12182" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="12238:12392" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="12446:12596" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="12664:12808" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="12861:13090" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="12921:12975" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="13119:13271" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="13303:13331" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="13358:13488" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="13517:13685" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="13525:13682" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="13712:13758" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="13720:13755" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="13788:13836" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="13796:13833" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="13862:13897" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="13870:13894" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="13932:14148" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="13940:14145" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="14178:14212" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="14186:14209" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="14251:15043" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="14626:14978" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="14665:14708" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="14749:14795" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="14872:14916" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="15082:15844" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="15427:15780" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="15466:15509" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="15550:15596" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="15673:15718" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="15871:15900" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="15929:16122" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="16061:16120" ph="{...}" />
+                <marker date="1538423444052" expanded="true" signature="16254:16301" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -58,12 +287,78 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame1 (Beginner)/Scripts/Util/GameEvents.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Player/PlayerShootHandler.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame1 (Beginner)/Scripts/Asteroid/Asteroid.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame1 (Beginner)/Scripts/Util/UnityExtensionMethods.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Player/PlayerModel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Player/PlayerInputHandler.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Player/PlayerMoveHandler.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame1 (Beginner)/Scripts/Installers/GameSettingsInstaller.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame1 (Beginner)/Scripts/Asteroid/AsteroidManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Player/PlayerFacade.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Player/PlayerDirectionHandler.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Player/PlayerDamageHandler.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame1 (Beginner)/Scripts/Installers/GameInstaller.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Player/PlayerInputState.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Installers/PlayerInstaller.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Installers/GameSettingsInstaller.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Installers/GameSignalsInstaller.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/World/Dynamic/PlayerShip/PlayerShipHull.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/World/Dynamic/PlayerShip/PlayerShip.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Installers/GameInstaller.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Installers/EnemyInstaller.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/Source/Internal/Assert.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/BattleScene/Installers/BattleSceneInstaller.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/Source/Factories/PlaceholderFactory.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Tools/Managers/StatisticsManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/Source/Install/ZenjectBinding.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/Source/Binding/Binders/Factory/FactoryFromBinder/SubContainerBinder/FactorySubContainerBinderBase.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/DeathMenu.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Misc/Bullet.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/GoogleAnalyticsV4/GoogleAnalyticsV4.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Misc/Explosion.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/PauseMenu.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Misc/LevelBoundary.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Misc/EnemySpawner.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame1 (Beginner)/Scripts/Misc/GuiHandler.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame1 (Beginner)/Scripts/Main/GameController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/Source/Install/Contexts/Context.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Enemy/EnemyRotationHandler.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame1 (Beginner)/Scripts/Misc/TilingBackground.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame1 (Beginner)/Scripts/Misc/LevelHelper.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Enemy/EnemyTunables.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame1 (Beginner)/Scripts/Misc/AudioHandler.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Enemy/EnemyStateManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Enemy/GameEvents.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Enemy/EnemyView.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Enemy/EnemyRegistry.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame1 (Beginner)/Scripts/Ship/ShipStateFactory.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Enemy/EnemyFacade.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame1 (Beginner)/Scripts/Ship/Ship.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Enemy/EnemyDeathHandler.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/World/TimeManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/World/Director.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame1 (Beginner)/Scripts/Ship/States/ShipStateDead.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame1 (Beginner)/Scripts/Ship/States/ExplosionFactory.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame1 (Beginner)/Scripts/Ship/States/ShipStateMoving.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame1 (Beginner)/Scripts/Ship/States/BrokenShipFactory.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Enemy/States/EnemyStateAttack.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame1 (Beginner)/Scripts/Ship/States/ShipState.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame1 (Beginner)/Scripts/Ship/States/ShipStateWaitingToStart.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Enemy/States/EnemyStateFollow.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Assets/Scripts/UI/DeathMenu.cs" />
+        <option value="$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame1 (Beginner)/Scripts/Installers/GameInstaller.cs" />
+        <option value="$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame1 (Beginner)/Scripts/Installers/GameSettingsInstaller.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/BattleScene/Installers/SceneInstaller.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/BattleScene/Installers/BattleSceneInstaller.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/BattleScene/Installers/test.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/World/Director.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Tools/Managers/StatisticsManager.cs" />
       </list>
     </option>
   </component>
@@ -85,7 +380,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="FileSystemExplorer" />
       <pane id="SolutionExplorer">
         <subPane>
           <expand>
@@ -98,6 +392,7 @@
         </subPane>
         <option name="show-all-files" value="false" />
       </pane>
+      <pane id="FileSystemExplorer" />
       <pane id="UnityExplorer">
         <subPane>
           <expand>
@@ -108,13 +403,90 @@
             <path>
               <item name="Project" type="e068e287:UnityExplorerRootNode" />
               <item name="Assets" type="48f920db:UnityExplorerNode$AssetsRoot" />
+              <item name="Plugins" type="1045f7f1:UnityExplorerNode" />
+            </path>
+            <path>
+              <item name="Project" type="e068e287:UnityExplorerRootNode" />
+              <item name="Assets" type="48f920db:UnityExplorerNode$AssetsRoot" />
+              <item name="Plugins" type="1045f7f1:UnityExplorerNode" />
+              <item name="Zenject" type="1045f7f1:UnityExplorerNode" />
+            </path>
+            <path>
+              <item name="Project" type="e068e287:UnityExplorerRootNode" />
+              <item name="Assets" type="48f920db:UnityExplorerNode$AssetsRoot" />
+              <item name="Plugins" type="1045f7f1:UnityExplorerNode" />
+              <item name="Zenject" type="1045f7f1:UnityExplorerNode" />
+              <item name="OptionalExtras" type="1045f7f1:UnityExplorerNode" />
+            </path>
+            <path>
+              <item name="Project" type="e068e287:UnityExplorerRootNode" />
+              <item name="Assets" type="48f920db:UnityExplorerNode$AssetsRoot" />
+              <item name="Plugins" type="1045f7f1:UnityExplorerNode" />
+              <item name="Zenject" type="1045f7f1:UnityExplorerNode" />
+              <item name="OptionalExtras" type="1045f7f1:UnityExplorerNode" />
+              <item name="SampleGame2 (Advanced)" type="1045f7f1:UnityExplorerNode" />
+            </path>
+            <path>
+              <item name="Project" type="e068e287:UnityExplorerRootNode" />
+              <item name="Assets" type="48f920db:UnityExplorerNode$AssetsRoot" />
+              <item name="Plugins" type="1045f7f1:UnityExplorerNode" />
+              <item name="Zenject" type="1045f7f1:UnityExplorerNode" />
+              <item name="OptionalExtras" type="1045f7f1:UnityExplorerNode" />
+              <item name="SampleGame2 (Advanced)" type="1045f7f1:UnityExplorerNode" />
+              <item name="Scripts" type="1045f7f1:UnityExplorerNode" />
+            </path>
+            <path>
+              <item name="Project" type="e068e287:UnityExplorerRootNode" />
+              <item name="Assets" type="48f920db:UnityExplorerNode$AssetsRoot" />
+              <item name="Plugins" type="1045f7f1:UnityExplorerNode" />
+              <item name="Zenject" type="1045f7f1:UnityExplorerNode" />
+              <item name="OptionalExtras" type="1045f7f1:UnityExplorerNode" />
+              <item name="SampleGame2 (Advanced)" type="1045f7f1:UnityExplorerNode" />
+              <item name="Scripts" type="1045f7f1:UnityExplorerNode" />
+              <item name="Enemy" type="1045f7f1:UnityExplorerNode" />
+            </path>
+            <path>
+              <item name="Project" type="e068e287:UnityExplorerRootNode" />
+              <item name="Assets" type="48f920db:UnityExplorerNode$AssetsRoot" />
               <item name="Scripts" type="1045f7f1:UnityExplorerNode" />
             </path>
             <path>
               <item name="Project" type="e068e287:UnityExplorerRootNode" />
               <item name="Assets" type="48f920db:UnityExplorerNode$AssetsRoot" />
               <item name="Scripts" type="1045f7f1:UnityExplorerNode" />
-              <item name="UI" type="1045f7f1:UnityExplorerNode" />
+              <item name="Tools" type="1045f7f1:UnityExplorerNode" />
+            </path>
+            <path>
+              <item name="Project" type="e068e287:UnityExplorerRootNode" />
+              <item name="Assets" type="48f920db:UnityExplorerNode$AssetsRoot" />
+              <item name="Scripts" type="1045f7f1:UnityExplorerNode" />
+              <item name="Tools" type="1045f7f1:UnityExplorerNode" />
+              <item name="Managers" type="1045f7f1:UnityExplorerNode" />
+            </path>
+            <path>
+              <item name="Project" type="e068e287:UnityExplorerRootNode" />
+              <item name="Assets" type="48f920db:UnityExplorerNode$AssetsRoot" />
+              <item name="Scripts" type="1045f7f1:UnityExplorerNode" />
+              <item name="World" type="1045f7f1:UnityExplorerNode" />
+            </path>
+            <path>
+              <item name="Project" type="e068e287:UnityExplorerRootNode" />
+              <item name="Assets" type="48f920db:UnityExplorerNode$AssetsRoot" />
+              <item name="Scripts" type="1045f7f1:UnityExplorerNode" />
+              <item name="World" type="1045f7f1:UnityExplorerNode" />
+              <item name="Dynamic" type="1045f7f1:UnityExplorerNode" />
+            </path>
+            <path>
+              <item name="Project" type="e068e287:UnityExplorerRootNode" />
+              <item name="Assets" type="48f920db:UnityExplorerNode$AssetsRoot" />
+              <item name="Scripts" type="1045f7f1:UnityExplorerNode" />
+              <item name="World" type="1045f7f1:UnityExplorerNode" />
+              <item name="Dynamic" type="1045f7f1:UnityExplorerNode" />
+              <item name="PlayerShip" type="1045f7f1:UnityExplorerNode" />
+            </path>
+            <path>
+              <item name="Project" type="e068e287:UnityExplorerRootNode" />
+              <item name="Packages" type="4e2708dd:PackagesRoot" />
             </path>
           </expand>
           <select />
@@ -127,6 +499,7 @@
     <property name="Rider.DefaultBreakpoints.AreToggled" value="true" />
     <property name="Rider.ProjectViewActivator.IsNotFirstRun" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="settings.editor.selected.configurable" value="RiderCSharpFileTemplatesSettingsId" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -166,12 +539,14 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1538423733765</updated>
-      <workItem from="1538423739070" duration="553000" />
+      <workItem from="1538423739070" duration="3835000" />
+      <workItem from="1538506101158" duration="5165000" />
+      <workItem from="1538516992620" duration="1265000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="553000" />
+    <option name="totallyTimeSpent" value="10265000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -186,31 +561,57 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Favorites" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="NuGet" />
-      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Unity" />
-      <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Unit Tests" />
-      <window_info anchor="bottom" id="Terminal" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" weight="0.329718" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4978308" visible="true" weight="0.2553305" />
+      <window_info id="Structure" order="1" sideWeight="0.5021692" side_tool="true" weight="0.25266525" />
+      <window_info id="Favorites" order="2" sideWeight="0.5010846" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.329718" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="right" id="Errors In Solution" />
-      <window_info anchor="right" id="Database" />
-      <window_info anchor="right" id="Unit Tests Coverage" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.329718" />
+      <window_info anchor="bottom" id="NuGet" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Unity" order="10" />
+      <window_info anchor="bottom" id="Database Changes" order="11" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Unit Tests" order="12" />
+      <window_info anchor="bottom" id="Terminal" order="13" />
+      <window_info anchor="bottom" id="Event Log" order="14" side_tool="true" weight="0.329718" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Errors In Solution" order="3" />
+      <window_info anchor="right" id="Database" order="4" />
+      <window_info anchor="right" id="Unit Tests Coverage" order="5" />
     </layout>
+    <layout-to-restore>
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4989154" visible="true" weight="0.25266525" />
+      <window_info id="Structure" order="1" sideWeight="0.5010846" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" sideWeight="0.5010846" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.329718" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.329718" />
+      <window_info anchor="bottom" id="NuGet" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Unity" order="10" />
+      <window_info anchor="bottom" id="Database Changes" order="11" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Unit Tests" order="12" />
+      <window_info anchor="bottom" id="Terminal" order="13" />
+      <window_info anchor="bottom" id="Event Log" order="14" side_tool="true" weight="0.329718" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Errors In Solution" order="3" />
+      <window_info anchor="right" id="Database" order="4" />
+      <window_info anchor="right" id="Unit Tests Coverage" order="5" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -231,23 +632,522 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Assets/Scripts/UI/DeathMenu.cs">
+    <entry file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame1 (Beginner)/Scripts/Asteroid/Asteroid.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="25" column="36" selection-start-line="25" selection-start-column="36" selection-end-line="25" selection-end-column="36" />
+        <state relative-caret-position="540">
+          <caret line="75" column="22" selection-start-line="75" selection-start-column="22" selection-end-line="75" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame1 (Beginner)/Scripts/Asteroid/AsteroidManager.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1013">
+          <caret line="147" column="39" selection-start-line="147" selection-start-column="39" selection-end-line="147" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/Source/Install/Contexts/Context.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="639">
+          <caret line="229" column="74" lean-forward="true" selection-start-line="229" selection-start-column="74" selection-end-line="229" selection-end-column="74" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame1 (Beginner)/Scripts/Ship/Ship.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1067">
+          <caret line="77" column="38" selection-start-line="77" selection-start-column="38" selection-end-line="77" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame1 (Beginner)/Scripts/Ship/ShipStateFactory.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="25" column="31" selection-start-line="25" selection-start-column="31" selection-end-line="25" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame1 (Beginner)/Scripts/Installers/GameSettingsInstaller.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="659">
+          <caret line="51" column="47" selection-start-line="51" selection-start-column="47" selection-end-line="51" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame1 (Beginner)/Scripts/Ship/States/ExplosionFactory.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="24" selection-start-line="8" selection-start-column="24" selection-end-line="8" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame1 (Beginner)/Scripts/Ship/States/ShipState.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="14" column="9" selection-start-line="14" selection-start-column="9" selection-end-line="14" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame1 (Beginner)/Scripts/Ship/States/BrokenShipFactory.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="8" column="25" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame1 (Beginner)/Scripts/Installers/GameInstaller.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="47">
+          <caret line="89" column="45" selection-start-line="89" selection-start-column="45" selection-end-line="89" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame1 (Beginner)/Scripts/Ship/States/ShipStateWaitingToStart.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="30" column="43" lean-forward="true" selection-start-line="30" selection-start-column="43" selection-end-line="30" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame1 (Beginner)/Scripts/Ship/States/ShipStateMoving.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="765">
+          <caret line="109" column="21" selection-start-line="109" selection-start-column="21" selection-end-line="109" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame1 (Beginner)/Scripts/Ship/States/ShipStateDead.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="46" column="13" lean-forward="true" selection-start-line="46" selection-start-column="13" selection-end-line="46" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Misc/LevelBoundary.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="8" column="17" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/Source/Factories/PlaceholderFactory.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="71" column="30" selection-start-line="71" selection-start-column="30" selection-end-line="71" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Installers/GameSettingsInstaller.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-412" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Installers/GameSignalsInstaller.cs">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/Source/Binding/Binders/Factory/FactoryFromBinder/SubContainerBinder/FactorySubContainerBinderBase.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="91" column="73" selection-start-line="91" selection-start-column="73" selection-end-line="91" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Misc/Bullet.cs">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Misc/EnemySpawner.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="63" column="50" selection-start-line="63" selection-start-column="50" selection-end-line="63" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Misc/Explosion.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Player/PlayerDamageHandler.cs">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Player/PlayerDirectionHandler.cs">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Player/PlayerInputHandler.cs">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Player/PlayerInputState.cs">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Player/PlayerModel.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Player/PlayerMoveHandler.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-408" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Player/PlayerShootHandler.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-327" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Player/PlayerFacade.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Installers/PlayerInstaller.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="11" column="35" selection-start-line="11" selection-start-column="35" selection-end-line="11" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Enemy/States/EnemyStateFollow.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-102" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Enemy/EnemyStateManager.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="21" column="5" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Enemy/EnemyTunables.cs">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Enemy/EnemyView.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-650" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Enemy/GameEvents.cs">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Enemy/EnemyRotationHandler.cs">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Enemy/EnemyDeathHandler.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-89" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Enemy/EnemyRegistry.cs">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Installers/GameInstaller.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="591">
+          <caret line="72" column="9" lean-forward="true" selection-start-line="72" selection-start-column="9" selection-end-line="72" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Installers/EnemyInstaller.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="16" column="43" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/UI/PauseMenu.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="32" selection-start-line="32" selection-end-line="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/BattleScene/Installers/test.cs" />
+    <entry file="file://$PROJECT_DIR$/Assets/Plugins/GoogleAnalyticsV4/GoogleAnalyticsV4.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="32" column="24" selection-start-line="32" selection-start-column="24" selection-end-line="32" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/World/Director.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="731">
+          <caret line="43" column="61" selection-start-line="43" selection-start-column="61" selection-end-line="43" selection-end-column="61" />
           <folding>
-            <marker date="1538423932480" expanded="false" signature="6:75" ph="..." />
-            <marker date="1538423932480" expanded="true" signature="116:1006" ph="{...}" />
-            <marker date="1538423932480" expanded="true" signature="198:519" ph="{...}" />
-            <marker date="1538423932480" expanded="true" signature="252:300" ph="{...}" />
-            <marker date="1538423932480" expanded="true" signature="541:576" ph="{...}" />
-            <marker date="1538423932480" expanded="true" signature="610:705" ph="{...}" />
-            <marker date="1538423932480" expanded="true" signature="741:838" ph="{...}" />
-            <marker date="1538423932480" expanded="true" signature="872:967" ph="{...}" />
-            <marker date="1538423932480" expanded="true" signature="996:1003" ph="{...}" />
+            <marker date="1538513607968" expanded="true" signature="58:3361" ph="{...}" />
+            <marker date="1538513607968" expanded="true" signature="286:441" ph="{...}" />
+            <marker date="1538513607968" expanded="true" signature="376:438" ph="{...}" />
+            <marker date="1538513607968" expanded="true" signature="498:670" ph="{...}" />
+            <marker date="1538513607968" expanded="true" signature="694:1667" ph="{...}" />
+            <marker date="1538513607968" expanded="true" signature="696:946" ph="/* Analytics.CustomEvent(&quot;gameStart&quot;, new Dictionary&lt;string, object&gt; { ... */" />
+            <marker date="1538513607968" expanded="true" signature="1120:1234" ph="{...}" />
+            <marker date="1538513607968" expanded="true" signature="1514:1545" ph="{...}" />
+            <marker date="1538513607968" expanded="true" signature="1696:1929" ph="{...}" />
+            <marker date="1538513607968" expanded="true" signature="1960:2145" ph="{...}" />
+            <marker date="1538513607968" expanded="true" signature="2174:2481" ph="{...}" />
+            <marker date="1538513607968" expanded="true" signature="2506:2657" ph="{...}" />
+            <marker date="1538513607968" expanded="true" signature="2525:2654" ph="{...}" />
+            <marker date="1538513607968" expanded="true" signature="2687:3029" ph="{...}" />
+            <marker date="1538513607968" expanded="true" signature="2706:3026" ph="{...}" />
+            <marker date="1538513607968" expanded="true" signature="2980:3022" ph="{...}" />
+            <marker date="1538513607968" expanded="true" signature="3092:3286" ph="{...}" />
+            <marker date="1538513607968" expanded="true" signature="3318:3358" ph="{...}" />
+            <marker date="1538513607968" expanded="true" signature="3326:3355" ph="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/World/TimeManager.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <marker date="1538423443801" expanded="true" signature="61:1487" ph="{...}" />
+            <marker date="1538423443801" expanded="true" signature="194:330" ph="{...}" />
+            <marker date="1538423443801" expanded="true" signature="382:412" ph="{...}" />
+            <marker date="1538423443801" expanded="true" signature="435:529" ph="{...}" />
+            <marker date="1538423443801" expanded="true" signature="554:799" ph="{...}" />
+            <marker date="1538423443801" expanded="true" signature="604:748" ph="{...}" />
+            <marker date="1538423443801" expanded="true" signature="832:983" ph="{...}" />
+            <marker date="1538423443801" expanded="true" signature="1020:1484" ph="{...}" />
+            <marker date="1538423443801" expanded="true" signature="1042:1064" ph="{...}" />
+            <marker date="1538423443801" expanded="true" signature="1095:1433" ph="{...}" />
+            <marker date="1538423443801" expanded="true" signature="1155:1205" ph="{...}" />
+            <marker date="1538423443801" expanded="true" signature="1284:1334" ph="{...}" />
+            <marker date="1538423443801" expanded="true" signature="1362:1412" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/World/Dynamic/PlayerShip/PlayerShip.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7803">
+          <caret line="460" column="48" selection-start-line="460" selection-start-column="48" selection-end-line="460" selection-end-column="48" />
+          <folding>
+            <marker date="1538423444052" expanded="false" signature="6:44" ph="..." />
+            <marker date="1538423444052" expanded="true" signature="86:15847" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="888:2013" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="2065:2189" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="2213:2568" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="2270:2292" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="2329:2351" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="2598:3424" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="2633:2841" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="2682:2723" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="2778:2826" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="3035:3150" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="3102:3146" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="3459:4187" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="3534:3586" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="3787:4137" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="4232:4643" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="4377:4435" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="4676:6322" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="4707:4762" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="5047:5181" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="5142:5177" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="5633:5663" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="5686:5717" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="5992:6080" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="6359:6529" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="6394:6410" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="6574:6736" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="6609:6625" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="6760:7160" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="6795:6811" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="6837:6853" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="6887:6903" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="6941:6957" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="7199:8766" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="7394:7616" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="7572:7589" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="7913:8169" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="8125:8142" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="8286:8537" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="8493:8510" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="8820:9080" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="8857:8873" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="9125:9308" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="9162:9178" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="9355:9845" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="9392:9408" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="9898:10218" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="9935:9951" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="10267:12614" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="10288:12611" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="10396:10589" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="10641:10898" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="10949:11339" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="11146:11262" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="11395:11546" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="11600:11751" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="11841:11987" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="12038:12182" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="12238:12392" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="12446:12596" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="12664:12808" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="12861:13090" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="12921:12975" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="13119:13271" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="13303:13331" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="13358:13488" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="13517:13685" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="13525:13682" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="13712:13758" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="13720:13755" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="13788:13836" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="13796:13833" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="13862:13897" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="13870:13894" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="13932:14148" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="13940:14145" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="14178:14212" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="14186:14209" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="14251:15043" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="14626:14978" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="14665:14708" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="14749:14795" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="14872:14916" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="15082:15844" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="15427:15780" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="15466:15509" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="15550:15596" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="15673:15718" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="15871:15900" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="15929:16122" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="16061:16120" ph="{...}" />
+            <marker date="1538423444052" expanded="true" signature="16254:16301" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Enemy/States/EnemyStateAttack.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="55" column="22" lean-forward="true" selection-start-line="55" selection-start-column="22" selection-end-line="55" selection-end-column="22" />
+          <folding>
+            <marker date="1535365461000" expanded="false" signature="6:104" ph="..." />
+            <marker date="1535365461000" expanded="true" signature="136:4472" ph="{...}" />
+            <marker date="1535365461000" expanded="true" signature="186:4470" ph="{...}" />
+            <marker date="1535365461000" expanded="true" signature="1073:1497" ph="{...}" />
+            <marker date="1535365461000" expanded="true" signature="1531:1551" ph="{...}" />
+            <marker date="1535365461000" expanded="true" signature="1584:1604" ph="{...}" />
+            <marker date="1535365461000" expanded="true" signature="1634:2706" ph="{...}" />
+            <marker date="1535365461000" expanded="true" signature="1676:1789" ph="{...}" />
+            <marker date="1535365461000" expanded="true" signature="2046:2187" ph="{...}" />
+            <marker date="1535365461000" expanded="true" signature="2311:2423" ph="{...}" />
+            <marker date="1535365461000" expanded="true" signature="2605:2696" ph="{...}" />
+            <marker date="1535365461000" expanded="true" signature="2741:3109" ph="{...}" />
+            <marker date="1535365461000" expanded="true" signature="2835:2958" ph="{...}" />
+            <marker date="1535365461000" expanded="true" signature="2975:3099" ph="{...}" />
+            <marker date="1535365461000" expanded="true" signature="3130:3956" ph="{...}" />
+            <marker date="1535365461000" expanded="true" signature="3528:3585" ph="{...}" />
+            <marker date="1535365461000" expanded="true" signature="4010:4464" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/Scripts/Enemy/EnemyFacade.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-391">
+          <caret line="12" column="40" selection-start-line="12" selection-start-column="40" selection-end-line="12" selection-end-column="40" />
+          <folding>
+            <marker date="1535365601000" expanded="false" signature="6:47" ph="..." />
+            <marker date="1535365601000" expanded="true" signature="79:2023" ph="{...}" />
+            <marker date="1535365601000" expanded="true" signature="86:212" ph="/* Here we can add some high-level methods to give some info to other ... */" />
+            <marker date="1535365601000" expanded="true" signature="308:2021" ph="{...}" />
+            <marker date="1535365601000" expanded="true" signature="751:949" ph="{...}" />
+            <marker date="1535365601000" expanded="true" signature="983:1058" ph="{...}" />
+            <marker date="1535365601000" expanded="true" signature="1089:1156" ph="{...}" />
+            <marker date="1535365601000" expanded="true" signature="1184:1248" ph="{...}" />
+            <marker date="1535365601000" expanded="true" signature="1281:1388" ph="{...}" />
+            <marker date="1535365601000" expanded="true" signature="1419:1472" ph="{...}" />
+            <marker date="1535365601000" expanded="true" signature="1499:1552" ph="{...}" />
+            <marker date="1535365601000" expanded="true" signature="1587:1674" ph="{...}" />
+            <marker date="1535365601000" expanded="true" signature="1752:1917" ph="{...}" />
+            <marker date="1535365601000" expanded="true" signature="1995:2015" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/BattleScene/Installers/BattleSceneInstaller.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="1" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="1" />
+          <folding>
+            <marker date="1538512093065" expanded="true" signature="63:203" ph="{...}" />
+            <marker date="1538512093065" expanded="true" signature="120:200" ph="{...}" />
+            <marker date="1538512093065" expanded="true" signature="170:194" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/World/Dynamic/PlayerShip/PlayerShipHull.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="302">
+          <caret line="69" column="79" selection-start-line="69" selection-start-column="79" selection-end-line="69" selection-end-column="79" />
+          <folding>
+            <marker date="1538423443847" expanded="true" signature="64:3277" ph="{...}" />
+            <marker date="1538423443847" expanded="true" signature="454:727" ph="{...}" />
+            <marker date="1538423443847" expanded="true" signature="805:870" ph="{...}" />
+            <marker date="1538423443847" expanded="true" signature="911:986" ph="{...}" />
+            <marker date="1538423443847" expanded="true" signature="958:980" ph="{...}" />
+            <marker date="1538423443847" expanded="true" signature="1025:1148" ph="{...}" />
+            <marker date="1538423443847" expanded="true" signature="1095:1145" ph="{...}" />
+            <marker date="1538423443847" expanded="true" signature="1183:1385" ph="{...}" />
+            <marker date="1538423443847" expanded="true" signature="1243:1285" ph="{...}" />
+            <marker date="1538423443847" expanded="true" signature="1413:1527" ph="{...}" />
+            <marker date="1538423443847" expanded="true" signature="1559:1610" ph="{...}" />
+            <marker date="1538423443847" expanded="true" signature="1644:2693" ph="{...}" />
+            <marker date="1538423443847" expanded="true" signature="1901:2021" ph="{...}" />
+            <marker date="1538423443847" expanded="true" signature="2081:2201" ph="{...}" />
+            <marker date="1538423443847" expanded="true" signature="2261:2381" ph="{...}" />
+            <marker date="1538423443847" expanded="true" signature="2441:2561" ph="{...}" />
+            <marker date="1538423443847" expanded="true" signature="2734:2862" ph="{...}" />
+            <marker date="1538423443847" expanded="true" signature="2913:2958" ph="{...}" />
+            <marker date="1538423443847" expanded="true" signature="2991:3274" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Tools/Managers/StatisticsManager.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="251">
+          <caret line="60" column="57" lean-forward="true" selection-start-line="60" selection-start-column="57" selection-end-line="60" selection-end-column="57" />
+          <folding>
+            <marker date="1538518257346" expanded="true" signature="6:72" ph="..." />
+            <marker date="1538518257346" expanded="true" signature="121:2443" ph="{...}" />
+            <marker date="1538518257346" expanded="true" signature="398:482" ph="{...}" />
+            <marker date="1538518257346" expanded="true" signature="512:765" ph="{...}" />
+            <marker date="1538518257346" expanded="true" signature="609:625" ph="{...}" />
+            <marker date="1538518257346" expanded="true" signature="657:680" ph="{...}" />
+            <marker date="1538518257346" expanded="true" signature="700:723" ph="{...}" />
+            <marker date="1538518257346" expanded="true" signature="807:2363" ph="{...}" />
+            <marker date="1538518257346" expanded="true" signature="1835:2361" ph="{...}" />
+            <marker date="1538518257346" expanded="true" signature="1940:1992" ph="{...}" />
+            <marker date="1538518257346" expanded="true" signature="1994:2357" ph="/* Debug.Log(property.Name + &quot; = &quot; + Mathf.RoundToInt((float) property.GetValue(_playerShipStatistics, null))); ... */" />
+            <marker date="1538518257346" expanded="true" signature="2479:3373" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ScopeChooserConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
   </component>
 </project>

@@ -42,7 +42,6 @@ public class Director : MonoBehaviour {
 
 		m_started = true;
 		BattleContext.BattleManager.AsteroidField.Initiate();
-		BattleContext.BattleManager.StatisticsManager.Initiate();
 		BattleContext.BattleManager.TimeManager.Initiate();
 		BattleContext.BattleManager.GUIManager.PlayerGUIController.Show();
 

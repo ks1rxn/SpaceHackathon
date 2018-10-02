@@ -3,6 +3,7 @@
   <component name="ContentModelStore">
     <e p="\app" t="IncludeRecursive" />
     <e p="\be40f949" t="IncludeRecursive" />
+    <e p="C:\Users\ksirxn\.Rider2018.2\config\extensions" t="IncludeRecursive" />
     <e p="C:\Users\ksirxn\.Rider2018.2\system\extResources" t="IncludeRecursive" />
     <e p="C:\Users\ksirxn\.Rider2018.2\system\resharper-host\Local\Transient\ReSharperHost\v182\SolutionCaches\_SpaceHacathon.-1660259977.00" t="ExcludeRecursive" />
     <e p="D:\Projects\SpaceHacathon\spacehackathon\SpaceHacathon" t="IncludeRecursive">
@@ -718,6 +719,11 @@
           </e>
         </e>
         <e p="Scripts" t="Include">
+          <e p="BattleScene" t="Include">
+            <e p="Installers" t="Include">
+              <e p="BattleSceneInstaller.cs" t="Include" />
+            </e>
+          </e>
           <e p="Tools" t="Include">
             <e p="ChildrenDestroyer.cs" t="Include" />
             <e p="CollisionDetector.cs" t="Include" />
