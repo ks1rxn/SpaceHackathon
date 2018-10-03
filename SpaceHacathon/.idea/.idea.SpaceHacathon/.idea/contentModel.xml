@@ -723,6 +723,16 @@
             <e p="Installers" t="Include">
               <e p="BattleSceneInstaller.cs" t="Include" />
             </e>
+            <e p="World" t="Include">
+              <e p="Static" t="Include">
+                <e p="Asteroids" t="Include">
+                  <e p="Asteroid.cs" t="Include" />
+                  <e p="AsteroidsBlock.cs" t="Include" />
+                  <e p="AsteroidsField.cs" t="Include" />
+                  <e p="AsteroidsGroup.cs" t="Include" />
+                </e>
+              </e>
+            </e>
           </e>
           <e p="Tools" t="Include">
             <e p="ChildrenDestroyer.cs" t="Include" />
@@ -842,14 +852,6 @@
                 <e p="PlayerShipChargeSystem.cs" t="Include" />
                 <e p="PlayerShipEngineSystem.cs" t="Include" />
                 <e p="PlayerShipHull.cs" t="Include" />
-              </e>
-            </e>
-            <e p="Static" t="Include">
-              <e p="AsteroidField" t="Include">
-                <e p="Asteroid.cs" t="Include" />
-                <e p="AsteroidField.cs" t="Include" />
-                <e p="AsteroidFieldBlock.cs" t="Include" />
-                <e p="AsteroidFieldBlockGroup.cs" t="Include" />
               </e>
             </e>
             <e p="TimeManager.cs" t="Include" />
