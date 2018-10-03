@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using SpaceHacathon.Helpers;
+using UnityEngine;
 
 public class Laser : IBullet {
 	private SettingsLaser m_settings;

@@ -719,19 +719,31 @@
           </e>
         </e>
         <e p="Scripts" t="Include">
-          <e p="BattleScene" t="Include">
-            <e p="Installers" t="Include">
-              <e p="BattleSceneInstaller.cs" t="Include" />
-            </e>
-            <e p="World" t="Include">
-              <e p="Static" t="Include">
-                <e p="Asteroids" t="Include">
-                  <e p="Asteroid.cs" t="Include" />
-                  <e p="AsteroidsBlock.cs" t="Include" />
-                  <e p="AsteroidsField.cs" t="Include" />
-                  <e p="AsteroidsGroup.cs" t="Include" />
+          <e p="SpaceHacathon" t="Include">
+            <e p="BattleScene" t="Include">
+              <e p="Installers" t="Include">
+                <e p="BattleSceneInstaller.cs" t="Include" />
+              </e>
+              <e p="World" t="Include">
+                <e p="Static" t="Include">
+                  <e p="Asteroids" t="Include">
+                    <e p="Asteroid.cs" t="Include" />
+                    <e p="AsteroidsBlock.cs" t="Include" />
+                    <e p="AsteroidsField.cs" t="Include" />
+                    <e p="AsteroidsGroup.cs" t="Include" />
+                  </e>
                 </e>
               </e>
+            </e>
+            <e p="Helpers" t="Include">
+              <e p="MathHelper.cs" t="Include" />
+              <e p="PidControllers" t="Include">
+                <e p="FloatPid.cs" t="Include" />
+                <e p="VectorPid.cs" t="Include" />
+              </e>
+            </e>
+            <e p="Statistics" t="Include">
+              <e p="StatisticsManager.cs" t="Include" />
             </e>
           </e>
           <e p="Tools" t="Include">
@@ -744,13 +756,11 @@
                 <e p="IPhysicBody.cs" t="Include" />
                 <e p="ISpawnable.cs" t="Include" />
               </e>
-              <e p="MathHelper.cs" t="Include" />
             </e>
             <e p="Managers" t="Include">
               <e p="BattleContext.cs" t="Include" />
               <e p="BattleManager.cs" t="Include" />
               <e p="PrefabsManager.cs" t="Include" />
-              <e p="StatisticsManager.cs" t="Include" />
             </e>
             <e p="Settings" t="Include">
               <e p="Data" t="Include">

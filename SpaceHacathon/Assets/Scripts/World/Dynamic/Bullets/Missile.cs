@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using SpaceHacathon.Helpers;
+using UnityEngine;
 
 public class Missile : IBullet {
 	private SettingsMissile m_settings;

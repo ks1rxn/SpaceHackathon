@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using SpaceHacathon.Helpers;
+using SpaceHacathon.Helpers.PidControllers;
+using UnityEngine;
 
 public class SpaceMine : IEnemyShip {
 	private SettingsSpaceMine m_settings;

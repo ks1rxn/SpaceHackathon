@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using SpaceHacathon.Helpers;
+using UnityEngine;
 
 public class AlliesController : IController {
 	private SettingsAlliesController m_settings;

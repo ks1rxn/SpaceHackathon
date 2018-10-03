@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using SpaceHacathon.Helpers;
+using UnityEngine;
 
 public class ScreenInput : MonoBehaviour {
 	private bool m_chargePressed;

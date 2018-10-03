@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using SpaceHacathon.Helpers;
+using UnityEngine;
 
 public class RocketShip : IEnemyShip {
 	private SettingsRocketShip m_settings;

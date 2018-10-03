@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using SpaceHacathon.Helpers;
+using UnityEngine;
 
 public class TimeBonus : IBonus {
 	private SettingsTimeBonus m_settings;

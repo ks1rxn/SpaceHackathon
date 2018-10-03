@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using SpaceHacathon.Helpers;
+using UnityEngine;
 
 public class ChargeFuel : IBonus {
 	private Vector3 m_rotationVector;

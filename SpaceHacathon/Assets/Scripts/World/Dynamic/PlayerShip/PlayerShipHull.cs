@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using SpaceHacathon.Helpers;
+using SpaceHacathon.Helpers.PidControllers;
+using UnityEngine;
 
 public class PlayerShipHull : MonoBehaviour {
 	private SettingsPlayerShip m_settings;

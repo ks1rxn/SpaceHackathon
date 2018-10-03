@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using SpaceHacathon.Helpers;
 using UnityEngine;
 
 public class StunShip : IEnemyShip {
