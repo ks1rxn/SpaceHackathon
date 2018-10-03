@@ -42,6 +42,7 @@
 *.Resharper.user
 space.apk
 
+/SpaceHacathon/.idea/
 /SpaceHacathon/.vs/
 /SpaceHacathon/Assets/Models/Materials/Textures/Thumbs.db.meta
 /SpaceHacathon/Assets/ShaderForge/
