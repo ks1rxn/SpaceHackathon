@@ -2,11 +2,10 @@
 
 public class Director : MonoBehaviour {
 	[SerializeField]
-	private GameObject m_playerShipPrefab;
-	[SerializeField]
 	private DifficultyLevel m_difficultyLevel;
 	public bool GodMode;
-
+	
+	[SerializeField]
 	private PlayerShip m_playerShip;
 
 	private bool m_started;
@@ -24,12 +23,6 @@ public class Director : MonoBehaviour {
 	}
 
 	private void Start() {
-//		Analytics.CustomEvent("gameStart", new Dictionary<string, object> {
-//			{ "device", SystemInfo.deviceModel },
-//			{ "platform", Application.platform },
-//			{ "install", Application.installMode },
-//			{ "version", Application.version }
-//		});
 		BattleContext.Initiate();
 		BattleContext.BattleManager.PrefabsManager.Initiate();
 		BattleContext.BattleManager.GUIManager.CreateGUI();
@@ -41,7 +34,6 @@ public class Director : MonoBehaviour {
 		}
 
 		m_started = true;
-		BattleContext.BattleManager.AsteroidField.Initiate();
 		BattleContext.BattleManager.TimeManager.Initiate();
 		BattleContext.BattleManager.GUIManager.PlayerGUIController.Show();
 
@@ -49,8 +41,7 @@ public class Director : MonoBehaviour {
 			controller.Initiate();
 		}
 		BattleContext.BattleManager.TimeManager.SetTimeScaleMode(TimeScaleMode.Normal);
-
-		SpawnPlayerShip(Vector3.zero, 0);
+		m_playerShip.Iniaite();
 	}
 
 	public void OnPauseGame() {
@@ -82,20 +73,12 @@ public class Director : MonoBehaviour {
 
 	private void FixedUpdate() {
 		if (m_started) {
-			BattleContext.BattleManager.AsteroidField.FixedUpdateEntity();
 			BattleContext.BattleManager.Director.PlayerShip.UpdateEntity();
 			BattleContext.BattleManager.BattleCamera.UpdateEntity();
 			foreach (IController controller in BattleContext.BattleManager.Controllers) {
 				controller.FixedUpdateEntity();
 			}
 		}
-	}
-
-	private void SpawnPlayerShip(Vector3 position, float angle) {
-		m_playerShip = (Instantiate(m_playerShipPrefab)).GetComponent<PlayerShip>();
-		m_playerShip.transform.parent = transform;
-		m_playerShip.Initiate();
-		m_playerShip.Spawn(position, angle);
 	}
 
 	public PlayerShip PlayerShip {

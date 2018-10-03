@@ -6,7 +6,7 @@ public class AsteroidField : MonoBehaviour {
 
 	private AsteroidFieldBlock[,] m_blocks;
 
-	public void Initiate() {
+	private void Start() {
 		m_blocks = new AsteroidFieldBlock[3, 3];
 
 		for (int i = 0; i != 3; i++) {
@@ -19,7 +19,7 @@ public class AsteroidField : MonoBehaviour {
 		}
 	}
 
-	public void FixedUpdateEntity() {
+	public void FixedUpdate() {
 		if (!m_blocks[1, 1].IsShipOnBlock()) {
 			FixBlocks();
 		}

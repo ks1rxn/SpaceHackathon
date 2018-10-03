@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 using Random = System.Random;
 
 public class AsteroidFieldBlockGroup : MonoBehaviour {
-	private Random m_random = new Random();
+	[Inject]
+	private Random m_random;
 
 	[SerializeField]
 	private GameObject[] m_asteroidPrefabs;

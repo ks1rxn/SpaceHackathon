@@ -28,9 +28,6 @@ public class BattleManager : MonoBehaviour {
 	[SerializeField]
 	private GUIManager m_guiManager;
 
-	[SerializeField]
-	private AsteroidField m_asteroidField;
-
 	private List<IController> m_controllers;
 
 	public List<IController> Controllers {
@@ -117,12 +114,6 @@ public class BattleManager : MonoBehaviour {
 	public GUIManager GUIManager {
 		get {
 			return m_guiManager;
-		}
-	}
-
-	public AsteroidField AsteroidField {
-		get {
-			return m_asteroidField;
 		}
 	}
 

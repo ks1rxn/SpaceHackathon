@@ -33,7 +33,7 @@ public class PlayerShip : MonoBehaviour {
 	[SerializeField]
 	private GameObject m_timeBonusDirection;
 
-	public void Initiate() {
+	public void Iniaite() {
 		m_settings = BattleContext.Settings.PlayerShip;
 
 		m_effects = new EffectsOnShip();
@@ -41,6 +41,8 @@ public class PlayerShip : MonoBehaviour {
 
 		m_hull.Initiate();
         m_chargeSystem.Initiate();
+		
+		m_healEffect.SetActive(false);
 
 		m_collisionDetector.RegisterListener(CollisionTags.StunProjectile, OnStunProjectileHit);
 		m_collisionDetector.RegisterListener(CollisionTags.Missile, OnMissileHit);
@@ -55,14 +57,6 @@ public class PlayerShip : MonoBehaviour {
 		m_collisionDetector.RegisterStayListener(CollisionTags.SlowingCloud, OnSlowingCloudStay);
 
 		m_state = ShipState.OnMove;
-	}
-
-	public void Spawn(Vector3 position, float angle) {
-		transform.position = position;
-		transform.Rotate(0, -angle, 0);
-		SetAngle(angle);
-
-		m_healEffect.SetActive(false);
 	}
 
     public void Die() {

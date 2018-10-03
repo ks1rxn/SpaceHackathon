@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using Random = System.Random;
 
 public class Asteroid : MonoBehaviour {
 	private float m_rotationSpeed;
