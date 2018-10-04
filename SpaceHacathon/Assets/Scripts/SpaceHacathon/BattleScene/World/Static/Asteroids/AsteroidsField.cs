@@ -1,14 +1,16 @@
 ﻿using UnityEngine;
+using Zenject;
 
 namespace SpaceHacathon.BattleScene.World.Static.Asteroids {
 
 	public class AsteroidsField : MonoBehaviour {
-		[SerializeField]
-		private GameObject _blockPrefab;
-
 		private AsteroidsBlock[,] _blocks;
+		private AsteroidsBlock.Factory _blockFactory;
 
-		private void Start() {
+		[Inject]
+		private void Construct(AsteroidsBlock.Factory asteroidsBlockFactory) {
+			_blockFactory = asteroidsBlockFactory;
+			
 			_blocks = new AsteroidsBlock[3, 3];
 
 			for (int i = 0; i != 3; i++) {
@@ -111,9 +113,8 @@ namespace SpaceHacathon.BattleScene.World.Static.Asteroids {
 		}
 
 		private AsteroidsBlock CreateBlock() {
-			GameObject go =  Instantiate(_blockPrefab);
-			AsteroidsBlock block = go.GetComponent<AsteroidsBlock>();
-			go.transform.parent = transform;
+			AsteroidsBlock block = _blockFactory.Create("Prefabs/Asteroids/Block");
+			block.transform.parent = transform;
 			return block;
 		}
 

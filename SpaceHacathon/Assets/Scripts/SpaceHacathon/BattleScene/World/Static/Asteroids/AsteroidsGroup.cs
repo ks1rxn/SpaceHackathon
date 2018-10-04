@@ -7,16 +7,20 @@ using Random = System.Random;
 namespace SpaceHacathon.BattleScene.World.Static.Asteroids {
 
 	public class AsteroidsGroup : MonoBehaviour {
-		[Inject]
 		private Random _random;
-		[SerializeField]
-		private GameObject[] _asteroidPrefabs;
-
+		private Asteroid.Factory _asteroidFactory;
+		
 		private Vector3 _rotationVector;
 		private float _rotationSpeed;
 
 		private List<Asteroid> _asteroids;
 
+		[Inject]
+		private void Construct(Asteroid.Factory asteroidFactory, Random random) {
+			_asteroidFactory = asteroidFactory;
+			_random = random;
+		}
+		
 		public void Initiate(AsteroidGroupType type, Vector3 position) {
 			transform.localPosition = position;
 
@@ -98,13 +102,14 @@ namespace SpaceHacathon.BattleScene.World.Static.Asteroids {
 		}
 
 		private Asteroid CreateNewAsteroid() {
-			int index = _random.Next(_asteroidPrefabs.Length);
-			GameObject go =  Instantiate(_asteroidPrefabs[index]);
-			go.transform.parent = transform;
-			Asteroid asteroid = go.GetComponent<Asteroid>();
+			int index = _random.Next(3) + 1;
+			Asteroid asteroid = _asteroidFactory.Create($"Prefabs/Asteroids/Asteroid{index}");
+			asteroid.transform.parent = transform;
 			_asteroids.Add(asteroid);
 			return asteroid;
 		}
+
+		public class Factory : PlaceholderFactory<string, AsteroidsGroup> { }
 
 	}
 

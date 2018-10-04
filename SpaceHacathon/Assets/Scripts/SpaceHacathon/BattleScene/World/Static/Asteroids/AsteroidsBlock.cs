@@ -1,19 +1,23 @@
 ﻿using System.Collections.Generic;
 using SpaceHacathon.Helpers;
 using UnityEngine;
+using Random = System.Random;
+using Zenject;
 
 namespace SpaceHacathon.BattleScene.World.Static.Asteroids {
 
 	public class AsteroidsBlock : MonoBehaviour {
 		[SerializeField]
-		private GameObject _asteroidGroupPrefab;
-		[SerializeField]
 		private float _blockSize;
 
 		private List<AsteroidsGroup> _groups;
+		private AsteroidsGroup.Factory _groupFactory;
+		private Random _random;
 
-		public void MoveTo(Vector3 position) {
-			transform.localPosition = position;
+		[Inject]
+		private void Construct(AsteroidsGroup.Factory groupFactory, Random random) {
+			_groupFactory = groupFactory;
+			_random = random;
 		}
 
 		public void Initiate() {
@@ -40,7 +44,11 @@ namespace SpaceHacathon.BattleScene.World.Static.Asteroids {
 				CreateRandomGroup(position);
 			}
 		}
-
+		
+		public void MoveTo(Vector3 position) {
+			transform.localPosition = position;
+		}
+		
 		public void UpdateGroups() {
 			Vector3 playerPosiion = BattleContext.BattleManager.Director.PlayerShip.Position;
 			for (int i = 0; i != _groups.Count; i++) {
@@ -82,7 +90,7 @@ namespace SpaceHacathon.BattleScene.World.Static.Asteroids {
 		}
 
 		private void CreateRandomGroup(Vector3 position) {
-			int r = MathHelper.Random.Next(100);
+			int r = _random.Next(100);
 			if (r < 50) {
 				AsteroidsGroup group = CreateGroup();
 				group.Initiate(AsteroidGroupType.Large, position);
@@ -100,12 +108,13 @@ namespace SpaceHacathon.BattleScene.World.Static.Asteroids {
 		}
 
 		private AsteroidsGroup CreateGroup() {
-			GameObject go =  Instantiate(_asteroidGroupPrefab);
-			AsteroidsGroup group = go.GetComponent<AsteroidsGroup>();
-			go.transform.parent = transform;
+			AsteroidsGroup group = _groupFactory.Create("Prefabs/Asteroids/Group");
+			group.transform.parent = transform;
 			_groups.Add(group);
 			return group;
 		}
+
+		public class Factory : PlaceholderFactory<string, AsteroidsBlock> { }
 
 	}
 

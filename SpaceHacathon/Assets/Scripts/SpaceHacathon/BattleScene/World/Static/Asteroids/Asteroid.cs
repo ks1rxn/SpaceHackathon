@@ -1,5 +1,6 @@
 ﻿using SpaceHacathon.Helpers;
 using UnityEngine;
+using Zenject;
 
 namespace SpaceHacathon.BattleScene.World.Static.Asteroids {
 
@@ -31,6 +32,8 @@ namespace SpaceHacathon.BattleScene.World.Static.Asteroids {
 		public void UpdateRotation() {
 			transform.Rotate(_rotationVector, _rotationSpeed);
 		}
+
+		public class Factory : PlaceholderFactory<string, Asteroid> { }
 
 	}
 

@@ -24,24 +24,24 @@ public class Director : MonoBehaviour {
 
 	private void Start() {
 		BattleContext.Initiate();
-		BattleContext.BattleManager.PrefabsManager.Initiate();
-		BattleContext.BattleManager.GUIManager.CreateGUI();
+//		BattleContext.BattleManager.PrefabsManager.Initiate();
+//		BattleContext.BattleManager.GUIManager.CreateGUI();
 
-		if (!BattleContext.IsFirstRun) {
-			BattleContext.BattleManager.GUIManager.DeathMenu.Show(-1);
-			BattleContext.IsFirstRun = true;
-			return;
-		}
+//		if (!BattleContext.IsFirstRun) {
+//			BattleContext.BattleManager.GUIManager.DeathMenu.Show(-1);
+//			BattleContext.IsFirstRun = true;
+//			return;
+//		}
 
-		m_started = true;
+//		m_started = true;
 		BattleContext.BattleManager.TimeManager.Initiate();
-		BattleContext.BattleManager.GUIManager.PlayerGUIController.Show();
+//		BattleContext.BattleManager.GUIManager.PlayerGUIController.Show();
 
-		foreach (IController controller in BattleContext.BattleManager.Controllers) {
-			controller.Initiate();
-		}
+//		foreach (IController controller in BattleContext.BattleManager.Controllers) {
+//			controller.Initiate();
+//		}
 		BattleContext.BattleManager.TimeManager.SetTimeScaleMode(TimeScaleMode.Normal);
-		m_playerShip.Iniaite();
+//		m_playerShip.Iniaite();
 	}
 
 	public void OnPauseGame() {
@@ -72,13 +72,13 @@ public class Director : MonoBehaviour {
 	}
 
 	private void FixedUpdate() {
-		if (m_started) {
-			BattleContext.BattleManager.Director.PlayerShip.UpdateEntity();
-			BattleContext.BattleManager.BattleCamera.UpdateEntity();
-			foreach (IController controller in BattleContext.BattleManager.Controllers) {
-				controller.FixedUpdateEntity();
-			}
-		}
+//		if (m_started) {
+//			BattleContext.BattleManager.Director.PlayerShip.UpdateEntity();
+//			BattleContext.BattleManager.BattleCamera.UpdateEntity();
+//			foreach (IController controller in BattleContext.BattleManager.Controllers) {
+//				controller.FixedUpdateEntity();
+//			}
+//		}
 	}
 
 	public PlayerShip PlayerShip {
