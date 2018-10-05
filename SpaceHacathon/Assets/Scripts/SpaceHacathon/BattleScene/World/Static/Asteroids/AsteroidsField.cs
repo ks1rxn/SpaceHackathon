@@ -16,8 +16,7 @@ namespace SpaceHacathon.BattleScene.World.Static.Asteroids {
 			for (int i = 0; i != 3; i++) {
 				for (int g = 0; g != 3; g++) {
 					AsteroidsBlock block = CreateBlock();
-					block.Initiate();
-					block.MoveTo(new Vector3((i - 1) * 100, 0, (g - 1) * 100));
+					block.Initiate(new Vector3((i - 1) * 100, 0, (g - 1) * 100));
 					_blocks[i, g] = block;
 				}
 			}

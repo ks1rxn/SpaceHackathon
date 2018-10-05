@@ -20,17 +20,17 @@ namespace SpaceHacathon.BattleScene.World.Static.Asteroids {
 			_random = random;
 		}
 
-		public void Initiate() {
+		public void Initiate(Vector3 position) {
 			_groups = new List<AsteroidsGroup>();
-			transform.localPosition = new Vector3();
+			transform.localPosition = position;
 
 			for (int i = 0; i != 60; i++) {
-				Vector3 position = GenerateRandomPosition();
+				Vector3 newGroupPosition = GenerateRandomPosition();
 				int tryCount = 0;
 				while (true) {
 					bool hasAnotherGroupNearby = false;
 					foreach (AsteroidsGroup group in _groups) {
-						if (Vector3.Distance(group.transform.localPosition, position) < 8) {
+						if (Vector3.Distance(group.transform.localPosition, newGroupPosition) < 8) {
 							hasAnotherGroupNearby = true;
 							break;
 						}
@@ -39,14 +39,10 @@ namespace SpaceHacathon.BattleScene.World.Static.Asteroids {
 						break;
 					}
 					tryCount++;
-					position = GenerateRandomPosition();
+					newGroupPosition = GenerateRandomPosition();
 				}
-				CreateRandomGroup(position);
+				CreateRandomGroup(newGroupPosition);
 			}
-		}
-		
-		public void MoveTo(Vector3 position) {
-			transform.localPosition = position;
 		}
 		
 		public void UpdateGroups() {
