@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using SpaceHacathon.Helpers;
 using UnityEngine;
-using Random = System.Random;
 using Zenject;
+using Random = System.Random;
 
-namespace SpaceHacathon.BattleScene.World.Static.Asteroids {
+namespace SpaceHacathon.BattleScene.World.Static.AsteroidBelt {
 
 	public class AsteroidsBlock : MonoBehaviour {
 		[SerializeField]
@@ -61,16 +61,16 @@ namespace SpaceHacathon.BattleScene.World.Static.Asteroids {
 
 		public ShipPositionOnBlock GetShipPositionOnBlock() {
 			Vector3 shipPosition = BattleContext.BattleManager.Director.PlayerShip.Position;
-			if (shipPosition.x > transform.position.x + 50) {
+			if (shipPosition.x > transform.position.x + _blockSize / 2) {
 				return ShipPositionOnBlock.NotOnBlock;
 			}
-			if (shipPosition.x < transform.position.x - 50) {
+			if (shipPosition.x < transform.position.x - _blockSize / 2) {
 				return ShipPositionOnBlock.NotOnBlock;
 			}
-			if (shipPosition.z > transform.position.z + 50) {
+			if (shipPosition.z > transform.position.z + _blockSize / 2) {
 				return ShipPositionOnBlock.NotOnBlock;
 			}
-			if (shipPosition.z < transform.position.z - 50) {
+			if (shipPosition.z < transform.position.z - _blockSize / 2) {
 				return ShipPositionOnBlock.NotOnBlock;
 			}
 			if (shipPosition.x > transform.position.x) {

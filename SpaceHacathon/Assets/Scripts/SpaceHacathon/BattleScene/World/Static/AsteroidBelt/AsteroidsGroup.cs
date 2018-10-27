@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
-using SpaceHacathon.Helpers;
 using UnityEngine;
 using Zenject;
 using Random = System.Random;
 
-namespace SpaceHacathon.BattleScene.World.Static.Asteroids {
+namespace SpaceHacathon.BattleScene.World.Static.AsteroidBelt {
 
 	public class AsteroidsGroup : MonoBehaviour {
 		private Random _random;

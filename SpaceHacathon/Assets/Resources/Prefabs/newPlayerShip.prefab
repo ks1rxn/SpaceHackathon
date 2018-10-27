@@ -178,12 +178,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 469556}
+  - component: {fileID: 114657324764150954}
   - component: {fileID: 5431050}
-  - component: {fileID: 11411150}
-  - component: {fileID: 114000013761609690}
   - component: {fileID: 136000011696800802}
+  - component: {fileID: 114987538439011956}
   m_Layer: 0
-  m_Name: newPlayerShip
+  m_Name: NewPlayerShip
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -510,27 +510,6 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &11411150
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 186194}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1070a727a78dfde4998bbe65bfaf1458, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_rigidbody: {fileID: 5431050}
-  m_hull: {fileID: 11496306}
-  m_chargeSystem: {fileID: 114000012093317442}
-  m_stunFx: {fileID: 198571027522083152}
-  m_collisionDetector: {fileID: 114000013761609690}
-  m_healEffect: {fileID: 1000011611834562}
-  m_ramDirection: {fileID: 1066202653466520}
-  m_ramDirectionIndicator: {fileID: 111882712212982286}
-  m_mineIndicator: {fileID: 1000011241889890}
-  m_timeBonusDirection: {fileID: 1000013331395630}
 --- !u!114 &11483050
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -563,7 +542,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: defb3a7d54ba9934e8a94b2fb6181cad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ship: {fileID: 11411150}
+  m_ship: {fileID: 0}
   m_engineSystem: {fileID: 11483050}
   Energy: 0
   Cargo: 0
@@ -41586,7 +41565,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1000010378057958
 GameObject:
   m_ObjectHideFlags: 1
@@ -41772,7 +41751,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1000011443993842
 GameObject:
   m_ObjectHideFlags: 1
@@ -41821,7 +41800,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1000011830946280
 GameObject:
   m_ObjectHideFlags: 1
@@ -42004,7 +41983,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1000012699403742
 GameObject:
   m_ObjectHideFlags: 1
@@ -42053,7 +42032,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1000013049498626
 GameObject:
   m_ObjectHideFlags: 1
@@ -42119,7 +42098,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1000013557711494
 GameObject:
   m_ObjectHideFlags: 1
@@ -42184,7 +42163,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1000014061451504
 GameObject:
   m_ObjectHideFlags: 0
@@ -42201,7 +42180,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1000014068825294
 GameObject:
   m_ObjectHideFlags: 1
@@ -42216,7 +42195,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1000014158931976
 GameObject:
   m_ObjectHideFlags: 1
@@ -42248,7 +42227,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1100767972054780
 GameObject:
   m_ObjectHideFlags: 0
@@ -42265,7 +42244,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1311520660326806
 GameObject:
   m_ObjectHideFlags: 1
@@ -43212,7 +43191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d89bbdb01aa56348881989500deda7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ship: {fileID: 11411150}
+  m_ship: {fileID: 0}
   m_chargeIndicator: {fileID: 1000011830946280}
   m_chargeEngines:
   - {fileID: 198000012064332188}
@@ -43226,7 +43205,7 @@ MonoBehaviour:
   - {fileID: 1000014068825294}
   - {fileID: 1000010285410198}
   - {fileID: 1000012868490374}
---- !u!114 &114000013761609690
+--- !u!114 &114657324764150954
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43234,9 +43213,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 186194}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8ae04473e279b7428c4e56ae7ffb351, type: 3}
+  m_Script: {fileID: 11500000, guid: abc8d62dca5fa4e44883db096053a096, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114987538439011956
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 186194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0166d8ff8d905b048b2448179e1f5d11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _components:
+  - {fileID: 114657324764150954}
+  _identifier: 
+  _useSceneContext: 1
+  _context: {fileID: 0}
+  _bindType: 0
 --- !u!136 &136000011696800802
 CapsuleCollider:
   m_ObjectHideFlags: 1

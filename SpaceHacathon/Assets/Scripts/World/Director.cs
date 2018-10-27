@@ -12,9 +12,9 @@ public class Director : MonoBehaviour {
 
 	private void Awake() {
 		//todo: this must be done on LevelLoad scene
-		if ((int) BattleContext.NextLevel > 0) {
-			LoadDiffucultySettings((int)BattleContext.NextLevel);
-		}
+//		if ((int) BattleContext.NextLevel > 0) {
+			LoadDiffucultySettings(1);
+//		}
 	}
 
 	private static void LoadDiffucultySettings(int level) {
@@ -34,13 +34,13 @@ public class Director : MonoBehaviour {
 //		}
 
 //		m_started = true;
-		BattleContext.BattleManager.TimeManager.Initiate();
+//		BattleContext.BattleManager.TimeManager.Initiate();
 //		BattleContext.BattleManager.GUIManager.PlayerGUIController.Show();
 
 //		foreach (IController controller in BattleContext.BattleManager.Controllers) {
 //			controller.Initiate();
 //		}
-		BattleContext.BattleManager.TimeManager.SetTimeScaleMode(TimeScaleMode.Normal);
+//		BattleContext.BattleManager.TimeManager.SetTimeScaleMode(TimeScaleMode.Normal);
 //		m_playerShip.Iniaite();
 	}
 
@@ -65,10 +65,10 @@ public class Director : MonoBehaviour {
 	}
 
 	private void Update() {
-		if (m_started) {
-			BattleContext.BattleManager.StatisticsManager.UpdateEntity();
-			BattleContext.BattleManager.TimeManager.UpdateEntity();
-		}
+//		if (m_started) {
+//			BattleContext.BattleManager.StatisticsManager.UpdateEntity();
+//			BattleContext.BattleManager.TimeManager.UpdateEntity();
+//		}
 	}
 
 	private void FixedUpdate() {

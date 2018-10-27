@@ -1,9 +1,8 @@
-﻿using SpaceHacathon.Helpers;
-using UnityEngine;
-using Random = System.Random;
+﻿using UnityEngine;
 using Zenject;
+using Random = System.Random;
 
-namespace SpaceHacathon.BattleScene.World.Static.Asteroids {
+namespace SpaceHacathon.BattleScene.World.Static.AsteroidBelt {
 
 	public class Asteroid : MonoBehaviour {
 		private float _rotationSpeed;

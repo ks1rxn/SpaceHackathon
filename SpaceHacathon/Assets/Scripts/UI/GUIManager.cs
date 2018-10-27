@@ -2,45 +2,33 @@
 
 public class GUIManager : MonoBehaviour {
 	[SerializeField]
-	private GameObject m_playerGUIPrefab;
+	private PlayerGUIController _playerGUIController;
 	[SerializeField]
-	private GameObject m_pauseMenuPrefab;
+	private PauseMenu _pauseMenu;
 	[SerializeField]
-	private GameObject m_deathMenuPrefab;
-
-	private PlayerGUIController m_playerGUIController;
-	private PauseMenu m_pauseMenu;
-	private DeathMenu m_deathMenu;
+	private DeathMenu _deathMenu;
 
 	public void CreateGUI() {
-		m_playerGUIController = Instantiate(m_playerGUIPrefab).GetComponent<PlayerGUIController>();
-		m_playerGUIController.transform.SetParent(transform, false);
-		m_playerGUIController.Hide();
-
-		m_pauseMenu = Instantiate(m_pauseMenuPrefab).GetComponent<PauseMenu>();
-		m_pauseMenu.transform.SetParent(transform, false);
-		m_pauseMenu.Hide();
-
-		m_deathMenu = Instantiate(m_deathMenuPrefab).GetComponent<DeathMenu>();
-		m_deathMenu.transform.SetParent(transform, false);
-		m_deathMenu.Hide();
+		_playerGUIController.Hide();
+		_pauseMenu.Hide();
+		_deathMenu.Hide();
 	}
 
 	public PlayerGUIController PlayerGUIController {
 		get {
-			return m_playerGUIController;
+			return _playerGUIController;
 		}
 	}
 
 	public PauseMenu PauseMenu {
 		get {
-			return m_pauseMenu;
+			return _pauseMenu;
 		}
 	}
 
 	public DeathMenu DeathMenu {
 		get {
-			return m_deathMenu;
+			return _deathMenu;
 		}
 	}
 
