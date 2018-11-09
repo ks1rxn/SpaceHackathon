@@ -1,10 +1,11 @@
 using System.Collections.Generic;
+using SpaceHacathon.Helpers.FSM;
 using UnityEngine;
 using Zenject;
 
 namespace SpaceHacathon.BattleScene.Game.Loop.States {
 
-    public class InPauseState : IState {
+    public class InPauseState : IState<GameLoopStates> {
         
         public override void Enter() {
             Debug.Log("Enter InPauseState");
@@ -14,21 +15,27 @@ namespace SpaceHacathon.BattleScene.Game.Loop.States {
             Debug.Log("Exit InPauseState");
         }
         
-        public override GameLoopStateResult HandleEvents(Queue<GameLoopEvent> events) {
+        public override StateRunResult<GameLoopStates> HandleEvents(Queue<GameLoopEvent> events) {
             while (events.Count > 0) {
                 GameLoopEvent currentEvent = events.Dequeue();
                 switch (currentEvent.EventType) {
                     case GameLoopEvent.Type.PausePressed:
-                        return new GameLoopStateResult{ReturnAction = GameLoopStateResult.Action.Pop};
+                        return new StateRunResult<GameLoopStates>{StateRunReturnAction = StateRunReturnAction.Pop};
                 }
             }
-            return new GameLoopStateResult{ReturnAction = GameLoopStateResult.Action.None};
+            return new StateRunResult<GameLoopStates>{StateRunReturnAction = StateRunReturnAction.None};
         }
 
-        public override GameLoopStateResult Update() {
-            return new GameLoopStateResult{ReturnAction = GameLoopStateResult.Action.None};
+        public override StateRunResult<GameLoopStates> Update() {
+            return new StateRunResult<GameLoopStates>{StateRunReturnAction = StateRunReturnAction.None};
         }
-        
+
+        public override GameLoopStates GetType {
+            get {
+                return GameLoopStates.InPause;
+            }
+        }
+
         public class Factory : PlaceholderFactory<InPauseState> { }
         
     }

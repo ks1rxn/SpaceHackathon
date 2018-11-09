@@ -2,7 +2,7 @@
 using UnityEngine;
 using Zenject;
 
-namespace SpaceHacathon.BattleScene.World.Static.AsteroidBelt {
+namespace SpaceHacathon.BattleScene.World.Static.AsteroidBelt.Behaviours {
 
 	public class AsteroidsField : MonoBehaviour {
 		private IAsteroidBlocksSpawner _blocksSpawner;

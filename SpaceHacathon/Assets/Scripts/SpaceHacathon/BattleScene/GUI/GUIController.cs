@@ -1,4 +1,3 @@
-using SpaceHacathon.BattleScene.Game;
 using SpaceHacathon.BattleScene.Game.Loop;
 using UnityEngine;
 using Zenject;

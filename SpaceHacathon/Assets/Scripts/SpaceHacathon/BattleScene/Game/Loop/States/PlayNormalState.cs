@@ -1,10 +1,11 @@
 using System.Collections.Generic;
+using SpaceHacathon.Helpers.FSM;
 using UnityEngine;
 using Zenject;
 
 namespace SpaceHacathon.BattleScene.Game.Loop.States {
 
-    public class PlayNormalState : IState {
+    public class PlayNormalState : IState<GameLoopStates> {
 
         public override void Enter() {
             Debug.Log("Enter PlayNormalState");
@@ -14,21 +15,27 @@ namespace SpaceHacathon.BattleScene.Game.Loop.States {
             Debug.Log("Exit PlayNormalState");
         }
 
-        public override GameLoopStateResult HandleEvents(Queue<GameLoopEvent> events) {
+        public override StateRunResult<GameLoopStates> HandleEvents(Queue<GameLoopEvent> events) {
             while (events.Count > 0) {
                 GameLoopEvent currentEvent = events.Dequeue();
                 switch (currentEvent.EventType) {
                     case GameLoopEvent.Type.PausePressed:
-                        return new GameLoopStateResult{ReturnAction = GameLoopStateResult.Action.Push, ReturnState = GameLoopStates.InPause};
+                        return new StateRunResult<GameLoopStates>{StateRunReturnAction = StateRunReturnAction.Push, ReturnState = GameLoopStates.InPause};
                 }
             }
-            return new GameLoopStateResult{ReturnAction = GameLoopStateResult.Action.None};
+            return new StateRunResult<GameLoopStates>{StateRunReturnAction = StateRunReturnAction.None};
         }
 
-        public override GameLoopStateResult Update() {
-            return new GameLoopStateResult{ReturnAction = GameLoopStateResult.Action.None};
+        public override StateRunResult<GameLoopStates> Update() {
+            return new StateRunResult<GameLoopStates>{StateRunReturnAction = StateRunReturnAction.None};
         }
 
+        public override GameLoopStates GetType {
+            get {
+                return GameLoopStates.PlayNormal;
+            }
+        }
+        
         public class Factory : PlaceholderFactory<PlayNormalState> { }
 
     }
