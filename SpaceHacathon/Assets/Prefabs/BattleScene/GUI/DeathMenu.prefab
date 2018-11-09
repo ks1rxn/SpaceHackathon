@@ -57,6 +57,7 @@ GameObject:
   - component: {fileID: 114000010006319316}
   - component: {fileID: 114000012360149872}
   - component: {fileID: 114000013858404496}
+  - component: {fileID: 114045114864666636}
   m_Layer: 5
   m_Name: DeathMenu
   m_TagString: Untagged
@@ -612,6 +613,23 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114045114864666636
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012181715176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0166d8ff8d905b048b2448179e1f5d11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _components:
+  - {fileID: 114000013858404496}
+  _identifier: 
+  _useSceneContext: 0
+  _context: {fileID: 0}
+  _bindType: 0
 --- !u!114 &114061617644238974
 MonoBehaviour:
   m_ObjectHideFlags: 1
