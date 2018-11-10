@@ -1,18 +1,13 @@
-using System;
-using SpaceHacathon.BattleScene.Game.Loop;
-using SpaceHacathon.BattleScene.Game.Loop.States;
 using SpaceHacathon.BattleScene.Game.Time;
-using SpaceHacathon.Helpers.FSM;
 using Zenject;
+using Random = System.Random;
 
 namespace SpaceHacathon.BattleScene.Installers {
 
     public class BattleSceneInstaller : MonoInstaller {
 
         public override void InstallBindings() {
-            //todo: layergui, pausemenu - mv-s. guicontroller - gocontext. all outside gui communication - signals
-            
-            InstallGameLoop();
+            GameLoopInstaller.Install(Container);
             
             InstallTime();
             InstallMisc();
@@ -32,16 +27,6 @@ namespace SpaceHacathon.BattleScene.Installers {
             Container.Bind<Random>().AsSingle();
         }
 
-        private void InstallGameLoop() {
-            Container.BindInterfacesAndSelfTo<GameLoop>().AsSingle();
-            
-            Container.Bind<StateMachine<GameLoopStates>>().WhenInjectedInto<GameLoop>();
-            Container.Bind<StatesFactory<GameLoopStates>>().WhenInjectedInto<StateMachine<GameLoopStates>>();
-            
-            Container.Bind<IState<GameLoopStates>>().To<PlayNormalState>().WhenInjectedInto<StatesFactory<GameLoopStates>>();
-            Container.Bind<IState<GameLoopStates>>().To<InPauseState>().WhenInjectedInto<StatesFactory<GameLoopStates>>();
-        }
-        
     }
 
 }

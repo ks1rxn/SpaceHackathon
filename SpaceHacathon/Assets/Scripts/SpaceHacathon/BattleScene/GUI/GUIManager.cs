@@ -4,14 +4,14 @@ using Zenject;
 
 namespace SpaceHacathon.BattleScene.GUI {
 
-    public class GUIController : MonoBehaviour {
-        private GameLoop _gameLoop;
+    public class GUIManager : MonoBehaviour {
+        private IGameLoop _gameLoop;
         private PlayerGUIController _playerGUI;
         private PauseMenu _pauseMenu;
         private DeathMenu _deathMenu;
 
         [Inject]
-        private void Construct(GameLoop gameLoop, PlayerGUIController playerGUI, PauseMenu pauseMenu, DeathMenu deathMenu) {
+        private void Construct(IGameLoop gameLoop, PlayerGUIController playerGUI, PauseMenu pauseMenu, DeathMenu deathMenu) {
             _gameLoop = gameLoop;
             _playerGUI = playerGUI;
             _pauseMenu = pauseMenu;
@@ -26,7 +26,7 @@ namespace SpaceHacathon.BattleScene.GUI {
 
         private void Update() {
             if (Input.GetKeyDown(KeyCode.Escape)) {
-                _gameLoop.PushEvent(new GameLoopEvent{EventType = GameLoopEvent.Type.PausePressed});
+                _gameLoop.PushEvent(GameLoopEvents.PausePressed);
             }
         }
         

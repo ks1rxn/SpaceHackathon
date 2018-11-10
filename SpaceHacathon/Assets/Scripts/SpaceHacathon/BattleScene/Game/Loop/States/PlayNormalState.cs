@@ -5,7 +5,7 @@ using Zenject;
 
 namespace SpaceHacathon.BattleScene.Game.Loop.States {
 
-    public class PlayNormalState : IState<GameLoopStates> {
+    public class PlayNormalState : IState<GameLoopStates, GameLoopEvents> {
 
         public override void Enter() {
             Debug.Log("Enter PlayNormalState");
@@ -15,13 +15,10 @@ namespace SpaceHacathon.BattleScene.Game.Loop.States {
             Debug.Log("Exit PlayNormalState");
         }
 
-        public override StateRunResult<GameLoopStates> HandleEvents(Queue<GameLoopEvent> events) {
-            while (events.Count > 0) {
-                GameLoopEvent currentEvent = events.Dequeue();
-                switch (currentEvent.EventType) {
-                    case GameLoopEvent.Type.PausePressed:
-                        return new StateRunResult<GameLoopStates>{StateRunReturnAction = StateRunReturnAction.Push, ReturnState = GameLoopStates.InPause};
-                }
+        public override StateRunResult<GameLoopStates> HandleEvents(GameLoopEvents nextEvent) {
+            switch (nextEvent) {
+                case GameLoopEvents.PausePressed:
+                    return new StateRunResult<GameLoopStates>{StateRunReturnAction = StateRunReturnAction.Push, ReturnState = GameLoopStates.InPause};
             }
             return new StateRunResult<GameLoopStates>{StateRunReturnAction = StateRunReturnAction.None};
         }
@@ -35,8 +32,6 @@ namespace SpaceHacathon.BattleScene.Game.Loop.States {
                 return GameLoopStates.PlayNormal;
             }
         }
-        
-        public class Factory : PlaceholderFactory<PlayNormalState> { }
 
     }
 

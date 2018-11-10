@@ -1,11 +1,9 @@
-using System.Collections.Generic;
 using SpaceHacathon.Helpers.FSM;
 using UnityEngine;
-using Zenject;
 
 namespace SpaceHacathon.BattleScene.Game.Loop.States {
 
-    public class InPauseState : IState<GameLoopStates> {
+    public class InPauseState : IState<GameLoopStates, GameLoopEvents> {
         
         public override void Enter() {
             Debug.Log("Enter InPauseState");
@@ -15,13 +13,10 @@ namespace SpaceHacathon.BattleScene.Game.Loop.States {
             Debug.Log("Exit InPauseState");
         }
         
-        public override StateRunResult<GameLoopStates> HandleEvents(Queue<GameLoopEvent> events) {
-            while (events.Count > 0) {
-                GameLoopEvent currentEvent = events.Dequeue();
-                switch (currentEvent.EventType) {
-                    case GameLoopEvent.Type.PausePressed:
-                        return new StateRunResult<GameLoopStates>{StateRunReturnAction = StateRunReturnAction.Pop};
-                }
+        public override StateRunResult<GameLoopStates> HandleEvents(GameLoopEvents nextEvent) {
+            switch (nextEvent) {
+                case GameLoopEvents.PausePressed:
+                    return new StateRunResult<GameLoopStates>{StateRunReturnAction = StateRunReturnAction.Pop};
             }
             return new StateRunResult<GameLoopStates>{StateRunReturnAction = StateRunReturnAction.None};
         }
@@ -36,8 +31,6 @@ namespace SpaceHacathon.BattleScene.Game.Loop.States {
             }
         }
 
-        public class Factory : PlaceholderFactory<InPauseState> { }
-        
     }
 
 }

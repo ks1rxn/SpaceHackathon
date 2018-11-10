@@ -3,17 +3,17 @@ using System.Collections.Generic;
 
 namespace SpaceHacathon.Helpers.FSM {
 
-    public class StatesFactory<StatesEnum> {
-        private readonly Dictionary<StatesEnum, IState<StatesEnum>> _states;
+    public class StatesFactory<StatesEnum, EventsEnum> {
+        private readonly Dictionary<StatesEnum, IState<StatesEnum, EventsEnum>> _states;
 
-        public StatesFactory(List<IState<StatesEnum>> states) {
-            _states = new Dictionary<StatesEnum, IState<StatesEnum>>(states.Count);
-            foreach (IState<StatesEnum> state in states) {
+        public StatesFactory(List<IState<StatesEnum, EventsEnum>> states) {
+            _states = new Dictionary<StatesEnum, IState<StatesEnum, EventsEnum>>(states.Count);
+            foreach (IState<StatesEnum, EventsEnum> state in states) {
                 _states.Add(state.GetType, state);
             }
         }
         
-        public IState<StatesEnum> GetState(StatesEnum state) {
+        public IState<StatesEnum, EventsEnum> GetState(StatesEnum state) {
             if (_states.ContainsKey(state)) {
                 return _states[state];
             }

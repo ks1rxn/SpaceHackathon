@@ -1,15 +1,12 @@
-using System.Collections.Generic;
-using SpaceHacathon.BattleScene.Game.Loop;
-
 namespace SpaceHacathon.Helpers.FSM {
 
-    public abstract class IState<StatesEnum> {
+    public abstract class IState<StatesEnum, EventsEnum> {
 
         public virtual void Enter() {}
 
         public virtual void Exit() { }
 
-        public virtual StateRunResult<StatesEnum> HandleEvents(Queue<GameLoopEvent> events) {
+        public virtual StateRunResult<StatesEnum> HandleEvents(EventsEnum nextEvent) {
             return new StateRunResult<StatesEnum>{StateRunReturnAction = StateRunReturnAction.None};
         }
 
