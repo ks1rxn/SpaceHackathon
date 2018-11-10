@@ -1,17 +1,16 @@
-using Zenject;
-
 namespace SpaceHacathon.BattleScene.Game.Time {
 
-    public class ElapsedTimeCounter : IInitializable, ITickable {
+    public class ElapsedTimeCounter {
         public float ElapsedTime { get; private set; }
 
-        public void Initialize() {
+        public void Initiate() {
             ElapsedTime = 0;
         }
 
-        public void Tick() {
-            ElapsedTime += UnityEngine.Time.deltaTime;
+        public void AddTime(float time) {
+            ElapsedTime += time;
         }
+        
     }
 
 }

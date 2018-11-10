@@ -4,15 +4,15 @@ namespace SpaceHacathon.BattleScene.Game.Time {
         
         public void StopTime() {
             UnityEngine.Time.timeScale = 0;
-            CorrectFixedDeltaTime();
+            AdjustFixedDeltaTime();
         }
 
         public void ResumeTime() {
             UnityEngine.Time.timeScale = 1;
-            CorrectFixedDeltaTime();
+            AdjustFixedDeltaTime();
         }
 
-        private static void CorrectFixedDeltaTime() {
+        private static void AdjustFixedDeltaTime() {
             UnityEngine.Time.fixedDeltaTime = 0.02F * UnityEngine.Time.timeScale;
         }
 
