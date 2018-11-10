@@ -1,25 +1,23 @@
-using SpaceHacathon.BattleScene.Game.Loop;
+using SpaceHacathon.BattleScene.Game.Manager;
 using SpaceHacathon.Helpers.FSM;
 using UnityEngine;
 using Zenject;
 
 namespace SpaceHacathon.BattleScene.GUI {
 
-    public class GUIManager : MonoBehaviour {
-        private IGameLoop _gameLoop;
+    public class GUIManager : MonoBehaviour, IEventsReceiver<GUIEvents> {
         private StateMachine<GUIStates, GUIEvents> _stateMachine;
 
         [Inject]
-        private void Construct(IGameLoop gameLoop, StateMachine<GUIStates, GUIEvents> stateMachine) {
-            _gameLoop = gameLoop;
+        private void Construct(StateMachine<GUIStates, GUIEvents> stateMachine) {
             _stateMachine = stateMachine;
         }
 
         //todo: bad idea: inject PlayerShip into GUI layer. Use abstraction IControllable instead?
-        //todo: use abstraction in GameController too??
         private void Start() {
             _stateMachine.Initiate();
-            _stateMachine.Start(GUIStates.PlayNormal);
+            //todo: start should be initiated from GameManager via event, signal or smthng like this.
+            _stateMachine.Start(GUIStates.ShipGUI);
         }
 
         private void Update() {
@@ -30,6 +28,10 @@ namespace SpaceHacathon.BattleScene.GUI {
             _stateMachine.Dispose();
         }
 
+        public void PushEvent(GUIEvents newEvent) {
+            _stateMachine.HandleEvent(newEvent);
+        }
+        
     }
 
 }

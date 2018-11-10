@@ -5,16 +5,16 @@ namespace SpaceHacathon.Helpers.FSM {
     public class StateMachine<StatesEnum, EventsEnum> {
         private readonly StatesFactory<StatesEnum, EventsEnum> _stateFactory;
         
-        private Stack<IState<StatesEnum, EventsEnum>> _states;
-        private Queue<EventsEnum> _events;
+        private Stack<IState<StatesEnum, EventsEnum>> _activeStates;
+        private Queue<EventsEnum> _incomingEvents;
 
         public StateMachine(StatesFactory<StatesEnum, EventsEnum> stateFactory) {
             _stateFactory = stateFactory;
         }
         
         public void Initiate() {
-            _states = new Stack<IState<StatesEnum, EventsEnum>>(2);
-            _events = new Queue<EventsEnum>(2);
+            _activeStates = new Stack<IState<StatesEnum, EventsEnum>>(2);
+            _incomingEvents = new Queue<EventsEnum>(2);
             
             foreach (IState<StatesEnum,EventsEnum> state in _stateFactory.GetAllStates()) {
                 state.Initiate();
@@ -26,26 +26,26 @@ namespace SpaceHacathon.Helpers.FSM {
         }
         
         public void HandleEvent(EventsEnum newEvent) {
-            _events.Enqueue(newEvent);
+            _incomingEvents.Enqueue(newEvent);
         }
         
         public void Update() {
-            if (_states.Count == 0) {
+            if (_activeStates.Count == 0) {
                 return;
             }
-            while (_events.Count > 0) {
-                StateRunResult<StatesEnum> runResult = _states.Peek().HandleEvents(_events.Dequeue());
+            while (_incomingEvents.Count > 0) {
+                StateRunResult<StatesEnum> runResult = _activeStates.Peek().HandleEvents(_incomingEvents.Dequeue());
                 if (runResult.StateRunReturnAction != StateRunReturnAction.None) {
                     HandleReturnResult(runResult); 
                     return;
                 }
             }
-            HandleReturnResult(_states.Peek().Update());
+            HandleReturnResult(_activeStates.Peek().Update());
         }
 
         public void Dispose() {
-            while (_states.Count > 0) {
-                IState<StatesEnum, EventsEnum> state = _states.Pop();
+            while (_activeStates.Count > 0) {
+                IState<StatesEnum, EventsEnum> state = _activeStates.Pop();
                 state.Exit();
             }
         }
@@ -65,34 +65,34 @@ namespace SpaceHacathon.Helpers.FSM {
         }  
         
         private void ChangeState(StatesEnum newState) {
-            if (_states.Count != 0) {
-                IState<StatesEnum, EventsEnum> activeState = _states.Pop();
+            if (_activeStates.Count != 0) {
+                IState<StatesEnum, EventsEnum> activeState = _activeStates.Pop();
                 activeState.Exit();
             }
 
             IState<StatesEnum, EventsEnum> enterState = _stateFactory.GetState(newState);
-            _states.Push(enterState);
+            _activeStates.Push(enterState);
             enterState.Enter();
         }
 
         private void PushState(StatesEnum newState) {
-            if (_states.Count != 0) {
-                _states.Peek().Pause();
+            if (_activeStates.Count != 0) {
+                _activeStates.Peek().Pause();
             }
 
             IState<StatesEnum, EventsEnum> enterState = _stateFactory.GetState(newState);
-            _states.Push(enterState);
+            _activeStates.Push(enterState);
             enterState.Enter();
         }
 
         private void PopState() {
-            if (_states.Count != 0) {
-                IState<StatesEnum, EventsEnum> activeState = _states.Pop();
+            if (_activeStates.Count != 0) {
+                IState<StatesEnum, EventsEnum> activeState = _activeStates.Pop();
                 activeState.Exit();
             }
 
-            if (_states.Count != 0) {
-                _states.Peek().Resume();
+            if (_activeStates.Count != 0) {
+                _activeStates.Peek().Resume();
             }
         }
         

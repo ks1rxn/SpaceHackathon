@@ -1308,7 +1308,7 @@ MonoBehaviour:
   _identifier: 
   _useSceneContext: 1
   _context: {fileID: 0}
-  _bindType: 0
+  _bindType: 1
 --- !u!1 &1437064045
 GameObject:
   m_ObjectHideFlags: 0

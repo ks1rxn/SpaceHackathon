@@ -11,9 +11,9 @@ namespace SpaceHacathon.BattleScene.Installers {
             Container.Bind<StateMachine<GUIStates, GUIEvents>>().WhenInjectedInto<GUIManager>().NonLazy();
             Container.Bind<StatesFactory<GUIStates, GUIEvents>>().WhenInjectedInto<StateMachine<GUIStates, GUIEvents>>();
 
-            Container.Bind<IState<GUIStates, GUIEvents>>().To<PlayNormalState>().WhenInjectedInto<StatesFactory<GUIStates, GUIEvents>>();
-            Container.Bind<IState<GUIStates, GUIEvents>>().To<InPauseState>().WhenInjectedInto<StatesFactory<GUIStates, GUIEvents>>();
-            Container.Bind<IState<GUIStates, GUIEvents>>().To<PlayerDeadState>().WhenInjectedInto<StatesFactory<GUIStates, GUIEvents>>();
+            Container.Bind<IState<GUIStates, GUIEvents>>().To<ShipGUIState>().WhenInjectedInto<StatesFactory<GUIStates, GUIEvents>>();
+            Container.Bind<IState<GUIStates, GUIEvents>>().To<PauseMenuState>().WhenInjectedInto<StatesFactory<GUIStates, GUIEvents>>();
+            Container.Bind<IState<GUIStates, GUIEvents>>().To<DeathMenuState>().WhenInjectedInto<StatesFactory<GUIStates, GUIEvents>>();
         }
     }
 

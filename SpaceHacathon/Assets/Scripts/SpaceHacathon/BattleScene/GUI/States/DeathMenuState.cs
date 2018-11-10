@@ -3,10 +3,10 @@ using SpaceHacathon.Helpers.FSM;
 
 namespace SpaceHacathon.BattleScene.GUI.States {
 
-    public class PlayerDeadState : IState<GUIStates, GUIEvents> {
+    public class DeathMenuState : IState<GUIStates, GUIEvents> {
         private readonly DeathMenu _deathMenu;
 
-        public PlayerDeadState(DeathMenu deathMenu) {
+        public DeathMenuState(DeathMenu deathMenu) {
             _deathMenu = deathMenu;
         }
 
@@ -16,7 +16,7 @@ namespace SpaceHacathon.BattleScene.GUI.States {
         
         public override GUIStates GetType {
             get {
-                return GUIStates.PlayerDead;
+                return GUIStates.DeathMenu;
             }
         }
         

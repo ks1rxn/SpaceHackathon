@@ -6,7 +6,7 @@ namespace SpaceHacathon.BattleScene.Installers {
     public class BattleSceneInstaller : MonoInstaller {
 
         public override void InstallBindings() {
-            GameLoopInstaller.Install(Container);
+            GameManagerInstaller.Install(Container);
 
             InstallMisc();
             InstallSignals();
