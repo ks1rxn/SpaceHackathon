@@ -12,6 +12,10 @@ namespace SpaceHacathon.Helpers.FSM {
                 _states.Add(state.GetType, state);
             }
         }
+
+        public IEnumerable<IState<StatesEnum, EventsEnum>> GetAllStates() {
+            return _states.Values;
+        }
         
         public IState<StatesEnum, EventsEnum> GetState(StatesEnum state) {
             if (_states.ContainsKey(state)) {

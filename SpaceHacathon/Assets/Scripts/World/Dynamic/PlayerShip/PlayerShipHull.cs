@@ -24,7 +24,7 @@ public class PlayerShipHull : MonoBehaviour {
         m_engineSystem.Initiate();
 
 		Energy = m_settings.EnergyMaximumInitial;  
-		BattleContext.BattleManager.GUIManager.PlayerGUIController.CargoIndicator.SetCargoFill(Cargo);
+		BattleContext.BattleManager.GUIManagerObsolete.PlayerGUIController.CargoIndicator.SetCargoFill(Cargo);
     }
 
 	public void SetFlyingParameters(float rotation, ThrottleState enginePower) {
@@ -50,12 +50,12 @@ public class PlayerShipHull : MonoBehaviour {
 		if (Cargo > m_settings.CargoCapacity) {
 			Cargo = m_settings.CargoCapacity;
 		}
-		BattleContext.BattleManager.GUIManager.PlayerGUIController.CargoIndicator.SetCargoFill(Cargo);
+		BattleContext.BattleManager.GUIManagerObsolete.PlayerGUIController.CargoIndicator.SetCargoFill(Cargo);
 	}
 
 	public void SpendCargo() {
 		Cargo = 0;
-		BattleContext.BattleManager.GUIManager.PlayerGUIController.CargoIndicator.SetCargoFill(Cargo);
+		BattleContext.BattleManager.GUIManagerObsolete.PlayerGUIController.CargoIndicator.SetCargoFill(Cargo);
 	}
 
 
@@ -66,7 +66,7 @@ public class PlayerShipHull : MonoBehaviour {
 
     private void UpdateEnergy() {
 		SpendEnergy(m_settings.EnergyDropPerSecond * Time.fixedDeltaTime);
-		BattleContext.BattleManager.GUIManager.PlayerGUIController.EnergyIndicator.SetEnergy(Energy / m_settings.EnergyMaximumInitial);
+		BattleContext.BattleManager.GUIManagerObsolete.PlayerGUIController.EnergyIndicator.SetEnergy(Energy / m_settings.EnergyMaximumInitial);
 
 	    if (Energy < m_settings.EnergyMaximumInitial / 5) {
 		    BattleContext.BattleManager.StatisticsManager.PlayerShipStatistics.TimeOn1Battery += Time.fixedDeltaTime;

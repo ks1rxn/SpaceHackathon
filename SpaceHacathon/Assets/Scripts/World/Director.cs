@@ -45,21 +45,21 @@ public class Director : MonoBehaviour {
 	}
 
 	public void OnPauseGame() {
-		BattleContext.BattleManager.GUIManager.PlayerGUIController.Hide();
-		BattleContext.BattleManager.GUIManager.PauseMenu.Show();
+		BattleContext.BattleManager.GUIManagerObsolete.PlayerGUIController.Hide();
+		BattleContext.BattleManager.GUIManagerObsolete.PauseMenuObsolete.Show();
 		BattleContext.BattleManager.TimeManager.Pause();
 		//todo: unscaled time is used in charge process
 	}
 
 	public void OnUnpauseGame() {
-		BattleContext.BattleManager.GUIManager.PlayerGUIController.Show();
-		BattleContext.BattleManager.GUIManager.PauseMenu.Hide();
+		BattleContext.BattleManager.GUIManagerObsolete.PlayerGUIController.Show();
+		BattleContext.BattleManager.GUIManagerObsolete.PauseMenuObsolete.Hide();
 		BattleContext.BattleManager.TimeManager.Unpause();
 	}
 
 	public void OnPlayerDie() {
-		BattleContext.BattleManager.GUIManager.PlayerGUIController.Hide();
-		BattleContext.BattleManager.GUIManager.DeathMenu.Show(BattleContext.BattleManager.TimeManager.GameTime);
+		BattleContext.BattleManager.GUIManagerObsolete.PlayerGUIController.Hide();
+		BattleContext.BattleManager.GUIManagerObsolete.DeathMenuObsolete.Show(BattleContext.BattleManager.TimeManager.GameTime);
 		BattleContext.BattleManager.TimeManager.Pause();
 		BattleContext.BattleManager.StatisticsManager.SendPlayerShipStatistics();
 	}

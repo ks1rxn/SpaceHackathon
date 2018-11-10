@@ -26,7 +26,7 @@ public class PlayerShipChargeSystem : MonoBehaviour {
 	}
 
 	private void UpdateChargeIndicators() {
-		BattleContext.BattleManager.GUIManager.PlayerGUIController.SetChargeButtonActive(CanCharge);
+		BattleContext.BattleManager.GUIManagerObsolete.PlayerGUIController.SetChargeButtonActive(CanCharge);
 
 		float energyForCharge = BattleContext.Settings.PlayerShip.EnergyForCharge;
 		m_chargeIndicators[0].SetActive(m_ship.Hull.Energy >= energyForCharge);

@@ -3,6 +3,7 @@ using SpaceHacathon.BattleScene.Game.Time;
 using SpaceHacathon.BattleScene.World.Dynamic.Player;
 using SpaceHacathon.Statistics;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class BattleManager : MonoBehaviour {
 	[SerializeField]
@@ -28,8 +29,9 @@ public class BattleManager : MonoBehaviour {
 	private TimeManager m_timeManager;
 	[SerializeField]
 	private BattleCamera m_battleCamera;
+	[FormerlySerializedAs("m_guiManager")]
 	[SerializeField]
-	private GUIManager m_guiManager;
+	private GUIManagerObsolete _mGUIManagerObsolete;
 
 	private List<IController> m_controllers;
 
@@ -114,9 +116,9 @@ public class BattleManager : MonoBehaviour {
 		}
 	}
 
-	public GUIManager GUIManager {
+	public GUIManagerObsolete GUIManagerObsolete {
 		get {
-			return m_guiManager;
+			return _mGUIManagerObsolete;
 		}
 	}
 

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PauseMenu : MonoBehaviour {
+public class PauseMenuObsolete : MonoBehaviour {
 
 	public void Show() {
 		gameObject.SetActive(true);

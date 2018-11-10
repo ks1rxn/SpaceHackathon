@@ -1,4 +1,5 @@
 using SpaceHacathon.BattleScene.Game.Loop;
+using SpaceHacathon.Helpers.FSM;
 using UnityEngine;
 using Zenject;
 
@@ -6,30 +7,29 @@ namespace SpaceHacathon.BattleScene.GUI {
 
     public class GUIManager : MonoBehaviour {
         private IGameLoop _gameLoop;
-        private PlayerGUIController _playerGUI;
-        private PauseMenu _pauseMenu;
-        private DeathMenu _deathMenu;
+        private StateMachine<GUIStates, GUIEvents> _stateMachine;
 
         [Inject]
-        private void Construct(IGameLoop gameLoop, PlayerGUIController playerGUI, PauseMenu pauseMenu, DeathMenu deathMenu) {
+        private void Construct(IGameLoop gameLoop, StateMachine<GUIStates, GUIEvents> stateMachine) {
             _gameLoop = gameLoop;
-            _playerGUI = playerGUI;
-            _pauseMenu = pauseMenu;
-            _deathMenu = deathMenu;
+            _stateMachine = stateMachine;
         }
 
         //todo: bad idea: inject PlayerShip into GUI layer. Use abstraction IControllable instead?
         //todo: use abstraction in GameController too??
         private void Start() {
-            
+            _stateMachine.Initiate();
+            _stateMachine.Start(GUIStates.PlayNormal);
         }
 
         private void Update() {
-            if (Input.GetKeyDown(KeyCode.Escape)) {
-                _gameLoop.PushEvent(GameLoopEvents.PausePressed);
-            }
+            _stateMachine.Update();
         }
-        
+
+        private void OnDestroy() {
+            _stateMachine.Dispose();
+        }
+
     }
 
 }

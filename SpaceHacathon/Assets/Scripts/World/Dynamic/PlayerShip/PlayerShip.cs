@@ -145,7 +145,7 @@ public class PlayerShip : MonoBehaviour {
 				actualAngle = longAngle;
 			}
 		}
-		BattleContext.BattleManager.GUIManager.PlayerGUIController.SetRotationParams(m_neededAngle, actualAngle);
+		BattleContext.BattleManager.GUIManagerObsolete.PlayerGUIController.SetRotationParams(m_neededAngle, actualAngle);
 		float angularForce = Mathf.Sign(actualAngle) * Mathf.Sqrt(Mathf.Abs(actualAngle)) * m_shipParams.RotationPower * m_settings.RotationCoefficient;
 		m_rigidbody.AddTorque(new Vector3(0, angularForce * m_rigidbody.mass * m_effects.Slowing * Time.fixedDeltaTime, 0));
 				
@@ -172,7 +172,7 @@ public class PlayerShip : MonoBehaviour {
 			return;
 		}
 		m_neededAngle = angle;
-		BattleContext.BattleManager.GUIManager.PlayerGUIController.SetRightJoystickAngle(angle);
+		BattleContext.BattleManager.GUIManagerObsolete.PlayerGUIController.SetRightJoystickAngle(angle);
 	}
 
 	public void SetPower(ThrottleState power) {
@@ -180,7 +180,7 @@ public class PlayerShip : MonoBehaviour {
 			return;
 		}
 		m_power = power;
-		BattleContext.BattleManager.GUIManager.PlayerGUIController.SetLeftJoysticValue(power);
+		BattleContext.BattleManager.GUIManagerObsolete.PlayerGUIController.SetLeftJoysticValue(power);
 	}
 
 	public void Charge() {
@@ -356,7 +356,7 @@ public class PlayerShip : MonoBehaviour {
 	public void OnHealBegin() {
 		m_healEffect.SetActive(true);
 		m_hull.SpendCargo();
-		BattleContext.BattleManager.GUIManager.PlayerGUIController.EnergyIndicator.ShowRecharge();
+		BattleContext.BattleManager.GUIManagerObsolete.PlayerGUIController.EnergyIndicator.ShowRecharge();
 	}
 
 	public void OnHeal(float hp) {
@@ -365,7 +365,7 @@ public class PlayerShip : MonoBehaviour {
 
 	public void OnHealEnd() {
 		m_healEffect.SetActive(false);
-		BattleContext.BattleManager.GUIManager.PlayerGUIController.EnergyIndicator.HideRecharge();
+		BattleContext.BattleManager.GUIManagerObsolete.PlayerGUIController.EnergyIndicator.HideRecharge();
 	}
 
 	public Vector3 LookVector {

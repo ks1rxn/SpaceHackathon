@@ -6,21 +6,41 @@ namespace SpaceHacathon.Helpers.FSM {
         private readonly StatesFactory<StatesEnum, EventsEnum> _stateFactory;
         
         private Stack<IState<StatesEnum, EventsEnum>> _states;
+        private Queue<EventsEnum> _events;
 
         public StateMachine(StatesFactory<StatesEnum, EventsEnum> stateFactory) {
             _stateFactory = stateFactory;
         }
         
-        public void Initiate(StatesEnum initialState) {
+        public void Initiate() {
             _states = new Stack<IState<StatesEnum, EventsEnum>>(2);
-            ChangeState(initialState);
+            _events = new Queue<EventsEnum>(2);
+            
+            foreach (IState<StatesEnum,EventsEnum> state in _stateFactory.GetAllStates()) {
+                state.Initiate();
+            }
         }
 
-        public void Update(EventsEnum nextEvent) {
-            if (_states.Count != 0) {
-                HandleReturnResult(_states.Peek().HandleEvents(nextEvent));
-                HandleReturnResult(_states.Peek().Update());
+        public void Start(StatesEnum initialState) {
+            ChangeState(initialState);
+        }
+        
+        public void HandleEvent(EventsEnum newEvent) {
+            _events.Enqueue(newEvent);
+        }
+        
+        public void Update() {
+            if (_states.Count == 0) {
+                return;
             }
+            while (_events.Count > 0) {
+                StateRunResult<StatesEnum> runResult = _states.Peek().HandleEvents(_events.Dequeue());
+                if (runResult.StateRunReturnAction != StateRunReturnAction.None) {
+                    HandleReturnResult(runResult); 
+                    return;
+                }
+            }
+            HandleReturnResult(_states.Peek().Update());
         }
 
         public void Dispose() {

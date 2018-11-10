@@ -21,10 +21,10 @@ public class ScreenInput : MonoBehaviour {
 		bool hasSpeedSetter = false;
 
 		foreach (Touch touch in Input.touches) {
-			float distanceToAngle = Vector3.Distance(touch.position, BattleContext.BattleManager.GUIManager.PlayerGUIController.RotationJoystickCenter);
+			float distanceToAngle = Vector3.Distance(touch.position, BattleContext.BattleManager.GUIManagerObsolete.PlayerGUIController.RotationJoystickCenter);
 			if (distanceToAngle < Screen.width / 3f) {
 				Vector3 position = new Vector3(touch.position.x, touch.position.y, 0);
-				SetShipAngle(MathHelper.AngleBetweenVectorsZ(new Vector3(1, 0, 0), position - BattleContext.BattleManager.GUIManager.PlayerGUIController.RotationJoystickCenter));
+				SetShipAngle(MathHelper.AngleBetweenVectorsZ(new Vector3(1, 0, 0), position - BattleContext.BattleManager.GUIManagerObsolete.PlayerGUIController.RotationJoystickCenter));
 			} else if ((touch.position.x < Screen.width / 4f) && (touch.position.y < Screen.height / 3f * 2f)) {
 				int power = (int)Mathf.Sign(touch.position.y - Screen.height / 4f);
 				SetShipPower(power > 0 ? ThrottleState.Forward : ThrottleState.Backward);
@@ -46,9 +46,9 @@ public class ScreenInput : MonoBehaviour {
 
 		// Ship angle //
 		if (Input.GetAxis("Fire1") > 0) {
-			float d = Vector3.Distance(Input.mousePosition, BattleContext.BattleManager.GUIManager.PlayerGUIController.RotationJoystickCenter);
+			float d = Vector3.Distance(Input.mousePosition, BattleContext.BattleManager.GUIManagerObsolete.PlayerGUIController.RotationJoystickCenter);
 			if (d < Screen.width / 3f) {
-				SetShipAngle(MathHelper.AngleBetweenVectorsZ(new Vector3(1, 0, 0), Input.mousePosition - BattleContext.BattleManager.GUIManager.PlayerGUIController.RotationJoystickCenter));
+				SetShipAngle(MathHelper.AngleBetweenVectorsZ(new Vector3(1, 0, 0), Input.mousePosition - BattleContext.BattleManager.GUIManagerObsolete.PlayerGUIController.RotationJoystickCenter));
 			}
 		}
 

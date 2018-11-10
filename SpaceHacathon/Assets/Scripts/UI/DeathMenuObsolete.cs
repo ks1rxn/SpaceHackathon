@@ -2,7 +2,7 @@
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class DeathMenu : MonoBehaviour {
+public class DeathMenuObsolete : MonoBehaviour {
 	[SerializeField]
 	private Text m_lastTime;
 
