@@ -15,6 +15,8 @@ namespace SpaceHacathon.BattleScene.GUI.States {
         }
 
         public override void Initiate() {
+            _pauseMenu.OnResume += OnResumeClick;
+            
             _pauseMenu.Hide();
         }
 
@@ -42,11 +44,8 @@ namespace SpaceHacathon.BattleScene.GUI.States {
             return new StateRunResult<GUIStates>{StateRunReturnAction = StateRunReturnAction.None};
         }
 
-        public override StateRunResult<GUIStates> Update() {
-            if (Input.GetKeyDown(KeyCode.Escape)) {
-                _gameManager.PushEvent(GameManagerEvents.ResumePressed);
-            }
-            return new StateRunResult<GUIStates>{StateRunReturnAction = StateRunReturnAction.None};
+        private void OnResumeClick() {
+            _gameManager.PushEvent(GameManagerEvents.ResumePressed);
         }
         
         public override GUIStates GetType {

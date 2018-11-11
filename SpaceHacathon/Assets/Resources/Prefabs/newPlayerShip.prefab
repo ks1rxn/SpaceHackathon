@@ -178,10 +178,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 469556}
-  - component: {fileID: 114657324764150954}
   - component: {fileID: 5431050}
   - component: {fileID: 136000011696800802}
   - component: {fileID: 114987538439011956}
+  - component: {fileID: 114657324764150954}
   m_Layer: 0
   m_Name: NewPlayerShip
   m_TagString: Player

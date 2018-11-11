@@ -468,7 +468,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1000013339876384
 GameObject:
   m_ObjectHideFlags: 1
@@ -547,6 +547,7 @@ GameObject:
   - component: {fileID: 224000011946688762}
   - component: {fileID: 222000012556767362}
   - component: {fileID: 114000013106536088}
+  - component: {fileID: 114357279446222542}
   m_Layer: 5
   m_Name: RotationJoystick
   m_TagString: Untagged
@@ -2074,6 +2075,19 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114357279446222542
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014197332608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c0f7f0a2f98417dbfbbb2ddbee007c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _desiredRotationIndicator: {fileID: 224000012293347214}
+  _rotationProgressIndicator: {fileID: 114000012940668808}
 --- !u!114 &114419529179042158
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2139,6 +2153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bb8761db5464df28e78ed9794015f87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rotationJoystick: {fileID: 114357279446222542}
 --- !u!114 &114541226513828900
 MonoBehaviour:
   m_ObjectHideFlags: 1

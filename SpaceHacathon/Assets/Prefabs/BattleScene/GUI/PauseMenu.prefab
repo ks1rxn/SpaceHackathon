@@ -242,6 +242,7 @@ GameObject:
   - component: {fileID: 222000010661727424}
   - component: {fileID: 114000012242620008}
   - component: {fileID: 114000011204230766}
+  - component: {fileID: 114174503471056852}
   m_Layer: 5
   m_Name: ExitButton
   m_TagString: Untagged
@@ -298,6 +299,7 @@ GameObject:
   - component: {fileID: 222698829725880060}
   - component: {fileID: 114375617044998200}
   - component: {fileID: 114945604254689454}
+  - component: {fileID: 114592699668957754}
   m_Layer: 5
   m_Name: ResumeButton
   m_TagString: Untagged
@@ -350,6 +352,7 @@ GameObject:
   - component: {fileID: 222743366551469156}
   - component: {fileID: 114531638140592710}
   - component: {fileID: 114375364996093868}
+  - component: {fileID: 114244962661742530}
   m_Layer: 5
   m_Name: RestartButton
   m_TagString: Untagged
@@ -568,8 +571,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114000012062398816}
-        m_MethodName: OnExitClick
+      - m_Target: {fileID: 0}
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -907,6 +910,32 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114174503471056852
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013693350574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1360956885, guid: 83dce85eaf3e97a4f84018198a09fcd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewModelMethodName: SpaceHacathon.BattleScene.GUI.Screens.PauseMenu.OnExitClick
+  viewEventName: UnityEngine.UI.Button.onClick
+--- !u!114 &114244962661742530
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1648277926641412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1360956885, guid: 83dce85eaf3e97a4f84018198a09fcd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewModelMethodName: SpaceHacathon.BattleScene.GUI.Screens.PauseMenu.OnRestartClick
+  viewEventName: UnityEngine.UI.Button.onClick
 --- !u!114 &114370892292538144
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -979,8 +1008,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114000012062398816}
-        m_MethodName: OnRestartClick
+      - m_Target: {fileID: 0}
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1090,6 +1119,19 @@ MonoBehaviour:
   _useSceneContext: 0
   _context: {fileID: 0}
   _bindType: 0
+--- !u!114 &114592699668957754
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1363336029391806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1360956885, guid: 83dce85eaf3e97a4f84018198a09fcd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewModelMethodName: SpaceHacathon.BattleScene.GUI.Screens.PauseMenu.OnResumeClick
+  viewEventName: UnityEngine.UI.Button.onClick
 --- !u!114 &114750324880531292
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1202,8 +1244,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114000012062398816}
-        m_MethodName: OnResumeClick
+      - m_Target: {fileID: 0}
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

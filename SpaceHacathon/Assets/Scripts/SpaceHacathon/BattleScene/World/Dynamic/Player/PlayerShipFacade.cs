@@ -12,7 +12,7 @@ namespace SpaceHacathon.BattleScene.World.Dynamic.Player {
 
         public Vector3 Position => transform.position;
 
-        public Vector3 SpeedVector { get; set; }
+        public Vector3 SpeedVector { get; private set; }
 
     }
 
