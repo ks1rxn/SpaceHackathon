@@ -706,6 +706,52 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   profile: {fileID: 11400000, guid: dc975b1f661f5484cb28550aca98f866, type: 2}
+--- !u!1001 &533326258
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 24547031}
+    m_Modifications:
+    - target: {fileID: 469556, guid: 4478c514668bbef459d96116518b9789, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 469556, guid: 4478c514668bbef459d96116518b9789, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 469556, guid: 4478c514668bbef459d96116518b9789, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 469556, guid: 4478c514668bbef459d96116518b9789, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 469556, guid: 4478c514668bbef459d96116518b9789, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 469556, guid: 4478c514668bbef459d96116518b9789, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 469556, guid: 4478c514668bbef459d96116518b9789, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 469556, guid: 4478c514668bbef459d96116518b9789, type: 2}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 186194, guid: 4478c514668bbef459d96116518b9789, type: 2}
+      propertyPath: m_Name
+      value: PlayerShip
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4478c514668bbef459d96116518b9789, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &674053767
 GameObject:
   m_ObjectHideFlags: 0
@@ -801,52 +847,6 @@ MonoBehaviour:
   m_director: {fileID: 0}
   m_battleCamera: {fileID: 322693472}
   _mGUIManagerObsolete: {fileID: 0}
---- !u!1001 &758329965
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 24547031}
-    m_Modifications:
-    - target: {fileID: 469556, guid: 4478c514668bbef459d96116518b9789, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 469556, guid: 4478c514668bbef459d96116518b9789, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 469556, guid: 4478c514668bbef459d96116518b9789, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 469556, guid: 4478c514668bbef459d96116518b9789, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 469556, guid: 4478c514668bbef459d96116518b9789, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 469556, guid: 4478c514668bbef459d96116518b9789, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 469556, guid: 4478c514668bbef459d96116518b9789, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 469556, guid: 4478c514668bbef459d96116518b9789, type: 2}
-      propertyPath: m_RootOrder
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 186194, guid: 4478c514668bbef459d96116518b9789, type: 2}
-      propertyPath: m_Name
-      value: PlayerShip
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4478c514668bbef459d96116518b9789, type: 2}
-  m_IsPrefabAsset: 0
 --- !u!1001 &767961351
 Prefab:
   m_ObjectHideFlags: 0
@@ -1083,7 +1083,7 @@ Transform:
 Transform:
   m_CorrespondingSourceObject: {fileID: 469556, guid: 4478c514668bbef459d96116518b9789,
     type: 2}
-  m_PrefabInternal: {fileID: 758329965}
+  m_PrefabInternal: {fileID: 533326258}
 --- !u!1 &1148714762
 GameObject:
   m_ObjectHideFlags: 0

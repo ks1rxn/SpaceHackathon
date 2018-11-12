@@ -1,10 +1,9 @@
 ﻿using System.Collections;
 using SpaceHacathon.Helpers.PidControllers;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 
-namespace SpaceHacathon.BattleScene.World.Dynamic.Player {
+namespace SpaceHacathon.BattleScene.World.Dynamic.PlayerShip {
 
 	public class BattleCamera : MonoBehaviour {
 		private PlayerShipFacade _playerShipFacade;

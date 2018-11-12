@@ -150,19 +150,17 @@ public class PlayerShip : MonoBehaviour {
 		m_rigidbody.AddTorque(new Vector3(0, angularForce * m_rigidbody.mass * m_effects.Slowing * Time.fixedDeltaTime, 0));
 				
         // Velocity //
+		float engineForce = (int) m_power * m_shipParams.EnginePower * m_settings.AccelerationCoefficient;
+		m_rigidbody.AddForce(engineForce * LookVector * m_rigidbody.mass * m_effects.Slowing * Time.fixedDeltaTime);
+		m_rigidbody.velocity = Vector3.ClampMagnitude(m_rigidbody.velocity, 5 * m_effects.Slowing);
+
+        // Rotate hull //
 		float powerCoefficient = 0;
 		if (m_power > 0) {
 			powerCoefficient = 1;
 		} else if (m_power < 0) {
 			powerCoefficient = -1;
 		}
-		float engineForce = (int) m_power * m_shipParams.EnginePower * m_settings.AccelerationCoefficient;
-		m_rigidbody.AddForce(engineForce * LookVector * m_rigidbody.mass * m_effects.Slowing * Time.fixedDeltaTime);
-		if (m_rigidbody.velocity.magnitude > 5 * m_effects.Slowing) {
-			m_rigidbody.velocity = m_rigidbody.velocity.normalized * 5 * m_effects.Slowing;
-		}
-
-        // Rotate hull //
 		m_hull.SetAcceleration((LookVector * m_rigidbody.mass * Time.fixedDeltaTime * m_shipParams.EnginePower).magnitude * (int)m_power);
 		m_hull.SetRollAngle(-m_rigidbody.angularVelocity.y * 15 * powerCoefficient);
 	}
