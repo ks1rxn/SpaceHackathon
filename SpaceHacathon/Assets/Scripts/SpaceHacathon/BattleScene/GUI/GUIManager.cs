@@ -13,7 +13,6 @@ namespace SpaceHacathon.BattleScene.GUI {
             _stateMachine = stateMachine;
         }
 
-        //todo: bad idea: inject PlayerShip into GUI layer. Use abstraction IControllable instead?
         private void Start() {
             _stateMachine.Initiate();
             //todo: start should be initiated from GameManager via event, signal or smthng like this.

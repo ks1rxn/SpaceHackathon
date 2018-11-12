@@ -15,6 +15,7 @@ namespace SpaceHacathon.BattleScene.GUI.States {
         }
 
         public override void Initiate() {
+            _shipGUI.Initiate();
             _shipGUI.Hide();
         }
 

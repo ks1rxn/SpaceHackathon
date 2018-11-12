@@ -3,10 +3,10 @@ using SpaceHacathon.Helpers.PidControllers;
 using UnityEngine;
 using Zenject;
 
-namespace SpaceHacathon.BattleScene.World.Dynamic.PlayerShip {
+namespace SpaceHacathon.BattleScene.World.Dynamic.Camera {
 
 	public class BattleCamera : MonoBehaviour {
-		private PlayerShipFacade _playerShipFacade;
+		private ICameraTarget _objectToFollow;
 		[SerializeField]
 		private Animator _animator;
 		
@@ -14,12 +14,12 @@ namespace SpaceHacathon.BattleScene.World.Dynamic.PlayerShip {
 		private Vector3 _speed;
 
 		[Inject]
-		private void Construct(PlayerShipFacade playerShipFacade) {
-			_playerShipFacade = playerShipFacade;
+		private void Construct(ICameraTarget objectToFollow) {
+			_objectToFollow = objectToFollow;
 		}
 		
-		private void LateUpdate() {
-			Vector3 neededPosition = _playerShipFacade.Position + _playerShipFacade.SpeedVector * 0.2f;
+		private void FixedUpdate() {
+			Vector3 neededPosition = _objectToFollow.Position + _objectToFollow.Speed * 0.2f;
 			neededPosition.y = 7.5f;
 			neededPosition.z -= 9;
 

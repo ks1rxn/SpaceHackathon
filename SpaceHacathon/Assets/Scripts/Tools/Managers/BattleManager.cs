@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using SpaceHacathon.BattleScene.Game.Time;
+using SpaceHacathon.BattleScene.World.Dynamic.Camera;
 using SpaceHacathon.BattleScene.World.Dynamic.PlayerShip;
 using SpaceHacathon.Statistics;
 using UnityEngine;

@@ -1,4 +1,5 @@
-﻿using SpaceHacathon.Helpers;
+﻿using SpaceHacathon.BattleScene.GUI.Screens.ShipGUIStuff.InputListeners;
+using SpaceHacathon.Helpers;
 using UnityEngine;
 
 public class ScreenInput : MonoBehaviour {
@@ -13,7 +14,7 @@ public class ScreenInput : MonoBehaviour {
 	}
 
 	private void ListenAndroid() {
-		if (Input.GetKeyDown(KeyCode.Escape)) {
+		if (Input.GetAxis("Cancel") > 0) {
 			BattleContext.BattleManager.Director.OnPauseGame();
 			return;
 		}

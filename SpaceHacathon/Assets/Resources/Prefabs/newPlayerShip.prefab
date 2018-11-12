@@ -188,6 +188,7 @@ GameObject:
   - component: {fileID: 114672841128263630}
   - component: {fileID: 114350360151875372}
   - component: {fileID: 114165088585254880}
+  - component: {fileID: 114321252261599100}
   m_Layer: 0
   m_Name: NewPlayerShip
   m_TagString: Player
@@ -43233,6 +43234,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c33946d11ad4a09aae884b8d630ab51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114321252261599100
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 186194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0153570d7613410a927a8968cdc93cb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114350360151875372
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -43312,7 +43324,7 @@ MonoBehaviour:
   _identifier: 
   _useSceneContext: 1
   _context: {fileID: 0}
-  _bindType: 0
+  _bindType: 1
 --- !u!136 &136000011696800802
 CapsuleCollider:
   m_ObjectHideFlags: 1

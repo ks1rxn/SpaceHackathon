@@ -7,20 +7,21 @@ namespace SpaceHacathon.BattleScene.World.Dynamic.PlayerShip.Behaviours {
     public class RotationBehaviour {
         private readonly TransformComponent _transformComponent;
         private readonly PhysicsComponent _physicsComponent;
-        private readonly ShipControlsComponent _shipControls;
+        private readonly RotationComponent _rotationComponent;
 
-        public RotationBehaviour(TransformComponent transformComponent, PhysicsComponent physicsComponent, ShipControlsComponent shipControls) {
+        public RotationBehaviour(TransformComponent transformComponent, PhysicsComponent physicsComponent, RotationComponent rotationComponent) {
             _transformComponent = transformComponent;
             _physicsComponent = physicsComponent;
-            _shipControls = shipControls;
+            _rotationComponent = rotationComponent;
         }
 
         public void Run() {
-            float shortAngleToDesired = ShortAngleToDesired(_shipControls.DesiredAngle);
+            float shortAngleToDesired = ShortAngleToDesired(_rotationComponent.DesiredAngle);
             float longAngleToDesired = LongAngleToDesired(shortAngleToDesired);
-            
             float bestAngleForRotation = SelectBestAngleForRotation(shortAngleToDesired, longAngleToDesired, _physicsComponent.AngularVelocity);
+            
             AddRotation(bestAngleForRotation);
+            _rotationComponent.RemainedAngleToDesired = bestAngleForRotation;
         }
         
         private float ShortAngleToDesired(float desiredAngle)  {
@@ -46,7 +47,7 @@ namespace SpaceHacathon.BattleScene.World.Dynamic.PlayerShip.Behaviours {
 
         private void AddRotation(float bestAngleForRotation) {
 //            float angularForce = Mathf.Sign(actualAngle) * Mathf.Sqrt(Mathf.Abs(actualAngle)) * m_shipParams.RotationPower * m_settings.RotationCoefficient;
-            const float rotationPower = 1.0f;
+            const float rotationPower = 70.0f;
             const float rotationCoefficient = 1.0f;
             float angularForce = Mathf.Sign(bestAngleForRotation) * Mathf.Sqrt(Mathf.Abs(bestAngleForRotation)) * rotationPower * rotationCoefficient;
 //            _physicComponent.AddTorque(new Vector3(0, angularForce * _physicComponent.Mass * m_effects.Slowing * Time.fixedDeltaTime, 0));

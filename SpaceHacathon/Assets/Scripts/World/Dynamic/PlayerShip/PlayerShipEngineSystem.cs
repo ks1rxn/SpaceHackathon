@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using SpaceHacathon.BattleScene.GUI.Screens.ShipGUIStuff.InputListeners;
+using UnityEngine;
 
 public class PlayerShipEngineSystem : MonoBehaviour {
     [SerializeField]
@@ -64,10 +65,4 @@ public class PlayerShipEngineSystem : MonoBehaviour {
 		}
 	}
 
-}
-
-public enum ThrottleState {
-	Forward = 1,
-	Off = 0,
-	Backward = -1
 }

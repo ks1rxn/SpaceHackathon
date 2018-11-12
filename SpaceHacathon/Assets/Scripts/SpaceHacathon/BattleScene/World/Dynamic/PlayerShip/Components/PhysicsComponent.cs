@@ -22,7 +22,7 @@ namespace SpaceHacathon.BattleScene.World.Dynamic.PlayerShip.Components {
 
         public Vector3 AngularVelocity => _rigidbody.angularVelocity;
 
-        public float Mass => -_rigidbody.mass;
+        public float Mass => _rigidbody.mass;
 
     }
 
