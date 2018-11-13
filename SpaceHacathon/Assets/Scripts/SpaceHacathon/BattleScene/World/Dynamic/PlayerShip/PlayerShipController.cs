@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using SpaceHacathon.BattleScene.World.Dynamic.PlayerShip.Behaviours;
 using UnityEngine;
 using Zenject;
@@ -5,21 +6,26 @@ using Zenject;
 namespace SpaceHacathon.BattleScene.World.Dynamic.PlayerShip {
 
     public class PlayerShipController : MonoBehaviour {
-        private RotationBehaviour _rotationBehaviour;
-        private AccelerationBehaviour _accelerationBehaviour;
-        private ConstraintsCheckingBehaviour _constraintsCheckingBehaviour;
+        private List<IBehaviour> _behaviours; 
         
         [Inject]
-        public void Construct(RotationBehaviour rotationBehaviour, AccelerationBehaviour accelerationBehaviour, ConstraintsCheckingBehaviour constraintsCheckingBehaviour) {
-            _rotationBehaviour = rotationBehaviour;
-            _accelerationBehaviour = accelerationBehaviour;
-            _constraintsCheckingBehaviour = constraintsCheckingBehaviour;
+        public void Construct(RotationBehaviour rotationBehaviour, AccelerationBehaviour accelerationBehaviour, 
+            ConstraintsCheckingBehaviour constraintsCheckingBehaviour, EnginesVisualizationBehaviour enginesVisualizationBehaviour,
+            RollHullBehaviour rollHullBehaviour) {
+            
+            _behaviours = new List<IBehaviour>();
+            
+            _behaviours.Add(rotationBehaviour);
+            _behaviours.Add(accelerationBehaviour);
+            _behaviours.Add(constraintsCheckingBehaviour);
+            _behaviours.Add(rollHullBehaviour);
+            _behaviours.Add(enginesVisualizationBehaviour);
         }
         
         private void FixedUpdate() {
-            _rotationBehaviour.Run();
-            _accelerationBehaviour.Run();
-            _constraintsCheckingBehaviour.Run();
+            foreach (IBehaviour behaviour in _behaviours) {
+                behaviour.Run();
+            }
         }
         
     }

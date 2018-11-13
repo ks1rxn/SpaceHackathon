@@ -10,12 +10,14 @@ namespace SpaceHacathon.BattleScene.World.Dynamic.Camera {
 		[SerializeField]
 		private Animator _animator;
 		
-		private readonly VectorPid _speedController = new VectorPid(50000f, 20000, 45000);
+		private VectorPid _speedController;
 		private Vector3 _speed;
 
 		[Inject]
-		private void Construct(ICameraTarget objectToFollow) {
+		private void Construct(ICameraTarget objectToFollow, VectorPid pid) {
 			_objectToFollow = objectToFollow;
+			_speedController = pid;
+			_speedController.Initiate(new Vector3(50000f, 20000, 45000));
 		}
 		
 		private void FixedUpdate() {

@@ -1,3 +1,4 @@
+using SpaceHacathon.Helpers.PidControllers;
 using Zenject;
 using Random = System.Random;
 
@@ -18,6 +19,7 @@ namespace SpaceHacathon.BattleScene.Installers {
         
         private void InstallMisc() {
             Container.Bind<Random>().AsSingle();
+            Container.Bind<VectorPid>().AsTransient();
         }
 
     }

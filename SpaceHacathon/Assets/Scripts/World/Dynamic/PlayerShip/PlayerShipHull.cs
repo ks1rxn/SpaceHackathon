@@ -14,7 +14,7 @@ public class PlayerShipHull : MonoBehaviour {
 	public float Energy;
 	public int Cargo;
 
-	private readonly VectorPid rotationController = new VectorPid(4.244681f, 0.1f, 1.25f);
+	private readonly VectorPid rotationController;// = new VectorPid(4.244681f, 0.1f, 1.25f);
 	private Vector3 m_needRotation;
 	private Vector3 m_rotationSpeed;
 

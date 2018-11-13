@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace SpaceHacathon.BattleScene.World.Dynamic.PlayerShip.Behaviours {
 
-    public class RotationBehaviour {
+    public class RotationBehaviour : IBehaviour {
         private readonly TransformComponent _transformComponent;
         private readonly PhysicsComponent _physicsComponent;
         private readonly RotationComponent _rotationComponent;
@@ -47,9 +47,8 @@ namespace SpaceHacathon.BattleScene.World.Dynamic.PlayerShip.Behaviours {
 
         private void AddRotation(float bestAngleForRotation) {
 //            float angularForce = Mathf.Sign(actualAngle) * Mathf.Sqrt(Mathf.Abs(actualAngle)) * m_shipParams.RotationPower * m_settings.RotationCoefficient;
-            const float rotationPower = 70.0f;
             const float rotationCoefficient = 1.0f;
-            float angularForce = Mathf.Sign(bestAngleForRotation) * Mathf.Sqrt(Mathf.Abs(bestAngleForRotation)) * rotationPower * rotationCoefficient;
+            float angularForce = Mathf.Sign(bestAngleForRotation) * Mathf.Sqrt(Mathf.Abs(bestAngleForRotation)) * _rotationComponent.RotationPower * rotationCoefficient;
 //            _physicComponent.AddTorque(new Vector3(0, angularForce * _physicComponent.Mass * m_effects.Slowing * Time.fixedDeltaTime, 0));
             const float slowing = 1.0f;
             _physicsComponent.AddTorque(new Vector3(0, angularForce * _physicsComponent.Mass * slowing * Time.fixedDeltaTime, 0));

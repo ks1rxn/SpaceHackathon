@@ -19,7 +19,7 @@ public class RamShip : IEnemyShip {
 	protected override void OnPhysicBodyInitiate() {
 		m_settings = BattleContext.Settings.RamShip;
 
-		m_headingController = new VectorPid(m_settings.HeadingParamsX, m_settings.HeadingParamsY, m_settings.HeadingParamsZ);
+		//m_headingController = new VectorPid(m_settings.HeadingParamsX, m_settings.HeadingParamsY, m_settings.HeadingParamsZ);
 
 		CollisionDetector.RegisterListener(CollisionTags.PlayerShip, OnPlayerShipHit);
 		CollisionDetector.RegisterListener(CollisionTags.DroneCarrier, OnOtherShipHit);

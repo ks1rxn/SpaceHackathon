@@ -14,8 +14,8 @@ public class SpaceMine : IEnemyShip {
 
 	private SpaceMineState m_state;
 
-	private readonly VectorPid m_speedController = new VectorPid(1.244681f, 0.1f, 1.1f);
-	private readonly FloatPid m_yStabilizer = new FloatPid(1.244681f, 0.1f, 1.1f);
+	private readonly VectorPid m_speedController;// = new VectorPid(1.244681f, 0.1f, 1.1f);
+	private readonly FloatPid m_yStabilizer;// = new FloatPid(1.244681f, 0.1f, 1.1f);
 
 	private Vector3 m_waitingPosition;
 	private float m_speedValue;

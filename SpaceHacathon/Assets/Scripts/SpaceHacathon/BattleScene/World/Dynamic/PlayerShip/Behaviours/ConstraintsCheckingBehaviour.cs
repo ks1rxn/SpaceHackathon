@@ -2,7 +2,7 @@ using SpaceHacathon.BattleScene.World.Dynamic.PlayerShip.Components;
 
 namespace SpaceHacathon.BattleScene.World.Dynamic.PlayerShip.Behaviours {
 
-    public class ConstraintsCheckingBehaviour {
+    public class ConstraintsCheckingBehaviour : IBehaviour {
         private readonly PhysicsComponent _physicsComponent;
 
         public ConstraintsCheckingBehaviour(PhysicsComponent physicsComponent) {

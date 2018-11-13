@@ -14,8 +14,8 @@ public class CarrierRocket : IBullet {
 	private float m_power;
 	private bool m_inactive;
 
-	private readonly VectorPid angularVelocityController = new VectorPid(33.7766f, 0, 0.2553191f);
-    private readonly VectorPid headingController = new VectorPid(9.244681f, 0, 0.06382979f);
+	private readonly VectorPid angularVelocityController;// = new VectorPid(33.7766f, 0, 0.2553191f);
+    private readonly VectorPid headingController;// = new VectorPid(9.244681f, 0, 0.06382979f);
 
 	private float m_maxSpeed;
 	private float m_maxRotationSpeed;

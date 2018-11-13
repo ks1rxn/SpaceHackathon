@@ -9,9 +9,9 @@ public class HealthDrone : IPhysicBody {
 	private Transform m_base;
 
 	private HealthDroneState m_state;
-	private readonly VectorPid positionController = new VectorPid(8.244681f, 0.1f, 3.5f);
-	private readonly VectorPid angularVelocityController = new VectorPid(33.7766f, 0, 0.2553191f);
-    private readonly VectorPid headingController = new VectorPid(18.244681f, 0, 0.06382979f);
+	private readonly VectorPid positionController;// = new VectorPid(8.244681f, 0.1f, 3.5f);
+	private readonly VectorPid angularVelocityController;// = new VectorPid(33.7766f, 0, 0.2553191f);
+    private readonly VectorPid headingController;// = new VectorPid(18.244681f, 0, 0.06382979f);
 	private Vector3 m_speed;
 	private Vector3 m_rotationSpeed;
 	private Vector3 m_positionOnPlayer;
