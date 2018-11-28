@@ -1,4 +1,3 @@
-using System;
 using SpaceHacathon.BattleScene.Game.Manager;
 using SpaceHacathon.BattleScene.Game.Manager.States;
 using SpaceHacathon.BattleScene.Game.Time;

@@ -25,6 +25,10 @@ namespace SpaceHacathon.BattleScene.World.Dynamic.PlayerShip {
             _stateMachine.Dispose();
         }
         
+        public void PushEvent(PlayerShipEvents newEvent) {
+            _stateMachine.HandleEvent(newEvent);
+        }
+        
     }
 
 }

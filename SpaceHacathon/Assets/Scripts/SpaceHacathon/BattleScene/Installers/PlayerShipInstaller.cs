@@ -13,7 +13,8 @@ namespace SpaceHacathon.BattleScene.Installers {
         private GameObject _componentsHolder;
         
         public override void InstallBindings() {
-//            Container.Bind<PlayerShipController>().FromComponentOn(gameObject).AsSingle();
+            Container.Bind<PlayerShipController>().FromComponentOn(gameObject).AsSingle();
+            
             InstallComponents();
             InstallFlyingNormalState();
             InstallStateMachine();

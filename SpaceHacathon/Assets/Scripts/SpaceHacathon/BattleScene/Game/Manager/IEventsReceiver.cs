@@ -1,8 +1,8 @@
 namespace SpaceHacathon.BattleScene.Game.Manager {
 
-    public interface IEventsReceiver<Events> {
+    public interface IEventsReceiver<TEvents> {
         
-        void PushEvent(Events newEvent);
+        void PushEvent(TEvents newEvent);
         
     }
 

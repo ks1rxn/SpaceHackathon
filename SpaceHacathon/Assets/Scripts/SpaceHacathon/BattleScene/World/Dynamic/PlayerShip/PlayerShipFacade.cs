@@ -8,15 +8,17 @@ using Zenject;
 namespace SpaceHacathon.BattleScene.World.Dynamic.PlayerShip {
 
     public class PlayerShipFacade : MonoBehaviour, IPlayerControllable, ICameraTarget {
+        private PlayerShipController _controller;
         private TransformComponent _transformComponent;
         private PhysicsComponent _physicsComponent;
         private RotationComponent _rotationComponent;
         private AccelerationComponent _accelerationComponent;
         
         [Inject]
-        private void Construct(TransformComponent transformComponent, PhysicsComponent physicsComponent, 
+        private void Construct(PlayerShipController controller, TransformComponent transformComponent, PhysicsComponent physicsComponent, 
             RotationComponent rotationComponent, AccelerationComponent accelerationComponent) {
             
+            _controller = controller;
             _transformComponent = transformComponent;
             _physicsComponent = physicsComponent;
             _rotationComponent = rotationComponent;
@@ -32,7 +34,7 @@ namespace SpaceHacathon.BattleScene.World.Dynamic.PlayerShip {
         }
 
         public void Charge() {
-            
+            _controller.PushEvent(PlayerShipEvents.ChargePressed);
         }
 
         public PlayerShipOutput GetOutput() {
