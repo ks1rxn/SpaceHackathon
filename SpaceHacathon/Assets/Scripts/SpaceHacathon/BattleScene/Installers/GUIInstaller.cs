@@ -19,7 +19,7 @@ namespace SpaceHacathon.BattleScene.Installers {
 #if UNITY_EDITOR
             Container.Bind<IInputListener>().To<InputListenerPc>().AsSingle();
 #elif UNITY_ANDROID
-		    Container.Bind<IInput>().To<InputAndroid>().AsSingle();
+		    Container.Bind<IInputListener>().To<InputAndroid>().AsSingle();
 #endif
 
         }

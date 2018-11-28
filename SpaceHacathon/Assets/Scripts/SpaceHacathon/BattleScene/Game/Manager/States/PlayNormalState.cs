@@ -16,11 +16,7 @@ namespace SpaceHacathon.BattleScene.Game.Manager.States {
             return new StateRunResult<GameManagerStates>{StateRunReturnAction = StateRunReturnAction.None};
         }
 
-        public override GameManagerStates GetType {
-            get {
-                return GameManagerStates.PlayNormal;
-            }
-        }
+        public override GameManagerStates GetType => GameManagerStates.PlayNormal;
 
     }
 

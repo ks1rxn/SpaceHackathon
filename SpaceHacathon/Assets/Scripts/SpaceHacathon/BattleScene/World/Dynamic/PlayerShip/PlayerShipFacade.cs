@@ -42,7 +42,7 @@ namespace SpaceHacathon.BattleScene.World.Dynamic.PlayerShip {
 
         public Vector3 Position => _transformComponent.Position;
 
-        public Vector3 Speed => _physicsComponent.Velocity;
+        public Vector3 Velocity => _physicsComponent.Velocity;
 
     }
 

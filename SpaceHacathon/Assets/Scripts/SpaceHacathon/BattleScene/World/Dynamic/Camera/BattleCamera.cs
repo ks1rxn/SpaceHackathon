@@ -21,7 +21,7 @@ namespace SpaceHacathon.BattleScene.World.Dynamic.Camera {
 		}
 		
 		private void FixedUpdate() {
-			Vector3 neededPosition = _objectToFollow.Position + _objectToFollow.Speed * 0.2f;
+			Vector3 neededPosition = _objectToFollow.Position + _objectToFollow.Velocity * 0.2f;
 			neededPosition.y = 7.5f;
 			neededPosition.z -= 9;
 

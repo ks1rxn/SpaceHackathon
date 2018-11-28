@@ -20,6 +20,7 @@ namespace SpaceHacathon.BattleScene.World.Dynamic.PlayerShip.Behaviours {
             float engineForce = (int) _accelerationComponent.ThrottleState * _accelerationComponent.EnginePower * accelerationCoefficient;
 //            _physicsComponent.AddForce(engineForce * _transformComponent.LookVector * _physicsComponent.Mass * m_effects.Slowing * Time.fixedDeltaTime);
             const float slowing = 1.0f;
+            //todo: get rid of deltaTime
             _physicsComponent.AddForce(engineForce * _transformComponent.LookVector * _physicsComponent.Mass * slowing * Time.fixedDeltaTime);
         }
         

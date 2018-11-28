@@ -14,12 +14,8 @@ namespace SpaceHacathon.BattleScene.GUI.States {
             _deathMenu.Hide();
         }
         
-        public override GUIStates GetType {
-            get {
-                return GUIStates.DeathMenu;
-            }
-        }
-        
+        public override GUIStates GetType => GUIStates.DeathMenu;
+
     }
 
 }

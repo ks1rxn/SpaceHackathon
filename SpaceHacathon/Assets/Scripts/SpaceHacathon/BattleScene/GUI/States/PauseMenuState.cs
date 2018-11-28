@@ -48,11 +48,7 @@ namespace SpaceHacathon.BattleScene.GUI.States {
             _gameManager.PushEvent(GameManagerEvents.ResumePressed);
         }
         
-        public override GUIStates GetType {
-            get {
-                return GUIStates.PauseMenu;
-            }
-        }
+        public override GUIStates GetType => GUIStates.PauseMenu;
 
     }
 

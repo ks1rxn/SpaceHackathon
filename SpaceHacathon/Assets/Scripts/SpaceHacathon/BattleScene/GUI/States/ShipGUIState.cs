@@ -50,12 +50,8 @@ namespace SpaceHacathon.BattleScene.GUI.States {
             return new StateRunResult<GUIStates>{StateRunReturnAction = StateRunReturnAction.None};
         }
 
-        public override GUIStates GetType {
-            get {
-                return GUIStates.ShipGUI;
-            }
-        }
-        
+        public override GUIStates GetType => GUIStates.ShipGUI;
+
     }
 
 }

@@ -6,7 +6,7 @@ namespace SpaceHacathon.BattleScene.World.Dynamic.Camera {
         
         Vector3 Position { get; }
         
-        Vector3 Speed { get; }
+        Vector3 Velocity { get; }
 
     }
 
