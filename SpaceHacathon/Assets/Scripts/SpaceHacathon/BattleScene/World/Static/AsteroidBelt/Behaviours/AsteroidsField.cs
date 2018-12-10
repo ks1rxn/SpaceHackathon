@@ -1,18 +1,22 @@
-﻿using SpaceHacathon.BattleScene.World.Static.AsteroidBelt.Model;
+﻿using SpaceHacathon.BattleScene.World.Dynamic.Camera;
+using SpaceHacathon.BattleScene.World.Static.AsteroidBelt.Model;
 using UnityEngine;
 using Zenject;
 
 namespace SpaceHacathon.BattleScene.World.Static.AsteroidBelt.Behaviours {
 
 	public class AsteroidsField : MonoBehaviour {
+		private ICameraTarget _playerShip;
+		
 		private IAsteroidBlocksSpawner _blocksSpawner;
 		private IAsteroidBlocksFixer _blocksFixer;
 		private AsteroidsBlock[,] _blocks;
 
 		[Inject]
-		private void Construct(IAsteroidBlocksSpawner blocksSpawner, IAsteroidBlocksFixer blocksFixer) {
+		private void Construct(IAsteroidBlocksSpawner blocksSpawner, IAsteroidBlocksFixer blocksFixer, ICameraTarget playerShip) {
 			_blocksSpawner = blocksSpawner;
 			_blocksFixer = blocksFixer;
+			_playerShip = playerShip;
 		}
 
 		private void Start() {
@@ -51,6 +55,8 @@ namespace SpaceHacathon.BattleScene.World.Static.AsteroidBelt.Behaviours {
 					break;
 			}
 		}
+
+		public ICameraTarget PlayerShip => _playerShip;
 
 	}
 
