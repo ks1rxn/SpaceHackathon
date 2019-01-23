@@ -4,7 +4,7 @@ using Zenject;
 
 namespace SpaceHacathon.BattleScene.World.Dynamic.PlayerShip.Components {
 
-    public class HullVisualizationComponent : MonoBehaviour {
+    public class HullVisualizationComponent : MonoBehaviour, IComponent {
         [SerializeField]
         private Transform _hull;
         [SerializeField]

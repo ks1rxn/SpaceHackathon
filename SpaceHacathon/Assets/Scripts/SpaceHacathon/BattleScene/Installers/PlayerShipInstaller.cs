@@ -21,12 +21,9 @@ namespace SpaceHacathon.BattleScene.Installers {
         }
 
         private void InstallComponents() {
-            Container.Bind<TransformComponent>().FromComponentOn(_componentsHolder).AsSingle();
-            Container.Bind<PhysicsComponent>().FromComponentOn(_componentsHolder).AsSingle();
-            Container.Bind<RotationComponent>().FromComponentOn(_componentsHolder).AsSingle();
-            Container.Bind<AccelerationComponent>().FromComponentOn(_componentsHolder).AsSingle();
-            Container.Bind<EnginesVisualizationComponent>().FromComponentOn(_componentsHolder).AsSingle();
-            Container.Bind<HullVisualizationComponent>().FromComponentOn(_componentsHolder).AsSingle();
+            foreach (IComponent component in _componentsHolder.GetComponents<IComponent>()) {
+                Container.Bind(component.GetType()).FromInstance(component).AsSingle();
+            }
         }
 
         private void InstallFlyingNormalState() {

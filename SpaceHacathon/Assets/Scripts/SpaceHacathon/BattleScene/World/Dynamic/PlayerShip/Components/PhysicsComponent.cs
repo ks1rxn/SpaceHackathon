@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace SpaceHacathon.BattleScene.World.Dynamic.PlayerShip.Components {
 
-    public class PhysicsComponent : MonoBehaviour {
+    public class PhysicsComponent : MonoBehaviour, IComponent {
         [SerializeField]
         private Rigidbody _rigidbody;
 

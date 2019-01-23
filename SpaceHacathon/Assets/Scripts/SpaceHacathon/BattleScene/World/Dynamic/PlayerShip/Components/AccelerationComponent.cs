@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace SpaceHacathon.BattleScene.World.Dynamic.PlayerShip.Components {
 
-    public class AccelerationComponent : MonoBehaviour {
+    public class AccelerationComponent : MonoBehaviour, IComponent {
         [SerializeField]
         private float _enginePower = 900;
 

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace SpaceHacathon.BattleScene.World.Dynamic.PlayerShip.Components {
 
-    public class TransformComponent : MonoBehaviour {
+    public class TransformComponent : MonoBehaviour, IComponent {
         [SerializeField]
         private Transform _targetTransform;
         

@@ -3,21 +3,21 @@ using System.Collections.Generic;
 
 namespace SpaceHacathon.Helpers.FSM {
 
-    public class StatesFactory<StatesEnum, EventsEnum> {
-        private readonly Dictionary<StatesEnum, IState<StatesEnum, EventsEnum>> _states;
+    public class StatesFactory<TStatesEnum, TEventsEnum> {
+        private readonly Dictionary<TStatesEnum, IState<TStatesEnum, TEventsEnum>> _states;
 
-        public StatesFactory(List<IState<StatesEnum, EventsEnum>> states) {
-            _states = new Dictionary<StatesEnum, IState<StatesEnum, EventsEnum>>(states.Count);
-            foreach (IState<StatesEnum, EventsEnum> state in states) {
+        public StatesFactory(List<IState<TStatesEnum, TEventsEnum>> states) {
+            _states = new Dictionary<TStatesEnum, IState<TStatesEnum, TEventsEnum>>(states.Count);
+            foreach (IState<TStatesEnum, TEventsEnum> state in states) {
                 _states.Add(state.GetType, state);
             }
         }
 
-        public IEnumerable<IState<StatesEnum, EventsEnum>> GetAllStates() {
+        public IEnumerable<IState<TStatesEnum, TEventsEnum>> GetAllStates() {
             return _states.Values;
         }
         
-        public IState<StatesEnum, EventsEnum> GetState(StatesEnum state) {
+        public IState<TStatesEnum, TEventsEnum> GetState(TStatesEnum state) {
             if (_states.ContainsKey(state)) {
                 return _states[state];
             }

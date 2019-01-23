@@ -1,8 +1,8 @@
 namespace SpaceHacathon.Helpers.FSM {
 
-    public struct StateRunResult<StatesEnum> {
+    public struct StateRunResult<TStatesEnum> {
         public StateRunReturnAction StateRunReturnAction { get; set; }
-        public StatesEnum ReturnState { get; set; }    
+        public TStatesEnum ReturnState { get; set; }    
     }
     
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace SpaceHacathon.BattleScene.World.Dynamic.PlayerShip.Components {
 
-    public class RotationComponent : MonoBehaviour {
+    public class RotationComponent : MonoBehaviour, IComponent {
         [SerializeField]
         private float _rotationPower = 70;
 

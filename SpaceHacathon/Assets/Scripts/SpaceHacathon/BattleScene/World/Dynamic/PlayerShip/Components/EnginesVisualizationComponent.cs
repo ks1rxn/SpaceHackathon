@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace SpaceHacathon.BattleScene.World.Dynamic.PlayerShip.Components {
 
-    public class EnginesVisualizationComponent : MonoBehaviour {
+    public class EnginesVisualizationComponent : MonoBehaviour, IComponent {
         [SerializeField]
         private ParticleSystem[] _engines;
         

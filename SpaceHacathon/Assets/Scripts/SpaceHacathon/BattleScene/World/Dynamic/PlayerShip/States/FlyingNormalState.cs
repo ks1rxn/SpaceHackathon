@@ -13,7 +13,6 @@ namespace SpaceHacathon.BattleScene.World.Dynamic.PlayerShip.States {
             _behaviours = behaviours;
         }
         
-        
         public override StateRunResult<PlayerShipStates> Update() {
             foreach (IBehaviour behaviour in _behaviours) {
                 behaviour.Run();
