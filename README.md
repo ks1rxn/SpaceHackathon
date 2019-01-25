@@ -1,5 +1,5 @@
 # SpaceHackathon
-<img src="https://lh3.googleusercontent.com/OnE9Fsp8idcKnw2mnu-Xb46yTKimDpR3YDLKWkaCWkwY7HwchGH30Hd9kFBM7bz1tp3O=w2560-h1330-rw/>
+<img src="https://lh3.googleusercontent.com/OnE9Fsp8idcKnw2mnu-Xb46yTKimDpR3YDLKWkaCWkwY7HwchGH30Hd9kFBM7bz1tp3O=w2560-h1330-rw"/>
 If you want to play this game by youself use this link:
 <a href="https://play.google.com/store/apps/details?id=com.hardworkers.rockets">Hard Rockets on Google Play</a>
 
