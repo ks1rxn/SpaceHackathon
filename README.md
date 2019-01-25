@@ -5,9 +5,9 @@ If you want to play this game by youself use this link:
 
 It's not a finished game. It is a prototype.
 Codebase of this project looks a little messy. Development was started without any particular idea of how it should look ultimately.
-Right after publishing gameplay prototype on Google Play development was being stopped.
+Right after publishing gameplay prototype on Google Play development was stopped.
 
-Now it is used for experiments in program architecture. It is still WIP.
+Now project is used for experiments in program architecture. It is still WIP.
 
 ## Current architecture state.
 
@@ -96,7 +96,7 @@ public class PlayerShipFacade : MonoBehaviour, IPlayerControllable, ICameraTarge
 }
 ```
 
-In purpose not to violate DI principle, higher level modules such as GUI depend on interfaces such as IControllable which are implemented by lower level object like PlayerShip.
+In purpose not to violate DI principle, higher level modules such as GUI depend on interfaces such as IControllable which are in turn implemented by lower level object like PlayerShip.
 ```csharp
 public interface IPlayerControllable {
 
@@ -163,11 +163,11 @@ public class RotationBehaviour : IBehaviour {
     }
 }
 ```
-This organization reminds ECS paradigm, but is very simplified and component-system idea is used only to implement inside logic of objects, not throughout all code.
-It is done this way because I think that separation of logic and data is very convinient way of code organization and help to implement SRP, but for small projects like this pure ECS is overengineering.
+This way of structuring reminds ECS paradigm, but is very simplified and component-system idea is used only to implement inside logic of objects, not throughout code.
+It is done this way because I think that separation of logic and data makes code clear and helps to implement SRP, but for small projects like this pure ECS is overengineering.
 
 Internally a common game object is controlled by a pushdown automata <a href="http://gameprogrammingpatterns.com/state.html">Game Programming Patterns/State</a>  with event queue. All components are shared between all states.
 But set of systems may be different for each state.
 
-This is basic idea of architecture which is now in development. Despite there are some unresolved yet issues, generally it works fine.
+This is basic idea of architecture which is now in development. Despite there being some yet to be resolved issues, generally it works fine.
 Old version of code can be found outside of SpaceHackathon namespace.
