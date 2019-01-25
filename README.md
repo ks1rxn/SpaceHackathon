@@ -1,6 +1,5 @@
 # SpaceHackathon
 
-## Short Info
 If you want to play this game by youself use this link:
 <a href="https://play.google.com/store/apps/details?id=com.hardworkers.rockets">Hard Rockets on Google Play</a>
 
